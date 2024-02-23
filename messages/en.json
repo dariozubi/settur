@@ -1,5 +1,6 @@
 {
-    "Index": {
-        "title": "Hello world!"
+    "Navigation": {
+        "contact": "Contact",
+        "about": "About"
     }
 }

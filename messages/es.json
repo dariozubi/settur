@@ -1,5 +1,6 @@
 {
-    "Index": {
-        "title": "¡Hola mundo!"
+    "Navigation": {
+        "contact": "Contacto",
+        "about": "Acerca"
     }
 }
