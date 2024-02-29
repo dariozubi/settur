@@ -1,10 +1,8 @@
-import { useTranslations } from "next-intl";
+import HomePage from '@/components/HomePage'
+import { PageProps } from '@/utils/types'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-export default function Home() {
-  const t = useTranslations("Index");
-  return (
-    <main className="flex flex-col items-center justify-center p-20">
-      <h1>HOLA MUNDO</h1>
-    </main>
-  );
+export default function Home({ params: { locale } }: PageProps) {
+  unstable_setRequestLocale(locale)
+  return <HomePage />
 }
