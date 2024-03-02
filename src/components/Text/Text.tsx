@@ -1,8 +1,9 @@
 import { useTranslations } from 'next-intl'
 import { PropsWithChildren } from 'react'
+import { twJoin, twMerge } from 'tailwind-merge'
 
 type Props = {
-  from: string
+  from?: string
   className?: string
   as?: 'h1' | 'h2' | 'h3' | 'span'
   isRichText?: boolean
@@ -12,10 +13,10 @@ type Props = {
 type Variants = 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
 
 const baseClassNames: Record<Variants | 'text', string> = {
-  xxl: 'text-4xl font-extrabold',
-  xl: 'text-3xl font-extrabold lg:text-6xl',
-  lg: 'text-2xl font-extrabold lg:text-3xl',
-  md: 'text-2xl font-bold lg:text-3xl',
+  xxl: 'text-4xl lg:text-6xl',
+  xl: 'text-3xl lg:text-4xl',
+  lg: 'text-2xl lg:text-3xl',
+  md: 'text-xl lg:text-2xl',
   text: 'text-base lg:text-xl',
   sm: 'text-sm lg:text-base',
   xs: 'text-xs',
@@ -31,12 +32,17 @@ function Text({
 }: PropsWithChildren<Props>) {
   const t = useTranslations(from)
   const Tag = as || 'p'
+  const finalClassName = twMerge(
+    twJoin(baseClassNames[variant || 'text'], 'text-dark'),
+    className
+  )
   return (
-    <Tag className={`${baseClassNames[variant || 'text']} ${className}`}>
-      {typeof children === 'string'
+    <Tag className={finalClassName}>
+      {typeof children === 'string' && !!from
         ? isRichText
           ? t.rich(children, {
               br: () => <br />,
+              b: m => <span className="font-extrabold">{m}</span>,
             })
           : t(children)
         : children}

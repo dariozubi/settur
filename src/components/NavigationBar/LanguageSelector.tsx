@@ -7,15 +7,17 @@ import { IoGlobeOutline } from 'react-icons/io5'
 export const LanguageSelector = () => {
   const nextPathname = useNextPathname()
   const pathname = usePathname()
-  const isEnglish = nextPathname.substring(0, 3) === '/en'
+  const isEnglish = nextPathname?.substring(0, 3) === '/en'
   return (
     <Link
       href={pathname}
       locale={isEnglish ? 'es' : 'en'}
-      className="flex items-center gap-2"
+      className="flex items-center gap-1"
     >
-      <IoGlobeOutline />
-      <span className="font-extrabold">{isEnglish ? 'ES' : 'EN'}</span>
+      <IoGlobeOutline className="size-5" />
+      <span className="text-base lg:text-xl">
+        {isEnglish ? 'Español' : 'English'}
+      </span>
     </Link>
   )
 }

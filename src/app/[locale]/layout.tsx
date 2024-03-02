@@ -22,7 +22,7 @@ export default function LocaleLayout({
     <html lang={locale}>
       <body className={inter.className}>
         <NavigationBar />
-        {children}
+        <main className="w-full">{children}</main>
       </body>
     </html>
   )

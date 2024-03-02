@@ -4,8 +4,8 @@ import { LanguageSelector } from './LanguageSelector'
 
 function NavigationBar() {
   return (
-    <nav className="absolute flex w-full justify-end px-20 py-5">
-      <ul className="flex gap-7">
+    <nav className="absolute z-50 w-full">
+      <ul className="jusitfy-end  mx-auto flex w-full max-w-screen-xl justify-end gap-7 px-5 py-5 xl:px-0">
         <li>
           <Link href="/">
             <Text from="Navigation">contact</Text>

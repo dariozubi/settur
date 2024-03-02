@@ -2,5 +2,20 @@
     "Navigation": {
         "contact": "Contact",
         "about": "About"
+    },
+    "Home": {
+        "ground-transportation-services": "Ground transportation services",
+        "hero-text": "With more than <b>35 years</b> at your service, <b>SETTUR</b> is your best choice for your airport transfer in Los Cabos",
+        "book-your-trip": "Book your trip",
+        "hotel": "Hotel",
+        "continue": "Continue",
+        "solutions": "We have <b>solutions</b> for all your transportation needs",
+        "private": "Private",
+        "private-text": " Our most convenient solution. If you either come alone, with family or with friends, having you own transport can really make a difference.",
+        "learn-more": "Learn more",
+        "shared": "Shared",
+        "shared-text": " If you don’t mind sharing a ride and you have enough time to arrive to your destination, you can travel comfortably in our shuttles.",
+        "groups": "Groups",
+        "groups-text": "If you are traveling with a big group we have you covered. Our motor coaches can take you to your destination while you enjoy our premium seats."
     }
 }
