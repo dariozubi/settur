@@ -1,4 +1,4 @@
-import HomePage from '@/pages/home'
+import HomePage from '@/components/HomePage'
 import { PageProps } from '@/utils/types'
 import { unstable_setRequestLocale } from 'next-intl/server'
 
