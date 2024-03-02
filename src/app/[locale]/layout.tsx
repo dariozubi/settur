@@ -4,6 +4,7 @@ import './globals.css'
 import { locales } from '@/i18n'
 import NavigationBar from '@/components/NavigationBar'
 
+export const runtime = 'edge'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
