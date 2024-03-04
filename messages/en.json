@@ -16,6 +16,13 @@
         "shared": "Shared",
         "shared-text": " If you don’t mind sharing a ride and you have enough time to arrive to your destination, you can travel comfortably in our shuttles.",
         "groups": "Groups",
-        "groups-text": "If you are traveling with a big group we have you covered. Our motor coaches can take you to your destination while you enjoy our premium seats."
+        "groups-text": "If you are traveling with a big group we have you covered. Our motor coaches can take you to your destination while you enjoy our premium seats.",
+        "our-rates": "Our rates",
+        "tourist-corridor": "Tourist corridor",
+        "zone": "Zone",
+        "one-way": "One way",
+        "round-trip": "Round trip",
+        "first-disclaimer": "* Cheapest option shown",
+        "second-disclaimer": "** Private option only"
     }
 }
