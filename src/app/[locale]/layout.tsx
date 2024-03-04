@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { locales } from '@/i18n'
 import NavigationBar from '@/components/NavigationBar'
+import Footer from '@/components/Footer'
 
 export const runtime = 'edge'
 const inter = Inter({ subsets: ['latin'] })
@@ -24,6 +25,7 @@ export default function LocaleLayout({
       <body className={inter.className}>
         <NavigationBar />
         <main className="w-full">{children}</main>
+        <Footer />
       </body>
     </html>
   )
