@@ -1,26 +1,24 @@
-import { Link } from '@/navigation'
 import Text from '../Text'
 import { LanguageSelector } from './LanguageSelector'
+import { NavbarRoot } from './NavbarRoot'
 
 function NavigationBar() {
   return (
-    <nav className="absolute z-50 w-full">
-      <ul className="jusitfy-end  mx-auto flex w-full max-w-screen-xl justify-end gap-7 px-5 py-5 xl:px-0">
-        <li>
-          <Link href="/">
-            <Text from="Navigation">contact</Text>
-          </Link>
-        </li>
-        <li>
-          <Link href="/">
-            <Text from="Navigation">about</Text>
-          </Link>
-        </li>
-        <li>
-          <LanguageSelector />
-        </li>
-      </ul>
-    </nav>
+    <NavbarRoot
+      contact={<Text from="Navigation">contact</Text>}
+      mail={
+        <Text variant="sm" as="span">
+          info@settur.com.mx
+        </Text>
+      }
+      phone={
+        <Text variant="sm" as="span">
+          +52 5531455826
+        </Text>
+      }
+      about={<Text from="Navigation">about</Text>}
+      languageSelector={<LanguageSelector />}
+    />
   )
 }
 

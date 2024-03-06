@@ -1,31 +1,11 @@
-import Image from 'next/image'
 import Text from '@/components/Text'
 import Button from '@/components/Button'
 
 function HomeHeroSection() {
   return (
-    <section className="via-sunset-10 to-sunset-2-10 relative h-full w-full bg-gradient-to-b from-primary-10">
+    <section className="relative h-full w-full bg-gradient-to-b from-primary-10 via-sunset-10 to-sunset-2-10">
       <div className="mx-auto flex w-full max-w-screen-xl justify-between pt-10">
         <div className="w-5/12">
-          <figure>
-            <div className="relative aspect-[978/182]">
-              <Image
-                src="/img/logo.png"
-                alt="image"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1280px) 100vw, 50vw"
-                priority={true}
-              />
-            </div>
-
-            <figcaption>
-              <Text from="Home" as="h1" variant="lg" className="font-bold">
-                ground-transportation-services
-              </Text>
-            </figcaption>
-          </figure>
-
           <Text from="Home" isRichText className="mt-32">
             hero-text
           </Text>

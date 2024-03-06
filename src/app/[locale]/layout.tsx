@@ -4,6 +4,7 @@ import './globals.css'
 import { locales } from '@/i18n'
 import NavigationBar from '@/components/NavigationBar'
 import Footer from '@/components/Footer'
+import { Providers } from './providers'
 
 export const runtime = 'edge'
 const inter = Inter({ subsets: ['latin'] })
@@ -21,11 +22,13 @@ export default function LocaleLayout({
   params: { locale: string }
 }) {
   return (
-    <html lang={locale}>
+    <html lang={locale} className="light">
       <body className={inter.className}>
-        <NavigationBar />
-        <main className="w-full">{children}</main>
-        <Footer />
+        <Providers>
+          <NavigationBar />
+          <main className="w-full">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )
