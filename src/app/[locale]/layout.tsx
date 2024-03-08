@@ -4,10 +4,10 @@ import './globals.css'
 import { locales } from '@/i18n'
 import NavigationBar from '@/components/NavigationBar'
 import Footer from '@/components/Footer'
-import { Providers } from './providers'
+import { cn } from '@/lib/utils'
 
 export const runtime = 'edge'
-const inter = Inter({ subsets: ['latin'] })
+const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
   title: 'SETTUR',
@@ -22,13 +22,16 @@ export default function LocaleLayout({
   params: { locale: string }
 }) {
   return (
-    <html lang={locale} className="light">
-      <body className={inter.className}>
-        <Providers>
-          <NavigationBar />
-          <main className="w-full">{children}</main>
-          <Footer />
-        </Providers>
+    <html lang={locale} suppressHydrationWarning>
+      <body
+        className={cn(
+          'min-h-screen bg-background font-sans antialiased',
+          fontSans.variable
+        )}
+      >
+        <NavigationBar />
+        <main className="w-full">{children}</main>
+        <Footer />
       </body>
     </html>
   )

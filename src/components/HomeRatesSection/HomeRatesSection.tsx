@@ -1,4 +1,4 @@
-import { rates } from '@/utils/consts'
+import { rates } from '@/lib/consts'
 import Text from '../Text'
 
 function HomeRatesSection() {

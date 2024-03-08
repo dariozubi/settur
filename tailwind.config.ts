@@ -1,33 +1,43 @@
 import type { Config } from 'tailwindcss'
-const { nextui } = require('@nextui-org/react')
+const { fontFamily } = require('tailwindcss/defaultTheme')
 
-const config: Config = {
+const config = {
+  darkMode: ['class'],
   content: [
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
+  prefix: '',
   theme: {
-    extend: {},
-    boxShadow: {
-      brand: '2px 2px 6px rgba(0,0,0,0.25)',
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
     },
-    colors: {
-      primary: '#038AF2',
-      'primary-10': 'rgb(3, 138, 242, 0.15)',
-      'primary-dark': '#0264B1',
-      sunset: '#424299',
-      'sunset-10': 'rgb(66, 66, 153, 0.15)',
-      'sunset-2': '#B66180',
-      'sunset-2-10': 'rgb(182, 97, 128, 0.15)',
-      secondary: '#FDE9C9',
-      'secondary-dark': '#F9B952',
-      darkish: '#012847',
-      dark: '#12122B',
-      light: '#F7FAFD',
+    extend: {
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      fontFamily: {
+        sans: ['var(--font-sans)', ...fontFamily.sans],
+      },
     },
   },
-  darkMode: 'class',
-  plugins: [nextui()],
-}
+  plugins: [require('tailwindcss-animate')],
+} satisfies Config
+
 export default config

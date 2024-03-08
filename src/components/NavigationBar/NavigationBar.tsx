@@ -1,23 +1,19 @@
+import { NavigationBlock } from './NavigationBlock'
 import Text from '../Text'
-import { LanguageSelector } from './LanguageSelector'
-import { NavbarRoot } from './NavbarRoot'
 
 function NavigationBar() {
   return (
-    <NavbarRoot
-      contact={<Text from="Navigation">contact</Text>}
-      mail={
-        <Text variant="sm" as="span">
-          info@settur.com.mx
+    <NavigationBlock
+      contact={
+        <Text variant="sm" from="Navigation">
+          contact
         </Text>
       }
-      phone={
-        <Text variant="sm" as="span">
-          +52 5531455826
+      about={
+        <Text variant="sm" from="Navigation">
+          about
         </Text>
       }
-      about={<Text from="Navigation">about</Text>}
-      languageSelector={<LanguageSelector />}
     />
   )
 }

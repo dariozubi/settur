@@ -18,7 +18,7 @@ const baseClassNames: Record<Variants | 'text', string> = {
   lg: 'text-2xl',
   md: 'text-xl',
   text: 'text-base',
-  sm: 'text-sm',
+  sm: 'text-sm font-medium',
   xs: 'text-xs',
 }
 

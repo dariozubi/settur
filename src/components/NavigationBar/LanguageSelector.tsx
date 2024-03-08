@@ -1,9 +1,9 @@
 'use client'
 
 import { usePathname, useRouter } from '@/navigation'
-import { Button } from '@nextui-org/react'
 import { usePathname as useNextPathname } from 'next/navigation'
-import { IoGlobeOutline } from 'react-icons/io5'
+import { Button } from '../ui/button'
+import { Earth } from 'lucide-react'
 
 export const LanguageSelector = () => {
   const nextPathname = useNextPathname()
@@ -15,10 +15,12 @@ export const LanguageSelector = () => {
       onClick={() =>
         router.replace(pathname, { locale: isEnglish ? 'es' : 'en' })
       }
-      variant="light"
-      startContent={<IoGlobeOutline className="size-4" />}
+      variant="ghost"
     >
-      <span className="text-base">{isEnglish ? 'Español' : 'English'}</span>
+      <Earth className="mr-1 size-4" />
+      <span className="text-small font-medium">
+        {isEnglish ? 'Español' : 'English'}
+      </span>
     </Button>
   )
 }
