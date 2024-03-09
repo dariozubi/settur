@@ -15,7 +15,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { hotels } from '@/lib/consts'
-import { ChevronsUpDown } from 'lucide-react'
+import { ChevronsUpDown, Hotel } from 'lucide-react'
 import { useState } from 'react'
 
 type Props = {
@@ -24,18 +24,29 @@ type Props = {
   noResults: string
 }
 
+type Hotel = {
+  label: string
+  zone: number
+}
+
 export function HotelSelect({ selectHotel, searchHotel, noResults }: Props) {
   const [open, setOpen] = useState(false)
-  const [selectedHotel, setSelectedHotel] = useState<string | null>(null)
+  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null)
 
   return (
-    <div className="flex items-center space-x-4">
-      <p className="text-muted-foreground text-base font-medium">Hotel</p>
+    <div className="mx-auto flex max-w-[300px] items-center gap-2 py-10">
+      <p className="text-muted-foreground text-lg font-bold">Hotel:</p>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="sm" className=" justify-start">
+          <Button variant="outline" size="sm" className="w-full justify-start">
             {selectedHotel ? (
-              selectedHotel
+              <>
+                <Hotel className="mr-1 size-4" />
+
+                <span className="max-w-[250px] truncate">
+                  {selectedHotel.label}
+                </span>
+              </>
             ) : (
               <>
                 {selectHotel}{' '}
@@ -53,8 +64,9 @@ export function HotelSelect({ selectHotel, searchHotel, noResults }: Props) {
                 {hotels.map(hotel => (
                   <CommandItem
                     key={`${hotel.label}-${hotel.zone}`}
-                    onSelect={value => {
-                      setSelectedHotel(value)
+                    value={hotel.label}
+                    onSelect={() => {
+                      setSelectedHotel(hotel)
                       setOpen(false)
                     }}
                   >
