@@ -2,6 +2,7 @@ import Text from '@/components/Text'
 import { HotelSelect } from './HotelSelect'
 import { Card, CardContent, CardHeader } from '../ui/card'
 import { useTranslations } from 'next-intl'
+import { TypeRadio } from './TypeRadio'
 
 function HomeBookBlock() {
   const t = useTranslations('Home')
@@ -18,6 +19,7 @@ function HomeBookBlock() {
           searchHotel={t('search-hotel')}
           noResults={t('no-results')}
         />
+        <TypeRadio />
       </CardContent>
     </Card>
   )
