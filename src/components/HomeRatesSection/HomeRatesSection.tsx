@@ -1,332 +1,142 @@
 import { rates } from '@/lib/consts'
 import Text from '../Text'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '../ui/table'
+import { useTranslations } from 'next-intl'
 
 function HomeRatesSection() {
+  const t = useTranslations('Home')
   return (
-    <section className="flex bg-secondary">
-      <div className="mx-auto flex w-full max-w-screen-xl flex-col items-center">
-        <Text from="Home" variant="lg" className="my-10 font-bold">
+    <section className="flex bg-secondary pb-24">
+      <div className="mx-auto flex w-full max-w-screen-xl flex-col items-center gap-10">
+        <Text from="Home" variant="xl" className="font-bold">
           our-rates
         </Text>
-        <table className="w-full">
-          <thead>
-            <tr className="flex gap-12 py-4">
-              <th className="w-2/12"></th>
 
-              <th className="flex w-2/12 flex-col items-center">
-                <Text variant="md">San José del Cabo</Text>
-                <div className="flex">
-                  <Text from="Home" as="span">
-                    zone
-                  </Text>
+        <Table>
+          <TableCaption>{t('first-disclaimer')}</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead />
+              <TableHead>San José del Cabo</TableHead>
+              <TableHead>{t('tourist-corridor')}</TableHead>
+              <TableHead>Cabo San Lucas</TableHead>
+              <TableHead>Puerto Los Cabos</TableHead>
+            </TableRow>
+          </TableHeader>
 
-                  <Text as="span" className="ml-1">
-                    1
-                  </Text>
-                </div>
-              </th>
+          <TableBody>
+            <TableRow>
+              <TableCell />
+              <TableCell />
+              <TableCell className="text-center font-bold">
+                {t('one-way')}
+              </TableCell>
+              <TableCell />
+              <TableCell />
+            </TableRow>
 
-              <th className="flex w-2/12 flex-col items-center">
-                <Text from="Home" variant="md">
-                  tourist-corridor
-                </Text>
-                <div className="flex">
-                  <Text from="Home" as="span">
-                    zone
-                  </Text>
+            <TableRow>
+              <TableCell className="font-bold">{t('shared')}</TableCell>
+              <TableCell>{`${rates.shared.oneWay.zone1} USD`}</TableCell>
+              <TableCell>{`${rates.shared.oneWay.zone2} USD`}</TableCell>
+              <TableCell>{`${rates.shared.oneWay.zone3} USD`}</TableCell>
+              <TableCell>{`${rates.shared.oneWay.zone4} USD`}</TableCell>
+            </TableRow>
 
-                  <Text as="span" className="ml-1">
-                    2
-                  </Text>
-                </div>
-              </th>
+            <TableRow>
+              <TableCell className="font-bold">{`${t('private')}*`}</TableCell>
+              <TableCell>{`${rates.private.oneWay.zone1} USD`}</TableCell>
+              <TableCell>{`${rates.private.oneWay.zone2} USD`}</TableCell>
+              <TableCell>{`${rates.private.oneWay.zone3} USD`}</TableCell>
+              <TableCell>{`${rates.private.oneWay.zone4} USD`}</TableCell>
+            </TableRow>
 
-              <th className="flex w-2/12 flex-col items-center">
-                <Text variant="md">Cabo San Lucas</Text>
-                <div className="flex">
-                  <Text from="Home" as="span">
-                    zone
-                  </Text>
+            <TableRow>
+              <TableCell />
+              <TableCell />
+              <TableCell className="text-center font-bold">
+                {t('round-trip')}
+              </TableCell>
+              <TableCell />
+              <TableCell />
+            </TableRow>
 
-                  <Text as="span" className="ml-1">
-                    3
-                  </Text>
-                </div>
-              </th>
+            <TableRow>
+              <TableCell className="font-bold">{t('shared')}</TableCell>
+              <TableCell>{`${rates.shared.roundTrip.zone1} USD`}</TableCell>
+              <TableCell>{`${rates.shared.roundTrip.zone2} USD`}</TableCell>
+              <TableCell>{`${rates.shared.roundTrip.zone3} USD`}</TableCell>
+              <TableCell>{`${rates.shared.roundTrip.zone4} USD`}</TableCell>
+            </TableRow>
 
-              <th className="flex w-2/12 flex-col items-center">
-                <Text variant="md">Puerto Los Cabos</Text>
-                <div className="flex">
-                  <Text from="Home" as="span">
-                    zone
-                  </Text>
+            <TableRow>
+              <TableCell className="font-bold">{`${t('private')}*`}</TableCell>
+              <TableCell>{`${rates.private.roundTrip.zone1} USD`}</TableCell>
+              <TableCell>{`${rates.private.roundTrip.zone2} USD`}</TableCell>
+              <TableCell>{`${rates.private.roundTrip.zone3} USD`}</TableCell>
+              <TableCell>{`${rates.private.roundTrip.zone4} USD`}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
 
-                  <Text as="span" className="ml-1">
-                    4
-                  </Text>
-                </div>
-              </th>
-            </tr>
-          </thead>
+        <Table>
+          <TableCaption>{t('second-disclaimer')}</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>East Cape**</TableHead>
+              <TableHead>Diamante**</TableHead>
+              <TableHead>{t('tourist-corridor')}</TableHead>
+              <TableHead>Todos Santos**</TableHead>
+              <TableHead>La Paz**</TableHead>
+            </TableRow>
+          </TableHeader>
 
-          <tbody>
-            <tr className="bg-secondary-dark flex justify-center py-4">
-              <td>
-                <Text from="Home" variant="md">
-                  one-way
-                </Text>
-              </td>
-            </tr>
+          <TableBody>
+            <TableRow>
+              <TableCell />
+              <TableCell />
+              <TableCell className="text-center font-bold">
+                {t('one-way')}
+              </TableCell>
+              <TableCell />
+              <TableCell />
+            </TableRow>
 
-            <tr className="flex gap-12 py-8">
-              <td className="flex w-2/12 justify-center">
-                <Text from="Home" className="font-bold">
-                  shared
-                </Text>
-              </td>
+            <TableRow>
+              <TableCell>{`${rates.private.oneWay.zone5} USD`}</TableCell>
+              <TableCell>{`${rates.private.oneWay.zone6} USD`}</TableCell>
+              <TableCell>{`${rates.private.oneWay.zone7} USD`}</TableCell>
+              <TableCell>{`${rates.private.oneWay.zone8} USD`}</TableCell>
+              <TableCell>{`${rates.private.oneWay.zone9} USD`}</TableCell>
+            </TableRow>
 
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.shared.oneWay.zone1} USD`}</Text>
-              </td>
+            <TableRow>
+              <TableCell />
+              <TableCell />
+              <TableCell className="text-center font-bold">
+                {t('round-trip')}
+              </TableCell>
+              <TableCell />
+              <TableCell />
+            </TableRow>
 
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.shared.oneWay.zone2} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.shared.oneWay.zone3} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.shared.oneWay.zone4} USD`}</Text>
-              </td>
-            </tr>
-
-            <tr className="flex gap-12 py-8">
-              <td className="flex w-2/12 justify-center">
-                <Text from="Home" className="font-bold">
-                  private
-                </Text>
-                *
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.oneWay.zone1} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.oneWay.zone2} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.oneWay.zone3} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.oneWay.zone4} USD`}</Text>
-              </td>
-            </tr>
-
-            <tr className="bg-secondary-dark flex justify-center py-4">
-              <td>
-                <Text from="Home" variant="md">
-                  round-trip
-                </Text>
-              </td>
-            </tr>
-
-            <tr className="flex gap-12 py-8">
-              <td className="flex w-2/12 justify-center">
-                <Text from="Home" className="font-bold">
-                  shared
-                </Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.shared.roundTrip.zone1} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.shared.roundTrip.zone2} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.shared.roundTrip.zone3} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.shared.roundTrip.zone4} USD`}</Text>
-              </td>
-            </tr>
-
-            <tr className="flex gap-12 py-8">
-              <td className="flex w-2/12 justify-center">
-                <Text from="Home" className="font-bold">
-                  private
-                </Text>
-                *
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.roundTrip.zone1} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.roundTrip.zone2} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.roundTrip.zone3} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.roundTrip.zone4} USD`}</Text>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table className="mt-24 w-full">
-          <thead>
-            <tr className="flex gap-12 py-4">
-              <th className="flex w-2/12 flex-col items-center">
-                <Text variant="md">East Cape**</Text>
-                <div className="flex">
-                  <Text from="Home" as="span">
-                    zone
-                  </Text>
-
-                  <Text as="span" className="ml-1">
-                    5
-                  </Text>
-                </div>
-              </th>
-
-              <th className="flex w-2/12 flex-col items-center">
-                <Text variant="md">Diamante**</Text>
-                <div className="flex">
-                  <Text from="Home" as="span">
-                    zone
-                  </Text>
-
-                  <Text as="span" className="ml-1">
-                    6
-                  </Text>
-                </div>
-              </th>
-
-              <th className="flex w-2/12 flex-col items-center">
-                <Text variant="md">Todos Santos**</Text>
-                <div className="flex">
-                  <Text from="Home" as="span">
-                    zone
-                  </Text>
-
-                  <Text as="span" className="ml-1">
-                    7
-                  </Text>
-                </div>
-              </th>
-
-              <th className="flex w-2/12 flex-col items-center">
-                <Text variant="md">La Paz**</Text>
-                <div className="flex">
-                  <Text from="Home" as="span">
-                    zone
-                  </Text>
-
-                  <Text as="span" className="ml-1">
-                    8
-                  </Text>
-                </div>
-              </th>
-
-              <th className="flex w-2/12 flex-col items-center">
-                <Text variant="md">Los Barriles**</Text>
-                <div className="flex">
-                  <Text from="Home" as="span">
-                    zone
-                  </Text>
-
-                  <Text as="span" className="ml-1">
-                    9
-                  </Text>
-                </div>
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr className="bg-secondary-dark flex justify-center py-4">
-              <td>
-                <Text from="Home" variant="md">
-                  one-way
-                </Text>
-              </td>
-            </tr>
-
-            <tr className="flex gap-12 py-8">
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.oneWay.zone5} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.oneWay.zone6} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.oneWay.zone7} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.oneWay.zone8} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.oneWay.zone9} USD`}</Text>
-              </td>
-            </tr>
-
-            <tr className="bg-secondary-dark flex justify-center py-4">
-              <td>
-                <Text from="Home" variant="md">
-                  round-trip
-                </Text>
-              </td>
-            </tr>
-
-            <tr className="flex gap-12 py-8">
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.roundTrip.zone5} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.roundTrip.zone6} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.roundTrip.zone7} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.roundTrip.zone8} USD`}</Text>
-              </td>
-
-              <td className="flex w-2/12 justify-center">
-                <Text>{`${rates.private.roundTrip.zone9} USD`}</Text>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div className="my-10 flex w-full flex-col items-end">
-          <Text from="Home" variant="sm">
-            first-disclaimer
-          </Text>
-          <Text from="Home" variant="sm">
-            second-disclaimer
-          </Text>
-        </div>
+            <TableRow>
+              <TableCell>{`${rates.private.roundTrip.zone5} USD`}</TableCell>
+              <TableCell>{`${rates.private.roundTrip.zone6} USD`}</TableCell>
+              <TableCell>{`${rates.private.roundTrip.zone7} USD`}</TableCell>
+              <TableCell>{`${rates.private.roundTrip.zone8} USD`}</TableCell>
+              <TableCell>{`${rates.private.roundTrip.zone9} USD`}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </div>
     </section>
   )
