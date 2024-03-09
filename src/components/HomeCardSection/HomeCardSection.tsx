@@ -1,8 +1,17 @@
 import Text from '@/components/Text'
-import Button from '@/components/Button'
-import Card from '@/components/Card'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '../ui/card'
+import { useTranslations } from 'next-intl'
+import Image from 'next/image'
+import { Button } from '../ui/button'
 
 function HomeCardSection() {
+  const t = useTranslations('Home')
   return (
     <section className="bg-darkish flex">
       <div className="mx-auto flex w-full max-w-screen-xl flex-wrap">
@@ -14,63 +23,81 @@ function HomeCardSection() {
 
         <div className="flex w-full p-24">
           <Card className="mr-6 w-1/3">
-            <Card.Image
-              className="aspect-[1775/1057]"
-              src="/img/escalade.png"
-              alt="escalade"
-            />
+            <CardHeader>
+              <CardTitle>{t('private')}</CardTitle>
+            </CardHeader>
 
-            <Card.Header from="Home" className="mb-4 mt-10">
-              private
-            </Card.Header>
+            <CardContent>
+              <div className="relative my-6 aspect-[1775/1057] w-full">
+                <Image
+                  src="/img/escalade.png"
+                  alt={t('private')}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1280px) 100vw, 33vw"
+                />
+              </div>
 
-            <Card.Content from="Home" className="mb-10 text-center">
-              private-text
-            </Card.Content>
+              <Text from="Home" className="text-center">
+                private-text
+              </Text>
+            </CardContent>
 
-            <Button from="Home" className="w-fit">
-              learn-more
-            </Button>
+            <CardFooter>
+              <Button className="w-full">{t('learn-more')}</Button>
+            </CardFooter>
           </Card>
 
-          <Card className="mx-6 w-1/3">
-            <Card.Image
-              className="-mt-10 aspect-[747/567]"
-              src="/img/sprinter.png"
-              alt="sprinter"
-            />
+          <Card className="mr-6 w-1/3">
+            <CardHeader>
+              <CardTitle>{t('shared')}</CardTitle>
+            </CardHeader>
 
-            <Card.Header from="Home" className="mb-4 mt-10">
-              shared
-            </Card.Header>
+            <CardContent>
+              <div className="relative -mt-4 mb-4 aspect-[747/567] w-full">
+                <Image
+                  src="/img/sprinter.png"
+                  alt={t('shared')}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1280px) 100vw, 33vw"
+                />
+              </div>
 
-            <Card.Content from="Home" className="mb-10 text-center">
-              shared-text
-            </Card.Content>
+              <Text from="Home" className="text-center">
+                shared-text
+              </Text>
+            </CardContent>
 
-            <Button from="Home" className="w-fit">
-              learn-more
-            </Button>
+            <CardFooter>
+              <Button className="w-full">{t('learn-more')}</Button>
+            </CardFooter>
           </Card>
 
-          <Card className="ml-6 w-1/3">
-            <Card.Image
-              className="-mt-4 aspect-[1920/1277]"
-              src="/img/autobus.png"
-              alt="motor coach"
-            />
+          <Card className="mr-6 w-1/3">
+            <CardHeader>
+              <CardTitle>{t('groups')}</CardTitle>
+            </CardHeader>
 
-            <Card.Header from="Home" className="mb-4 mt-10">
-              groups
-            </Card.Header>
+            <CardContent>
+              <div className="relative -mt-2 mb-9 aspect-[1920/1277] w-full">
+                <Image
+                  src="/img/autobus.png"
+                  alt={t('groups')}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1280px) 100vw, 33vw"
+                />
+              </div>
 
-            <Card.Content from="Home" className="mb-10 text-center">
-              groups-text
-            </Card.Content>
+              <Text from="Home" className="text-center">
+                groups-text
+              </Text>
+            </CardContent>
 
-            <Button from="Home" className="w-fit">
-              learn-more
-            </Button>
+            <CardFooter>
+              <Button className="w-full">{t('learn-more')}</Button>
+            </CardFooter>
           </Card>
         </div>
       </div>
