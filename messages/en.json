@@ -7,10 +7,6 @@
         "ground-transportation-services": "Ground transportation services",
         "hero-text": "With more than <b>35 years</b> at your service, <b>SETTUR</b> is your best choice for your airport transfer in Los Cabos",
         "book-your-trip": "Book your trip",
-        "select-hotel": "Select hotel",
-        "search-hotel": "Search hotel...",
-        "no-results": "No results found.",
-        "continue": "Continue",
         "solutions": "We have <b>solutions</b> for all your transportation needs",
         "private": "Private",
         "private-text": " Our most convenient solution. If you either come alone, with family or with friends, having you own transport can really make a difference.",
@@ -25,6 +21,12 @@
         "one-way": "One way",
         "round-trip": "Round trip",
         "first-disclaimer": "* Cheapest option shown",
-        "second-disclaimer": "** Private option only"
+        "second-disclaimer": "** Private option only",
+        "select-hotel": "Select hotel",
+        "search-hotel": "Search hotel...",
+        "no-results": "No results found.",
+        "required-hotel-error": "Please select a hotel.",
+        "required-type-error": "You need to select a vehicle type.",
+        "continue": "Continue"
     }
 }

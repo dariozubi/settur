@@ -5,6 +5,7 @@ import { locales } from '@/i18n'
 import NavigationBar from '@/components/NavigationBar'
 import Footer from '@/components/Footer'
 import { cn } from '@/lib/utils'
+import { Toaster } from '@/components/ui/toaster'
 
 export const runtime = 'edge'
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
@@ -25,13 +26,14 @@ export default function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'bg-background min-h-screen font-sans antialiased',
           fontSans.variable
         )}
       >
         <NavigationBar />
         <main className="w-full">{children}</main>
         <Footer />
+        <Toaster />
       </body>
     </html>
   )

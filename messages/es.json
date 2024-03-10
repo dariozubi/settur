@@ -7,11 +7,6 @@
         "ground-transportation-services": "Servicios de transporte terrestre",
         "hero-text": "Con más de <b>35 años</b> a tu servicio, <b>SETTUR</b> es tu mejor opción en transporte desde el aeropuerto en Los Cabos",
         "book-your-trip": "Agenda tu viaje",
-        "hotel": "Hotel",
-        "select-hotel": "Elige un hotel",
-        "search-hotel": "Buscar hotel...",
-        "no-results": "No hay resultados.",
-        "continue": "Continuar",
         "solutions": "Tenemos <b>soluciones</b> para todas tus necesidades de transporte",
         "private": "Privado",
         "private-text": "Nuestra solución más conveniente. Si vienes sólo, con familia o amigos, tener tu propio transporte puede hacer la diferencia.",
@@ -26,6 +21,12 @@
         "one-way": "Viaje de ida",
         "round-trip": "Viaje ida y vuelta",
         "first-disclaimer": "* Sólo se muestra la opción más barata",
-        "second-disclaimer": "** Únicamente con unidades privadas"
+        "second-disclaimer": "** Únicamente con unidades privadas",
+        "select-hotel": "Elige un hotel",
+        "search-hotel": "Buscar hotel...",
+        "no-results": "No hay resultados.",
+        "required-hotel-error": "Selecciona un hotel.",
+        "required-type-error": "Selecciona un tipo de vehículo.",
+        "continue": "Continuar"
     }
 }
