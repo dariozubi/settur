@@ -13,10 +13,10 @@ import { Button } from '../ui/button'
 function HomeCardSection() {
   const t = useTranslations('Home')
   return (
-    <section className="bg-darkish flex">
+    <section className="flex bg-sky-950">
       <div className="mx-auto flex w-full max-w-screen-xl flex-wrap">
         <div className="w-5/12 text-balance py-16 text-center">
-          <Text from="Home" variant="lg" isRichText className="text-light">
+          <Text from="Home" variant="lg" isRichText className="text-neutral-50">
             solutions
           </Text>
         </div>

@@ -13,6 +13,7 @@ import {
 import { Link } from '@/navigation'
 import { LanguageSelector } from './LanguageSelector'
 import { ReactNode } from 'react'
+import { cn } from '@/lib/utils'
 
 type Props = {
   about: ReactNode
@@ -21,19 +22,23 @@ type Props = {
 
 export const NavigationBlock = ({ about, contact }: Props) => {
   return (
-    <div className="mx-auto flex max-w-screen-xl justify-end">
+    <div className="mx-auto flex max-w-screen-xl justify-end bg-transparent">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <NavigationMenuLink
+                className={cn(navigationMenuTriggerStyle(), 'bg-transparent')}
+              >
                 {about}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuTrigger>{contact}</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-transparent">
+              {contact}
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul>
                 <li>

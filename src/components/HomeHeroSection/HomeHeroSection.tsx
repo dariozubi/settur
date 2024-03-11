@@ -3,7 +3,7 @@ import HomeBookCard from '../HomeBookCard'
 
 function HomeHeroSection() {
   return (
-    <section className="from-primary-10 via-sunset-10 to-sunset-2-10 relative h-full w-full bg-gradient-to-b">
+    <section className="relative -mt-[64px] h-full w-full bg-gradient-to-b from-blue-200 via-violet-100 to-rose-50">
       <div className="mx-auto flex min-h-[400px] w-full max-w-screen-xl justify-between pt-10">
         <div className="flex w-5/12 flex-col justify-center">
           <Text from="Home" isRichText variant="lg" className="text-center">

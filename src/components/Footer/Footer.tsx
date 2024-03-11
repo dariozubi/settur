@@ -3,7 +3,7 @@ import Text from '../Text'
 
 function Footer() {
   return (
-    <footer className="w-full py-6">
+    <footer className="w-full bg-slate-800 py-6 text-neutral-50">
       <div className="mx-auto flex w-full max-w-screen-xl items-center justify-between">
         <a href="mailto:info@settur.com.mx" className="flex items-center">
           <Mail className="mr-1" size={14} />
