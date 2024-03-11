@@ -27,6 +27,9 @@
         "no-results": "No hay resultados.",
         "required-hotel-error": "Selecciona un hotel.",
         "required-type-error": "Selecciona un tipo de vehículo.",
-        "continue": "Continuar"
+        "required-people-error": "Agrega el número de adultos.",
+        "minimum-people-error": "Se requiere de al menos un adulto.",
+        "continue": "Continuar",
+        "adults-number": "Número de adultos"
     }
 }

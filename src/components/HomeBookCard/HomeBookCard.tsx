@@ -10,6 +10,8 @@ function HomeBookCard() {
     () => ({
       requiredHotelError: t('required-hotel-error'),
       requiredTypeError: t('required-type-error'),
+      requiredPeopleError: t('required-number-error'),
+      minimumPeopleError: t('minimum-people-error'),
       submit: t('continue'),
       hotelLabels: {
         selectHotel: t('select-hotel'),
@@ -19,6 +21,9 @@ function HomeBookCard() {
       typeLabels: {
         type1: t('private'),
         type2: t('shared'),
+      },
+      peopleLabels: {
+        adultsNumber: t('adults-number'),
       },
     }),
     [t]

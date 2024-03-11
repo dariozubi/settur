@@ -10,14 +10,18 @@ import { toast } from '@/components/ui/use-toast'
 import { type Props as HotelSelectProps, HotelSelect } from './HotelSelect'
 import { useMemo } from 'react'
 import { type Props as TypeRadioProps, TypeRadio } from './TypeRadio'
+import { type Props as PeopleInputProps, PeopleInput } from './PeopleInput'
 
 type Props = {
   labels: {
     requiredHotelError: string
     requiredTypeError: string
+    requiredPeopleError: string
+    minimumPeopleError: string
     submit: string
     hotelLabels: HotelSelectProps['labels']
     typeLabels: TypeRadioProps['labels']
+    peopleLabels: PeopleInputProps['labels']
   }
 }
 
@@ -25,9 +29,12 @@ export function BookForm({ labels }: Props) {
   const {
     requiredHotelError,
     requiredTypeError,
+    requiredPeopleError,
+    minimumPeopleError,
     hotelLabels,
-    submit,
     typeLabels,
+    peopleLabels,
+    submit,
   } = labels
   const FormSchema = useMemo(
     () =>
@@ -38,14 +45,25 @@ export function BookForm({ labels }: Props) {
         type: z.enum(['private', 'shared'], {
           required_error: requiredTypeError,
         }),
+        people: z.coerce
+          .number({ required_error: requiredPeopleError })
+          .int()
+          .positive({ message: minimumPeopleError })
+          .min(1, { message: minimumPeopleError }),
       }),
-    [requiredHotelError, requiredTypeError]
+    [
+      minimumPeopleError,
+      requiredHotelError,
+      requiredPeopleError,
+      requiredTypeError,
+    ]
   )
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       type: 'private',
+      people: 1,
     },
   })
 
@@ -85,6 +103,18 @@ export function BookForm({ labels }: Props) {
               labels={typeLabels}
               value={field.value}
               onChange={field.onChange}
+            />
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="people"
+          render={({ field }) => (
+            <PeopleInput
+              labels={peopleLabels}
+              onChange={field.onChange}
+              value={field.value}
             />
           )}
         />
