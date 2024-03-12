@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Mail, Phone } from 'lucide-react'
 import {
   NavigationMenu,
@@ -22,7 +23,17 @@ type Props = {
 
 export const NavigationBlock = ({ about, contact }: Props) => {
   return (
-    <div className="mx-auto flex max-w-screen-xl justify-end bg-transparent">
+    <div className="mx-auto flex max-w-screen-xl justify-between bg-transparent">
+      <Link href="/" className="relative aspect-[978/182] w-[100px]">
+        <Image
+          src="/img/logo.png"
+          alt="logo"
+          fill
+          className="object-contain"
+          sizes="(max-width: 1280px) 100vw, 33vw"
+        />
+      </Link>
+
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>

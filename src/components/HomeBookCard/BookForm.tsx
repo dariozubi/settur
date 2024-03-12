@@ -6,11 +6,16 @@ import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
 import { Form, FormField } from '@/components/ui/form'
-import { toast } from '@/components/ui/use-toast'
-import { type Props as HotelSelectProps, HotelSelect } from './HotelSelect'
+import HotelSelect, {
+  type Props as HotelSelectProps,
+} from '@/components/HotelSelect'
 import { useMemo } from 'react'
-import { type Props as TypeRadioProps, TypeRadio } from './TypeRadio'
+import {
+  type Props as VehicleTypeRadioProps,
+  VehicleTypeRadio,
+} from './VehicleTypeRadio'
 import { type Props as PeopleInputProps, PeopleInput } from './PeopleInput'
+import { useRouter } from '@/navigation'
 
 type Props = {
   labels: {
@@ -20,7 +25,7 @@ type Props = {
     minimumPeopleError: string
     submit: string
     hotelLabels: HotelSelectProps['labels']
-    typeLabels: TypeRadioProps['labels']
+    typeLabels: VehicleTypeRadioProps['labels']
     peopleLabels: PeopleInputProps['labels']
   }
 }
@@ -36,6 +41,7 @@ export function BookForm({ labels }: Props) {
     peopleLabels,
     submit,
   } = labels
+
   const FormSchema = useMemo(
     () =>
       z.object({
@@ -66,16 +72,12 @@ export function BookForm({ labels }: Props) {
       people: 1,
     },
   })
+  const router = useRouter()
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    const params = new URLSearchParams()
+    params.set('hotel', data.hotel)
+    router.push(`/${data.type}?${params.toString()}`)
   }
 
   return (
@@ -99,7 +101,7 @@ export function BookForm({ labels }: Props) {
           control={form.control}
           name="type"
           render={({ field }) => (
-            <TypeRadio
+            <VehicleTypeRadio
               labels={typeLabels}
               value={field.value}
               onChange={field.onChange}

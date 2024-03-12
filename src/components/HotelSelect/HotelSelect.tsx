@@ -34,7 +34,7 @@ type Hotel = {
   zone: number
 }
 
-export function HotelSelect({ value, labels, onSelect }: Props) {
+function HotelSelect({ value, labels, onSelect }: Props) {
   const { selectHotel, searchHotel, noResults } = labels
   const [open, setOpen] = useState(false)
 
@@ -90,3 +90,5 @@ export function HotelSelect({ value, labels, onSelect }: Props) {
     </FormItem>
   )
 }
+
+export default HotelSelect

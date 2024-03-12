@@ -30,6 +30,7 @@
         "required-people-error": "You need to add the number of adults.",
         "minimum-people-error": "At least one adult needed.",
         "continue": "Continue",
-        "adults-number": "Number of adults"
+        "adults-number": "Number of adults",
+        "destination": "Destination"
     }
 }
