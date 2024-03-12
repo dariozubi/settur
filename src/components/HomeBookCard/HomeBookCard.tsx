@@ -23,7 +23,7 @@ function HomeBookCard() {
         type2: t('shared'),
       },
       peopleLabels: {
-        adultsNumber: t('adults-number'),
+        label: t('adults-number'),
       },
     }),
     [t]

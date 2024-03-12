@@ -8,19 +8,19 @@ import { Input } from '../ui/input'
 
 export type Props = {
   labels: {
-    adultsNumber: string
+    label: string
   }
   onChange: () => void
   value: number
 }
 
-export const PeopleInput = ({ labels, onChange, value }: Props) => {
-  const { adultsNumber } = labels
+function PeopleInput({ labels, onChange, value }: Props) {
+  const { label } = labels
   return (
     <FormItem className="mx-auto max-w-[300px]">
       <div className="flex gap-2">
-        <FormLabel className="flex items-center text-lg font-bold">
-          {adultsNumber}:
+        <FormLabel className="flex w-[180px] items-center justify-end text-lg font-bold">
+          {label}:
         </FormLabel>
         <FormControl>
           <Input
@@ -35,3 +35,5 @@ export const PeopleInput = ({ labels, onChange, value }: Props) => {
     </FormItem>
   )
 }
+
+export default PeopleInput

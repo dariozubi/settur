@@ -31,6 +31,10 @@
         "minimum-people-error": "At least one adult needed.",
         "continue": "Continue",
         "adults-number": "Number of adults",
-        "destination": "Destination"
+        "destination": "Destination",
+        "people": "People",
+        "grown-ups": "Grown-ups (9+ y/o)",
+        "children": "Children (4-8 y/o)",
+        "infants": "Infants (0-3 y/o)"
     }
 }

@@ -8,8 +8,11 @@ function PrivatePage() {
     () => ({
       requiredHotelError: t('required-hotel-error'),
       requiredTypeError: t('required-type-error'),
+      requiredAdultsError: t('required-people-error'),
+      minimumAdultsError: t('minimum-people-error'),
       submit: t('continue'),
       destination: t('destination'),
+      people: t('people'),
       hotelLabels: {
         selectHotel: t('select-hotel'),
         searchHotel: t('search-hotel'),
@@ -19,12 +22,21 @@ function PrivatePage() {
         type1: t('round-trip'),
         type2: t('one-way'),
       },
+      adultsLabels: {
+        label: t('grown-ups'),
+      },
+      childrenLabels: {
+        label: t('children'),
+      },
+      infantsLabels: {
+        label: t('infants'),
+      },
     }),
     [t]
   )
   return (
     <section className="w-full bg-neutral-50">
-      <div className="mx-auto w-full max-w-screen-xl py-20">
+      <div className="mx-auto w-full max-w-screen-xl pb-20 pt-10">
         <PrivateForm labels={labels} />
       </div>
     </section>

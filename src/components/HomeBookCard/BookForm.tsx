@@ -14,7 +14,9 @@ import {
   type Props as VehicleTypeRadioProps,
   VehicleTypeRadio,
 } from './VehicleTypeRadio'
-import { type Props as PeopleInputProps, PeopleInput } from './PeopleInput'
+import PeopleInput, {
+  type Props as PeopleInputProps,
+} from '@/components/PeopleInput'
 import { useRouter } from '@/navigation'
 
 type Props = {
@@ -54,7 +56,6 @@ export function BookForm({ labels }: Props) {
         people: z.coerce
           .number({ required_error: requiredPeopleError })
           .int()
-          .positive({ message: minimumPeopleError })
           .min(1, { message: minimumPeopleError }),
       }),
     [
@@ -77,6 +78,7 @@ export function BookForm({ labels }: Props) {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const params = new URLSearchParams()
     params.set('hotel', data.hotel)
+    params.set('adults', String(data.people))
     router.push(`/${data.type}?${params.toString()}`)
   }
 
