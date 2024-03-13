@@ -12,6 +12,14 @@ type ErrorLabels = {
   minimumOne: string
 }
 
+export type PrivateFormType = {
+  hotel: string
+  type: 'round-trip' | 'one-way'
+  adults: number
+  children: number
+  infants: number
+}
+
 export function usePrivateForm({ required, minimum, minimumOne }: ErrorLabels) {
   const searchParams = useSearchParams()
   const FormSchema = useMemo(

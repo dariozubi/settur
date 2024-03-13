@@ -1,0 +1,62 @@
+import {
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import { FormField } from '@/components/ui/form'
+import PeopleInput from '@/components/PeopleInput'
+import { UseFormReturn } from 'react-hook-form'
+import { PrivateFormType } from '@/components/PrivateForm/hooks'
+import { PrivateFormLabels } from '@/components/PrivateForm/types'
+
+type Props = {
+  form: UseFormReturn<PrivateFormType>
+  labels: Pick<PrivateFormLabels, 'people' | 'adults' | 'children' | 'infants'>
+}
+function PeopleAccordion({ labels, form }: Props) {
+  return (
+    <AccordionItem value="people">
+      <AccordionTrigger>{labels.people}</AccordionTrigger>
+
+      <AccordionContent className="space-y-6 border-t py-10">
+        <FormField
+          control={form.control}
+          name="adults"
+          render={({ field }) => (
+            <PeopleInput
+              labels={labels.adults}
+              onChange={field.onChange}
+              value={field.value}
+            />
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="children"
+          render={({ field }) => (
+            <PeopleInput
+              labels={labels.children}
+              onChange={field.onChange}
+              value={field.value}
+            />
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="infants"
+          render={({ field }) => (
+            <PeopleInput
+              labels={labels.infants}
+              onChange={field.onChange}
+              value={field.value}
+            />
+          )}
+        />
+      </AccordionContent>
+    </AccordionItem>
+  )
+}
+
+export default PeopleAccordion
