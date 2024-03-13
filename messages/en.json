@@ -18,23 +18,38 @@
         "our-rates": "Our rates",
         "tourist-corridor": "Tourist corridor",
         "zone": "Zone",
-        "one-way": "One way",
-        "round-trip": "Round trip",
         "first-disclaimer": "* Cheapest option shown",
         "second-disclaimer": "** Private option only",
-        "select-hotel": "Select hotel",
-        "search-hotel": "Search hotel...",
-        "no-results": "No results found.",
-        "required-hotel-error": "Please select a hotel.",
-        "required-type-error": "You need to select a vehicle type.",
-        "required-people-error": "You need to add the number of adults.",
-        "minimum-people-error": "At least one adult needed.",
+        "east-cape": "East Cape",
+        "one-way": "One way",
+        "round-trip": "Round trip"
+    },
+    "form": {
+        "HotelSelect": {
+            "select-hotel": "Select hotel",
+            "search-hotel": "Search hotel...",
+            "no-results": "No results found."
+        },
+        "VehicleTypeRadio": {
+            "private": "Private",
+            "shared": "Shared"
+        },
+        "TripTypeRadio": {
+            "one-way": "One way",
+            "round-trip": "Round trip"
+        },
+        "PeopleInput": {
+            "adults-number": "Number of adults",
+            "grown-ups": "Grown-ups (9+ y/o)",
+            "children": "Children (4-8 y/o)",
+            "infants": "Infants (0-3 y/o)"
+        },
+        "errors": {
+            "required": "This value is required.",
+            "minimum": "This number must be at least {value}."
+        },
         "continue": "Continue",
-        "adults-number": "Number of adults",
         "destination": "Destination",
-        "people": "People",
-        "grown-ups": "Grown-ups (9+ y/o)",
-        "children": "Children (4-8 y/o)",
-        "infants": "Infants (0-3 y/o)"
+        "people": "People"
     }
 }

@@ -3,27 +3,28 @@ import { Card, CardContent, CardHeader } from '../ui/card'
 import { useTranslations } from 'next-intl'
 import { BookForm } from './BookForm'
 import { useMemo } from 'react'
+import { BookFormLabels } from './types'
 
 function HomeBookCard() {
-  const t = useTranslations('Home')
-  const labels = useMemo(
+  const t = useTranslations('form')
+  const labels: BookFormLabels = useMemo(
     () => ({
-      requiredHotelError: t('required-hotel-error'),
-      requiredTypeError: t('required-type-error'),
-      requiredPeopleError: t('required-number-error'),
-      minimumPeopleError: t('minimum-people-error'),
+      error: {
+        required: t('errors.required'),
+        minimum: t('errors.minimum', { value: 1 }),
+      },
       submit: t('continue'),
-      hotelLabels: {
-        selectHotel: t('select-hotel'),
-        searchHotel: t('search-hotel'),
-        noResults: t('no-results'),
+      hotel: {
+        selectHotel: t('HotelSelect.select-hotel'),
+        searchHotel: t('HotelSelect.search-hotel'),
+        noResults: t('HotelSelect.no-results'),
       },
-      typeLabels: {
-        type1: t('private'),
-        type2: t('shared'),
+      vehicleType: {
+        type1: t('VehicleTypeRadio.private'),
+        type2: t('VehicleTypeRadio.shared'),
       },
-      peopleLabels: {
-        label: t('adults-number'),
+      people: {
+        label: t('PeopleInput.adults-number'),
       },
     }),
     [t]

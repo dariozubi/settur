@@ -18,18 +18,38 @@
         "our-rates": "Nuestras tarifas",
         "tourist-corridor": "Corredor Turístico",
         "zone": "Zona",
-        "one-way": "Viaje de ida",
-        "round-trip": "Viaje ida y vuelta",
         "first-disclaimer": "* Sólo se muestra la opción más barata",
         "second-disclaimer": "** Únicamente con unidades privadas",
-        "select-hotel": "Elige un hotel",
-        "search-hotel": "Buscar hotel...",
-        "no-results": "No hay resultados.",
-        "required-hotel-error": "Selecciona un hotel.",
-        "required-type-error": "Selecciona un tipo de vehículo.",
-        "required-people-error": "Agrega el número de adultos.",
-        "minimum-people-error": "Se requiere de al menos un adulto.",
+        "east-cape": "Cabo Este",
+        "one-way": "Viaje de ida",
+        "round-trip": "Viaje ida y vuelta"
+    },
+    "form": {
+        "HotelSelect": {
+            "select-hotel": "Elige hotel",
+            "search-hotel": "Buscar hotel...",
+            "no-results": "No hay resultados."
+        },
+        "VehicleTypeRadio": {
+            "private": "Privado",
+            "shared": "Compartido"
+        },
+        "TripTypeRadio": {
+            "one-way": "Viaje de ida",
+            "round-trip": "Viaje ida y vuelta"
+        },
+        "PeopleInput": {
+            "adults-number": "Número de adultos",
+            "grown-ups": "Adultos (9+ y/o)",
+            "children": "Niños (4-8 y/o)",
+            "infants": "Infantes (0-3 y/o)"
+        },
+        "errors": {
+            "required": "Este valor es requerido.",
+            "minimum": "Este número debe ser al menos {value}."
+        },
         "continue": "Continuar",
-        "adults-number": "Número de adultos"
+        "destination": "Destino",
+        "people": "Personas"
     }
 }

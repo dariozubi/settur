@@ -1,36 +1,38 @@
 import { useTranslations } from 'next-intl'
-import PrivateForm from '../PrivateForm'
+import PrivateForm from '@/components/PrivateForm'
 import { useMemo } from 'react'
+import { PrivateFormLabels } from '../PrivateForm/types'
 
 function PrivatePage() {
-  const t = useTranslations('Home')
-  const labels = useMemo(
+  const t = useTranslations('form')
+  const labels: PrivateFormLabels = useMemo(
     () => ({
-      requiredHotelError: t('required-hotel-error'),
-      requiredTypeError: t('required-type-error'),
-      requiredAdultsError: t('required-people-error'),
-      minimumAdultsError: t('minimum-people-error'),
+      error: {
+        required: t('errors.required'),
+        minimumOne: t('errors.minimum', { value: 1 }),
+        minimum: t('errors.minimum', { value: 0 }),
+      },
+      hotel: {
+        selectHotel: t('HotelSelect.select-hotel'),
+        searchHotel: t('HotelSelect.search-hotel'),
+        noResults: t('HotelSelect.no-results'),
+      },
+      tripType: {
+        type1: t('TripTypeRadio.round-trip'),
+        type2: t('TripTypeRadio.one-way'),
+      },
+      adults: {
+        label: t('PeopleInput.grown-ups'),
+      },
+      children: {
+        label: t('PeopleInput.children'),
+      },
+      infants: {
+        label: t('PeopleInput.infants'),
+      },
       submit: t('continue'),
       destination: t('destination'),
       people: t('people'),
-      hotelLabels: {
-        selectHotel: t('select-hotel'),
-        searchHotel: t('search-hotel'),
-        noResults: t('no-results'),
-      },
-      typeLabels: {
-        type1: t('round-trip'),
-        type2: t('one-way'),
-      },
-      adultsLabels: {
-        label: t('grown-ups'),
-      },
-      childrenLabels: {
-        label: t('children'),
-      },
-      infantsLabels: {
-        label: t('infants'),
-      },
     }),
     [t]
   )

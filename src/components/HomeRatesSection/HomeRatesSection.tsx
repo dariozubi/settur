@@ -99,7 +99,7 @@ function HomeRatesSection() {
           </TableCaption>
           <TableHeader className="[&_tr]:border-slate-800">
             <TableRow className="hover:bg-amber-100">
-              <TableHead className="text-slate-800">East Cape**</TableHead>
+              <TableHead className="text-slate-800">{`${t('east-cape')}**`}</TableHead>
               <TableHead className="text-slate-800">Diamante**</TableHead>
               <TableHead className="text-slate-800">
                 {t('tourist-corridor')}

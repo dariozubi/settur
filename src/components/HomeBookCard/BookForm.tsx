@@ -1,86 +1,19 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-
 import { Button } from '@/components/ui/button'
 import { Form, FormField } from '@/components/ui/form'
-import HotelSelect, {
-  type Props as HotelSelectProps,
-} from '@/components/HotelSelect'
-import { useMemo } from 'react'
-import {
-  type Props as VehicleTypeRadioProps,
-  VehicleTypeRadio,
-} from './VehicleTypeRadio'
-import PeopleInput, {
-  type Props as PeopleInputProps,
-} from '@/components/PeopleInput'
-import { useRouter } from '@/navigation'
+import HotelSelect from '@/components/HotelSelect'
+import { VehicleTypeRadio } from './VehicleTypeRadio'
+import PeopleInput from '@/components/PeopleInput'
+import { useBookForm } from './hooks'
+import { BookFormLabels } from './types'
 
 type Props = {
-  labels: {
-    requiredHotelError: string
-    requiredTypeError: string
-    requiredPeopleError: string
-    minimumPeopleError: string
-    submit: string
-    hotelLabels: HotelSelectProps['labels']
-    typeLabels: VehicleTypeRadioProps['labels']
-    peopleLabels: PeopleInputProps['labels']
-  }
+  labels: BookFormLabels
 }
 
 export function BookForm({ labels }: Props) {
-  const {
-    requiredHotelError,
-    requiredTypeError,
-    requiredPeopleError,
-    minimumPeopleError,
-    hotelLabels,
-    typeLabels,
-    peopleLabels,
-    submit,
-  } = labels
-
-  const FormSchema = useMemo(
-    () =>
-      z.object({
-        hotel: z.string({
-          required_error: requiredHotelError,
-        }),
-        type: z.enum(['private', 'shared'], {
-          required_error: requiredTypeError,
-        }),
-        people: z.coerce
-          .number({ required_error: requiredPeopleError })
-          .int()
-          .min(1, { message: minimumPeopleError }),
-      }),
-    [
-      minimumPeopleError,
-      requiredHotelError,
-      requiredPeopleError,
-      requiredTypeError,
-    ]
-  )
-
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      type: 'private',
-      people: 1,
-    },
-  })
-  const router = useRouter()
-
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    const params = new URLSearchParams()
-    params.set('hotel', data.hotel)
-    params.set('adults', String(data.people))
-    router.push(`/${data.type}?${params.toString()}`)
-  }
+  const { form, onSubmit } = useBookForm(labels.error)
 
   return (
     <Form {...form}>
@@ -90,7 +23,7 @@ export function BookForm({ labels }: Props) {
           name="hotel"
           render={({ field }) => (
             <HotelSelect
-              labels={hotelLabels}
+              labels={labels.hotel}
               value={field.value}
               onSelect={v => {
                 form.setValue('hotel', v)
@@ -104,7 +37,7 @@ export function BookForm({ labels }: Props) {
           name="type"
           render={({ field }) => (
             <VehicleTypeRadio
-              labels={typeLabels}
+              labels={labels.vehicleType}
               value={field.value}
               onChange={field.onChange}
             />
@@ -116,7 +49,7 @@ export function BookForm({ labels }: Props) {
           name="people"
           render={({ field }) => (
             <PeopleInput
-              labels={peopleLabels}
+              labels={labels.people}
               onChange={field.onChange}
               value={field.value}
             />
@@ -125,7 +58,7 @@ export function BookForm({ labels }: Props) {
 
         <div className=" flex w-full justify-center">
           <Button className="mt-5" type="submit">
-            {submit}
+            {labels.submit}
           </Button>
         </div>
       </form>
