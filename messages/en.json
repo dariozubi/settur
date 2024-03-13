@@ -50,6 +50,7 @@
         },
         "continue": "Continue",
         "destination": "Destination",
-        "people": "People"
+        "people": "People",
+        "vehicle": "Vehicle"
     }
 }

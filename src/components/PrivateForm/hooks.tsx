@@ -18,6 +18,7 @@ export type PrivateFormType = {
   adults: number
   children: number
   infants: number
+  vehicle: 'escalade' | 'suburban' | 'hiace' | 'sprinter'
 }
 
 export function usePrivateForm({ required, minimum, minimumOne }: ErrorLabels) {
@@ -43,6 +44,9 @@ export function usePrivateForm({ required, minimum, minimumOne }: ErrorLabels) {
           .number({ required_error: required })
           .int()
           .min(0, { message: minimum }),
+        vehicle: z.enum(['escalade', 'suburban', 'hiace', 'sprinter'], {
+          required_error: required,
+        }),
       }),
     [minimum, minimumOne, required]
   )

@@ -33,6 +33,7 @@ function PrivatePage() {
       submit: t('continue'),
       destination: t('destination'),
       people: t('people'),
+      vehicle: t('vehicle'),
     }),
     [t]
   )

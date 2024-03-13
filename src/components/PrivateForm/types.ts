@@ -15,5 +15,6 @@ export type PrivateFormLabels = {
   infants: PeopleInputProps['labels']
   destination: string
   people: string
+  vehicle: string
   submit: string
 }
