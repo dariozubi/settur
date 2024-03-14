@@ -11,6 +11,7 @@ function PrivatePage() {
         required: t('errors.required'),
         minimumOne: t('errors.minimum', { value: 1 }),
         minimum: t('errors.minimum', { value: 0 }),
+        tooManyPeople: t('errors.too-many-people'),
       },
       hotel: {
         selectHotel: t('HotelSelect.select-hotel'),

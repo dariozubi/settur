@@ -5,15 +5,15 @@ import {
 } from '@/components/ui/accordion'
 import { FormField } from '../ui/form'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateFormLabels } from '../PrivateForm/types'
-import { PrivateForm } from '../PrivateForm/hooks'
+import { PrivateFormLabels, PrivateForm } from '../PrivateForm/types'
 import VehiclesRadio from '../VehiclesRadio'
 import { hotels } from '@/lib/consts'
 import { Zone } from '@/lib/types'
+import { useVehicleIndividualsValidation } from './hooks'
 
 type Props = {
   form: UseFormReturn<PrivateForm>
-  labels: Pick<PrivateFormLabels, 'vehicle'>
+  labels: Pick<PrivateFormLabels, 'vehicle' | 'error'>
 }
 
 function VehicleAccordion({ form, labels }: Props) {
@@ -22,6 +22,9 @@ function VehicleAccordion({ form, labels }: Props) {
     Number(form.watch('adults')) +
     Number(form.watch('children')) +
     Number(form.watch('infants'))
+
+  useVehicleIndividualsValidation({ individuals, form, labels })
+
   if (!zone) return null
   return (
     <AccordionItem value="vehicle">

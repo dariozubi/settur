@@ -46,7 +46,8 @@
         },
         "errors": {
             "required": "This value is required.",
-            "minimum": "This number must be at least {value}."
+            "minimum": "This number must be at least {value}.",
+            "too-many-people": "There's too many people for one vehicle only. Have you seen our groups page?"
         },
         "continue": "Continue",
         "destination": "Destination",

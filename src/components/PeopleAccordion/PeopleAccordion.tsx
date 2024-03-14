@@ -6,8 +6,7 @@ import {
 import { FormField } from '@/components/ui/form'
 import PeopleInput from '@/components/PeopleInput'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateForm } from '@/components/PrivateForm/hooks'
-import { PrivateFormLabels } from '@/components/PrivateForm/types'
+import { PrivateFormLabels, PrivateForm } from '@/components/PrivateForm/types'
 
 type Props = {
   form: UseFormReturn<PrivateForm>
@@ -18,42 +17,48 @@ function PeopleAccordion({ labels, form }: Props) {
     <AccordionItem value="people">
       <AccordionTrigger>{labels.people}</AccordionTrigger>
 
-      <AccordionContent className="space-y-6 border-t py-10">
-        <FormField
-          control={form.control}
-          name="adults"
-          render={({ field }) => (
-            <PeopleInput
-              labels={labels.adults}
-              onChange={field.onChange}
-              value={field.value}
-            />
-          )}
-        />
+      <AccordionContent className="flex justify-center border-t py-10">
+        <div className="w-[260px]">
+          <FormField
+            control={form.control}
+            name="adults"
+            render={({ field }) => (
+              <PeopleInput
+                labels={labels.adults}
+                onChange={field.onChange}
+                value={field.value}
+              />
+            )}
+          />
+        </div>
 
-        <FormField
-          control={form.control}
-          name="children"
-          render={({ field }) => (
-            <PeopleInput
-              labels={labels.children}
-              onChange={field.onChange}
-              value={field.value}
-            />
-          )}
-        />
+        <div className="w-[260px]">
+          <FormField
+            control={form.control}
+            name="children"
+            render={({ field }) => (
+              <PeopleInput
+                labels={labels.children}
+                onChange={field.onChange}
+                value={field.value}
+              />
+            )}
+          />
+        </div>
 
-        <FormField
-          control={form.control}
-          name="infants"
-          render={({ field }) => (
-            <PeopleInput
-              labels={labels.infants}
-              onChange={field.onChange}
-              value={field.value}
-            />
-          )}
-        />
+        <div className="w-[260px]">
+          <FormField
+            control={form.control}
+            name="infants"
+            render={({ field }) => (
+              <PeopleInput
+                labels={labels.infants}
+                onChange={field.onChange}
+                value={field.value}
+              />
+            )}
+          />
+        </div>
       </AccordionContent>
     </AccordionItem>
   )

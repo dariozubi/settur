@@ -338,6 +338,25 @@ export const hotels = [
   { label: 'Seven Crown La Paz-Malecon', zone: 8 },
 ]
 
+export const vehicles = {
+  escalade: {
+    seats: 5,
+    imgAspect: 'aspect-[1775/1057]',
+  },
+  suburban: {
+    seats: 6,
+    imgAspect: 'aspect-[587/264]',
+  },
+  hiace: {
+    seats: 10,
+    imgAspect: 'aspect-[404/220]',
+  },
+  sprinter: {
+    seats: 17,
+    imgAspect: 'aspect-[700/480]',
+  },
+}
+
 export const zones = [
   {
     label: 'San José del Cabo',

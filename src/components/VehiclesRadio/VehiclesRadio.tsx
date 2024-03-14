@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { FormControl, FormItem } from '@/components/ui/form'
+import { FormControl, FormItem, FormMessage } from '@/components/ui/form'
 import { User } from 'lucide-react'
-import { privateRates } from '@/lib/consts'
-import { PrivateForm } from '../PrivateForm/hooks'
+import { privateRates, vehicles } from '@/lib/consts'
+import { PrivateForm } from '../PrivateForm/types'
 import { Zone } from '@/lib/types'
 
 export type Props = {
@@ -26,52 +26,32 @@ function VehiclesRadio({
     <FormItem>
       <FormControl>
         <RadioGroup
-          defaultValue={value}
+          value={value}
           onValueChange={onChange}
           className="flex w-full justify-center"
         >
-          {individuals <= 5 && (
-            <VehicleItem
-              price={privateRates[tripType][zone]['escalade']}
-              seats="5"
-              value="escalade"
-              className="my-6 aspect-[1775/1057]"
-            />
-          )}
-
-          {individuals <= 6 && (
-            <VehicleItem
-              price={privateRates[tripType][zone]['suburban']}
-              seats="6"
-              value="suburban"
-              className="my-6 aspect-[587/264]"
-            />
-          )}
-
-          {individuals <= 10 && (
-            <VehicleItem
-              price={privateRates[tripType][zone]['hiace']}
-              seats="10"
-              value="hiace"
-              className="my-6 aspect-[404/220]"
-            />
-          )}
-
-          {individuals <= 17 && (
-            <VehicleItem
-              price={privateRates[tripType][zone]['sprinter']}
-              seats="17"
-              value="sprinter"
-              className="my-6 aspect-[700/480]"
-            />
+          {Object.keys(vehicles).map(
+            v =>
+              individuals <= vehicles[v as Vehicle].seats && (
+                <VehicleItem
+                  key={v as Vehicle}
+                  price={privateRates[tripType][zone][v as Vehicle]}
+                  seats={String(vehicles[v as Vehicle].seats)}
+                  value={v as Vehicle}
+                  className={`my-6 ${vehicles[v as Vehicle].imgAspect}`}
+                />
+              )
           )}
         </RadioGroup>
       </FormControl>
+      <div className="w-full text-center">
+        <FormMessage />
+      </div>
     </FormItem>
   )
 }
 
-type Vehicle = 'escalade' | 'sprinter' | 'suburban' | 'hiace'
+export type Vehicle = keyof typeof vehicles
 
 type VehicleItemProps = {
   value: Vehicle
@@ -86,7 +66,7 @@ const VehicleItem = ({ value, className, price, seats }: VehicleItemProps) => {
       <RadioGroupItem value={value} id={value} className="peer sr-only" />
       <Label
         htmlFor={value}
-        className="flex flex-col overflow-hidden rounded-md border-2 border-stone-200 bg-neutral-50 p-4 opacity-40 hover:bg-white hover:text-slate-800 peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-white peer-data-[state=checked]:opacity-100 [&:has([data-state=checked])]:border-slate-800"
+        className="flex cursor-pointer flex-col overflow-hidden rounded-md border-2 border-stone-200 bg-neutral-50 p-4 opacity-40 hover:bg-white hover:text-slate-800 peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-white peer-data-[state=checked]:opacity-100 [&:has([data-state=checked])]:border-slate-800"
       >
         <span className="text-center text-lg font-bold">
           {value.charAt(0).toUpperCase() + value.slice(1)}

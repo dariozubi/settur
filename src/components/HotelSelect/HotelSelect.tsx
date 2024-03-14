@@ -52,7 +52,7 @@ function HotelSelect({ value, labels, onSelect }: Props) {
                   <div className="flex w-full items-center justify-start">
                     <Hotel className="mr-1 size-4" />
 
-                    <span className="max-w-[250px] truncate">{value}</span>
+                    <span className="max-w-[190px] truncate">{value}</span>
                   </div>
                 ) : (
                   <div className="flex w-full items-center justify-between">

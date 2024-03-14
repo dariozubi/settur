@@ -9,6 +9,7 @@ import {
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Button } from '../ui/button'
+import { vehicles } from '@/lib/consts'
 
 function HomeCardSection() {
   const t = useTranslations('Home')
@@ -28,12 +29,14 @@ function HomeCardSection() {
             </CardHeader>
 
             <CardContent>
-              <div className="relative my-6 aspect-[1775/1057] w-full">
+              <div
+                className={`relative h-[200px] ${vehicles.escalade.imgAspect}}`}
+              >
                 <Image
                   src="/img/escalade.png"
                   alt={t('private')}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 1280px) 100vw, 33vw"
                 />
               </div>
@@ -54,12 +57,14 @@ function HomeCardSection() {
             </CardHeader>
 
             <CardContent>
-              <div className="relative -mt-4 mb-4 aspect-[747/567] w-full">
+              <div
+                className={`relative h-[200px] ${vehicles.sprinter.imgAspect}`}
+              >
                 <Image
                   src="/img/sprinter.png"
                   alt={t('shared')}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 1280px) 100vw, 33vw"
                 />
               </div>
@@ -80,12 +85,12 @@ function HomeCardSection() {
             </CardHeader>
 
             <CardContent>
-              <div className="relative -mt-2 mb-9 aspect-[1920/1277] w-full">
+              <div className={`relative my-6 aspect-[4307/2173] h-[150px]`}>
                 <Image
                   src="/img/autobus.png"
                   alt={t('groups')}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 1280px) 100vw, 33vw"
                 />
               </div>

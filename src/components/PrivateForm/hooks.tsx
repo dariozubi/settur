@@ -5,21 +5,7 @@ import { useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 import { toast } from '@/components/ui/use-toast'
-
-type ErrorLabels = {
-  required: string
-  minimum: string
-  minimumOne: string
-}
-
-export type PrivateForm = {
-  hotel: string
-  type: 'round-trip' | 'one-way'
-  adults: number
-  children: number
-  infants: number
-  vehicle: 'escalade' | 'suburban' | 'hiace' | 'sprinter'
-}
+import { ErrorLabels } from './types'
 
 export function usePrivateForm({ required, minimum, minimumOne }: ErrorLabels) {
   const searchParams = useSearchParams()
