@@ -1,15 +1,16 @@
 'use client'
 
 import { usePathname, useRouter } from '@/navigation'
-import { usePathname as useNextPathname } from 'next/navigation'
+
 import { Button } from '../ui/button'
 import { Earth } from 'lucide-react'
+import { useIsEnglish } from '@/lib/hooks'
 
 export const LanguageSelector = () => {
-  const nextPathname = useNextPathname()
   const pathname = usePathname()
   const router = useRouter()
-  const isEnglish = nextPathname?.substring(0, 3) === '/en'
+  const isEnglish = useIsEnglish()
+
   return (
     <Button
       onClick={() =>

@@ -32,10 +32,20 @@ function PrivatePage() {
       infants: {
         label: t('PeopleInput.infants'),
       },
+      arrivalDate: {
+        date: t('DatePicker.arrival-date'),
+        pickDate: t('DatePicker.pick-date'),
+        hours: t('hours'),
+        minutes: t('minutes'),
+      },
+      arrivalFlight: {
+        flight: t('FlightInput.flight'),
+      },
       submit: t('continue'),
       destination: t('destination'),
       people: t('people'),
       vehicle: t('vehicle'),
+      arrival: t('arrival'),
     }),
     [t]
   )

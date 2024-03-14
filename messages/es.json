@@ -45,6 +45,15 @@
             "children": "Niños (4-8 y/o)",
             "infants": "Infantes (0-3 y/o)"
         },
+        "DatePicker": {
+            "arrival-date": "Fecha de llegada",
+            "pick-date": "Seleccona una fecha",
+            "hours": "Hora",
+            "minutes": "Minutos"
+        },
+        "FlightInput": {
+            "flight": "Número de vuelo"
+        },
         "errors": {
             "required": "Este valor es requerido.",
             "minimum": "Este número debe ser al menos {value}.",
@@ -53,6 +62,7 @@
         "continue": "Continuar",
         "destination": "Destino",
         "people": "Personas",
-        "vehicle": "Vehículo"
+        "vehicle": "Vehículo",
+        "arrival": "Llegada"
     }
 }

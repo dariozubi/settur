@@ -8,6 +8,7 @@ import { usePrivateForm } from './hooks'
 import DestinationAccordion from '../DestinationAccordion'
 import PeopleAccordion from '../PeopleAccordion'
 import VehicleAccordion from '../VehicleAccordion'
+import ArrivalAccordion from '../ArrivalAccordion'
 
 type Props = {
   labels: PrivateFormLabels
@@ -20,13 +21,15 @@ function PrivateForm({ labels }: Props) {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Accordion
           type="multiple"
-          defaultValue={['destination', 'people', 'vehicle']}
+          defaultValue={['destination', 'people', 'vehicle', 'arrival']}
         >
           <DestinationAccordion form={form} labels={labels} />
 
           <PeopleAccordion form={form} labels={labels} />
 
           <VehicleAccordion form={form} labels={labels} />
+
+          <ArrivalAccordion form={form} labels={labels} />
         </Accordion>
 
         <div className=" flex w-full justify-center">
