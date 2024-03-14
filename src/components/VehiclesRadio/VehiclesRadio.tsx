@@ -3,14 +3,13 @@ import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { FormControl, FormItem, FormMessage } from '@/components/ui/form'
 import { User } from 'lucide-react'
-import { privateRates, vehicles } from '@/lib/consts'
-import { PrivateForm } from '../PrivateForm/types'
+import { privateRates, trips, vehicles } from '@/lib/consts'
 import { Zone } from '@/lib/types'
 
 export type Props = {
   value: string
   onChange: () => void
-  tripType: PrivateForm['type']
+  tripType: (typeof trips)[number]
   zone: Zone
   individuals: number
 }
@@ -35,7 +34,11 @@ function VehiclesRadio({
               individuals <= vehicles[v as Vehicle].seats && (
                 <VehicleItem
                   key={v as Vehicle}
-                  price={privateRates[tripType][zone][v as Vehicle]}
+                  price={
+                    privateRates[
+                      tripType === 'round-trip' ? 'round-trip' : 'one-way'
+                    ][zone][v as Vehicle]
+                  }
                   seats={String(vehicles[v as Vehicle].seats)}
                   value={v as Vehicle}
                   className={`my-6 ${vehicles[v as Vehicle].imgAspect}`}

@@ -35,7 +35,8 @@
             "shared": "Compartido"
         },
         "TripTypeRadio": {
-            "one-way": "Viaje de ida",
+            "airport": "Viaje al aeropuerto",
+            "hotel": "Viaje al hotel",
             "round-trip": "Viaje ida y vuelta"
         },
         "PeopleInput": {

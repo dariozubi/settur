@@ -35,7 +35,8 @@
             "shared": "Shared"
         },
         "TripTypeRadio": {
-            "one-way": "One way",
+            "airport": "One-way to the airport",
+            "hotel": "One-way to the hotel",
             "round-trip": "Round trip"
         },
         "PeopleInput": {

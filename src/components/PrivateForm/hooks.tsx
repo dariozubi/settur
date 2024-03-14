@@ -5,17 +5,23 @@ import { useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 import { toast } from '@/components/ui/use-toast'
-import { ErrorLabels } from './types'
+import { PrivateFormLabels } from './types'
+import { trips, vehicles } from '@/lib/consts'
 
-export function usePrivateForm({ required, minimum, minimumOne }: ErrorLabels) {
+export function usePrivateForm({
+  required,
+  minimum,
+  minimumOne,
+}: PrivateFormLabels['error']) {
   const searchParams = useSearchParams()
-  const FormSchema = useMemo(
+  const [first, ...others] = Object.keys(vehicles)
+  const formSchema = useMemo(
     () =>
       z.object({
         hotel: z.string({
           required_error: required,
         }),
-        type: z.enum(['round-trip', 'one-way'], {
+        type: z.enum(trips, {
           required_error: required,
         }),
         adults: z.coerce
@@ -30,15 +36,15 @@ export function usePrivateForm({ required, minimum, minimumOne }: ErrorLabels) {
           .number({ required_error: required })
           .int()
           .min(0, { message: minimum }),
-        vehicle: z.enum(['escalade', 'suburban', 'hiace', 'sprinter'], {
+        vehicle: z.enum([first, ...others], {
           required_error: required,
         }),
       }),
-    [minimum, minimumOne, required]
+    [first, minimum, minimumOne, others, required]
   )
 
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       type: 'round-trip',
       adults: 1,
@@ -53,7 +59,7 @@ export function usePrivateForm({ required, minimum, minimumOne }: ErrorLabels) {
     form.setValue('adults', Number(searchParams.get('adults')) || 1)
   }, [form, searchParams])
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(data: z.infer<typeof formSchema>) {
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -64,5 +70,5 @@ export function usePrivateForm({ required, minimum, minimumOne }: ErrorLabels) {
     })
   }
 
-  return { form, onSubmit }
+  return { form, onSubmit, formSchema }
 }

@@ -5,14 +5,14 @@ import {
 } from '@/components/ui/accordion'
 import { FormField } from '../ui/form'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateFormLabels, PrivateForm } from '../PrivateForm/types'
+import { PrivateFormLabels } from '../PrivateForm/types'
 import VehiclesRadio from '../VehiclesRadio'
 import { hotels } from '@/lib/consts'
 import { Zone } from '@/lib/types'
 import { useVehicleIndividualsValidation } from './hooks'
 
 type Props = {
-  form: UseFormReturn<PrivateForm>
+  form: UseFormReturn<any>
   labels: Pick<PrivateFormLabels, 'vehicle' | 'error'>
 }
 

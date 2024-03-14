@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateForm, PrivateFormLabels } from '../PrivateForm/types'
+import { PrivateFormLabels } from '../PrivateForm/types'
 
 export function useVehicleIndividualsValidation({
   individuals,
@@ -8,7 +8,7 @@ export function useVehicleIndividualsValidation({
   labels,
 }: {
   individuals: number
-  form: UseFormReturn<PrivateForm>
+  form: UseFormReturn<any>
   labels: Pick<PrivateFormLabels, 'error'>
 }) {
   const vehicle = form.watch('vehicle')

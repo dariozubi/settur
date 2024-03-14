@@ -3,13 +3,9 @@ import { useRouter } from '@/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { BookFormLabels } from './types'
 
-type ErrorLabels = {
-  required: string
-  minimum: string
-}
-
-export function useBookForm({ required, minimum }: ErrorLabels) {
+export function useBookForm({ required, minimum }: BookFormLabels['error']) {
   const router = useRouter()
   const FormSchema = useMemo(
     () =>

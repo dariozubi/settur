@@ -19,8 +19,9 @@ function PrivatePage() {
         noResults: t('HotelSelect.no-results'),
       },
       tripType: {
-        type1: t('TripTypeRadio.round-trip'),
-        type2: t('TripTypeRadio.one-way'),
+        round: t('TripTypeRadio.round-trip'),
+        airport: t('TripTypeRadio.airport'),
+        hotel: t('TripTypeRadio.hotel'),
       },
       adults: {
         label: t('PeopleInput.grown-ups'),

@@ -338,6 +338,8 @@ export const hotels = [
   { label: 'Seven Crown La Paz-Malecon', zone: 8 },
 ]
 
+export const trips = ['round-trip', 'airport', 'hotel'] as const
+
 export const vehicles = {
   escalade: {
     seats: 5,

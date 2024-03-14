@@ -6,10 +6,10 @@ import {
 import { FormField } from '@/components/ui/form'
 import PeopleInput from '@/components/PeopleInput'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateFormLabels, PrivateForm } from '@/components/PrivateForm/types'
+import { PrivateFormLabels } from '@/components/PrivateForm/types'
 
 type Props = {
-  form: UseFormReturn<PrivateForm>
+  form: UseFormReturn<any>
   labels: Pick<PrivateFormLabels, 'people' | 'adults' | 'children' | 'infants'>
 }
 function PeopleAccordion({ labels, form }: Props) {

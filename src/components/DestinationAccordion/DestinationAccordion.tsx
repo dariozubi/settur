@@ -7,10 +7,10 @@ import {
 } from '@/components/ui/accordion'
 import { FormField } from '../ui/form'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateFormLabels, PrivateForm } from '../PrivateForm/types'
+import { PrivateFormLabels } from '../PrivateForm/types'
 
 type Props = {
-  form: UseFormReturn<PrivateForm>
+  form: UseFormReturn<any>
   labels: Pick<PrivateFormLabels, 'destination' | 'tripType' | 'hotel'>
 }
 
@@ -19,7 +19,7 @@ function DestinationAccordion({ form, labels }: Props) {
     <AccordionItem value="destination">
       <AccordionTrigger>{labels.destination}</AccordionTrigger>
 
-      <AccordionContent className="flex justify-center gap-6 border-t py-10">
+      <AccordionContent className="flex items-center justify-center gap-6 border-t py-10">
         <div className="w-[300px]">
           <FormField
             control={form.control}

@@ -3,15 +3,15 @@ import { FormControl, FormItem, FormLabel, FormMessage } from '../ui/form'
 
 export type Props = {
   labels: {
-    type1: string
-    type2: string
+    round: string
+    airport: string
+    hotel: string
   }
   value: string
   onChange: () => void
 }
 
 const TripTypeRadio = ({ labels, value, onChange }: Props) => {
-  const { type1, type2 } = labels
   return (
     <FormItem className="mx-auto flex max-w-[300px] flex-col items-center justify-center">
       <FormControl>
@@ -21,15 +21,23 @@ const TripTypeRadio = ({ labels, value, onChange }: Props) => {
               <RadioGroupItem value="round-trip" id="round-trip" />
             </FormControl>
 
-            <FormLabel htmlFor="round-trip">{type1}</FormLabel>
+            <FormLabel htmlFor="round-trip">{labels.round}</FormLabel>
           </FormItem>
 
           <FormItem className="flex items-center space-x-2">
             <FormControl className="mt-2">
-              <RadioGroupItem value="one-way" id="one-way" />
+              <RadioGroupItem value="hotel" id="hotel" />
             </FormControl>
 
-            <FormLabel htmlFor="one-way">{type2}</FormLabel>
+            <FormLabel htmlFor="hotel">{labels.hotel}</FormLabel>
+          </FormItem>
+
+          <FormItem className="flex items-center space-x-2">
+            <FormControl className="mt-2">
+              <RadioGroupItem value="airport" id="airport" />
+            </FormControl>
+
+            <FormLabel htmlFor="airport">{labels.airport}</FormLabel>
           </FormItem>
         </RadioGroup>
       </FormControl>
