@@ -39,6 +39,121 @@ export const rates = {
   },
 }
 
+export const privateRates = {
+  'one-way': {
+    zone1: {
+      suburban: 75,
+      hiace: 65,
+      escalade: 95,
+      sprinter: 140,
+    },
+    zone2: {
+      suburban: 85,
+      hiace: 80,
+      escalade: 135,
+      sprinter: 145,
+    },
+    zone3: {
+      suburban: 95,
+      hiace: 100,
+      escalade: 145,
+      sprinter: 150,
+    },
+    zone4: {
+      suburban: 85,
+      hiace: 80,
+      escalade: 135,
+      sprinter: 145,
+    },
+    zone5: {
+      suburban: 200,
+      hiace: 190,
+      escalade: 220,
+      sprinter: 290,
+    },
+    zone6: {
+      suburban: 120,
+      hiace: 125,
+      escalade: 150,
+      sprinter: 195,
+    },
+    zone7: {
+      suburban: 185,
+      hiace: 150,
+      escalade: 255,
+      sprinter: 310,
+    },
+    zone8: {
+      suburban: 225,
+      hiace: 220,
+      escalade: 300,
+      sprinter: 420,
+    },
+    zone9: {
+      suburban: 180,
+      hiace: 145,
+      escalade: 250,
+      sprinter: 300,
+    },
+  },
+  'round-trip': {
+    zone1: {
+      suburban: 145,
+      hiace: 135,
+      escalade: 185,
+      sprinter: 275,
+    },
+    zone2: {
+      suburban: 165,
+      hiace: 155,
+      escalade: 265,
+      sprinter: 285,
+    },
+    zone3: {
+      suburban: 185,
+      hiace: 295,
+      escalade: 185,
+      sprinter: 395,
+    },
+    zone4: {
+      suburban: 165,
+      hiace: 155,
+      escalade: 265,
+      sprinter: 285,
+    },
+    zone5: {
+      suburban: 400,
+      hiace: 380,
+      escalade: 435,
+      sprinter: 575,
+    },
+    zone6: {
+      suburban: 235,
+      hiace: 245,
+      escalade: 395,
+      sprinter: 385,
+    },
+    zone7: {
+      suburban: 370,
+      hiace: 300,
+      escalade: 510,
+      sprinter: 620,
+    },
+    zone8: {
+      suburban: 450,
+      hiace: 440,
+      escalade: 600,
+      sprinter: 840,
+    },
+    zone9: {
+      suburban: 360,
+      hiace: 290,
+      escalade: 500,
+      sprinter: 600,
+    },
+  },
+}
+
 export const hotels = [
   { label: 'Barcelo Gran Faro Los Cabos', zone: 1 },
   { label: 'Cabo Azul Resort', zone: 1 },

@@ -12,7 +12,7 @@ type ErrorLabels = {
   minimumOne: string
 }
 
-export type PrivateFormType = {
+export type PrivateForm = {
   hotel: string
   type: 'round-trip' | 'one-way'
   adults: number
@@ -58,6 +58,7 @@ export function usePrivateForm({ required, minimum, minimumOne }: ErrorLabels) {
       adults: 1,
       children: 0,
       infants: 0,
+      vehicle: 'sprinter',
     },
   })
 

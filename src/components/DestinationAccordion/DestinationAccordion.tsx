@@ -8,10 +8,10 @@ import {
 import { FormField } from '../ui/form'
 import { UseFormReturn } from 'react-hook-form'
 import { PrivateFormLabels } from '../PrivateForm/types'
-import { PrivateFormType } from '../PrivateForm/hooks'
+import { PrivateForm } from '../PrivateForm/hooks'
 
 type Props = {
-  form: UseFormReturn<PrivateFormType>
+  form: UseFormReturn<PrivateForm>
   labels: Pick<PrivateFormLabels, 'destination' | 'tripType' | 'hotel'>
 }
 
