@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormDescription,
   FormItem,
   FormLabel,
   FormMessage,
@@ -9,18 +10,19 @@ import { Input } from '../ui/input'
 export type Props = {
   labels: {
     label: string
+    description?: string
   }
   onChange: () => void
   value: number
 }
 
 function PeopleInput({ labels, onChange, value }: Props) {
-  const { label } = labels
+  const { label, description } = labels
   return (
     <FormItem className="mx-auto max-w-[300px]">
-      <div className="flex gap-2">
-        <FormLabel className="flex w-[180px] items-center justify-end text-lg font-bold">
-          {label}:
+      <div className="flex flex-col gap-2">
+        <FormLabel className="flex w-[180px] items-center justify-start font-bold">
+          {label}
         </FormLabel>
         <FormControl>
           <Input
@@ -31,6 +33,7 @@ function PeopleInput({ labels, onChange, value }: Props) {
           />
         </FormControl>
       </div>
+      {description && <FormDescription>{description}</FormDescription>}
       <FormMessage />
     </FormItem>
   )

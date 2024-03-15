@@ -40,10 +40,8 @@ function HotelSelect({ value, labels, onSelect }: Props) {
 
   return (
     <FormItem className="mx-auto max-w-[300px]">
-      <div className="flex gap-2">
-        <FormLabel className="flex items-center text-lg font-bold">
-          Hotel:
-        </FormLabel>
+      <div className="flex flex-col gap-2">
+        <FormLabel className="flex items-center font-bold">Hotel</FormLabel>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <FormControl>
@@ -52,7 +50,7 @@ function HotelSelect({ value, labels, onSelect }: Props) {
                   <div className="flex w-full items-center justify-start">
                     <Hotel className="mr-1 size-4" />
 
-                    <span className="max-w-[190px] truncate">{value}</span>
+                    <span className="max-w-[250px] truncate">{value}</span>
                   </div>
                 ) : (
                   <div className="flex w-full items-center justify-between">

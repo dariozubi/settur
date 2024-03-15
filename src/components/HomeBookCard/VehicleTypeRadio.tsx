@@ -13,7 +13,7 @@ export type Props = {
 export const VehicleTypeRadio = ({ labels, value, onChange }: Props) => {
   const { type1, type2 } = labels
   return (
-    <FormItem className="mx-auto flex max-w-[300px] flex-col items-center justify-center">
+    <FormItem className="mx-auto flex max-w-[300px] flex-col">
       <FormControl>
         <RadioGroup defaultValue={value} onValueChange={onChange}>
           <FormItem className="flex items-center space-x-2">

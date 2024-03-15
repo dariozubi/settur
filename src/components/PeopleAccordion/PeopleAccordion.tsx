@@ -18,7 +18,7 @@ function PeopleAccordion({ labels, form }: Props) {
       <AccordionTrigger>{labels.people}</AccordionTrigger>
 
       <AccordionContent className="flex justify-center border-t py-10">
-        <div className="w-[260px]">
+        <div className="w-[120px] ">
           <FormField
             control={form.control}
             name="adults"
@@ -32,7 +32,7 @@ function PeopleAccordion({ labels, form }: Props) {
           />
         </div>
 
-        <div className="w-[260px]">
+        <div className="w-[120px]">
           <FormField
             control={form.control}
             name="children"
@@ -46,7 +46,7 @@ function PeopleAccordion({ labels, form }: Props) {
           />
         </div>
 
-        <div className="w-[260px]">
+        <div className="w-[120px]">
           <FormField
             control={form.control}
             name="infants"

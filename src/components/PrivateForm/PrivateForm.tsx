@@ -16,6 +16,7 @@ type Props = {
 
 function PrivateForm({ labels }: Props) {
   const { form, onSubmit } = usePrivateForm(labels.error)
+  const type = form.watch('type')
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -29,7 +30,9 @@ function PrivateForm({ labels }: Props) {
 
           <VehicleAccordion form={form} labels={labels} />
 
-          <ArrivalAccordion form={form} labels={labels} />
+          {type !== 'airport' && (
+            <ArrivalAccordion form={form} labels={labels} />
+          )}
         </Accordion>
 
         <div className=" flex w-full justify-center">

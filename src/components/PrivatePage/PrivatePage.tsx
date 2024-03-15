@@ -25,12 +25,15 @@ function PrivatePage() {
       },
       adults: {
         label: t('PeopleInput.grown-ups'),
+        description: t('PeopleInput.grown-ups-description'),
       },
       children: {
         label: t('PeopleInput.children'),
+        description: t('PeopleInput.children-description'),
       },
       infants: {
         label: t('PeopleInput.infants'),
+        description: t('PeopleInput.infants-description'),
       },
       arrivalDate: {
         date: t('DatePicker.arrival-date'),

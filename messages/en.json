@@ -41,9 +41,12 @@
         },
         "PeopleInput": {
             "adults-number": "Number of adults",
-            "grown-ups": "Grown-ups (9+ y/o)",
-            "children": "Children (4-8 y/o)",
-            "infants": "Infants (0-3 y/o)"
+            "grown-ups": "Grown-ups",
+            "children": "Children",
+            "infants": "Infants",
+            "grown-ups-description": "9+ years",
+            "children-description": "4-8 years",
+            "infants-description": "0-3 years"
         },
         "DatePicker": {
             "arrival-date": "Arrival date",
