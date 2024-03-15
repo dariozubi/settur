@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 
 import { toast } from '@/components/ui/use-toast'
 import { PrivateFormLabels } from './types'
-import { vehicles } from '@/lib/consts'
+import { hotels, vehicles } from '@/lib/consts'
 
 export function usePrivateForm({
   required,
@@ -49,8 +49,14 @@ function useURLParams(form: UseFormReturn<any>) {
   const searchParams = useSearchParams()
   useEffect(() => {
     const hotel = searchParams.get('hotel')
-    if (hotel) form.setValue('hotel', hotel)
-    form.setValue('adults', Number(searchParams.get('adults')) || 1)
+    const adults = searchParams.get('adults')
+    if (hotel && !hotels.find(h => h.label === hotel)) {
+      form.setValue('hotel', hotel)
+    }
+    form.setValue(
+      'adults',
+      Number(adults) < vehicles.sprinter.seats ? Number(adults) : 1
+    )
   }, [form, searchParams])
 }
 
