@@ -54,9 +54,11 @@ function useURLParams(form: UseFormReturn<any>) {
 
 function useSchema({ error }: Pick<PrivateFormLabels, 'error'>) {
   const { required, minimum, minimumOne, email, phone } = error
-  const [first, ...others] = Object.keys(vehicles)
-  const phoneRegex = new RegExp(
-    /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
+  const [first, ...others] = useMemo(() => Object.keys(vehicles), [])
+  const phoneRegex = useMemo(
+    () =>
+      new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/),
+    []
   )
   const formSchema = useMemo(() => {
     const baseSchema = z.object({
@@ -115,7 +117,7 @@ function useSchema({ error }: Pick<PrivateFormLabels, 'error'>) {
         .merge(baseSchema),
     ])
     return finalSchema
-  }, [email, first, minimum, minimumOne, others, required])
+  }, [email, first, minimum, minimumOne, others, phone, phoneRegex, required])
 
   return formSchema
 }
