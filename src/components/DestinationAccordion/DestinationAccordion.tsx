@@ -1,5 +1,9 @@
-import HotelSelect from '@/components/HotelSelect'
-import TripTypeRadio from '@/components/TripTypeRadio'
+import HotelSelect, {
+  type Props as HotelSelectProps,
+} from '@/components/HotelSelect'
+import TripTypeRadio, {
+  type Props as TripTypeRadioProps,
+} from '@/components/TripTypeRadio'
 import {
   AccordionContent,
   AccordionItem,
@@ -7,11 +11,14 @@ import {
 } from '@/components/ui/accordion'
 import { FormField } from '../ui/form'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateFormLabels } from '../PrivateForm/types'
 
-type Props = {
+export type Props = {
   form: UseFormReturn<any>
-  labels: Pick<PrivateFormLabels, 'destination' | 'tripType' | 'hotel'>
+  labels: {
+    destination: string
+    hotel: HotelSelectProps['labels']
+    tripType: TripTypeRadioProps['labels']
+  }
 }
 
 function DestinationAccordion({ form, labels }: Props) {

@@ -4,13 +4,19 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { FormField } from '@/components/ui/form'
-import PeopleInput from '@/components/PeopleInput'
+import PeopleInput, {
+  type Props as PeopleInputProps,
+} from '@/components/PeopleInput'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateFormLabels } from '@/components/PrivateForm/types'
 
-type Props = {
+export type Props = {
   form: UseFormReturn<any>
-  labels: Pick<PrivateFormLabels, 'people' | 'adults' | 'children' | 'infants'>
+  labels: {
+    people: string
+    adults: PeopleInputProps['labels']
+    children: PeopleInputProps['labels']
+    infants: PeopleInputProps['labels']
+  }
 }
 function PeopleAccordion({ labels, form }: Props) {
   return (

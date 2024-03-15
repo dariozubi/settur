@@ -13,3 +13,12 @@ export type Zone =
   | 'zone7'
   | 'zone8'
   | 'zone9'
+
+export type FormErrors = {
+  required: string
+  minimumOne: string
+  minimum: string
+  email: string
+  phone: string
+  tooManyPeople: string
+}

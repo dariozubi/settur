@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateFormLabels } from '../PrivateForm/types'
+
+import { FormErrors } from '@/lib/types'
 
 export function useVehicleIndividualsValidation({
   individuals,
@@ -9,7 +10,9 @@ export function useVehicleIndividualsValidation({
 }: {
   individuals: number
   form: UseFormReturn<any>
-  labels: Pick<PrivateFormLabels, 'error'>
+  labels: {
+    error: Pick<FormErrors, 'tooManyPeople'>
+  }
 }) {
   const vehicle = form.watch('vehicle')
 

@@ -5,15 +5,17 @@ import {
 } from '@/components/ui/accordion'
 import { FormField } from '../ui/form'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateFormLabels } from '../PrivateForm/types'
-import NameInput from '../NameInput'
+import NameInput, { type Props as NameInputProps } from '../NameInput'
 
-type Props = {
+export type Props = {
   form: UseFormReturn<any>
-  labels: Pick<
-    PrivateFormLabels,
-    'user' | 'name' | 'surname' | 'email' | 'phone'
-  >
+  labels: {
+    user: string
+    name: NameInputProps['labels']
+    surname: NameInputProps['labels']
+    email: NameInputProps['labels']
+    phone: NameInputProps['labels']
+  }
 }
 
 function UserAccordion({ form, labels }: Props) {

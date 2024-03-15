@@ -5,15 +5,18 @@ import {
 } from '@/components/ui/accordion'
 import { FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateFormLabels } from '../PrivateForm/types'
 import ItemCheckbox from '../ItemCheckbox'
 
-type Props = {
+export type Props = {
   form: UseFormReturn<any>
-  labels: Pick<PrivateFormLabels, 'additionals' | 'additionalItems' | 'extras'>
+  labels: {
+    additionals: string
+    extras: string
+    additionalItems: Items
+  }
 }
 
-export type Labels = {
+type Items = {
   shopping: string
   carSeat: string
   boosterSeat: string

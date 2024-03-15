@@ -3,15 +3,22 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { FormField } from '../ui/form'
 import { UseFormReturn } from 'react-hook-form'
-import { PrivateFormLabels } from '../PrivateForm/types'
-import DatePicker from '../DatePicker'
-import FlightInput from '../FlightInput'
+import DatePicker, {
+  type Props as DatePickerProps,
+} from '@/components/DatePicker'
+import FlightInput, {
+  type Props as FlightInputProps,
+} from '@/components/FlightInput'
+import { FormField } from '../ui/form'
 
-type Props = {
+export type Props = {
   form: UseFormReturn<any>
-  labels: Pick<PrivateFormLabels, 'arrival' | 'arrivalDate' | 'flight'>
+  labels: {
+    arrival: string
+    flight: FlightInputProps['labels']
+    arrivalDate: DatePickerProps['labels']
+  }
 }
 
 function ArrivalAccordion({ form, labels }: Props) {

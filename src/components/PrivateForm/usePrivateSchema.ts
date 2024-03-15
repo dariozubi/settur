@@ -1,8 +1,8 @@
 import { z } from 'zod'
 import { useMemo } from 'react'
 
-import { PrivateFormLabels } from './types'
 import { vehicles } from '@/lib/consts'
+import { PrivateFormLabels } from './types'
 
 export function usePrivateSchema({ error }: Pick<PrivateFormLabels, 'error'>) {
   const { required, minimum, minimumOne, email, phone } = error
