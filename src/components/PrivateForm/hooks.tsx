@@ -8,16 +8,8 @@ import { toast } from '@/components/ui/use-toast'
 import { PrivateFormLabels } from './types'
 import { hotels, vehicles } from '@/lib/consts'
 
-export function usePrivateForm({
-  required,
-  minimum,
-  minimumOne,
-}: PrivateFormLabels['error']) {
-  const schema = useSchema({
-    required,
-    minimum,
-    minimumOne,
-  })
+export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
+  const schema = useSchema({ error })
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -60,17 +52,21 @@ function useURLParams(form: UseFormReturn<any>) {
   }, [form, searchParams])
 }
 
-function useSchema({
-  required,
-  minimum,
-  minimumOne,
-}: Omit<PrivateFormLabels['error'], 'tooManyPeople'>) {
+function useSchema({ error }: Pick<PrivateFormLabels, 'error'>) {
+  const { required, minimum, minimumOne, email, phone } = error
   const [first, ...others] = Object.keys(vehicles)
+  const phoneRegex = new RegExp(
+    /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
+  )
   const formSchema = useMemo(() => {
     const baseSchema = z.object({
-      hotel: z.string({
-        required_error: required,
-      }),
+      name: z.string({ required_error: required }),
+      surname: z.string({ required_error: required }),
+      email: z.string({ required_error: required }).email({ message: email }),
+      phone: z
+        .string({ required_error: required })
+        .regex(phoneRegex, { message: phone }),
+      hotel: z.string({ required_error: required }),
       adults: z.coerce
         .number({ required_error: required })
         .int()
@@ -83,9 +79,7 @@ function useSchema({
         .number({ required_error: required })
         .int()
         .min(0, { message: minimum }),
-      vehicle: z.enum([first, ...others], {
-        required_error: required,
-      }),
+      vehicle: z.enum([first, ...others], { required_error: required }),
     })
     const finalSchema = z.discriminatedUnion('type', [
       z
@@ -121,7 +115,7 @@ function useSchema({
         .merge(baseSchema),
     ])
     return finalSchema
-  }, [first, minimum, minimumOne, others, required])
+  }, [email, first, minimum, minimumOne, others, required])
 
   return formSchema
 }

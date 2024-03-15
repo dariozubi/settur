@@ -25,6 +25,12 @@
         "round-trip": "Viaje ida y vuelta"
     },
     "form": {
+        "NameInput": {
+            "name": "Nombre",
+            "surname": "Apellido",
+            "email": "Correo electrónico",
+            "phone": "Teléfono"
+        },
         "HotelSelect": {
             "select-hotel": "Elige hotel",
             "search-hotel": "Buscar hotel...",
@@ -41,9 +47,12 @@
         },
         "PeopleInput": {
             "adults-number": "Número de adultos",
-            "grown-ups": "Adultos (9+ y/o)",
-            "children": "Niños (4-8 y/o)",
-            "infants": "Infantes (0-3 y/o)"
+            "grown-ups": "Grandes",
+            "children": "Niños",
+            "infants": "Infantes",
+            "grown-ups-description": "9+ años",
+            "children-description": "4-8 años",
+            "infants-description": "0-3 años"
         },
         "DatePicker": {
             "arrival-date": "Fecha de llegada",
@@ -58,13 +67,16 @@
         "errors": {
             "required": "Este valor es requerido.",
             "minimum": "Este número debe ser al menos {value}.",
+            "email": "Correo inválido",
+            "phone": "Teléfono inválido",
             "too-many-people": "No tenemos vehículos para tantas personas. ¿Ya viste nuestra página de grupos?"
         },
-        "continue": "Continuar",
+        "user": "Usuario",
         "destination": "Destino",
         "people": "Personas",
         "vehicle": "Vehículo",
         "arrival": "Vuelo de llegada",
-        "departure": "Vuelo de salida"
+        "departure": "Vuelo de salida",
+        "continue": "Continuar"
     }
 }

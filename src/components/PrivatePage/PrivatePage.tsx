@@ -7,6 +7,19 @@ function PrivatePage() {
   const t = useTranslations('form')
   const labels: PrivateFormLabels = useMemo(
     () => ({
+      user: t('user'),
+      name: {
+        label: t('NameInput.name'),
+      },
+      surname: {
+        label: t('NameInput.surname'),
+      },
+      email: {
+        label: t('NameInput.email'),
+      },
+      phone: {
+        label: t('NameInput.phone'),
+      },
       destination: t('destination'),
       hotel: {
         selectHotel: t('HotelSelect.select-hotel'),
@@ -54,6 +67,8 @@ function PrivatePage() {
         required: t('errors.required'),
         minimumOne: t('errors.minimum', { value: 1 }),
         minimum: t('errors.minimum', { value: 0 }),
+        email: t('errors.email'),
+        phone: t('errors.phone'),
         tooManyPeople: t('errors.too-many-people'),
       },
     }),

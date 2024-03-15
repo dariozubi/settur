@@ -25,6 +25,12 @@
         "round-trip": "Round trip"
     },
     "form": {
+        "NameInput": {
+            "name": "Name",
+            "surname": "Surname",
+            "email": "Email",
+            "phone": "Phone"
+        },
         "HotelSelect": {
             "select-hotel": "Select hotel",
             "search-hotel": "Search hotel...",
@@ -61,13 +67,16 @@
         "errors": {
             "required": "This value is required.",
             "minimum": "This number must be at least {value}.",
+            "email": "Invalid email",
+            "phone": "Invalid phone",
             "too-many-people": "There's too many people for one vehicle only. Have you seen our groups page?"
         },
-        "continue": "Continue",
+        "user": "User",
         "destination": "Destination",
         "people": "People",
         "vehicle": "Vehicle",
         "arrival": "Arrival",
-        "departure": "Departure"
+        "departure": "Departure",
+        "continue": "Continue"
     }
 }

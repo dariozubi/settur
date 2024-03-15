@@ -32,7 +32,7 @@ function DatePicker({ labels, value, onChange }: Props) {
   const isEnglish = useIsEnglish()
   return (
     <FormItem className="flex flex-col">
-      <FormLabel>{labels.date}</FormLabel>
+      <FormLabel className="font-bold">{labels.date}</FormLabel>
       <Popover>
         <PopoverTrigger asChild>
           <FormControl>

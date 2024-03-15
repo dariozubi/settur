@@ -10,13 +10,14 @@ import PeopleAccordion from '../PeopleAccordion'
 import VehicleAccordion from '../VehicleAccordion'
 import ArrivalAccordion from '../ArrivalAccordion'
 import DepartureAccordion from '../DepartureAccordion'
+import UserAccordion from '../UserAccordion'
 
 type Props = {
   labels: PrivateFormLabels
 }
 
 function PrivateForm({ labels }: Props) {
-  const { form, onSubmit } = usePrivateForm(labels.error)
+  const { form, onSubmit } = usePrivateForm({ error: labels.error })
   const type = form.watch('type')
   return (
     <Form {...form}>
@@ -24,6 +25,7 @@ function PrivateForm({ labels }: Props) {
         <Accordion
           type="multiple"
           defaultValue={[
+            'user',
             'destination',
             'people',
             'vehicle',
@@ -31,6 +33,8 @@ function PrivateForm({ labels }: Props) {
             'departure',
           ]}
         >
+          <UserAccordion form={form} labels={labels} />
+
           <DestinationAccordion form={form} labels={labels} />
 
           <PeopleAccordion form={form} labels={labels} />

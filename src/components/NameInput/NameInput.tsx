@@ -3,16 +3,16 @@ import { Input } from '../ui/input'
 
 export type Props = {
   labels: {
-    flight: string
+    label: string
   }
   onChange: () => void
   value: string
 }
 
-function FlightInput({ labels, value, onChange }: Props) {
+function NameInput({ labels, value, onChange }: Props) {
   return (
     <FormItem>
-      <FormLabel className="font-bold">{labels.flight}</FormLabel>
+      <FormLabel className="font-bold">{labels.label}</FormLabel>
       <FormControl>
         <Input value={value} onChange={onChange} />
       </FormControl>
@@ -21,4 +21,4 @@ function FlightInput({ labels, value, onChange }: Props) {
   )
 }
 
-export default FlightInput
+export default NameInput
