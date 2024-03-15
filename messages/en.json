@@ -65,7 +65,7 @@
             "flight": "Flight number"
         },
         "Items": {
-            "shopping": "I want some shopping time (2hrs)",
+            "shopping": "I need some shopping time (2hrs)",
             "carSeat": "I need a car seat for babies",
             "boosterSeat": "I need a booster seat for children",
             "wheelchair": "I'm traveling with a wheelchair",
@@ -87,6 +87,7 @@
         "arrival": "Arrival",
         "departure": "Departure",
         "additionals": "Additional items",
+        "extras": "Extras you might need",
         "continue": "Continue"
     }
 }

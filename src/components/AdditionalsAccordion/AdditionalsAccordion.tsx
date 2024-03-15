@@ -10,7 +10,7 @@ import ItemCheckbox from '../ItemCheckbox'
 
 type Props = {
   form: UseFormReturn<any>
-  labels: Pick<PrivateFormLabels, 'additionals' | 'additionalItems'>
+  labels: Pick<PrivateFormLabels, 'additionals' | 'additionalItems' | 'extras'>
 }
 
 export type Labels = {
@@ -44,9 +44,7 @@ function AdditionalsAccordion({ form, labels }: Props) {
           render={() => (
             <FormItem className="space-y-6">
               <div className="mb-4">
-                <FormLabel className="text-base">
-                  {labels.additionals}
-                </FormLabel>
+                <FormLabel className="text-base">{labels.extras}</FormLabel>
               </div>
               {items.map(item => (
                 <FormField

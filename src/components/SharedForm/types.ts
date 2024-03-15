@@ -6,7 +6,7 @@ import type { Props as FlightInputProps } from '@/components/FlightInput'
 import type { Props as NameInputProps } from '@/components/NameInput'
 import type { Labels as AdditionalItemsLabels } from '@/components/AdditionalsAccordion'
 
-export type PrivateFormLabels = {
+export type SharedFormLabels = {
   user: string
   name: NameInputProps['labels']
   surname: NameInputProps['labels']
@@ -19,14 +19,13 @@ export type PrivateFormLabels = {
   adults: PeopleInputProps['labels']
   children: PeopleInputProps['labels']
   infants: PeopleInputProps['labels']
-  vehicle: string
   arrival: string
+  extras: string
   departure: string
   arrivalDate: DatePickerProps['labels']
   departureDate: DatePickerProps['labels']
   flight: FlightInputProps['labels']
   additionals: string
-  extras: string
   additionalItems: AdditionalItemsLabels
   submit: string
   error: {
@@ -35,6 +34,5 @@ export type PrivateFormLabels = {
     minimum: string
     email: string
     phone: string
-    tooManyPeople: string
   }
 }
