@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { Accordion } from '@/components/ui/accordion'
+import Accordion from '@/components/Accordion'
 import { SharedFormLabels } from './types'
 import DestinationAccordion from '../DestinationAccordion'
 import PeopleAccordion from '../PeopleAccordion'

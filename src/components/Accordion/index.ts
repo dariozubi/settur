@@ -1,0 +1,5 @@
+export * from './Accordion'
+export * from './AccordionContent'
+export * from './AccordionItem'
+export * from './AccordionTrigger'
+export { default } from './Accordion'

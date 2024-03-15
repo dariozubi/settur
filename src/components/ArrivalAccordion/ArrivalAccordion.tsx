@@ -2,7 +2,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion'
+} from '@/components/Accordion'
 import { UseFormReturn } from 'react-hook-form'
 import DatePicker, {
   type Props as DatePickerProps,

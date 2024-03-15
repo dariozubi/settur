@@ -2,7 +2,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion'
+} from '@/components/Accordion'
 import { FormField } from '@/components/ui/form'
 import PeopleInput, {
   type Props as PeopleInputProps,

@@ -2,7 +2,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion'
+} from '@/components/Accordion'
 import { FormField } from '../ui/form'
 import { UseFormReturn } from 'react-hook-form'
 import NameInput, { type Props as NameInputProps } from '../NameInput'
