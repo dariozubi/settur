@@ -47,6 +47,7 @@
         },
         "DatePicker": {
             "arrival-date": "Fecha de llegada",
+            "departure-date": "Fecha de salida",
             "pick-date": "Seleccona una fecha",
             "hours": "Hora",
             "minutes": "Minutos"
@@ -63,6 +64,7 @@
         "destination": "Destino",
         "people": "Personas",
         "vehicle": "Vehículo",
-        "arrival": "Llegada"
+        "arrival": "Vuelo de llegada",
+        "departure": "Vuelo de salida"
     }
 }

@@ -9,6 +9,7 @@ import DestinationAccordion from '../DestinationAccordion'
 import PeopleAccordion from '../PeopleAccordion'
 import VehicleAccordion from '../VehicleAccordion'
 import ArrivalAccordion from '../ArrivalAccordion'
+import DepartureAccordion from '../DepartureAccordion'
 
 type Props = {
   labels: PrivateFormLabels
@@ -22,7 +23,13 @@ function PrivateForm({ labels }: Props) {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Accordion
           type="multiple"
-          defaultValue={['destination', 'people', 'vehicle', 'arrival']}
+          defaultValue={[
+            'destination',
+            'people',
+            'vehicle',
+            'arrival',
+            'departure',
+          ]}
         >
           <DestinationAccordion form={form} labels={labels} />
 
@@ -32,6 +39,10 @@ function PrivateForm({ labels }: Props) {
 
           {type !== 'airport' && (
             <ArrivalAccordion form={form} labels={labels} />
+          )}
+
+          {type !== 'hotel' && (
+            <DepartureAccordion form={form} labels={labels} />
           )}
         </Accordion>
 

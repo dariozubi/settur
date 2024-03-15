@@ -50,6 +50,7 @@
         },
         "DatePicker": {
             "arrival-date": "Arrival date",
+            "departure-date": "Departure date",
             "pick-date": "Pick a date",
             "hours": "Hour",
             "minutes": "Minutes"
@@ -66,6 +67,7 @@
         "destination": "Destination",
         "people": "People",
         "vehicle": "Vehicle",
-        "arrival": "Arrival"
+        "arrival": "Arrival",
+        "departure": "Departure"
     }
 }

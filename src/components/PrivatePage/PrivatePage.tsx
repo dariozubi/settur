@@ -7,12 +7,7 @@ function PrivatePage() {
   const t = useTranslations('form')
   const labels: PrivateFormLabels = useMemo(
     () => ({
-      error: {
-        required: t('errors.required'),
-        minimumOne: t('errors.minimum', { value: 1 }),
-        minimum: t('errors.minimum', { value: 0 }),
-        tooManyPeople: t('errors.too-many-people'),
-      },
+      destination: t('destination'),
       hotel: {
         selectHotel: t('HotelSelect.select-hotel'),
         searchHotel: t('HotelSelect.search-hotel'),
@@ -23,6 +18,7 @@ function PrivatePage() {
         airport: t('TripTypeRadio.airport'),
         hotel: t('TripTypeRadio.hotel'),
       },
+      people: t('people'),
       adults: {
         label: t('PeopleInput.grown-ups'),
         description: t('PeopleInput.grown-ups-description'),
@@ -35,20 +31,31 @@ function PrivatePage() {
         label: t('PeopleInput.infants'),
         description: t('PeopleInput.infants-description'),
       },
+      vehicle: t('vehicle'),
+      arrival: t('arrival'),
+      departure: t('departure'),
       arrivalDate: {
         date: t('DatePicker.arrival-date'),
         pickDate: t('DatePicker.pick-date'),
         hours: t('hours'),
         minutes: t('minutes'),
       },
-      arrivalFlight: {
+      departureDate: {
+        date: t('DatePicker.departure-date'),
+        pickDate: t('DatePicker.pick-date'),
+        hours: t('hours'),
+        minutes: t('minutes'),
+      },
+      flight: {
         flight: t('FlightInput.flight'),
       },
       submit: t('continue'),
-      destination: t('destination'),
-      people: t('people'),
-      vehicle: t('vehicle'),
-      arrival: t('arrival'),
+      error: {
+        required: t('errors.required'),
+        minimumOne: t('errors.minimum', { value: 1 }),
+        minimum: t('errors.minimum', { value: 0 }),
+        tooManyPeople: t('errors.too-many-people'),
+      },
     }),
     [t]
   )

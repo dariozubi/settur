@@ -11,22 +11,22 @@ import FlightInput from '../FlightInput'
 
 type Props = {
   form: UseFormReturn<any>
-  labels: Pick<PrivateFormLabels, 'arrival' | 'arrivalDate' | 'flight'>
+  labels: Pick<PrivateFormLabels, 'departure' | 'departureDate' | 'flight'>
 }
 
-function ArrivalAccordion({ form, labels }: Props) {
+function DepartureAccordion({ form, labels }: Props) {
   return (
-    <AccordionItem value="arrival">
-      <AccordionTrigger>{labels.arrival}</AccordionTrigger>
+    <AccordionItem value="departure">
+      <AccordionTrigger>{labels.departure}</AccordionTrigger>
 
       <AccordionContent className="flex items-center justify-center gap-6 border-t py-10">
         <div className="w-[300px]">
           <FormField
             control={form.control}
-            name="arrivalDate"
+            name="departureDate"
             render={({ field }) => (
               <DatePicker
-                labels={labels.arrivalDate}
+                labels={labels.departureDate}
                 value={field.value}
                 onChange={field.onChange}
               />
@@ -37,7 +37,7 @@ function ArrivalAccordion({ form, labels }: Props) {
         <div className="w-[300px]">
           <FormField
             control={form.control}
-            name="arrivalFlight"
+            name="departureFlight"
             render={({ field }) => (
               <FlightInput
                 labels={labels.flight}
@@ -52,4 +52,4 @@ function ArrivalAccordion({ form, labels }: Props) {
   )
 }
 
-export default ArrivalAccordion
+export default DepartureAccordion

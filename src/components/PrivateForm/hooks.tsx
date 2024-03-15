@@ -89,6 +89,10 @@ function useSchema({
             required_error: required,
           }),
           arrivalFlight: z.string({ required_error: required }),
+          departureDate: z.date({
+            required_error: required,
+          }),
+          departureFlight: z.string({ required_error: required }),
         })
         .merge(baseSchema),
       z
@@ -103,6 +107,10 @@ function useSchema({
       z
         .object({
           type: z.literal('airport'),
+          departureDate: z.date({
+            required_error: required,
+          }),
+          departureFlight: z.string({ required_error: required }),
         })
         .merge(baseSchema),
     ])
