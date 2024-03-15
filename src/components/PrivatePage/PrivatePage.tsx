@@ -50,17 +50,27 @@ function PrivatePage() {
       arrivalDate: {
         date: t('DatePicker.arrival-date'),
         pickDate: t('DatePicker.pick-date'),
-        hours: t('hours'),
-        minutes: t('minutes'),
+        hours: t('DatePicker.hours'),
+        minutes: t('DatePicker.minutes'),
       },
       departureDate: {
         date: t('DatePicker.departure-date'),
         pickDate: t('DatePicker.pick-date'),
-        hours: t('hours'),
-        minutes: t('minutes'),
+        hours: t('DatePicker.hours'),
+        minutes: t('DatePicker.minutes'),
       },
       flight: {
         flight: t('FlightInput.flight'),
+      },
+      additionals: t('additionals'),
+      additionalItems: {
+        shopping: t('Items.shopping'),
+        carSeat: t('Items.carSeat'),
+        boosterSeat: t('Items.boosterSeat'),
+        wheelchair: t('Items.wheelchair'),
+        kayak: t('Items.kayak'),
+        bicycle: t('Items.bicycle'),
+        surfTable: t('Items.surfTable'),
       },
       submit: t('continue'),
       error: {

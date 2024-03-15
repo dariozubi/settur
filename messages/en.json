@@ -64,6 +64,15 @@
         "FlightInput": {
             "flight": "Flight number"
         },
+        "Items": {
+            "shopping": "I want some shopping time (2hrs)",
+            "carSeat": "I need a car seat for babies",
+            "boosterSeat": "I need a booster seat for children",
+            "wheelchair": "I'm traveling with a wheelchair",
+            "kayak": "I'm traveling with a kayak",
+            "bicycle": "I'm traveling with a bicycle",
+            "surfTable": "I'm traveling with a surf table"
+        },
         "errors": {
             "required": "This value is required.",
             "minimum": "This number must be at least {value}.",
@@ -77,6 +86,7 @@
         "vehicle": "Vehicle",
         "arrival": "Arrival",
         "departure": "Departure",
+        "additionals": "Additional items",
         "continue": "Continue"
     }
 }

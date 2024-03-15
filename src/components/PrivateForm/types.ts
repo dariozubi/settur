@@ -4,6 +4,7 @@ import type { Props as PeopleInputProps } from '@/components/PeopleInput'
 import type { Props as DatePickerProps } from '@/components/DatePicker'
 import type { Props as FlightInputProps } from '@/components/FlightInput'
 import type { Props as NameInputProps } from '@/components/NameInput'
+import type { Labels as AdditionalItemsLabels } from '@/components/AdditionalsAccordion'
 
 export type PrivateFormLabels = {
   user: string
@@ -24,6 +25,8 @@ export type PrivateFormLabels = {
   arrivalDate: DatePickerProps['labels']
   departureDate: DatePickerProps['labels']
   flight: FlightInputProps['labels']
+  additionals: string
+  additionalItems: AdditionalItemsLabels
   submit: string
   error: {
     required: string

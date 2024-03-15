@@ -1,58 +1,10 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { UseFormReturn, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { useEffect, useMemo } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useMemo } from 'react'
 
-import { toast } from '@/components/ui/use-toast'
 import { PrivateFormLabels } from './types'
-import { hotels, vehicles } from '@/lib/consts'
+import { vehicles } from '@/lib/consts'
 
-export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
-  const schema = useSchema({ error })
-  const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      type: 'round-trip',
-      adults: 1,
-      children: 0,
-      infants: 0,
-      vehicle: 'sprinter',
-    },
-  })
-
-  useURLParams(form)
-
-  function onSubmit(data: z.infer<typeof schema>) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
-  }
-
-  return { form, onSubmit }
-}
-
-function useURLParams(form: UseFormReturn<any>) {
-  const searchParams = useSearchParams()
-  useEffect(() => {
-    const hotel = searchParams.get('hotel')
-    const adults = searchParams.get('adults')
-    if (hotel && !hotels.find(h => h.label === hotel)) {
-      form.setValue('hotel', hotel)
-    }
-    form.setValue(
-      'adults',
-      Number(adults) < vehicles.sprinter.seats ? Number(adults) : 1
-    )
-  }, [form, searchParams])
-}
-
-function useSchema({ error }: Pick<PrivateFormLabels, 'error'>) {
+export function usePrivateSchema({ error }: Pick<PrivateFormLabels, 'error'>) {
   const { required, minimum, minimumOne, email, phone } = error
   const [first, ...others] = useMemo(() => Object.keys(vehicles), [])
   const phoneRegex = useMemo(
@@ -82,6 +34,7 @@ function useSchema({ error }: Pick<PrivateFormLabels, 'error'>) {
         .int()
         .min(0, { message: minimum }),
       vehicle: z.enum([first, ...others], { required_error: required }),
+      items: z.array(z.string()),
     })
     const finalSchema = z.discriminatedUnion('type', [
       z

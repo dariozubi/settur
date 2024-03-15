@@ -4,13 +4,14 @@ import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Accordion } from '@/components/ui/accordion'
 import { PrivateFormLabels } from './types'
-import { usePrivateForm } from './hooks'
 import DestinationAccordion from '../DestinationAccordion'
 import PeopleAccordion from '../PeopleAccordion'
 import VehicleAccordion from '../VehicleAccordion'
 import ArrivalAccordion from '../ArrivalAccordion'
 import DepartureAccordion from '../DepartureAccordion'
 import UserAccordion from '../UserAccordion'
+import AdditionalsAccordion from '../AdditionalsAccordion'
+import { usePrivateForm } from './usePrivateForm'
 
 type Props = {
   labels: PrivateFormLabels
@@ -39,8 +40,6 @@ function PrivateForm({ labels }: Props) {
 
           <PeopleAccordion form={form} labels={labels} />
 
-          <VehicleAccordion form={form} labels={labels} />
-
           {type !== 'airport' && (
             <ArrivalAccordion form={form} labels={labels} />
           )}
@@ -48,6 +47,10 @@ function PrivateForm({ labels }: Props) {
           {type !== 'hotel' && (
             <DepartureAccordion form={form} labels={labels} />
           )}
+
+          <VehicleAccordion form={form} labels={labels} />
+
+          <AdditionalsAccordion form={form} labels={labels} />
         </Accordion>
 
         <div className=" flex w-full justify-center">
