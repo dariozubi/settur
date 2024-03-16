@@ -1,20 +1,20 @@
 'use client'
 
+import { ReactNode } from 'react'
 import Image from 'next/image'
 import { Mail, Phone } from 'lucide-react'
-import {
-  NavigationMenu,
+
+import NavigationMenu, {
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from '../ui/navigation-menu'
+} from '@/components/NavigationMenu'
 import { Link } from '@/navigation'
-import { LanguageSelector } from './LanguageSelector'
-import { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
+import { LanguageSelector } from './LanguageSelector'
 
 type Props = {
   about: ReactNode
