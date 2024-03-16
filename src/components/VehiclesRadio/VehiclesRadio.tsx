@@ -1,8 +1,9 @@
 import Image from 'next/image'
+import { User } from 'lucide-react'
+
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { FormControl, FormItem, FormMessage } from '@/components/ui/form'
-import { User } from 'lucide-react'
+import { FormControl, FormItem, FormMessage } from '@/components/Form'
 import { privateRates, trips, vehicles } from '@/lib/consts'
 import { Zone } from '@/lib/types'
 

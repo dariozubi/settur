@@ -1,6 +1,6 @@
 'use client'
 
-import { Form } from '@/components/ui/form'
+import Form from '@/components/Form'
 import Button from '@/components/Button'
 import Accordion from '@/components/Accordion'
 import DestinationAccordion from '@/components/DestinationAccordion'

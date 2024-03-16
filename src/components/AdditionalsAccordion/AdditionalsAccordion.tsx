@@ -1,11 +1,12 @@
+import { UseFormReturn } from 'react-hook-form'
+
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/Accordion'
-import { FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
-import { UseFormReturn } from 'react-hook-form'
-import ItemCheckbox from '../ItemCheckbox'
+import { FormField, FormItem, FormLabel, FormMessage } from '@/components/Form'
+import ItemCheckbox from '@/components/ItemCheckbox'
 
 export type Props = {
   form: UseFormReturn<any>

@@ -1,5 +1,10 @@
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
-import { FormControl, FormItem, FormLabel, FormMessage } from '../ui/form'
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/Form'
 
 export type Props = {
   labels: {

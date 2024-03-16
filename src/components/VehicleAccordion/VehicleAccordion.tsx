@@ -3,9 +3,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/Accordion'
-import { FormField } from '../ui/form'
+import { FormField } from '@/components/Form'
 import { UseFormReturn } from 'react-hook-form'
-import VehiclesRadio from '../VehiclesRadio'
+import VehiclesRadio from '@/components/VehiclesRadio'
 import { hotels } from '@/lib/consts'
 import { FormErrors, Zone } from '@/lib/types'
 import { useVehicleIndividualsValidation } from './hooks'

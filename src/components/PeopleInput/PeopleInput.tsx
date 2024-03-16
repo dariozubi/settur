@@ -4,7 +4,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
+} from '@/components/Form'
 import { Input } from '../ui/input'
 
 export type Props = {

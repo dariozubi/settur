@@ -1,16 +1,17 @@
+import { UseFormReturn } from 'react-hook-form'
+
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/Accordion'
-import { UseFormReturn } from 'react-hook-form'
 import DatePicker, {
   type Props as DatePickerProps,
 } from '@/components/DatePicker'
 import FlightInput, {
   type Props as FlightInputProps,
 } from '@/components/FlightInput'
-import { FormField } from '../ui/form'
+import { FormField } from '@/components/Form'
 
 export type Props = {
   form: UseFormReturn<any>

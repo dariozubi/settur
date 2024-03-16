@@ -1,5 +1,8 @@
 'use client'
 
+import { useState } from 'react'
+import { ChevronsUpDown, Hotel } from 'lucide-react'
+
 import Button from '@/components/Button'
 import Command, {
   CommandEmpty,
@@ -14,9 +17,12 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { hotels } from '@/lib/consts'
-import { ChevronsUpDown, Hotel } from 'lucide-react'
-import { FormControl, FormItem, FormLabel, FormMessage } from '../ui/form'
-import { useState } from 'react'
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/Form'
 
 export type Props = {
   labels: {

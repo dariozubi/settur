@@ -1,11 +1,12 @@
+import { UseFormReturn } from 'react-hook-form'
+
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/Accordion'
-import { FormField } from '../ui/form'
-import { UseFormReturn } from 'react-hook-form'
-import NameInput, { type Props as NameInputProps } from '../NameInput'
+import { FormField } from '@/components/Form'
+import NameInput, { type Props as NameInputProps } from '@/components/NameInput'
 
 export type Props = {
   form: UseFormReturn<any>

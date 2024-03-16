@@ -1,4 +1,4 @@
-import { FormControl, FormItem, FormLabel } from '../ui/form'
+import { FormControl, FormItem, FormLabel } from '@/components/Form'
 import Checkbox from '@/components/Checkbox'
 
 export type Props = {

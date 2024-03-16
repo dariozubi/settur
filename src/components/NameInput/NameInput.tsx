@@ -1,4 +1,9 @@
-import { FormControl, FormItem, FormLabel, FormMessage } from '../ui/form'
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/Form'
 import { Input } from '../ui/input'
 
 export type Props = {

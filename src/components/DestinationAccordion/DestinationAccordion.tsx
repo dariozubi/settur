@@ -1,3 +1,5 @@
+import { UseFormReturn } from 'react-hook-form'
+
 import HotelSelect, {
   type Props as HotelSelectProps,
 } from '@/components/HotelSelect'
@@ -9,8 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/Accordion'
-import { FormField } from '../ui/form'
-import { UseFormReturn } from 'react-hook-form'
+import { FormField } from '@/components/Form'
 
 export type Props = {
   form: UseFormReturn<any>

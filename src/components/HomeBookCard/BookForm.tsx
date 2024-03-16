@@ -1,10 +1,10 @@
 'use client'
 
 import Button from '@/components/Button'
-import { Form, FormField } from '@/components/ui/form'
+import Form, { FormField } from '@/components/Form'
 import HotelSelect from '@/components/HotelSelect'
-import { VehicleTypeRadio } from './VehicleTypeRadio'
 import PeopleInput from '@/components/PeopleInput'
+import { VehicleTypeRadio } from './VehicleTypeRadio'
 import { useBookForm } from './hooks'
 import { BookFormLabels } from './types'
 
