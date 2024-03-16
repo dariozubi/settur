@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import { Root } from '@radix-ui/react-label'
 
 import { cn } from '@/lib/utils'
-import { Label } from '@/components/ui/label'
+import Label from '@/components/Label'
 import { useFormField } from './useFormField'
 
 export const FormLabel = forwardRef<

@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Clock } from 'lucide-react'
-import { Label } from '@/components/ui/label'
+import Label from '@/components/Label'
 import { TimePickerInput } from '../ui/time-picker'
 import type { Props } from './DatePicker'
 
