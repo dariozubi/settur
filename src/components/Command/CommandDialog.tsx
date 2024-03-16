@@ -1,5 +1,5 @@
 import { type DialogProps } from '@radix-ui/react-dialog'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import Dialog, { DialogContent } from '@/components/Dialog'
 import Command from './Command'
 
 interface CommandDialogProps extends DialogProps {}
