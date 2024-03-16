@@ -1,14 +1,13 @@
 'use client'
 
 import Button from '@/components/Button'
-import {
-  Command,
+import Command, {
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
+} from '@/components/Command'
 import {
   Popover,
   PopoverContent,
