@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css'
-import { locales } from '@/i18n'
 import NavigationBar from '@/components/NavigationBar'
 import Footer from '@/components/Footer'
+import Toaster from '@/components/Toaster'
+import { locales } from '@/i18n'
 import { cn } from '@/lib/utils'
-import { Toaster } from '@/components/ui/toaster'
+import './globals.css'
 
 export const runtime = 'edge'
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })

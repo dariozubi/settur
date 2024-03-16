@@ -9,7 +9,7 @@ import Toast, {
   useToast,
 } from '@/components/Toast'
 
-export function Toaster() {
+function Toaster() {
   const { toasts } = useToast()
 
   return (
@@ -32,3 +32,5 @@ export function Toaster() {
     </ToastProvider>
   )
 }
+
+export default Toaster
