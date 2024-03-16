@@ -1,9 +1,10 @@
-import Text from '@/components/Text'
-import { Card, CardContent, CardHeader } from '../ui/card'
-import { useTranslations } from 'next-intl'
-import { BookForm } from './BookForm'
 import { useMemo } from 'react'
+import { useTranslations } from 'next-intl'
+
+import Text from '@/components/Text'
+import Card, { CardContent, CardHeader } from '@/components/Card'
 import { BookFormLabels } from './types'
+import { BookForm } from './BookForm'
 
 function HomeBookCard() {
   const t = useTranslations('form')

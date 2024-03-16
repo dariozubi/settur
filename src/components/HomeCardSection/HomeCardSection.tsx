@@ -1,13 +1,13 @@
+import { useTranslations } from 'next-intl'
+import Image from 'next/image'
+
 import Text from '@/components/Text'
-import {
-  Card,
+import Card, {
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '../ui/card'
-import { useTranslations } from 'next-intl'
-import Image from 'next/image'
+} from '@/components/Card'
 import Button from '@/components/Button'
 import { vehicles } from '@/lib/consts'
 
