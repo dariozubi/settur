@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { toast } from '@/components/ui/use-toast'
+import { toast } from '@/components/Toast'
 import { SharedFormLabels } from './types'
 import { useSharedSchema } from './useSharedSchema'
 import { useSharedURLParams } from './useSharedURLParams'
@@ -12,6 +12,12 @@ export function useSharedForm({ error }: Pick<SharedFormLabels, 'error'>) {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
+      name: '',
+      surname: '',
+      email: '',
+      phone: '',
+      arrivalFlight: '',
+      departureFlight: '',
       type: 'round-trip',
       adults: 1,
       children: 0,

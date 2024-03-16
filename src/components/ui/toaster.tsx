@@ -1,14 +1,13 @@
-"use client"
+'use client'
 
-import {
-  Toast,
+import Toast, {
   ToastClose,
   ToastDescription,
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "@/components/ui/toast"
-import { useToast } from "@/components/ui/use-toast"
+  useToast,
+} from '@/components/Toast'
 
 export function Toaster() {
   const { toasts } = useToast()

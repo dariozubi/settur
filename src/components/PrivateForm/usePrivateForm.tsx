@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { toast } from '@/components/ui/use-toast'
+import { toast } from '@/components/Toast'
 import { PrivateFormLabels } from './types'
 import { usePrivateSchema } from './usePrivateSchema'
 import { usePrivateURLParams } from './usePrivateURLParams'
@@ -12,6 +12,12 @@ export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
+      name: '',
+      surname: '',
+      email: '',
+      phone: '',
+      arrivalFlight: '',
+      departureFlight: '',
       type: 'round-trip',
       adults: 1,
       children: 0,
