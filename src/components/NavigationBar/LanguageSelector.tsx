@@ -1,9 +1,9 @@
 'use client'
 
-import { usePathname, useRouter } from '@/navigation'
-
-import { Button } from '../ui/button'
 import { Earth } from 'lucide-react'
+
+import { usePathname, useRouter } from '@/navigation'
+import Button from '@/components/Button'
 import { useIsEnglish } from '@/lib/hooks'
 
 export const LanguageSelector = () => {

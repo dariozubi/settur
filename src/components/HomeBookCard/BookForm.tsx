@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import Button from '@/components/Button'
 import { Form, FormField } from '@/components/ui/form'
 import HotelSelect from '@/components/HotelSelect'
 import { VehicleTypeRadio } from './VehicleTypeRadio'

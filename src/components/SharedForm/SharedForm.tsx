@@ -1,15 +1,15 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
+import Button from '@/components/Button'
 import Accordion from '@/components/Accordion'
+import DestinationAccordion from '@/components/DestinationAccordion'
+import PeopleAccordion from '@/components/PeopleAccordion'
+import ArrivalAccordion from '@/components/ArrivalAccordion'
+import DepartureAccordion from '@/components/DepartureAccordion'
+import UserAccordion from '@/components/UserAccordion'
+import AdditionalsAccordion from '@/components/AdditionalsAccordion'
 import { SharedFormLabels } from './types'
-import DestinationAccordion from '../DestinationAccordion'
-import PeopleAccordion from '../PeopleAccordion'
-import ArrivalAccordion from '../ArrivalAccordion'
-import DepartureAccordion from '../DepartureAccordion'
-import UserAccordion from '../UserAccordion'
-import AdditionalsAccordion from '../AdditionalsAccordion'
 import { useSharedForm } from './useSharedForm'
 
 type Props = {

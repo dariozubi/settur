@@ -8,7 +8,7 @@ import {
 } from '../ui/card'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { Button } from '../ui/button'
+import Button from '@/components/Button'
 import { vehicles } from '@/lib/consts'
 
 function HomeCardSection() {
