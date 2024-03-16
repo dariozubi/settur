@@ -1,5 +1,5 @@
 import { FormControl, FormItem, FormLabel } from '../ui/form'
-import { Checkbox } from '../ui/checkbox'
+import Checkbox from '@/components/Checkbox'
 
 export type Props = {
   label: string
