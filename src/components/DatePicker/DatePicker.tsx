@@ -7,7 +7,7 @@ import { es, enUS } from 'date-fns/locale'
 
 import { cn } from '@/lib/utils'
 import Button from '@/components/Button'
-import { Calendar } from '@/components/ui/calendar'
+import Calendar from '@/components/Calendar'
 import {
   Popover,
   PopoverContent,
