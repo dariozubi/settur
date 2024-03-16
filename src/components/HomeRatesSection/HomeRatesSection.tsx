@@ -1,14 +1,13 @@
 import { rates } from '@/lib/consts'
-import Text from '../Text'
-import {
-  Table,
+import Text from '@/components/Text'
+import Table, {
   TableBody,
   TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from '../ui/table'
+} from '@/components/Table'
 import { useTranslations } from 'next-intl'
 
 function HomeRatesSection() {
