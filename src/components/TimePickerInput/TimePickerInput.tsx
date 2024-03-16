@@ -1,18 +1,25 @@
 'use client'
 // from https://time.openstatus.dev/#time-picker-input.tsx
 
-import React from 'react'
+import React, {
+  KeyboardEvent,
+  InputHTMLAttributes,
+  forwardRef,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import {
   TimePickerType,
   getArrowByType,
   getDateByType,
   setDateByType,
-} from '../../lib/time-picker-utils'
+} from './utils'
 import Input from '@/components/Input'
 
 import { cn } from '@/lib/utils'
 export interface TimePickerInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+  extends InputHTMLAttributes<HTMLInputElement> {
   picker: TimePickerType
   date: Date | undefined
   setDate: (_date: Date | undefined) => void
@@ -20,10 +27,7 @@ export interface TimePickerInputProps
   onLeftFocus?: () => void
 }
 
-const TimePickerInput = React.forwardRef<
-  HTMLInputElement,
-  TimePickerInputProps
->(
+const TimePickerInput = forwardRef<HTMLInputElement, TimePickerInputProps>(
   (
     {
       className,
@@ -42,13 +46,13 @@ const TimePickerInput = React.forwardRef<
     },
     ref
   ) => {
-    const [flag, setFlag] = React.useState<boolean>(false)
+    const [flag, setFlag] = useState<boolean>(false)
 
     /**
      * allow the user to enter the second digit within 2 seconds
      * otherwise start again with entering first digit
      */
-    React.useEffect(() => {
+    useEffect(() => {
       if (flag) {
         const timer = setTimeout(() => {
           setFlag(false)
@@ -58,12 +62,12 @@ const TimePickerInput = React.forwardRef<
       }
     }, [flag])
 
-    const calculatedValue = React.useMemo(
+    const calculatedValue = useMemo(
       () => getDateByType(date, picker),
       [date, picker]
     )
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Tab') return
       e.preventDefault()
       if (e.key === 'ArrowRight') onRightFocus?.()
@@ -114,4 +118,4 @@ const TimePickerInput = React.forwardRef<
 
 TimePickerInput.displayName = 'TimePickerInput'
 
-export { TimePickerInput }
+export default TimePickerInput

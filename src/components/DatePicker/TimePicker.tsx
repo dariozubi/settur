@@ -1,9 +1,10 @@
 'use client'
 
-import * as React from 'react'
+import { useRef } from 'react'
 import { Clock } from 'lucide-react'
+
 import Label from '@/components/Label'
-import { TimePickerInput } from '../ui/time-picker'
+import TimePickerInput from '@/components/TimePickerInput'
 import type { Props } from './DatePicker'
 
 interface TimePickerDemoProps {
@@ -13,8 +14,8 @@ interface TimePickerDemoProps {
 }
 
 export const TimePicker = ({ date, setDate, labels }: TimePickerDemoProps) => {
-  const minuteRef = React.useRef<HTMLInputElement>(null)
-  const hourRef = React.useRef<HTMLInputElement>(null)
+  const minuteRef = useRef<HTMLInputElement>(null)
+  const hourRef = useRef<HTMLInputElement>(null)
 
   return (
     <div className="flex items-end gap-2">
