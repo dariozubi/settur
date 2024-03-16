@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { User } from 'lucide-react'
 
 import Label from '@/components/Label'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import RadioGroup, { RadioGroupItem } from '@/components/RadioGroup'
 import { FormControl, FormItem, FormMessage } from '@/components/Form'
 import { privateRates, trips, vehicles } from '@/lib/consts'
 import { Zone } from '@/lib/types'

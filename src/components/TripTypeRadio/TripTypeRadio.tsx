@@ -1,4 +1,4 @@
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
+import RadioGroup, { RadioGroupItem } from '@/components/RadioGroup'
 import {
   FormControl,
   FormItem,
