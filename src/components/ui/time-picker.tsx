@@ -1,8 +1,6 @@
 'use client'
 // from https://time.openstatus.dev/#time-picker-input.tsx
-import { Input } from '@/components/ui/input'
 
-import { cn } from '@/lib/utils'
 import React from 'react'
 import {
   TimePickerType,
@@ -10,7 +8,9 @@ import {
   getDateByType,
   setDateByType,
 } from '../../lib/time-picker-utils'
+import Input from '@/components/Input'
 
+import { cn } from '@/lib/utils'
 export interface TimePickerInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   picker: TimePickerType
