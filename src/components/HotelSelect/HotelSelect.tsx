@@ -11,18 +11,14 @@ import Command, {
   CommandItem,
   CommandList,
 } from '@/components/Command'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { hotels } from '@/lib/consts'
+import Popover, { PopoverContent, PopoverTrigger } from '@/components/Popover'
 import {
   FormControl,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/Form'
+import { hotels } from '@/lib/consts'
 
 export type Props = {
   labels: {
