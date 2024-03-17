@@ -1,8 +1,10 @@
 import HomePage from '@/components/HomePage'
-import { PageProps } from '@/lib/types'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import MainLayout from '@/components/MainLayout'
 
-export default function Home({ params: { locale } }: PageProps) {
-  unstable_setRequestLocale(locale)
-  return <HomePage />
+export default function Home() {
+  return (
+    <MainLayout>
+      <HomePage />
+    </MainLayout>
+  )
 }

@@ -1,8 +1,6 @@
-import { usePathname as useNextPathname } from 'next/navigation'
+import { useLocale } from 'next-intl'
 
 export function useIsEnglish() {
-  const nextPathname = useNextPathname()
-  const isEnglish = nextPathname?.substring(0, 3) === '/en'
-
-  return isEnglish
+  const locale = useLocale()
+  return locale === 'en'
 }

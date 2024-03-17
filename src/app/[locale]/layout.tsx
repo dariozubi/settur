@@ -1,13 +1,11 @@
+import { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import NavigationBar from '@/components/NavigationBar'
-import Footer from '@/components/Footer'
-import Toaster from '@/components/Toaster'
-import { locales } from '@/i18n'
-import { cn } from '@/lib/utils'
-import './globals.css'
 
-export const runtime = 'edge'
+import { cn } from '@/lib/utils'
+import '../globals.css'
+import { NextIntlClientProvider, useMessages } from 'next-intl'
+
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
@@ -15,30 +13,26 @@ export const metadata: Metadata = {
   description: 'Ground transportation services',
 }
 
-export default function LocaleLayout({
-  children,
-  params: { locale },
-}: {
-  children: React.ReactNode
+type Props = {
+  children: ReactNode
   params: { locale: string }
-}) {
+}
+
+export default function LocaleLayout({ children, params: { locale } }: Props) {
+  const messages = useMessages()
+
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale}>
       <body
         className={cn(
           'bg-background min-h-screen font-sans antialiased',
           fontSans.variable
         )}
       >
-        <NavigationBar />
-        <main className="w-full">{children}</main>
-        <Footer />
-        <Toaster />
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   )
-}
-
-export function generateStaticParams() {
-  return locales.map(locale => ({ locale }))
 }
