@@ -36,7 +36,7 @@ function HomeCardSection() {
                   src="/img/escalade.png"
                   alt={t('private')}
                   fill
-                  className="object-contain"
+                  className="pointer-events-none object-contain"
                   sizes="(max-width: 1280px) 100vw, 33vw"
                 />
               </div>
@@ -64,7 +64,7 @@ function HomeCardSection() {
                   src="/img/sprinter.png"
                   alt={t('shared')}
                   fill
-                  className="object-contain"
+                  className="pointer-events-none object-contain"
                   sizes="(max-width: 1280px) 100vw, 33vw"
                 />
               </div>
@@ -90,7 +90,7 @@ function HomeCardSection() {
                   src="/img/autobus.png"
                   alt={t('groups')}
                   fill
-                  className="object-contain"
+                  className="pointer-events-none object-contain"
                   sizes="(max-width: 1280px) 100vw, 33vw"
                 />
               </div>

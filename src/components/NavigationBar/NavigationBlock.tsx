@@ -29,7 +29,7 @@ export const NavigationBlock = ({ about, contact }: Props) => {
           src="/img/logo.png"
           alt="logo"
           fill
-          className="object-contain"
+          className="pointer-events-none object-contain"
           sizes="(max-width: 1280px) 100vw, 33vw"
         />
       </Link>

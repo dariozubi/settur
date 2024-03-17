@@ -80,7 +80,7 @@ const VehicleItem = ({ value, className, price, seats }: VehicleItemProps) => {
             src={`/img/${value}.png`}
             alt={value}
             fill
-            className="object-contain"
+            className="pointer-events-none object-contain"
             sizes="(max-width: 1280px) 100vw, 25vw"
           />
         </div>
