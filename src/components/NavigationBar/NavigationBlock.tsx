@@ -37,13 +37,12 @@ export const NavigationBlock = ({ about, contact }: Props) => {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink
-                className={cn(navigationMenuTriggerStyle(), 'bg-transparent')}
-              >
-                {about}
-              </NavigationMenuLink>
-            </Link>
+            <NavigationMenuLink
+              href="/"
+              className={cn(navigationMenuTriggerStyle(), 'bg-transparent')}
+            >
+              {about}
+            </NavigationMenuLink>
           </NavigationMenuItem>
 
           <NavigationMenuItem>
