@@ -338,8 +338,6 @@ export const hotels = [
   { label: 'Seven Crown La Paz-Malecon', zone: 8 },
 ]
 
-export const trips = ['round-trip', 'airport', 'hotel'] as const
-
 export const vehicles = {
   escalade: {
     seats: 5,
@@ -393,3 +391,10 @@ export const zones = [
     zone: 8,
   },
 ]
+
+export const vehicleBrands = Object.keys(vehicles)
+export const trips = ['round-trip', 'airport', 'hotel'] as const
+export const phoneRegexp = new RegExp(
+  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
+)
+export const vehicleTypes = ['private', 'shared'] as const

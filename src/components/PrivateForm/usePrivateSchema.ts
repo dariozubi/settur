@@ -1,17 +1,12 @@
 import { z } from 'zod'
 import { useMemo } from 'react'
 
-import { vehicles } from '@/lib/consts'
+import { phoneRegexp, vehicleBrands } from '@/lib/consts'
 import { PrivateFormLabels } from './types'
 
 export function usePrivateSchema({ error }: Pick<PrivateFormLabels, 'error'>) {
   const { required, minimum, minimumOne, email, phone } = error
-  const [first, ...others] = useMemo(() => Object.keys(vehicles), [])
-  const phoneRegex = useMemo(
-    () =>
-      new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/),
-    []
-  )
+  const [first, ...others] = vehicleBrands
   const formSchema = useMemo(() => {
     const baseSchema = z.object({
       name: z.string({ required_error: required }),
@@ -19,7 +14,7 @@ export function usePrivateSchema({ error }: Pick<PrivateFormLabels, 'error'>) {
       email: z.string({ required_error: required }).email({ message: email }),
       phone: z
         .string({ required_error: required })
-        .regex(phoneRegex, { message: phone }),
+        .regex(phoneRegexp, { message: phone }),
       hotel: z.string({ required_error: required }),
       adults: z.coerce
         .number({ required_error: required })
@@ -70,7 +65,7 @@ export function usePrivateSchema({ error }: Pick<PrivateFormLabels, 'error'>) {
         .merge(baseSchema),
     ])
     return finalSchema
-  }, [email, first, minimum, minimumOne, others, phone, phoneRegex, required])
+  }, [email, first, minimum, minimumOne, others, phone, required])
 
   return formSchema
 }
