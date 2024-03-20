@@ -1,28 +1,68 @@
 import { phoneRegexp, trips, vehicleBrands, vehicleTypes } from '@/lib/consts'
 import { PrismaClient } from '@prisma/client'
+import { compareAsc, intervalToDuration } from 'date-fns'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 
 const prisma = new PrismaClient()
 const [first, ...others] = vehicleBrands
-const schema = z.object({
-  name: z.string(),
-  surname: z.string(),
-  email: z.string().email(),
-  phone: z.string().regex(phoneRegexp),
-  hotel: z.string(),
-  adults: z.coerce.number().int().min(1),
-  children: z.coerce.number().int().min(0),
-  infants: z.coerce.number().int().min(0),
-  vehicle: z.enum([first, ...others]).optional(),
-  items: z.array(z.string()),
-  type: z.enum(trips),
-  arrivalDate: z.coerce.date().optional(),
-  arrivalFlight: z.string().optional(),
-  departureDate: z.coerce.date().optional(),
-  departureFlight: z.string().optional(),
-  vehicleType: z.enum(vehicleTypes),
-})
+const schema = z
+  .object({
+    name: z.string().trim().min(1),
+    surname: z.string().trim().min(1),
+    email: z.string().email(),
+    phone: z.string().regex(phoneRegexp),
+    hotel: z.string(),
+    adults: z.coerce.number().int().min(1),
+    children: z.coerce.number().int().min(0),
+    infants: z.coerce.number().int().min(0),
+    vehicle: z.enum([first, ...others]).optional(),
+    items: z.array(z.string()),
+    type: z.enum(trips),
+    arrivalDate: z.coerce.date().optional(),
+    arrivalFlight: z.string().trim().min(1).optional(),
+    departureDate: z.coerce.date().optional(),
+    departureFlight: z.string().trim().min(1).optional(),
+    vehicleType: z.enum(vehicleTypes),
+  })
+  .refine(data => data.adults + data.children + data.infants < 50, {
+    path: ['adults'],
+  })
+  .refine(
+    data => {
+      if (
+        data.type === 'round-trip' &&
+        data.arrivalDate &&
+        data.departureDate
+      ) {
+        const compare = compareAsc(data.arrivalDate, data.departureDate)
+        return compare === -1
+      }
+      return true
+    },
+    {
+      path: ['departureDate'],
+    }
+  )
+  .refine(
+    data => {
+      if (
+        data.type === 'round-trip' &&
+        data.arrivalDate &&
+        data.departureDate
+      ) {
+        const interval = intervalToDuration({
+          start: data.arrivalDate,
+          end: data.departureDate,
+        })
+        return !interval.months || interval.months < 6
+      }
+      return true
+    },
+    {
+      path: ['departureDate'],
+    }
+  )
 
 export async function POST(request: Request) {
   try {

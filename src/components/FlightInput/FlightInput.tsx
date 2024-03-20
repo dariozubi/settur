@@ -4,22 +4,20 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
-import Input from '@/components/Input'
+import Input, { InputProps } from '@/components/Input'
 
 export type Props = {
   labels: {
     flight: string
   }
-  onChange: () => void
-  value: string
-}
+} & InputProps
 
-function FlightInput({ labels, value, onChange }: Props) {
+function FlightInput({ labels, value, onChange, onBlur }: Props) {
   return (
     <FormItem>
       <FormLabel className="font-bold">{labels.flight}</FormLabel>
       <FormControl>
-        <Input value={value} onChange={onChange} />
+        <Input value={value} onChange={onChange} onBlur={onBlur} />
       </FormControl>
       <FormMessage />
     </FormItem>

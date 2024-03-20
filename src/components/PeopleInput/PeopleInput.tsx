@@ -5,18 +5,23 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
-import Input from '@/components/Input'
+import Input, { InputProps } from '@/components/Input'
 
 export type Props = {
   labels: {
     label: string
     description?: string
   }
-  onChange: () => void
-  value: number
-}
+} & InputProps
 
-function PeopleInput({ labels, onChange, value }: Props) {
+function PeopleInput({
+  labels,
+  onChange,
+  value,
+  onBlur,
+  min = 0,
+  max = 50,
+}: Props) {
   const { label, description } = labels
   return (
     <FormItem className="mx-auto max-w-[300px]">
@@ -30,6 +35,9 @@ function PeopleInput({ labels, onChange, value }: Props) {
             type="number"
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
+            min={min}
+            max={max}
           />
         </FormControl>
       </div>

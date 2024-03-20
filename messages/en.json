@@ -62,30 +62,33 @@
             "minutes": "Minutes"
         },
         "FlightInput": {
-            "flight": "Flight number"
+            "arrival-flight": "Arrival flight",
+            "departure-flight": "Departure flight"
         },
         "Items": {
-            "shopping": "I need some shopping time (2hrs)",
-            "carSeat": "I need a car seat for babies",
-            "boosterSeat": "I need a booster seat for children",
+            "shopping": "I need a grocery stop (30m)",
+            "car-seat": "I need a car seat for babies",
+            "booster-seat": "I need a booster seat for children",
             "wheelchair": "I'm traveling with a wheelchair",
             "kayak": "I'm traveling with a kayak",
             "bicycle": "I'm traveling with a bicycle",
-            "surfTable": "I'm traveling with a surf table"
+            "surf-table": "I'm traveling with a surf table",
+            "pet-box": "I'm traveling with a pet box"
         },
         "errors": {
-            "required": "This value is required.",
-            "minimum": "This number must be at least {value}.",
+            "required": "This value is required",
+            "minimum": "Minimum {value} allowed",
+            "maximum": "Maximum {value} allowed",
             "email": "Invalid email",
             "phone": "Invalid phone",
-            "too-many-people": "There's too many people for one vehicle only. Have you seen our groups page?"
+            "too-many-people": "There's too many people for one vehicle only. Have you seen our groups page?",
+            "departure-after-arrival": "Departure date must be after arrival date"
         },
         "user": "User",
         "destination": "Destination",
         "people": "People",
         "vehicle": "Vehicle",
-        "arrival": "Arrival",
-        "departure": "Departure",
+        "flights": "Flights",
         "additionals": "Additional items",
         "extras": "Extras you might need",
         "continue": "Continue"

@@ -4,7 +4,7 @@ import { Earth } from 'lucide-react'
 
 import { usePathname, useRouter } from '@/navigation'
 import Button from '@/components/Button'
-import { useIsEnglish } from '@/lib/hooks'
+import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 
 export const LanguageSelector = () => {
   const pathname = usePathname()

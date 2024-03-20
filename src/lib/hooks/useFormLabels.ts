@@ -1,10 +1,10 @@
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
-import { PrivateFormLabels } from '../PrivateForm/types'
+import { FormLabels } from '../types'
 
-export function usePrivateFormLabels() {
+export function useFormLabels() {
   const t = useTranslations('form')
-  const labels: PrivateFormLabels = useMemo(
+  const labels: FormLabels = useMemo(
     () => ({
       user: t('user'),
       name: {
@@ -43,9 +43,7 @@ export function usePrivateFormLabels() {
         label: t('PeopleInput.infants'),
         description: t('PeopleInput.infants-description'),
       },
-      vehicle: t('vehicle'),
-      arrival: t('arrival'),
-      departure: t('departure'),
+      flights: t('flights'),
       arrivalDate: {
         date: t('DatePicker.arrival-date'),
         pickDate: t('DatePicker.pick-date'),
@@ -58,28 +56,34 @@ export function usePrivateFormLabels() {
         hours: t('DatePicker.hours'),
         minutes: t('DatePicker.minutes'),
       },
-      flight: {
-        flight: t('FlightInput.flight'),
+      arrivalFlight: {
+        flight: t('FlightInput.arrival-flight'),
+      },
+      departureFlight: {
+        flight: t('FlightInput.departure-flight'),
       },
       additionals: t('additionals'),
       extras: t('extras'),
       additionalItems: {
         shopping: t('Items.shopping'),
-        carSeat: t('Items.carSeat'),
-        boosterSeat: t('Items.boosterSeat'),
+        carSeat: t('Items.car-seat'),
+        boosterSeat: t('Items.booster-seat'),
         wheelchair: t('Items.wheelchair'),
         kayak: t('Items.kayak'),
         bicycle: t('Items.bicycle'),
-        surfTable: t('Items.surfTable'),
+        surfTable: t('Items.surf-table'),
+        petBox: t('Items.pet-box'),
       },
       submit: t('continue'),
       error: {
         required: t('errors.required'),
         minimumOne: t('errors.minimum', { value: 1 }),
         minimum: t('errors.minimum', { value: 0 }),
+        maximum: t('errors.maximum', { value: 50 }),
         email: t('errors.email'),
         phone: t('errors.phone'),
         tooManyPeople: t('errors.too-many-people'),
+        departureAfterArrival: t('errors.departure-after-arrival'),
       },
     }),
     [t]

@@ -34,6 +34,8 @@ function PeopleAccordion({ labels, form }: Props) {
                 labels={labels.adults}
                 onChange={field.onChange}
                 value={field.value}
+                onBlur={field.onBlur}
+                min={1}
               />
             )}
           />
@@ -48,6 +50,7 @@ function PeopleAccordion({ labels, form }: Props) {
                 labels={labels.children}
                 onChange={field.onChange}
                 value={field.value}
+                onBlur={field.onBlur}
               />
             )}
           />
@@ -62,6 +65,7 @@ function PeopleAccordion({ labels, form }: Props) {
                 labels={labels.infants}
                 onChange={field.onChange}
                 value={field.value}
+                onBlur={field.onBlur}
               />
             )}
           />

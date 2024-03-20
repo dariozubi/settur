@@ -5,20 +5,18 @@ import Button from '@/components/Button'
 import Accordion from '@/components/Accordion'
 import DestinationAccordion from '@/components/DestinationAccordion'
 import PeopleAccordion from '@/components/PeopleAccordion'
-import ArrivalAccordion from '@/components/ArrivalAccordion'
-import DepartureAccordion from '@/components/DepartureAccordion'
+import FlightsAccordion from '@/components/FlightsAccordion'
 import UserAccordion from '@/components/UserAccordion'
 import AdditionalsAccordion from '@/components/AdditionalsAccordion'
-import { SharedFormLabels } from './types'
 import { useSharedForm } from './useSharedForm'
+import { FormLabels } from '@/lib/types'
 
 type Props = {
-  labels: SharedFormLabels
+  labels: FormLabels
 }
 
 function SharedForm({ labels }: Props) {
   const { form, onSubmit } = useSharedForm({ error: labels.error })
-  const type = form.watch('type')
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -28,8 +26,8 @@ function SharedForm({ labels }: Props) {
             'user',
             'destination',
             'people',
-            'arrival',
-            'departure',
+            'flights',
+            'additionals',
           ]}
         >
           <UserAccordion form={form} labels={labels} />
@@ -38,15 +36,9 @@ function SharedForm({ labels }: Props) {
 
           <PeopleAccordion form={form} labels={labels} />
 
-          {type !== 'airport' && (
-            <ArrivalAccordion form={form} labels={labels} />
-          )}
+          <FlightsAccordion form={form} labels={labels} />
 
-          {type !== 'hotel' && (
-            <DepartureAccordion form={form} labels={labels} />
-          )}
-
-          <AdditionalsAccordion form={form} labels={labels} />
+          <AdditionalsAccordion form={form} labels={labels} type="shared" />
         </Accordion>
 
         <div className=" flex w-full justify-center">

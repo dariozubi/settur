@@ -1,16 +1,16 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import axios from 'axios'
+// import axios from 'axios'
 
 import { toast } from '@/components/Toast'
-import { useErrorHandler } from '@/lib/hooks'
-import { SharedFormLabels } from './types'
-import { useSharedSchema } from './useSharedSchema'
 import { useSharedURLParams } from './useSharedURLParams'
+import { getSharedSchema } from '@/lib/schemas'
+import { FormLabels } from '@/lib/types'
+import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
 
-export function useSharedForm({ error }: Pick<SharedFormLabels, 'error'>) {
-  const schema = useSharedSchema({ error })
+export function useSharedForm({ error }: Pick<FormLabels, 'error'>) {
+  const schema = getSharedSchema(error)
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -33,10 +33,11 @@ export function useSharedForm({ error }: Pick<SharedFormLabels, 'error'>) {
 
   async function onSubmit(data: z.infer<typeof schema>) {
     try {
-      const res = await axios.post('/api/order', {
-        ...data,
-        vehicleType: 'shared',
-      })
+      // const res = await axios.post('/api/order', {
+      //   ...data,
+      //   vehicleType: 'shared',
+      // })
+      const res = { data }
       toast({
         title: 'You submitted the following values:',
         description: (

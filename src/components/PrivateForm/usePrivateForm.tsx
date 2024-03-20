@@ -1,18 +1,22 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import axios from 'axios'
+// import axios from 'axios'
 
+import type { Props as VehicleProps } from '@/components/VehicleAccordion'
 import { toast } from '@/components/Toast'
-import { useErrorHandler } from '@/lib/hooks'
-import { PrivateFormLabels } from './types'
-import { usePrivateSchema } from './usePrivateSchema'
+import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
 import { usePrivateURLParams } from './usePrivateURLParams'
+import { getPrivateSchema } from '@/lib/schemas'
+import { FormLabels } from '@/lib/types'
+
+export type PrivateFormLabels = FormLabels & VehicleProps['labels']
 
 export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
-  const schema = usePrivateSchema({ error })
+  const schema = getPrivateSchema(error)
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
+    mode: 'onBlur',
     defaultValues: {
       name: '',
       surname: '',
@@ -34,10 +38,11 @@ export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
 
   async function onSubmit(data: z.infer<typeof schema>) {
     try {
-      const res = await axios.post('/api/order', {
-        ...data,
-        vehicleType: 'private',
-      })
+      // const res = await axios.post('/api/order', {
+      //   ...data,
+      //   vehicleType: 'private',
+      // })
+      const res = { data }
       toast({
         title: 'You submitted the following values:',
         description: (

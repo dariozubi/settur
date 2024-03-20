@@ -6,12 +6,11 @@ import Accordion from '@/components/Accordion'
 import DestinationAccordion from '@/components/DestinationAccordion'
 import PeopleAccordion from '@/components/PeopleAccordion'
 import VehicleAccordion from '@/components/VehicleAccordion'
-import ArrivalAccordion from '@/components/ArrivalAccordion'
-import DepartureAccordion from '@/components/DepartureAccordion'
+import FlightsAccordion from '@/components/FlightsAccordion'
 import UserAccordion from '@/components/UserAccordion'
 import AdditionalsAccordion from '@/components/AdditionalsAccordion'
-import { PrivateFormLabels } from './types'
-import { usePrivateForm } from './usePrivateForm'
+import { PrivateFormLabels, usePrivateForm } from './usePrivateForm'
+import { useState } from 'react'
 
 type Props = {
   labels: PrivateFormLabels
@@ -19,20 +18,21 @@ type Props = {
 
 function PrivateForm({ labels }: Props) {
   const { form, onSubmit } = usePrivateForm({ error: labels.error })
-  const type = form.watch('type')
+  const [openAccordions, setOpenAccordions] = useState([
+    'user',
+    'destination',
+    'people',
+    'vehicle',
+    'flights',
+    'additionals  ',
+  ])
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Accordion
           type="multiple"
-          defaultValue={[
-            'user',
-            'destination',
-            'people',
-            'vehicle',
-            'arrival',
-            'departure',
-          ]}
+          value={openAccordions}
+          onValueChange={setOpenAccordions}
         >
           <UserAccordion form={form} labels={labels} />
 
@@ -40,17 +40,11 @@ function PrivateForm({ labels }: Props) {
 
           <PeopleAccordion form={form} labels={labels} />
 
-          {type !== 'airport' && (
-            <ArrivalAccordion form={form} labels={labels} />
-          )}
-
-          {type !== 'hotel' && (
-            <DepartureAccordion form={form} labels={labels} />
-          )}
+          <FlightsAccordion form={form} labels={labels} />
 
           <VehicleAccordion form={form} labels={labels} />
 
-          <AdditionalsAccordion form={form} labels={labels} />
+          <AdditionalsAccordion form={form} labels={labels} type="private" />
         </Accordion>
 
         <div className=" flex w-full justify-center">

@@ -35,6 +35,7 @@ function UserAccordion({ form, labels }: Props) {
                   labels={labels.name}
                   value={field.value}
                   onChange={field.onChange}
+                  onBlur={field.onBlur}
                 />
               )}
             />
@@ -49,6 +50,7 @@ function UserAccordion({ form, labels }: Props) {
                   labels={labels.surname}
                   value={field.value}
                   onChange={field.onChange}
+                  onBlur={field.onBlur}
                 />
               )}
             />
@@ -65,6 +67,7 @@ function UserAccordion({ form, labels }: Props) {
                   labels={labels.email}
                   value={field.value}
                   onChange={field.onChange}
+                  onBlur={field.onBlur}
                 />
               )}
             />
@@ -79,6 +82,7 @@ function UserAccordion({ form, labels }: Props) {
                   labels={labels.phone}
                   value={field.value}
                   onChange={field.onChange}
+                  onBlur={field.onBlur}
                 />
               )}
             />

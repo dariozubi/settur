@@ -62,30 +62,33 @@
             "minutes": "Minutos"
         },
         "FlightInput": {
-            "flight": "Número de vuelo"
+            "arrival-flight": "Vuelo de llegada",
+            "departure-flight": "Vuelo de salida"
         },
         "Items": {
-            "shopping": "Necesito tiempo para comprar en el supermercado (2hrs)",
-            "carSeat": "Necesito una silla para bebés",
-            "boosterSeat": "Necesito un asiento elevado para niños",
+            "shopping": "Necesito tiempo para comprar en el supermercado (30m)",
+            "car-seat": "Necesito una silla para bebés",
+            "booster-seat": "Necesito un asiento elevado para niños",
             "wheelchair": "Voy a viajar con una silla de ruedas",
             "kayak": "Voy a viajar con un kayak",
             "bicycle": "Voy a viajar con una bicicleta",
-            "surfTable": "Voy a viajar con una tabla de surf"
+            "surf-table": "Voy a viajar con una tabla de surf",
+            "pet-box": "Voy a viajar con una caja para mascotas"
         },
         "errors": {
-            "required": "Este valor es requerido.",
-            "minimum": "Este número debe ser al menos {value}.",
+            "required": "Este valor es requerido",
+            "minimum": "Mínimo {value} permitido",
+            "maximum": "Máximo {value} permitido",
             "email": "Correo inválido",
             "phone": "Teléfono inválido",
-            "too-many-people": "No tenemos vehículos para tantas personas. ¿Ya viste nuestra página de grupos?"
+            "too-many-people": "No tenemos vehículos para tantas personas. ¿Ya viste nuestra página de grupos?",
+            "departure-after-arrival": "La fecha de salida debe ser después de la de llegada"
         },
         "user": "Usuario",
         "destination": "Destino",
         "people": "Personas",
         "vehicle": "Vehículo",
-        "arrival": "Vuelo de llegada",
-        "departure": "Vuelo de salida",
+        "flights": "Vuelos",
         "additionals": "Adicionales",
         "extras": "Extras que puedes necesitar",
         "continue": "Continuar"

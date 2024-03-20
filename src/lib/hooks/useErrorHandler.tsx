@@ -1,11 +1,7 @@
 import { toast } from '@/components/Toast'
 import axios from 'axios'
-import { useLocale } from 'next-intl'
 
-export function useIsEnglish() {
-  const locale = useLocale()
-  return locale === 'en'
-}
+
 
 export function useErrorHandler() {
   const errorHandler = (e: unknown) => {

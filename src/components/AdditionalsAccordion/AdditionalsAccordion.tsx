@@ -7,6 +7,7 @@ import {
 } from '@/components/Accordion'
 import { FormField, FormItem, FormLabel, FormMessage } from '@/components/Form'
 import ItemCheckbox from '@/components/ItemCheckbox'
+import { vehicleTypes } from '@/lib/consts'
 
 export type Props = {
   form: UseFormReturn<any>
@@ -15,6 +16,7 @@ export type Props = {
     extras: string
     additionalItems: Items
   }
+  type: (typeof vehicleTypes)[number]
 }
 
 type Items = {
@@ -25,20 +27,53 @@ type Items = {
   kayak: string
   bicycle: string
   surfTable: string
+  petBox: string
 }
 
-function AdditionalsAccordion({ form, labels }: Props) {
-  const items = [
-    { id: 'shopping', label: labels.additionalItems.shopping },
-    { id: 'carSeat', label: labels.additionalItems.carSeat },
-    { id: 'boosterSeat', label: labels.additionalItems.boosterSeat },
-    { id: 'weelchair', label: labels.additionalItems.wheelchair },
-    { id: 'kayak', label: labels.additionalItems.kayak },
-    { id: 'bicycle', label: labels.additionalItems.bicycle },
-    { id: 'surfTable', label: labels.additionalItems.surfTable },
-  ]
+function AdditionalsAccordion({ form, labels, type }: Props) {
+  const items =
+    type === 'private'
+      ? [
+          {
+            id: 'weelchair',
+            label: labels.additionalItems.wheelchair,
+          },
+          {
+            id: 'carSeat',
+            label: `${labels.additionalItems.carSeat} (+5 USD)`,
+          },
+          {
+            id: 'boosterSeat',
+            label: `${labels.additionalItems.boosterSeat} (+3 USD)`,
+          },
+          { id: 'petBox', label: `${labels.additionalItems.petBox} (+5 USD)` },
+          { id: 'kayak', label: `${labels.additionalItems.kayak} (+5 USD)` },
+          {
+            id: 'bicycle',
+            label: `${labels.additionalItems.bicycle} (+5 USD)`,
+          },
+          {
+            id: 'surfTable',
+            label: `${labels.additionalItems.surfTable} (+5 USD)`,
+          },
+
+          {
+            id: 'shopping',
+            label: `${labels.additionalItems.shopping} (+25 USD)`,
+          },
+        ]
+      : [
+          {
+            id: 'carSeat',
+            label: `${labels.additionalItems.carSeat} (+5 USD)`,
+          },
+          {
+            id: 'boosterSeat',
+            label: `${labels.additionalItems.boosterSeat} (+3 USD)`,
+          },
+        ]
   return (
-    <AccordionItem value="user">
+    <AccordionItem value="additionals">
       <AccordionTrigger>{labels.additionals}</AccordionTrigger>
 
       <AccordionContent className="flex flex-col items-center justify-center gap-6 border-t py-10">
@@ -60,7 +95,7 @@ function AdditionalsAccordion({ form, labels }: Props) {
                       value={field.value}
                       onChange={field.onChange}
                       id={item.id}
-                      label={item.label}
+                      label={`${item.label}`}
                     />
                   )}
                 />
