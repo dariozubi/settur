@@ -11,7 +11,7 @@ function PrivatePage() {
       ...formLabels,
       vehicle: t('vehicle'),
     }),
-    []
+    [formLabels, t]
   )
   return (
     <section className="w-full bg-neutral-50">
