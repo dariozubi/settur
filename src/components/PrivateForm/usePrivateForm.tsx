@@ -30,6 +30,7 @@ export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
       infants: 0,
       vehicle: 'sprinter',
       items: [],
+      privateItems: 'nothing',
     },
   })
 

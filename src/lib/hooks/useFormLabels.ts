@@ -73,6 +73,7 @@ export function useFormLabels() {
         bicycle: t('Items.bicycle'),
         surfTable: t('Items.surf-table'),
         petBox: t('Items.pet-box'),
+        nothing: t('Items.nothing'),
       },
       submit: t('continue'),
       error: {

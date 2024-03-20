@@ -8,6 +8,9 @@ import {
 import { FormField, FormItem, FormLabel, FormMessage } from '@/components/Form'
 import ItemCheckbox from '@/components/ItemCheckbox'
 import { vehicleTypes } from '@/lib/consts'
+import PrivateAdditionalsRadio, {
+  Props as PrivateAdditonalsRadioProps,
+} from '../PrivateAdditionalsRadio'
 
 export type Props = {
   form: UseFormReturn<any>
@@ -24,11 +27,7 @@ type Items = {
   carSeat: string
   boosterSeat: string
   wheelchair: string
-  kayak: string
-  bicycle: string
-  surfTable: string
-  petBox: string
-}
+} & PrivateAdditonalsRadioProps['labels']
 
 function AdditionalsAccordion({ form, labels, type }: Props) {
   const items =
@@ -46,17 +45,6 @@ function AdditionalsAccordion({ form, labels, type }: Props) {
             id: 'boosterSeat',
             label: `${labels.additionalItems.boosterSeat} (+3 USD)`,
           },
-          { id: 'petBox', label: `${labels.additionalItems.petBox} (+5 USD)` },
-          { id: 'kayak', label: `${labels.additionalItems.kayak} (+5 USD)` },
-          {
-            id: 'bicycle',
-            label: `${labels.additionalItems.bicycle} (+5 USD)`,
-          },
-          {
-            id: 'surfTable',
-            label: `${labels.additionalItems.surfTable} (+5 USD)`,
-          },
-
           {
             id: 'shopping',
             label: `${labels.additionalItems.shopping} (+25 USD)`,
@@ -76,34 +64,51 @@ function AdditionalsAccordion({ form, labels, type }: Props) {
     <AccordionItem value="additionals">
       <AccordionTrigger>{labels.additionals}</AccordionTrigger>
 
-      <AccordionContent className="flex flex-col items-center justify-center gap-6 border-t py-10">
+      <AccordionContent className="flex flex-col items-center justify-center border-t py-10">
         <FormField
           control={form.control}
           name="items"
           render={() => (
-            <FormItem className="space-y-6">
+            <FormItem className="w-full space-y-6">
               <div className="mb-4">
                 <FormLabel className="text-base">{labels.extras}</FormLabel>
               </div>
-              {items.map(item => (
-                <FormField
-                  key={item.id}
-                  control={form.control}
-                  name="items"
-                  render={({ field }) => (
-                    <ItemCheckbox
-                      value={field.value}
-                      onChange={field.onChange}
-                      id={item.id}
-                      label={`${item.label}`}
-                    />
-                  )}
-                />
-              ))}
+              <div className="flex flex-wrap">
+                {items.map(item => (
+                  <FormField
+                    key={item.id}
+                    control={form.control}
+                    name="items"
+                    render={({ field }) => (
+                      <ItemCheckbox
+                        value={field.value}
+                        onChange={field.onChange}
+                        id={item.id}
+                        label={`${item.label}`}
+                        className="w-1/2 py-4"
+                      />
+                    )}
+                  />
+                ))}
+              </div>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        {type === 'private' && (
+          <FormField
+            control={form.control}
+            name="privateItems"
+            render={({ field }) => (
+              <PrivateAdditionalsRadio
+                labels={labels.additionalItems}
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
+        )}
       </AccordionContent>
     </AccordionItem>
   )

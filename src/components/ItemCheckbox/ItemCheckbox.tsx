@@ -1,18 +1,20 @@
 import { FormControl, FormItem, FormLabel } from '@/components/Form'
 import Checkbox from '@/components/Checkbox'
+import { cn } from '@/lib/utils'
 
 export type Props = {
   label: string
   id: string
   onChange: (_v: string[]) => void
   value: string[]
+  className?: string
 }
 
-function ItemCheckbox({ label, id, value, onChange }: Props) {
+function ItemCheckbox({ label, id, value, onChange, className }: Props) {
   return (
     <FormItem
       key={id}
-      className="flex flex-row items-start space-x-3 space-y-0"
+      className={cn('flex flex-row items-start space-x-3 space-y-0', className)}
     >
       <FormControl>
         <Checkbox

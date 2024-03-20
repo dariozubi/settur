@@ -145,6 +145,13 @@ export function getPrivateSchema({
   const schema = base.merge(
     z.object({
       vehicle: z.enum([first, ...others], { required_error: required }),
+      privateItems: z.enum([
+        'petBox',
+        'kayak',
+        'bicycle',
+        'surfTable',
+        'nothing',
+      ]),
     })
   )
   const final = getFinalSchema({

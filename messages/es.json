@@ -73,7 +73,8 @@
             "kayak": "Voy a viajar con un kayak",
             "bicycle": "Voy a viajar con una bicicleta",
             "surf-table": "Voy a viajar con una tabla de surf",
-            "pet-box": "Voy a viajar con una caja para mascotas"
+            "pet-box": "Voy a viajar con una caja para mascotas",
+            "nothing": "No viajaré con cosas extra"
         },
         "errors": {
             "required": "Este valor es requerido",
