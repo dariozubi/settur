@@ -13,6 +13,7 @@ export function useSharedForm({ error }: Pick<FormLabels, 'error'>) {
   const schema = getSharedSchema(error)
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
+    mode: 'onBlur',
     defaultValues: {
       name: '',
       surname: '',

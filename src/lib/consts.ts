@@ -397,4 +397,7 @@ export const trips = ['round-trip', 'airport', 'hotel'] as const
 export const phoneRegexp = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
 )
+export const flightRegexp = new RegExp(
+  /^([A-Z][\d]|[\d][A-Z]|[A-Z]{3})(\d{1,})$/
+)
 export const vehicleTypes = ['private', 'shared'] as const

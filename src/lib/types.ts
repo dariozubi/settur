@@ -29,6 +29,7 @@ export type FormErrors = {
   tooManyPeople: string
   departureAfterArrival: string
   maximum: string
+  invalidFlight: string
 }
 
 export type FormLabels = UserProps['labels'] &

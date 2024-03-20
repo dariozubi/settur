@@ -82,7 +82,8 @@
             "email": "Invalid email",
             "phone": "Invalid phone",
             "too-many-people": "There's too many people for one vehicle only. Have you seen our groups page?",
-            "departure-after-arrival": "Departure date must be after arrival date"
+            "departure-after-arrival": "Departure date must be after arrival date",
+            "invalid-flight": "Invalid flight number"
         },
         "user": "User",
         "destination": "Destination",

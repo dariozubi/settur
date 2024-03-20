@@ -84,6 +84,7 @@ export function useFormLabels() {
         phone: t('errors.phone'),
         tooManyPeople: t('errors.too-many-people'),
         departureAfterArrival: t('errors.departure-after-arrival'),
+        invalidFlight: t('errors.invalid-flight'),
       },
     }),
     [t]

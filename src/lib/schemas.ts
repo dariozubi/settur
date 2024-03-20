@@ -1,4 +1,4 @@
-import { phoneRegexp, vehicleBrands } from './consts'
+import { flightRegexp, phoneRegexp, vehicleBrands } from './consts'
 import { AnyZodObject, z } from 'zod'
 import { FormErrors } from './types'
 import { compareAsc } from 'date-fns'
@@ -8,11 +8,13 @@ function getFinalSchema({
   required,
   departureAfterArrival,
   maximum,
+  invalidFlight,
 }: {
   schema: AnyZodObject
   required: string
   departureAfterArrival: string
   maximum: string
+  invalidFlight: string
 }) {
   const finalSchema = z
     .discriminatedUnion('type', [
@@ -23,11 +25,19 @@ function getFinalSchema({
           arrivalDate: z.date({
             required_error: required,
           }),
-          arrivalFlight: z.string().trim().min(1, { message: required }),
+          arrivalFlight: z
+            .string()
+            .trim()
+            .min(1, { message: required })
+            .regex(flightRegexp, { message: invalidFlight }),
           departureDate: z.date({
             required_error: required,
           }),
-          departureFlight: z.string().trim().min(1, { message: required }),
+          departureFlight: z
+            .string()
+            .trim()
+            .min(1, { message: required })
+            .regex(flightRegexp, { message: invalidFlight }),
         })
         .merge(schema),
       z
@@ -36,7 +46,11 @@ function getFinalSchema({
           arrivalDate: z.date({
             required_error: required,
           }),
-          arrivalFlight: z.string().trim().min(1, { message: required }),
+          arrivalFlight: z
+            .string()
+            .trim()
+            .min(1, { message: required })
+            .regex(flightRegexp, { message: invalidFlight }),
         })
         .merge(schema),
       z
@@ -45,7 +59,11 @@ function getFinalSchema({
           departureDate: z.date({
             required_error: required,
           }),
-          departureFlight: z.string().trim().min(1, { message: required }),
+          departureFlight: z
+            .string()
+            .trim()
+            .min(1, { message: required })
+            .regex(flightRegexp, { message: invalidFlight }),
         })
         .merge(schema),
     ])
@@ -112,6 +130,7 @@ export function getPrivateSchema({
   maximum,
   minimum,
   departureAfterArrival,
+  invalidFlight,
 }: FormErrors) {
   const base = getBaseSchema({
     required,
@@ -120,6 +139,7 @@ export function getPrivateSchema({
     minimumOne,
     minimum,
     maximum,
+    invalidFlight,
   })
   const [first, ...others] = vehicleBrands
   const schema = base.merge(
@@ -132,6 +152,7 @@ export function getPrivateSchema({
     departureAfterArrival,
     maximum,
     required,
+    invalidFlight,
   })
   return final
 }
@@ -144,6 +165,7 @@ export function getSharedSchema({
   maximum,
   minimum,
   departureAfterArrival,
+  invalidFlight,
 }: FormErrors) {
   const schema = getBaseSchema({
     required,
@@ -152,12 +174,14 @@ export function getSharedSchema({
     minimumOne,
     minimum,
     maximum,
+    invalidFlight,
   })
   const final = getFinalSchema({
     schema,
     departureAfterArrival,
     maximum,
     required,
+    invalidFlight,
   })
   return final
 }

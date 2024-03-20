@@ -24,7 +24,7 @@ function PrivateForm({ labels }: Props) {
     'people',
     'vehicle',
     'flights',
-    'additionals  ',
+    'additionals',
   ])
   return (
     <Form {...form}>
