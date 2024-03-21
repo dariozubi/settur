@@ -17,7 +17,12 @@ function FlightInput({ labels, value, onChange, onBlur }: Props) {
     <FormItem>
       <FormLabel className="font-bold">{labels.flight}</FormLabel>
       <FormControl>
-        <Input value={value} onChange={onChange} onBlur={onBlur} />
+        <Input
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          className="uppercase"
+        />
       </FormControl>
       <FormMessage />
     </FormItem>
