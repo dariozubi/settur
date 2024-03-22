@@ -20,7 +20,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
-import { Hotel } from '@/lib/types'
+import { Hotel } from '@prisma/client'
 
 export type Props = {
   labels: {

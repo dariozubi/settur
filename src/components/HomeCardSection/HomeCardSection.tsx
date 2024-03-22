@@ -30,7 +30,7 @@ function HomeCardSection() {
 
             <CardContent>
               <div
-                className={`relative h-[200px] ${vehicles.escalade.imgAspect}}`}
+                className={`relative h-[200px] ${vehicles['ESCALADE'].imgAspect}}`}
               >
                 <Image
                   src="/img/escalade.png"
@@ -58,7 +58,7 @@ function HomeCardSection() {
 
             <CardContent>
               <div
-                className={`relative h-[200px] ${vehicles.sprinter.imgAspect}`}
+                className={`relative h-[200px] ${vehicles['SPRINTER'].imgAspect}`}
               >
                 <Image
                   src="/img/sprinter.png"

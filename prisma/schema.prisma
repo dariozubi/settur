@@ -58,16 +58,13 @@ model Hotel {
   zone    Zone
 }
 
-enum Zone {
-  ZONE1
-  ZONE2
-  ZONE3
-  ZONE4
-  ZONE5
-  ZONE6
-  ZONE7
-  ZONE8
-  ZONE9
+model Rate {
+  trip      Trip
+  vehicle   Vehicle
+  zone      Zone
+  value     Int
+
+  @@unique([trip, vehicle, zone])
 }
 
 model Order {
@@ -86,4 +83,30 @@ model Order {
 model Admin {
   id      Int @id @default(autoincrement())
   email   String @unique
+}
+
+enum Vehicle {
+  SPRINTER
+  HIACE
+  SUBURBAN
+  ESCALADE
+  COACH
+  SHARED
+}
+
+enum Trip {
+  ROUND
+  ONEWAY
+}
+
+enum Zone {
+  ZONE1
+  ZONE2
+  ZONE3
+  ZONE4
+  ZONE5
+  ZONE6
+  ZONE7
+  ZONE8
+  ZONE9
 }

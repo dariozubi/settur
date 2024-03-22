@@ -4,8 +4,10 @@ import { User } from 'lucide-react'
 import Label from '@/components/Label'
 import RadioGroup, { RadioGroupItem } from '@/components/RadioGroup'
 import { FormControl, FormItem, FormMessage } from '@/components/Form'
-import { privateRates, trips, vehicles } from '@/lib/consts'
-import { Zone } from '@/lib/types'
+import { trips, vehicles } from '@/lib/consts'
+import { Rate, Vehicle, Zone } from '@prisma/client'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
 export type Props = {
   value: string
@@ -22,6 +24,14 @@ function VehiclesRadio({
   zone,
   individuals,
 }: Props) {
+  const { isLoading, error, data } = useQuery<{ rates: Rate[] }>({
+    queryKey: ['rates'],
+    queryFn: async () => axios.get('/api/rates').then(r => r.data),
+    staleTime: Infinity,
+  })
+
+  if (error) throw Error('Rates endpoint is not working')
+  if (isLoading) return null
   return (
     <FormItem>
       <FormControl>
@@ -32,17 +42,22 @@ function VehiclesRadio({
         >
           {Object.keys(vehicles).map(
             v =>
-              individuals <= vehicles[v as Vehicle].seats && (
+              individuals <= vehicles[v].seats && (
                 <VehicleItem
                   key={v as Vehicle}
                   price={
-                    privateRates[
-                      tripType === 'round-trip' ? 'round-trip' : 'one-way'
-                    ][zone][v as Vehicle]
+                    data?.rates &&
+                    data.rates.find(
+                      r =>
+                        r.zone === zone &&
+                        r.trip ===
+                          (tripType === 'round-trip' ? 'ROUND' : 'ONEWAY') &&
+                        r.vehicle === v.toUpperCase()
+                    )?.value
                   }
-                  seats={String(vehicles[v as Vehicle].seats)}
+                  seats={String(vehicles[v].seats)}
                   value={v as Vehicle}
-                  className={`my-6 ${vehicles[v as Vehicle].imgAspect}`}
+                  className={`my-6 ${vehicles[v].imgAspect}`}
                 />
               )
           )}
@@ -55,11 +70,9 @@ function VehiclesRadio({
   )
 }
 
-export type Vehicle = keyof typeof vehicles
-
 type VehicleItemProps = {
   value: Vehicle
-  price: number
+  price?: number
   seats: string
   className?: string
 }
@@ -73,7 +86,7 @@ const VehicleItem = ({ value, className, price, seats }: VehicleItemProps) => {
         className="flex cursor-pointer flex-col overflow-hidden rounded-md border-2 border-stone-200 bg-neutral-50 p-4 opacity-40 hover:bg-white hover:text-slate-800 peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-white peer-data-[state=checked]:opacity-100 [&:has([data-state=checked])]:border-slate-800"
       >
         <span className="text-center text-lg font-bold">
-          {value.charAt(0).toUpperCase() + value.slice(1)}
+          {value.charAt(0) + value.slice(1).toLowerCase()}
         </span>
         <div className={`relative h-[125px] ${className}`}>
           <Image

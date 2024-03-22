@@ -6,10 +6,11 @@ import {
 import { FormField } from '@/components/Form'
 import { UseFormReturn } from 'react-hook-form'
 import VehiclesRadio from '@/components/VehiclesRadio'
-import { FormErrors, Hotel, Zone } from '@/lib/types'
+import { FormErrors } from '@/lib/types'
 import { useVehicleIndividualsValidation } from './hooks'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import { Hotel } from '@prisma/client'
 
 export type Props = {
   form: UseFormReturn<any>
@@ -24,9 +25,7 @@ function VehicleAccordion({ form, labels }: Props) {
     queryKey: ['hotels'],
     queryFn: async () => axios.get('/api/hotels').then(r => r.data),
   })
-  const zone = data?.hotels
-    .find(h => h.id === form.watch('hotel'))
-    ?.zone.toLowerCase()
+  const zone = data?.hotels.find(h => h.id === form.watch('hotel'))?.zone
 
   const individuals =
     Number(form.watch('adults')) +
@@ -48,7 +47,7 @@ function VehicleAccordion({ form, labels }: Props) {
             <VehiclesRadio
               value={field.value}
               onChange={field.onChange}
-              zone={zone as Zone}
+              zone={zone}
               tripType={form.watch('type')}
               individuals={individuals}
             />

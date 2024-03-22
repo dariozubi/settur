@@ -9,17 +9,6 @@ export type PageProps = {
   searchParams?: { [key: string]: string | string[] | undefined }
 }
 
-export type Zone =
-  | 'zone1'
-  | 'zone2'
-  | 'zone3'
-  | 'zone4'
-  | 'zone5'
-  | 'zone6'
-  | 'zone7'
-  | 'zone8'
-  | 'zone9'
-
 export type FormErrors = {
   required: string
   minimumOne: string
@@ -40,9 +29,3 @@ export type FormLabels = UserProps['labels'] &
     submit: string
     error: FormErrors
   }
-
-export type Hotel = {
-  id: number
-  name: string
-  zone: string
-}

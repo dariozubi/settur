@@ -1,4 +1,5 @@
-import { rates } from '@/lib/consts'
+'use client'
+
 import Text from '@/components/Text'
 import Table, {
   TableBody,
@@ -9,9 +10,21 @@ import Table, {
   TableRow,
 } from '@/components/Table'
 import { useTranslations } from 'next-intl'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import { Rate } from '@prisma/client'
 
 function HomeRatesSection() {
   const t = useTranslations('Home')
+  const { isLoading, error, data } = useQuery<{ rates: Rate[] }>({
+    queryKey: ['rates'],
+    queryFn: async () => axios.get('/api/rates').then(r => r.data),
+    staleTime: Infinity,
+  })
+
+  if (error) throw Error('Rates endpoint is not working')
+  if (isLoading) return null
+
   return (
     <section className="flex bg-neutral-50 pb-24 pt-16">
       <div className="mx-auto flex w-full max-w-screen-xl flex-col items-center gap-10">
@@ -56,18 +69,18 @@ function HomeRatesSection() {
               <TableCell className="text-right font-bold">
                 {t('shared')}
               </TableCell>
-              <TableCell className="text-center">{`${rates.shared.oneWay.zone1} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.shared.oneWay.zone2} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.shared.oneWay.zone3} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.shared.oneWay.zone4} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE1' && r.vehicle === 'SHARED')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE2' && r.vehicle === 'SHARED')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE3' && r.vehicle === 'SHARED')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE4' && r.vehicle === 'SHARED')?.value} USD`}</TableCell>
             </TableRow>
 
             <TableRow className="border-b-slate-800 hover:bg-neutral-50">
               <TableCell className="text-right font-bold">{`${t('private')}*`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.oneWay.zone1} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.oneWay.zone2} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.oneWay.zone3} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.oneWay.zone4} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE1' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE2' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE3' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE4' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
             </TableRow>
 
             <TableRow className="border-b-slate-800 hover:bg-neutral-50">
@@ -84,18 +97,18 @@ function HomeRatesSection() {
               <TableCell className="text-right font-bold">
                 {t('shared')}
               </TableCell>
-              <TableCell className="text-center">{`${rates.shared.roundTrip.zone1} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.shared.roundTrip.zone2} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.shared.roundTrip.zone3} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.shared.roundTrip.zone4} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE1' && r.vehicle === 'SHARED')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE2' && r.vehicle === 'SHARED')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE3' && r.vehicle === 'SHARED')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE4' && r.vehicle === 'SHARED')?.value} USD`}</TableCell>
             </TableRow>
 
             <TableRow className="border-b-slate-800 hover:bg-neutral-50">
               <TableCell className="text-right font-bold">{`${t('private')}*`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.roundTrip.zone1} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.roundTrip.zone2} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.roundTrip.zone3} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.roundTrip.zone4} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE1' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE2' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE3' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE4' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -134,11 +147,11 @@ function HomeRatesSection() {
             </TableRow>
 
             <TableRow className="border-b-slate-800 hover:bg-neutral-50">
-              <TableCell className="text-center">{`${rates.private.oneWay.zone5} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.oneWay.zone6} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.oneWay.zone7} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.oneWay.zone8} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.oneWay.zone9} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE5' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE6' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE7' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE8' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE9' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
             </TableRow>
 
             <TableRow className="border-b-slate-800 hover:bg-neutral-50">
@@ -152,11 +165,11 @@ function HomeRatesSection() {
             </TableRow>
 
             <TableRow className="border-b-slate-800 hover:bg-neutral-50">
-              <TableCell className="text-center">{`${rates.private.roundTrip.zone5} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.roundTrip.zone6} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.roundTrip.zone7} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.roundTrip.zone8} USD`}</TableCell>
-              <TableCell className="text-center">{`${rates.private.roundTrip.zone9} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE5' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE6' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE7' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE8' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
+              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE9' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
