@@ -1,13 +1,14 @@
-import AdminLayout from '@/components/AdminLayout'
 import LoginSection from '@/components/LoginSection'
 import { getServerSession } from 'next-auth'
 
 async function Page() {
   const session = await getServerSession()
   return (
-    <AdminLayout>
-      <LoginSection session={session} />
-    </AdminLayout>
+    <main className="h-full w-full">
+      <div className="mx-auto flex h-full max-w-screen-lg flex-col items-center justify-center gap-8 p-10">
+        <LoginSection session={session} />
+      </div>
+    </main>
   )
 }
 

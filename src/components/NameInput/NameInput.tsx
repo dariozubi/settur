@@ -12,12 +12,17 @@ export type Props = {
   }
 } & InputProps
 
-function NameInput({ labels, value, onChange, onBlur }: Props) {
+function NameInput({ labels, value, onChange, onBlur, className }: Props) {
   return (
     <FormItem>
       <FormLabel className="font-bold">{labels.label}</FormLabel>
       <FormControl>
-        <Input value={value} onChange={onChange} onBlur={onBlur} />
+        <Input
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          className={className}
+        />
       </FormControl>
       <FormMessage />
     </FormItem>

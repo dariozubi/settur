@@ -32,7 +32,6 @@ function LoginSection({ session }: Props) {
           try {
             const res = await axios.get('/api/admin')
             const isAdmin = res.data.admins.find((a: any) => a.email === email)
-            console.log(isAdmin)
             if (isAdmin) {
               signIn('email', { callbackUrl: '/profile', email })
             } else {

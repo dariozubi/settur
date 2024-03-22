@@ -12,15 +12,17 @@ export default async function Page() {
     <AdminLayout>
       <div className="flex w-full items-center justify-between">
         <p>
-          {`Buenas mi `}
+          {`Hola `}
           <span className="font-extrabold">
             {session?.user?.email?.split('@')[0]}
           </span>
         </p>
         <LogoutButton />
       </div>
-      <AdminUsers />
-      <AdminNewUserForm />
+      <div className="flex w-full gap-2">
+        <AdminUsers />
+        <AdminNewUserForm />
+      </div>
     </AdminLayout>
   )
 }

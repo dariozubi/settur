@@ -21,14 +21,16 @@ function AdminUsers() {
     getAdmins()
   }, [errorHandler])
   return (
-    <Card className="p-8">
+    <Card className="w-full p-8">
       <CardHeader>
-        <CardTitle>Los meros meros</CardTitle>
+        <CardTitle>Administradores</CardTitle>
       </CardHeader>
       <CardContent>
-        {admins.map((a: { id: string; email: string }) => (
-          <span key={a.id}>{a.email}</span>
-        ))}
+        <div className="flex flex-col">
+          {admins.map((a: { id: string; email: string }) => (
+            <span key={a.id}>{a.email}</span>
+          ))}
+        </div>
       </CardContent>
     </Card>
   )

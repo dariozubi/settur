@@ -42,13 +42,13 @@ function AdminNewUserForm() {
   }
 
   return (
-    <Card className="p-4">
+    <Card className="w-full p-4">
       <CardHeader>
-        <CardTitle>Agregar a un mero mero</CardTitle>
+        <CardTitle>Agregar administrador</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-2">
             <FormField
               control={form.control}
               name="email"
@@ -58,12 +58,13 @@ function AdminNewUserForm() {
                   value={field.value}
                   onChange={field.onChange}
                   onBlur={field.onBlur}
+                  className="min-w-[200px]"
                 />
               )}
             />
 
             <div className=" flex w-full justify-center">
-              <Button className="mt-5" type="submit">
+              <Button className="mt-8" type="submit">
                 Agregar
               </Button>
             </div>
