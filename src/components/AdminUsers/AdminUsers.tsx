@@ -8,6 +8,7 @@ import Card, { CardContent, CardHeader, CardTitle } from '../Card'
 function AdminUsers() {
   const [admins, setAdmins] = useState([])
   const errorHandler = useErrorHandler()
+
   useEffect(() => {
     const getAdmins = async () => {
       try {

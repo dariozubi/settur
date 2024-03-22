@@ -52,6 +52,24 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Hotel {
+  id      Int @id @default(autoincrement())
+  name    String
+  zone    Zone
+}
+
+enum Zone {
+  ZONE1
+  ZONE2
+  ZONE3
+  ZONE4
+  ZONE5
+  ZONE6
+  ZONE7
+  ZONE8
+  ZONE9
+}
+
 model Order {
   id              Int @id @default(autoincrement())
   created         DateTime @default(now())
@@ -60,19 +78,11 @@ model Order {
   email           String
   phone           String
   hotel           String
-  type            String
   adults          Int
   children        Int
   infants         Int
-  arrivalDate     DateTime?
-  arrivalFlight   String?
-  departureDate   DateTime?
-  departureFlight String?
-  vehicle         String?
   items           String[]
-  vehicleType     String
 }
-
 model Admin {
   id      Int @id @default(autoincrement())
   email   String @unique

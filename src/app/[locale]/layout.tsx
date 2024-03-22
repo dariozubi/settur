@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import '../globals.css'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
+import ReactQueryProvider from '@/providers/ReactQueryProvider'
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -29,9 +30,11 @@ export default function LocaleLayout({ children, params: { locale } }: Props) {
           fontSans.variable
         )}
       >
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <ReactQueryProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   )

@@ -100,7 +100,7 @@ function getBaseSchema({
     surname: z.string().trim().min(1, { message: required }),
     email: z.string().email({ message: email }),
     phone: z.string().regex(phoneRegexp, { message: phone }),
-    hotel: z.string({ required_error: required }),
+    hotel: z.number({ required_error: required }).int(),
     adults: z.coerce
       .number({ required_error: required })
       .int()

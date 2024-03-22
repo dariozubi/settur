@@ -40,3 +40,9 @@ export type FormLabels = UserProps['labels'] &
     submit: string
     error: FormErrors
   }
+
+export type Hotel = {
+  id: number
+  name: string
+  zone: string
+}

@@ -10,9 +10,11 @@ export function useBookForm({ required, minimum }: BookFormLabels['error']) {
   const FormSchema = useMemo(
     () =>
       z.object({
-        hotel: z.string({
-          required_error: required,
-        }),
+        hotel: z
+          .number({
+            required_error: required,
+          })
+          .int(),
         type: z.enum(['private', 'shared'], {
           required_error: required,
         }),
@@ -33,7 +35,7 @@ export function useBookForm({ required, minimum }: BookFormLabels['error']) {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const params = new URLSearchParams()
-    params.set('hotel', data.hotel)
+    params.set('hotel', String(data.hotel))
     params.set('adults', String(data.people))
     router.push(`/${data.type}?${params.toString()}`)
   }

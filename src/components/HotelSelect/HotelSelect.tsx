@@ -1,7 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronsUpDown, Hotel } from 'lucide-react'
+import { ChevronsUpDown, Hotel as HotelIcon } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
 import Button from '@/components/Button'
 import Command, {
@@ -18,7 +20,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
-import { hotels } from '@/lib/consts'
+import { Hotel } from '@/lib/types'
 
 export type Props = {
   labels: {
@@ -26,32 +28,36 @@ export type Props = {
     searchHotel: string
     noResults: string
   }
-  onSelect: (_v: string) => void
-  value: string
-}
-
-type Hotel = {
-  label: string
-  zone: number
+  onSelect: (_v: number) => void
+  value: number
 }
 
 function HotelSelect({ value, labels, onSelect }: Props) {
   const { selectHotel, searchHotel, noResults } = labels
   const [open, setOpen] = useState(false)
+  const { isLoading, error, data } = useQuery<{ hotels: Hotel[] }>({
+    queryKey: ['hotels'],
+    queryFn: async () => axios.get('/api/hotels').then(r => r.data),
+    staleTime: Infinity,
+  })
+
+  if (error) throw Error('Hotels endpoint is not working')
 
   return (
     <FormItem className="mx-auto max-w-[300px]">
       <div className="flex flex-col gap-2">
         <FormLabel className="flex items-center font-bold">Hotel</FormLabel>
         <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
+          <PopoverTrigger asChild disabled={isLoading}>
             <FormControl>
               <Button variant="outline" size="sm" className="w-full">
-                {value ? (
+                {value && data?.hotels ? (
                   <div className="flex w-full items-center justify-start">
-                    <Hotel className="mr-1 size-4" />
+                    <HotelIcon className="mr-1 size-4" />
 
-                    <span className="max-w-[250px] truncate">{value}</span>
+                    <span className="max-w-[250px] truncate">
+                      {data?.hotels?.find(h => h.id === Number(value))?.name}
+                    </span>
                   </div>
                 ) : (
                   <div className="flex w-full items-center justify-between">
@@ -67,18 +73,19 @@ function HotelSelect({ value, labels, onSelect }: Props) {
               <CommandList>
                 <CommandEmpty>{noResults}</CommandEmpty>
                 <CommandGroup>
-                  {hotels.map(hotel => (
-                    <CommandItem
-                      key={`${hotel.label}-${hotel.zone}`}
-                      value={hotel.label}
-                      onSelect={() => {
-                        onSelect(hotel.label)
-                        setOpen(false)
-                      }}
-                    >
-                      <span>{hotel.label}</span>
-                    </CommandItem>
-                  ))}
+                  {data?.hotels &&
+                    data?.hotels.map(hotel => (
+                      <CommandItem
+                        key={hotel.id}
+                        value={String(hotel.id)}
+                        onSelect={() => {
+                          onSelect(hotel.id)
+                          setOpen(false)
+                        }}
+                      >
+                        <span>{hotel.name}</span>
+                      </CommandItem>
+                    ))}
                 </CommandGroup>
               </CommandList>
             </Command>

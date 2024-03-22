@@ -6,9 +6,9 @@ import { z } from 'zod'
 import type { Props as VehicleProps } from '@/components/VehicleAccordion'
 import { toast } from '@/components/Toast'
 import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
-import { usePrivateURLParams } from './usePrivateURLParams'
 import { getPrivateSchema } from '@/lib/schemas'
 import { FormLabels } from '@/lib/types'
+import { useURLParams } from '@/lib/hooks/useURLParams'
 
 export type PrivateFormLabels = FormLabels & VehicleProps['labels']
 
@@ -34,7 +34,7 @@ export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
     },
   })
 
-  usePrivateURLParams(form)
+  useURLParams(form)
   const errorHandler = useErrorHandler()
 
   async function onSubmit(data: z.infer<typeof schema>) {

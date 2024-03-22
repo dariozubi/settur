@@ -6,9 +6,10 @@ import {
 import { FormField } from '@/components/Form'
 import { UseFormReturn } from 'react-hook-form'
 import VehiclesRadio from '@/components/VehiclesRadio'
-import { hotels } from '@/lib/consts'
-import { FormErrors, Zone } from '@/lib/types'
+import { FormErrors, Hotel, Zone } from '@/lib/types'
 import { useVehicleIndividualsValidation } from './hooks'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
 export type Props = {
   form: UseFormReturn<any>
@@ -19,7 +20,14 @@ export type Props = {
 }
 
 function VehicleAccordion({ form, labels }: Props) {
-  const zone = hotels.find(h => h.label === form.watch('hotel'))?.zone
+  const { isLoading, error, data } = useQuery<{ hotels: Hotel[] }>({
+    queryKey: ['hotels'],
+    queryFn: async () => axios.get('/api/hotels').then(r => r.data),
+  })
+  const zone = data?.hotels
+    .find(h => h.id === form.watch('hotel'))
+    ?.zone.toLowerCase()
+
   const individuals =
     Number(form.watch('adults')) +
     Number(form.watch('children')) +
@@ -27,7 +35,7 @@ function VehicleAccordion({ form, labels }: Props) {
 
   useVehicleIndividualsValidation({ individuals, form, labels })
 
-  if (!zone) return null
+  if (!zone || isLoading || error) return null
   return (
     <AccordionItem value="vehicle">
       <AccordionTrigger>{labels.vehicle}</AccordionTrigger>
@@ -40,7 +48,7 @@ function VehicleAccordion({ form, labels }: Props) {
             <VehiclesRadio
               value={field.value}
               onChange={field.onChange}
-              zone={`zone${zone}` as Zone}
+              zone={zone as Zone}
               tripType={form.watch('type')}
               individuals={individuals}
             />

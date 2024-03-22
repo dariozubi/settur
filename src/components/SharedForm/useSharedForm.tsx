@@ -4,10 +4,10 @@ import { z } from 'zod'
 // import axios from 'axios'
 
 import { toast } from '@/components/Toast'
-import { useSharedURLParams } from './useSharedURLParams'
 import { getSharedSchema } from '@/lib/schemas'
 import { FormLabels } from '@/lib/types'
 import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
+import { useURLParams } from '@/lib/hooks/useURLParams'
 
 export function useSharedForm({ error }: Pick<FormLabels, 'error'>) {
   const schema = getSharedSchema(error)
@@ -29,7 +29,7 @@ export function useSharedForm({ error }: Pick<FormLabels, 'error'>) {
     },
   })
 
-  useSharedURLParams(form)
+  useURLParams(form)
   const errorHandler = useErrorHandler()
 
   async function onSubmit(data: z.infer<typeof schema>) {
