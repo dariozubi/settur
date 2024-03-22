@@ -3,8 +3,12 @@
 import { useEffect, useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import Button from '@/components/Button'
 import { Session } from 'next-auth'
+import axios from 'axios'
+
+import Button from '@/components/Button'
+import { toast } from '@/components/Toast'
+import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
 
 type Props = {
   session: Session | null
@@ -12,6 +16,7 @@ type Props = {
 function LoginSection({ session }: Props) {
   const router = useRouter()
   const [email, setEmail] = useState('')
+  const errorHandler = useErrorHandler()
 
   useEffect(() => {
     if (session?.user) {
@@ -22,9 +27,27 @@ function LoginSection({ session }: Props) {
   return (
     <section className="flex flex-col gap-1 rounded border border-stone-400 bg-white p-4">
       <form
-        onSubmit={event => {
+        onSubmit={async event => {
           event.preventDefault()
-          signIn('email', { callbackUrl: '/profile', email })
+          try {
+            const res = await axios.get('/api/admin')
+            const isAdmin = res.data.admins.find((a: any) => a.email === email)
+            console.log(isAdmin)
+            if (isAdmin) {
+              signIn('email', { callbackUrl: '/profile', email })
+            } else {
+              toast({
+                title: 'Error',
+                description: (
+                  <p className="mt-2 w-[340px] whitespace-pre-line rounded-md bg-slate-950 p-4 text-red-500">
+                    PROHIBIDO EL PASO
+                  </p>
+                ),
+              })
+            }
+          } catch (e) {
+            errorHandler(e)
+          }
         }}
         className="flex flex-col gap-2"
       >

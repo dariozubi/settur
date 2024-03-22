@@ -72,3 +72,8 @@ model Order {
   items           String[]
   vehicleType     String
 }
+
+model Admin {
+  id      Int @id @default(autoincrement())
+  email   String @unique
+}

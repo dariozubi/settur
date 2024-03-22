@@ -192,3 +192,9 @@ export function getSharedSchema({
   })
   return final
 }
+
+export function getNewAdminSchema() {
+  return z.object({
+    email: z.string().email({ message: 'Escribe bien, wey' }),
+  })
+}

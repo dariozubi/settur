@@ -1,10 +1,10 @@
-import { phoneRegexp, trips, vehicleBrands, vehicleTypes } from '@/lib/consts'
-import { PrismaClient } from '@prisma/client'
 import { compareAsc, intervalToDuration } from 'date-fns'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 
-const prisma = new PrismaClient()
+import prisma from '@/db'
+import { phoneRegexp, trips, vehicleBrands, vehicleTypes } from '@/lib/consts'
+
 const [first, ...others] = vehicleBrands
 const schema = z
   .object({
