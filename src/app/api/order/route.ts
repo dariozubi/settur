@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 
 import prisma from '@/db'
-import { phoneRegexp, trips, vehicleBrands, vehicleTypes } from '@/lib/consts'
+import { phoneRegexp, trips, vehicleBrands } from '@/lib/consts'
 
 const [first, ...others] = vehicleBrands
 const schema = z
@@ -12,7 +12,7 @@ const schema = z
     surname: z.string().trim().min(1),
     email: z.string().email(),
     phone: z.string().regex(phoneRegexp),
-    hotel: z.string(),
+    hotel: z.number().int(),
     adults: z.coerce.number().int().min(1),
     children: z.coerce.number().int().min(0),
     infants: z.coerce.number().int().min(0),
@@ -23,7 +23,6 @@ const schema = z
     arrivalFlight: z.string().trim().min(1).optional(),
     departureDate: z.coerce.date().optional(),
     departureFlight: z.string().trim().min(1).optional(),
-    vehicleType: z.enum(vehicleTypes),
   })
   .refine(data => data.adults + data.children + data.infants < 50, {
     path: ['adults'],
@@ -79,11 +78,59 @@ export async function POST(request: Request) {
       return new NextResponse(error, { status: 400 })
     }
 
+    const {
+      name,
+      surname,
+      email,
+      phone,
+      hotel,
+      adults,
+      children,
+      infants,
+      vehicle,
+      items,
+      type,
+      arrivalDate,
+      arrivalFlight,
+      departureDate,
+      departureFlight,
+    } = req
+
     try {
-      const order = await prisma.order.create({ data: req })
+      const transfers =
+        type === 'round-trip'
+          ? {
+              create: [
+                { flight: arrivalFlight, date: arrivalDate, vehicle },
+                { flight: departureFlight, date: departureDate, vehicle },
+              ],
+            }
+          : type === 'airport'
+            ? {
+                create: {
+                  flight: departureFlight,
+                  date: departureDate,
+                  vehicle,
+                },
+              }
+            : { create: { flight: arrivalFlight, date: arrivalDate, vehicle } }
+      const order = await prisma.order.create({
+        data: {
+          adults,
+          children,
+          infants,
+          items,
+          email,
+          name,
+          surname,
+          phone,
+          hotelId: hotel,
+          transfers,
+        },
+      })
       return Response.json({ order })
     } catch (e) {
-      return new NextResponse('Prisma error', { status: 400 })
+      return new NextResponse(`Prisma error: ${e}`, { status: 400 })
     }
   } catch (e) {
     return new NextResponse('JSON error', { status: 400 })

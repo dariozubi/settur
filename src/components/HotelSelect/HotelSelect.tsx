@@ -51,7 +51,7 @@ function HotelSelect({ value, labels, onSelect }: Props) {
           <PopoverTrigger asChild disabled={isLoading}>
             <FormControl>
               <Button variant="outline" size="sm" className="w-full">
-                {value && data?.hotels ? (
+                {value !== undefined && data?.hotels ? (
                   <div className="flex w-full items-center justify-start">
                     <HotelIcon className="mr-1 size-4" />
 

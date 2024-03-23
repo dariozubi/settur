@@ -9,6 +9,8 @@ import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
 import { getPrivateSchema } from '@/lib/schemas'
 import { FormLabels } from '@/lib/types'
 import { useURLParams } from '@/lib/hooks/useURLParams'
+import { useQueryClient } from '@tanstack/react-query'
+import axios from 'axios'
 
 export type PrivateFormLabels = FormLabels & VehicleProps['labels']
 
@@ -36,20 +38,20 @@ export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
 
   useURLParams(form)
   const errorHandler = useErrorHandler()
+  const queryClient = useQueryClient()
 
   async function onSubmit(data: z.infer<typeof schema>) {
     try {
-      // const res = await axios.post('/api/order', {
-      //   ...data,
-      //   vehicleType: 'private',
-      // })
-      const res = { data }
+      const res = await queryClient.fetchQuery({
+        queryKey: ['createOrder'],
+        queryFn: async () => axios.post('/api/order', data).then(r => r.data),
+      })
       toast({
         title: 'You submitted the following values:',
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">
-              {JSON.stringify(res.data, null, 2)}
+              {JSON.stringify(res.order, null, 2)}
             </code>
           </pre>
         ),

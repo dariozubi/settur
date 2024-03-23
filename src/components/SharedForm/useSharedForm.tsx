@@ -36,7 +36,7 @@ export function useSharedForm({ error }: Pick<FormLabels, 'error'>) {
     try {
       // const res = await axios.post('/api/order', {
       //   ...data,
-      //   vehicleType: 'shared',
+      //   vehicle: 'SHARED',
       // })
       const res = { data }
       toast({
