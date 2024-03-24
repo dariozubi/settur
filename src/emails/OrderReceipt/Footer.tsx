@@ -29,8 +29,8 @@ export const Footer = ({ texts }: Props) => (
     <Row style={{ marginTop: '40px' }}>
       <Column align="center">
         <Img
-          src="https://settur.netlify.app/_ipx/w_1080,q_75/%2Fimg%2Flogo.png?q=75&url=%2Fimg%2Flogo.png&w=1080"
-          width="110"
+          src="https://settur.netlify.app/img/logo.png"
+          width="105"
           height="20"
           alt="STTUR"
           style={logo}

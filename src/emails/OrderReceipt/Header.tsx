@@ -11,8 +11,8 @@ type Props = {
 export const Header = ({ order, texts }: Props) => (
   <>
     <Img
-      src="https://settur.netlify.app/_ipx/w_1080,q_75/%2Fimg%2Flogo.png?q=75&url=%2Fimg%2Flogo.png&w=1080"
-      width="220"
+      src="https://settur.netlify.app/logo.png"
+      width="210"
       height="40"
       alt="SETTUR"
       style={logo}
@@ -20,7 +20,7 @@ export const Header = ({ order, texts }: Props) => (
     <Text style={tertiary}>{texts.subtitle}</Text>
     <Heading style={secondary}>{texts.orderHeader}</Heading>
     <Section style={codeContainer}>
-      <Text style={code}>{`#${order.id}`}</Text>
+      <Text style={code}>{`${texts.confirmation} #${order.id}`}</Text>
     </Section>
     <Heading style={secondary}>{texts.orderDetails}</Heading>
   </>

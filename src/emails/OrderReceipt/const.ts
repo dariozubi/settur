@@ -1,8 +1,8 @@
 export const labels = {
   es: {
     subtitle: 'Servicios de transportación terrestre',
-    orderHeader:
-      'Su orden de viaje ha sido confirmada. Su número de orden es el siguiente:',
+    orderHeader: 'Su orden de viaje ha sido confirmada.',
+    confirmation: 'Confirmación',
     orderDetails: 'Detalles de la orden',
     client: 'Cliente',
     tripType: 'Tipo de viaje',
@@ -50,12 +50,13 @@ export const labels = {
     changes:
       'Si requiere hacer cambios o tiene solicitudes adicionales contáctenos al teléfono',
     orMail: 'o envíe un mail a',
-    timeOpen: 'Lunes a viernes de 09:00 am a 18:00 Hrs.',
+    timeOpen: 'Lunes a viernes de 09:00 AM a 06:00 PM',
     footer: 'Gracias por su preferencia. Por favor NO RESPONDA a este correo.',
   },
   en: {
     subtitle: 'Ground transportation services',
-    orderHeader: 'Your order has been confirmed. Your order numer is :',
+    orderHeader: 'Your order has been confirmed.',
+    confirmation: 'Confirmation',
     orderDetails: 'Order Details',
     client: 'Client',
     tripType: 'Trip type',

@@ -78,6 +78,9 @@ export async function POST(request: Request) {
           hotel: true,
         },
       })
+      const subject = isEnglish
+        ? `Order #${order.id} confirmed`
+        : `Orden #${order.id} confirmada`
       const emailHTML = await renderAsync(
         <OrderReceipt
           order={{ ...req, id: order.id }}
@@ -106,9 +109,9 @@ export async function POST(request: Request) {
         />
       )
       const emailData = await resend.emails.send({
-        from: 'SETTUR <onboarding@resend.dev>',
+        from: 'SETTUR<onboarding@resend.dev>',
         to: [data.email],
-        subject: `Order #${order.id} confirmed`,
+        subject,
         html: emailHTML,
       })
 
