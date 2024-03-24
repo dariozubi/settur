@@ -11,6 +11,7 @@ import { FormLabels } from '@/lib/types'
 import { useURLParams } from '@/lib/hooks/useURLParams'
 import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
+import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 
 export type PrivateFormLabels = FormLabels & VehicleProps['labels']
 
@@ -37,24 +38,24 @@ export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
   })
 
   useURLParams(form)
+  const isEnglish = useIsEnglish()
   const errorHandler = useErrorHandler()
   const queryClient = useQueryClient()
 
   async function onSubmit(data: z.infer<typeof schema>) {
+    toast({
+      title: 'You submitted the following values:',
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    })
     try {
-      const res = await queryClient.fetchQuery({
+      await queryClient.fetchQuery({
         queryKey: ['createOrder'],
-        queryFn: async () => axios.post('/api/order', data).then(r => r.data),
-      })
-      toast({
-        title: 'You submitted the following values:',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(res.order, null, 2)}
-            </code>
-          </pre>
-        ),
+        queryFn: async () =>
+          axios.post('/api/order', { ...data, isEnglish }).then(r => r.data),
       })
     } catch (e) {
       errorHandler(e)

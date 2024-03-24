@@ -31,3 +31,14 @@ export const flightRegexp = new RegExp(
   /^([a-zA-Z][\d]|[\d][a-zA-Z]|[a-zA-Z]{2,3})(\d{1,})$/
 )
 export const vehicleTypes = ['private', 'shared'] as const
+export const items = [
+  'shopping',
+  'carSeat',
+  'boosterSeat',
+  'wheelchair',
+  'petBox',
+  'kayak',
+  'bicycle',
+  'surfTable',
+  'nothing',
+] as const

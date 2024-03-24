@@ -34,7 +34,7 @@ function AdditionalsAccordion({ form, labels, type }: Props) {
     type === 'private'
       ? [
           {
-            id: 'weelchair',
+            id: 'wheelchair',
             label: labels.additionalItems.wheelchair,
           },
           {

@@ -1,13 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-// import axios from 'axios'
+import axios from 'axios'
 
 import { toast } from '@/components/Toast'
 import { getSharedSchema } from '@/lib/schemas'
 import { FormLabels } from '@/lib/types'
 import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
 import { useURLParams } from '@/lib/hooks/useURLParams'
+import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 
 export function useSharedForm({ error }: Pick<FormLabels, 'error'>) {
   const schema = getSharedSchema(error)
@@ -28,26 +30,32 @@ export function useSharedForm({ error }: Pick<FormLabels, 'error'>) {
       items: [],
     },
   })
-
   useURLParams(form)
+  const isEnglish = useIsEnglish()
   const errorHandler = useErrorHandler()
+  const queryClient = useQueryClient()
 
   async function onSubmit(data: z.infer<typeof schema>) {
+    toast({
+      title: 'You submitted the following values:',
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    })
     try {
-      // const res = await axios.post('/api/order', {
-      //   ...data,
-      //   vehicle: 'SHARED',
-      // })
-      const res = { data }
-      toast({
-        title: 'You submitted the following values:',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(res.data, null, 2)}
-            </code>
-          </pre>
-        ),
+      await queryClient.fetchQuery({
+        queryKey: ['createOrder'],
+        queryFn: async () =>
+          axios
+            .post('/api/order', {
+              ...data,
+              isEnglish,
+              vehicle: 'SHARED',
+              privateItems: 'nothing',
+            })
+            .then(r => r.data),
       })
     } catch (e) {
       errorHandler(e)
