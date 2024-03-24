@@ -22,8 +22,9 @@ export const Footer = ({ texts }: Props) => (
           </Link>
           {'. '}
           {texts.timeOpen}
+          {'. '}
+          {texts.footer}
         </Text>
-        <Text style={footer}>{texts.footer}</Text>
       </Column>
     </Row>
     <Row style={{ marginTop: '40px' }}>

@@ -11,7 +11,7 @@ type Props = {
 export const Header = ({ order, texts }: Props) => (
   <>
     <Img
-      src="https://settur.netlify.app/logo.png"
+      src="https://settur.netlify.app/img/logo.png"
       width="210"
       height="40"
       alt="SETTUR"
