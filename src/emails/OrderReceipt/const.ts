@@ -2,7 +2,7 @@ export const labels = {
   es: {
     subtitle: 'Servicios de transportación terrestre',
     orderHeader: 'Su orden de viaje ha sido confirmada.',
-    confirmation: 'Confirmación',
+    order: 'Orden',
     orderDetails: 'Detalles de la orden',
     client: 'Cliente',
     tripType: 'Tipo de viaje',
@@ -56,7 +56,7 @@ export const labels = {
   en: {
     subtitle: 'Ground transportation services',
     orderHeader: 'Your order has been confirmed.',
-    confirmation: 'Confirmation',
+    order: 'Order',
     orderDetails: 'Order Details',
     client: 'Client',
     tripType: 'Trip type',

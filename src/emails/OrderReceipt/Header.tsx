@@ -20,7 +20,7 @@ export const Header = ({ order, texts }: Props) => (
     <Text style={tertiary}>{texts.subtitle}</Text>
     <Heading style={secondary}>{texts.orderHeader}</Heading>
     <Section style={codeContainer}>
-      <Text style={code}>{`${texts.confirmation} #${order.id}`}</Text>
+      <Text style={code}>{`${texts.order} #${order.id}`}</Text>
     </Section>
     <Heading style={secondary}>{texts.orderDetails}</Heading>
   </>

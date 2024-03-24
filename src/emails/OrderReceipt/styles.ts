@@ -58,7 +58,7 @@ export const code = {
   color: '#000',
   display: 'inline-block',
   fontFamily: 'HelveticaNeue-Bold',
-  fontSize: '32px',
+  fontSize: '24px',
   fontWeight: 700,
   lineHeight: '40px',
   paddingBottom: '8px',
