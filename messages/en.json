@@ -84,7 +84,8 @@
             "phone": "Invalid phone",
             "too-many-people": "There's too many people for one vehicle only. Have you seen our groups page?",
             "departure-after-arrival": "Departure date must be after arrival date",
-            "invalid-flight": "Invalid flight number"
+            "invalid-flight": "Invalid flight number",
+            "notAvailable": "Hotel not available for shared vehicles"
         },
         "user": "User",
         "destination": "Destination",

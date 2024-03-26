@@ -13,11 +13,24 @@ type Props = {
 }
 
 export function BookForm({ labels }: Props) {
-  const { form, onSubmit } = useBookForm(labels.error)
+  const { form, onSubmit, isLoading, hotels } = useBookForm(labels.error)
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+        <FormField
+          control={form.control}
+          disabled={isLoading}
+          name="type"
+          render={({ field }) => (
+            <VehicleTypeRadio
+              labels={labels.vehicleType}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
+        />
+
         <FormField
           control={form.control}
           name="hotel"
@@ -28,18 +41,7 @@ export function BookForm({ labels }: Props) {
               onSelect={v => {
                 form.setValue('hotel', v)
               }}
-            />
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => (
-            <VehicleTypeRadio
-              labels={labels.vehicleType}
-              value={field.value}
-              onChange={field.onChange}
+              hotels={hotels}
             />
           )}
         />

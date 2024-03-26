@@ -43,19 +43,19 @@ export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
   const queryClient = useQueryClient()
 
   async function onSubmit(data: z.infer<typeof schema>) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
     try {
-      await queryClient.fetchQuery({
+      const res = await queryClient.fetchQuery({
         queryKey: ['createOrder'],
         queryFn: async () =>
           axios.post('/api/order', { ...data, isEnglish }).then(r => r.data),
+      })
+      toast({
+        title: 'Success!',
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{JSON.stringify(res, null, 2)}</code>
+          </pre>
+        ),
       })
     } catch (e) {
       errorHandler(e)

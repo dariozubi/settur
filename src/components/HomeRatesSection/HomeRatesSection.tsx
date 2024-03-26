@@ -124,9 +124,6 @@ function HomeRatesSection() {
                 Diamante**
               </TableHead>
               <TableHead className="text-center text-slate-800">
-                {t('tourist-corridor')}
-              </TableHead>
-              <TableHead className="text-center text-slate-800">
                 Todos Santos**
               </TableHead>
               <TableHead className="text-center text-slate-800">
@@ -139,7 +136,7 @@ function HomeRatesSection() {
             <TableRow className="border-b-slate-800 hover:bg-neutral-50">
               <TableCell className="bg-neutral-200" />
               <TableCell className="bg-neutral-200" />
-              <TableCell className="bg-neutral-200 text-center font-bold">
+              <TableCell className="bg-neutral-200 font-bold">
                 {t('one-way')}
               </TableCell>
               <TableCell className="bg-neutral-200" />
@@ -151,13 +148,12 @@ function HomeRatesSection() {
               <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE6' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
               <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE7' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
               <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE8' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
-              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ONEWAY' && r.zone === 'ZONE9' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
             </TableRow>
 
             <TableRow className="border-b-slate-800 hover:bg-neutral-50">
               <TableCell className="bg-neutral-200" />
               <TableCell className="bg-neutral-200" />
-              <TableCell className="bg-neutral-200 text-center font-bold">
+              <TableCell className="bg-neutral-200 font-bold">
                 {t('round-trip')}
               </TableCell>
               <TableCell className="bg-neutral-200" />
@@ -169,7 +165,6 @@ function HomeRatesSection() {
               <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE6' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
               <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE7' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
               <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE8' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
-              <TableCell className="text-center">{`${data?.rates.find(r => r.trip === 'ROUND' && r.zone === 'ZONE9' && r.vehicle === 'HIACE')?.value} USD`}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

@@ -2,8 +2,6 @@
 
 import { useState } from 'react'
 import { ChevronsUpDown, Hotel as HotelIcon } from 'lucide-react'
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 
 import Button from '@/components/Button'
 import Command, {
@@ -30,33 +28,28 @@ export type Props = {
   }
   onSelect: (_v: number) => void
   value: number
+  hotels: Hotel[]
 }
 
-function HotelSelect({ value, labels, onSelect }: Props) {
+function HotelSelect({ value, labels, onSelect, hotels }: Props) {
   const { selectHotel, searchHotel, noResults } = labels
   const [open, setOpen] = useState(false)
-  const { isLoading, error, data } = useQuery<{ hotels: Hotel[] }>({
-    queryKey: ['hotels'],
-    queryFn: async () => axios.get('/api/hotels').then(r => r.data),
-    staleTime: Infinity,
-  })
-
-  if (error) throw Error('Hotels endpoint is not working')
 
   return (
     <FormItem className="mx-auto max-w-[300px]">
       <div className="flex flex-col gap-2">
         <FormLabel className="flex items-center font-bold">Hotel</FormLabel>
         <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild disabled={isLoading}>
+          <PopoverTrigger asChild>
             <FormControl>
               <Button variant="outline" size="sm" className="w-full">
-                {value !== undefined && data?.hotels ? (
+                {value !== undefined ? (
                   <div className="flex w-full items-center justify-start">
                     <HotelIcon className="mr-1 size-4" />
 
                     <span className="max-w-[250px] truncate">
-                      {data?.hotels?.find(h => h.id === Number(value))?.name}
+                      {hotels.find(h => h.id === Number(value))?.name ??
+                        selectHotel}
                     </span>
                   </div>
                 ) : (
@@ -73,19 +66,18 @@ function HotelSelect({ value, labels, onSelect }: Props) {
               <CommandList>
                 <CommandEmpty>{noResults}</CommandEmpty>
                 <CommandGroup>
-                  {data?.hotels &&
-                    data?.hotels.map(hotel => (
-                      <CommandItem
-                        key={hotel.id}
-                        value={String(hotel.id)}
-                        onSelect={() => {
-                          onSelect(hotel.id)
-                          setOpen(false)
-                        }}
-                      >
-                        <span>{hotel.name}</span>
-                      </CommandItem>
-                    ))}
+                  {hotels.map(hotel => (
+                    <CommandItem
+                      key={hotel.id}
+                      value={String(hotel.id)}
+                      onSelect={() => {
+                        onSelect(hotel.id)
+                        setOpen(false)
+                      }}
+                    >
+                      <span>{hotel.name}</span>
+                    </CommandItem>
+                  ))}
                 </CommandGroup>
               </CommandList>
             </Command>

@@ -21,10 +21,10 @@ const MagicLink = ({ url }: Props) => (
     <Body style={main}>
       <Container style={container}>
         <Img
-          src="https://settur.netlify.app/_ipx/w_1080,q_75/%2Fimg%2Flogo.png?q=75&url=%2Fimg%2Flogo.png&w=1080"
-          width="220"
+          src="https://settur.netlify.app/img/logo.png"
+          width="210"
           height="40"
-          alt="Plaid"
+          alt="SETTUR"
           style={logo}
         />
         <Text style={tertiary}>Bienvenido administrador</Text>

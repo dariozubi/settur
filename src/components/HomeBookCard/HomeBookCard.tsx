@@ -13,6 +13,7 @@ function HomeBookCard() {
       error: {
         required: t('errors.required'),
         minimum: t('errors.minimum', { value: 1 }),
+        notAvailable: t('errors.notAvailable'),
       },
       submit: t('continue'),
       hotel: {

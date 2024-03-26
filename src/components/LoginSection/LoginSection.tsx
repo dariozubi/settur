@@ -20,7 +20,7 @@ function LoginSection({ session }: Props) {
 
   useEffect(() => {
     if (session?.user) {
-      router.replace('/profile')
+      router.replace('/dahsboard')
     }
   }, [router, session?.user])
 
@@ -33,7 +33,7 @@ function LoginSection({ session }: Props) {
             const res = await axios.get('/api/admin')
             const isAdmin = res.data.admins.find((a: any) => a.email === email)
             if (isAdmin) {
-              signIn('email', { callbackUrl: '/profile', email })
+              signIn('email', { callbackUrl: '/dashboard', email })
             } else {
               toast({
                 title: 'Error',

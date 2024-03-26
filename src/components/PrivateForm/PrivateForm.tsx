@@ -36,7 +36,7 @@ function PrivateForm({ labels }: Props) {
         >
           <UserAccordion form={form} labels={labels} />
 
-          <DestinationAccordion form={form} labels={labels} />
+          <DestinationAccordion form={form} labels={labels} isPrivate />
 
           <PeopleAccordion form={form} labels={labels} />
 
