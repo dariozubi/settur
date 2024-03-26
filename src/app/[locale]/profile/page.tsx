@@ -3,8 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
 import LogoutButton from '@/components/LogoutButton'
 import AdminLayout from '@/components/AdminLayout'
-import AdminNewUserForm from '@/components/AdminNewUserForm'
-import AdminUsers from '@/components/AdminUsers'
+import AdminOrdersTable from '@/components/AdminOrdersTable'
 
 export default async function Page() {
   const session = await getServerSession(authOptions)
@@ -20,8 +19,7 @@ export default async function Page() {
         <LogoutButton />
       </div>
       <div className="flex w-full gap-2">
-        <AdminUsers />
-        <AdminNewUserForm />
+        <AdminOrdersTable />
       </div>
     </AdminLayout>
   )
