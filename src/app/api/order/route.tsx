@@ -109,7 +109,7 @@ export async function POST(request: Request) {
         />
       )
       const emailData = await resend.emails.send({
-        from: 'SETTUR<onboarding@resend.dev>',
+        from: 'SETTUR<info@settur.com.mx>',
         to: [data.email],
         subject,
         html: emailHTML,
