@@ -20,18 +20,18 @@ export type Props = {
 
 const PrivateAdditionalsRadio = ({ labels, value, onChange }: Props) => {
   const additionals: { id: string; label: string }[] = [
-    { id: 'petBox', label: `${labels.petBox} (+5 USD)` },
-    { id: 'kayak', label: `${labels.kayak} (+5 USD)` },
+    { id: 'PETBOX', label: `${labels.petBox} (+5 USD)` },
+    { id: 'KAYAK', label: `${labels.kayak} (+5 USD)` },
     {
-      id: 'bicycle',
+      id: 'BICYCLE',
       label: `${labels.bicycle} (+5 USD)`,
     },
     {
-      id: 'surfTable',
+      id: 'SURFTABLE',
       label: `${labels.surfTable} (+5 USD)`,
     },
     {
-      id: 'nothing',
+      id: 'NOTHING',
       label: labels.nothing,
     },
   ]

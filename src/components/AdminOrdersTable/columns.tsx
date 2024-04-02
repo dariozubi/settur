@@ -1,6 +1,6 @@
 'use client'
 
-import { Order, Transfer } from '@prisma/client'
+import { Order } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -41,13 +41,5 @@ export const columns: ColumnDef<Order>[] = [
     accessorKey: 'name',
     header: 'Name',
     cell: ({ row }) => `${row.getValue('name')} ${row.original.surname}`,
-  },
-  {
-    accessorKey: 'transfers',
-    header: 'Vehicle',
-    cell: ({ row }) => {
-      const transfers = row.getValue('transfers') as Transfer[]
-      return transfers[0].vehicle
-    },
   },
 ]

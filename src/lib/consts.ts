@@ -32,13 +32,13 @@ export const flightRegexp = new RegExp(
 )
 export const vehicleTypes = ['private', 'shared'] as const
 export const items = [
-  'shopping',
-  'carSeat',
-  'boosterSeat',
-  'wheelchair',
-  'petBox',
-  'kayak',
-  'bicycle',
-  'surfTable',
-  'nothing',
+  'SHOPPING',
+  'CARSEAT',
+  'BOOSTERSEAT',
+  'WHEELCHAIR',
+  'PETBOX',
+  'KAYAK',
+  'BICYCLE',
+  'SURFTABLE',
+  'NOTHING',
 ] as const

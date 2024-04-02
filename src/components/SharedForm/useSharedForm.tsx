@@ -4,11 +4,11 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import axios from 'axios'
 
-import { toast } from '@/components/Toast'
 import { getSharedSchema } from '@/lib/schemas'
 import { FormLabels } from '@/lib/types'
 import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
 import { useURLParams } from '@/lib/hooks/useURLParams'
+import { useRouter } from '@/navigation'
 import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 
 export function useSharedForm({ error }: Pick<FormLabels, 'error'>) {
@@ -31,9 +31,10 @@ export function useSharedForm({ error }: Pick<FormLabels, 'error'>) {
     },
   })
   useURLParams(form)
-  const isEnglish = useIsEnglish()
   const errorHandler = useErrorHandler()
   const queryClient = useQueryClient()
+  const isEnglish = useIsEnglish()
+  const router = useRouter()
 
   async function onSubmit(data: z.infer<typeof schema>) {
     try {
@@ -43,20 +44,13 @@ export function useSharedForm({ error }: Pick<FormLabels, 'error'>) {
           axios
             .post('/api/order', {
               ...data,
-              isEnglish,
               vehicle: 'SHARED',
               privateItems: 'nothing',
+              isEnglish,
             })
             .then(r => r.data),
       })
-      toast({
-        title: 'Success!',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(res, null, 2)}</code>
-          </pre>
-        ),
-      })
+      router.push(`/checkout?orderId=${res.orderId}`)
     } catch (e) {
       errorHandler(e)
     }

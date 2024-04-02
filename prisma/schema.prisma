@@ -61,26 +61,33 @@ model Hotel {
 }
 
 model Rate {
-  trip      Trip
-  vehicle   Vehicle
-  zone      Zone
-  value     Int
-
-  @@unique([trip, vehicle, zone])
+  id            Int @id @default(autoincrement())
+  trip          Trip?
+  vehicle       Vehicle?
+  zone          Zone?
+  additionalId  Additional?
+  value         Int
+  priceId       String
 }
 
 model Order {
   id          Int @id @default(autoincrement())
-  created     DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  status      OrderStatus @default(CREATED)
   adults      Int
   children    Int
   infants     Int
-  items       String[]
+  items       Additional[]
   email       String 
   name        String
   surname     String
   phone       String
   transfers   Transfer[]
+  priceIds    String[]
+  vehicle     Vehicle
+  isEnglish   Boolean
+  trip        Trip
 
   hotel       Hotel @relation(fields: [hotelId], references: [id])
   hotelId     Int
@@ -90,7 +97,7 @@ model Transfer {
   id        Int @id @default(autoincrement())
   flight    String
   date      DateTime
-  vehicle   Vehicle
+  direction Direction
 
   order     Order @relation(fields: [orderId], references: [id])
   orderId   Int
@@ -100,6 +107,26 @@ model Admin {
   email   String @unique
 }
 
+enum Additional {
+  WHEELCHAIR
+  CARSEAT
+  BOOSTERSEAT
+  SHOPPING
+  PETBOX
+  KAYAK
+  BICYCLE
+  SURFTABLE
+  RESERVATION
+}
+
+enum OrderStatus {
+  CREATED
+  RESERVED
+  PAID
+  CANCELLED
+  FULFILLED
+}
+
 enum Vehicle {
   SPRINTER
   HIACE
@@ -107,6 +134,11 @@ enum Vehicle {
   ESCALADE
   COACH
   SHARED
+}
+
+enum Direction {
+  AIRPORT
+  HOTEL
 }
 
 enum Trip {
@@ -123,5 +155,4 @@ enum Zone {
   ZONE6
   ZONE7
   ZONE8
-  ZONE9
 }

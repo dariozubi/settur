@@ -34,29 +34,29 @@ function AdditionalsAccordion({ form, labels, type }: Props) {
     type === 'private'
       ? [
           {
-            id: 'wheelchair',
+            id: 'WHEELCHAIR',
             label: labels.additionalItems.wheelchair,
           },
           {
-            id: 'carSeat',
+            id: 'CARSEAT',
             label: `${labels.additionalItems.carSeat} (+5 USD)`,
           },
           {
-            id: 'boosterSeat',
+            id: 'BOOSTERSEAT',
             label: `${labels.additionalItems.boosterSeat} (+3 USD)`,
           },
           {
-            id: 'shopping',
+            id: 'SHOPPING',
             label: `${labels.additionalItems.shopping} (+25 USD)`,
           },
         ]
       : [
           {
-            id: 'carSeat',
+            id: 'CARSEAT',
             label: `${labels.additionalItems.carSeat} (+5 USD)`,
           },
           {
-            id: 'boosterSeat',
+            id: 'BOOSTERSEAT',
             label: `${labels.additionalItems.boosterSeat} (+3 USD)`,
           },
         ]

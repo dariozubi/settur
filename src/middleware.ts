@@ -3,7 +3,15 @@ import createIntlMiddleware from 'next-intl/middleware'
 import { NextRequest } from 'next/server'
 import { locales } from './i18n'
 
-const publicPages = ['/', '/private', '/shared', '/login', '/verify']
+const publicPages = [
+  '/',
+  '/private',
+  '/shared',
+  '/login',
+  '/verify',
+  '/checkout',
+  '/return',
+]
 
 const intlMiddleware = createIntlMiddleware({
   locales,

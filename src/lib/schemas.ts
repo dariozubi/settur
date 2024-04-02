@@ -1,4 +1,4 @@
-import { flightRegexp, phoneRegexp, vehicleBrands } from './consts'
+import { flightRegexp, items, phoneRegexp, vehicleBrands } from './consts'
 import { AnyZodObject, z } from 'zod'
 import { FormErrors } from './types'
 import { compareAsc } from 'date-fns'
@@ -117,7 +117,7 @@ function getBaseSchema({
       .min(0, { message: minimum })
       .max(50, { message: maximum }),
 
-    items: z.array(z.string()),
+    items: z.array(z.enum(items)),
   })
   return schema
 }
@@ -145,13 +145,7 @@ export function getPrivateSchema({
   const schema = base.merge(
     z.object({
       vehicle: z.enum([first, ...others], { required_error: required }),
-      privateItems: z.enum([
-        'petBox',
-        'kayak',
-        'bicycle',
-        'surfTable',
-        'nothing',
-      ]),
+      privateItems: z.enum(items),
     })
   )
   const final = getFinalSchema({

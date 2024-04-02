@@ -13,7 +13,7 @@ export const schema = z
     adults: z.coerce.number().int().min(1),
     children: z.coerce.number().int().min(0),
     infants: z.coerce.number().int().min(0),
-    vehicle: z.enum([first, ...others, 'SHARED']).optional(),
+    vehicle: z.enum([first, ...others, 'SHARED']),
     items: z.array(z.enum(items)),
     type: z.enum(trips),
     arrivalDate: z.coerce.date().optional(),

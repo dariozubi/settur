@@ -1,16 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
-// import axios from 'axios'
+import axios from 'axios'
 
 import type { Props as VehicleProps } from '@/components/VehicleAccordion'
-import { toast } from '@/components/Toast'
 import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
 import { getPrivateSchema } from '@/lib/schemas'
 import { FormLabels } from '@/lib/types'
 import { useURLParams } from '@/lib/hooks/useURLParams'
-import { useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
+import { useRouter } from '@/navigation'
 import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 
 export type PrivateFormLabels = FormLabels & VehicleProps['labels']
@@ -38,9 +37,10 @@ export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
   })
 
   useURLParams(form)
-  const isEnglish = useIsEnglish()
   const errorHandler = useErrorHandler()
   const queryClient = useQueryClient()
+  const isEnglish = useIsEnglish()
+  const router = useRouter()
 
   async function onSubmit(data: z.infer<typeof schema>) {
     try {
@@ -49,14 +49,7 @@ export function usePrivateForm({ error }: Pick<PrivateFormLabels, 'error'>) {
         queryFn: async () =>
           axios.post('/api/order', { ...data, isEnglish }).then(r => r.data),
       })
-      toast({
-        title: 'Success!',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(res, null, 2)}</code>
-          </pre>
-        ),
-      })
+      router.push(`/checkout?orderId=${res.orderId}`)
     } catch (e) {
       errorHandler(e)
     }
