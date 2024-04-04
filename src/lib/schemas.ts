@@ -94,7 +94,7 @@ function getBaseSchema({
   minimumOne,
   maximum,
   minimum,
-}: Omit<FormErrors, 'tooManyPeople' | 'departureAfterArrival'>) {
+}: Omit<FormErrors, 'tooManyPeople' | 'departureAfterArrival' | 'form'>) {
   const schema = z.object({
     name: z.string().trim().min(1, { message: required }),
     surname: z.string().trim().min(1, { message: required }),
@@ -116,7 +116,6 @@ function getBaseSchema({
       .int()
       .min(0, { message: minimum })
       .max(50, { message: maximum }),
-
     items: z.array(z.enum(items)),
   })
   return schema

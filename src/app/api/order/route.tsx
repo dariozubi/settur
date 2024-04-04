@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     try {
       const allItems =
-        privateItems !== 'nothing' ? [...items, privateItems] : items
+        privateItems !== 'NOTHING' ? [...items, privateItems] : items
 
       const hotelValues = await prisma.hotel.findUnique({
         select: { zone: true },

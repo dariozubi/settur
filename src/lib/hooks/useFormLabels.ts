@@ -76,6 +76,8 @@ export function useFormLabels() {
         nothing: t('Items.nothing'),
       },
       submit: t('continue'),
+      review: t('review'),
+      reviewOrder: t('review-order'),
       error: {
         required: t('errors.required'),
         minimumOne: t('errors.minimum', { value: 1 }),
@@ -86,6 +88,7 @@ export function useFormLabels() {
         tooManyPeople: t('errors.too-many-people'),
         departureAfterArrival: t('errors.departure-after-arrival'),
         invalidFlight: t('errors.invalid-flight'),
+        form: t('errors.form'),
       },
     }),
     [t]

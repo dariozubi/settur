@@ -19,6 +19,7 @@ export type FormErrors = {
   departureAfterArrival: string
   maximum: string
   invalidFlight: string
+  form: string
 }
 
 export type FormLabels = UserProps['labels'] &
@@ -27,5 +28,7 @@ export type FormLabels = UserProps['labels'] &
   FlightsProps['labels'] &
   AdditionalsProps['labels'] & {
     submit: string
+    review: string
+    reviewOrder: string
     error: FormErrors
   }

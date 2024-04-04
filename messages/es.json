@@ -85,7 +85,8 @@
             "too-many-people": "No tenemos vehículos para tantas personas. ¿Ya viste nuestra página de grupos?",
             "departure-after-arrival": "La fecha de salida debe ser después de la de llegada",
             "invalid-flight": "Número de vuelo inválido",
-            "notAvailable": "Hotel no disponible para servicios compartidos"
+            "notAvailable": "Hotel no disponible para servicios compartidos",
+            "form": "Por favor revisa los campos otra vez. Hay errores en los valores que quieres enviar."
         },
         "user": "Usuario",
         "destination": "Destino",
@@ -94,6 +95,8 @@
         "flights": "Vuelos",
         "additionals": "Adicionales",
         "extras": "Extras que puedes necesitar",
-        "continue": "Continuar"
+        "continue": "Continuar",
+        "review": "Revisar",
+        "review-order": "Revisar orden"
     }
 }

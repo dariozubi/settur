@@ -1,6 +1,5 @@
 'use client'
 
-import Button from '@/components/Button'
 import Form from '@/components/Form'
 import Accordion from '@/components/Accordion'
 import DestinationAccordion from '@/components/DestinationAccordion'
@@ -11,6 +10,7 @@ import UserAccordion from '@/components/UserAccordion'
 import AdditionalsAccordion from '@/components/AdditionalsAccordion'
 import { PrivateFormLabels, usePrivateForm } from './usePrivateForm'
 import { useState } from 'react'
+import { ReviewDialog } from './ReviewDialog'
 
 type Props = {
   labels: PrivateFormLabels
@@ -26,9 +26,10 @@ function PrivateForm({ labels }: Props) {
     'flights',
     'additionals',
   ])
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} id="private-form">
         <Accordion
           type="multiple"
           value={openAccordions}
@@ -47,11 +48,7 @@ function PrivateForm({ labels }: Props) {
           <AdditionalsAccordion form={form} labels={labels} type="private" />
         </Accordion>
 
-        <div className=" flex w-full justify-center">
-          <Button className="mt-5" type="submit">
-            {labels.submit}
-          </Button>
-        </div>
+        <ReviewDialog form={form} setOpenAccordions={setOpenAccordions} />
       </form>
     </Form>
   )
