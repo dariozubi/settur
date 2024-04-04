@@ -5,34 +5,29 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
+import { useTranslations } from 'next-intl'
 
 export type Props = {
-  labels: {
-    petBox: string
-    kayak: string
-    bicycle: string
-    surfTable: string
-    nothing: string
-  }
   value: string
   onChange: () => void
 }
 
-const PrivateAdditionalsRadio = ({ labels, value, onChange }: Props) => {
+const PrivateAdditionalsRadio = ({ value, onChange }: Props) => {
+  const t = useTranslations('form.Items')
   const additionals: { id: string; label: string }[] = [
-    { id: 'PETBOX', label: `${labels.petBox} (+5 USD)` },
-    { id: 'KAYAK', label: `${labels.kayak} (+5 USD)` },
+    { id: 'PETBOX', label: `${t('petbox')} (+5 USD)` },
+    { id: 'KAYAK', label: `${t('kayak')} (+5 USD)` },
     {
       id: 'BICYCLE',
-      label: `${labels.bicycle} (+5 USD)`,
+      label: `${t('bicycle')} (+5 USD)`,
     },
     {
       id: 'SURFTABLE',
-      label: `${labels.surfTable} (+5 USD)`,
+      label: `${t('surftable')} (+5 USD)`,
     },
     {
       id: 'NOTHING',
-      label: labels.nothing,
+      label: t('nothing'),
     },
   ]
   return (

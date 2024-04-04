@@ -5,18 +5,17 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
+import { useTranslations } from 'next-intl'
 
 export type Props = {
-  labels: {
-    type1: string
-    type2: string
-  }
   value: string
   onChange: () => void
 }
 
-export const VehicleTypeRadio = ({ labels, value, onChange }: Props) => {
-  const { type1, type2 } = labels
+export const VehicleTypeRadio = ({ value, onChange }: Props) => {
+  const t = useTranslations('form.VehicleTypeRadio')
+  const type1 = t('private')
+  const type2 = t('shared')
   return (
     <FormItem className="mx-auto flex max-w-[300px] flex-col">
       <FormControl>

@@ -1,36 +1,8 @@
-import { useMemo } from 'react'
-import { useTranslations } from 'next-intl'
-
 import Text from '@/components/Text'
 import Card, { CardContent, CardHeader } from '@/components/Card'
-import { BookFormLabels } from './types'
 import { BookForm } from './BookForm'
 
 function HomeBookCard() {
-  const t = useTranslations('form')
-  const labels: BookFormLabels = useMemo(
-    () => ({
-      error: {
-        required: t('errors.required'),
-        minimum: t('errors.minimum', { value: 1 }),
-        notAvailable: t('errors.notAvailable'),
-      },
-      submit: t('continue'),
-      hotel: {
-        selectHotel: t('HotelSelect.select-hotel'),
-        searchHotel: t('HotelSelect.search-hotel'),
-        noResults: t('HotelSelect.no-results'),
-      },
-      vehicleType: {
-        type1: t('VehicleTypeRadio.private'),
-        type2: t('VehicleTypeRadio.shared'),
-      },
-      people: {
-        label: t('PeopleInput.adults-number'),
-      },
-    }),
-    [t]
-  )
   return (
     <Card>
       <CardHeader>
@@ -44,7 +16,7 @@ function HomeBookCard() {
         </Text>
       </CardHeader>
       <CardContent className="mb-10">
-        <BookForm labels={labels} />
+        <BookForm />
       </CardContent>
     </Card>
   )

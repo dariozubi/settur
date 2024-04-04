@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import Form from '@/components/Form'
 import Button from '@/components/Button'
 import Accordion from '@/components/Accordion'
@@ -9,14 +10,10 @@ import FlightsAccordion from '@/components/FlightsAccordion'
 import UserAccordion from '@/components/UserAccordion'
 import AdditionalsAccordion from '@/components/AdditionalsAccordion'
 import { useSharedForm } from './useSharedForm'
-import { FormLabels } from '@/lib/types'
 
-type Props = {
-  labels: FormLabels
-}
-
-function SharedForm({ labels }: Props) {
-  const { form, onSubmit } = useSharedForm({ error: labels.error })
+function SharedForm() {
+  const t = useTranslations('form')
+  const { form, onSubmit } = useSharedForm()
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -30,20 +27,20 @@ function SharedForm({ labels }: Props) {
             'additionals',
           ]}
         >
-          <UserAccordion form={form} labels={labels} />
+          <UserAccordion form={form} />
 
-          <DestinationAccordion form={form} labels={labels} />
+          <DestinationAccordion form={form} />
 
-          <PeopleAccordion form={form} labels={labels} />
+          <PeopleAccordion form={form} />
 
-          <FlightsAccordion form={form} labels={labels} />
+          <FlightsAccordion form={form} />
 
-          <AdditionalsAccordion form={form} labels={labels} type="shared" />
+          <AdditionalsAccordion form={form} type="shared" />
         </Accordion>
 
         <div className=" flex w-full justify-center">
           <Button className="mt-5" type="submit">
-            {labels.submit}
+            {t('continue')}
           </Button>
         </div>
       </form>

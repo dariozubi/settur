@@ -18,22 +18,19 @@ import {
 } from '@/components/Form'
 import { TimePicker } from './TimePicker'
 import { SelectSingleEventHandler } from 'react-day-picker'
+import { useTranslations } from 'next-intl'
 
 export type Props = {
-  labels: {
-    date: string
-    pickDate: string
-    hours: string
-    minutes: string
-  }
+  label: string
   onChange: (_d?: Date) => void
   value: Date
   limitDate?: Date
 }
 
-function DatePicker({ labels, value, onChange, limitDate }: Props) {
+function DatePicker({ label, value, onChange, limitDate }: Props) {
   const isEnglish = useIsEnglish()
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+  const t = useTranslations('form.DatePicker')
 
   const handleOnSelect: SelectSingleEventHandler = (d?: Date) => {
     onChange(d)
@@ -41,7 +38,7 @@ function DatePicker({ labels, value, onChange, limitDate }: Props) {
   }
   return (
     <FormItem className="flex flex-col">
-      <FormLabel className="font-bold">{labels.date}</FormLabel>
+      <FormLabel className="font-bold">{label}</FormLabel>
       <div className="flex items-center gap-2">
         <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
           <PopoverTrigger asChild>
@@ -60,13 +57,13 @@ function DatePicker({ labels, value, onChange, limitDate }: Props) {
                     })}
                   </span>
                 ) : (
-                  <span className="mr-2">{labels.pickDate}</span>
+                  <span className="mr-2">{t('pick-date')}</span>
                 )}
                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
               </Button>
             </FormControl>
           </PopoverTrigger>
-          <TimePicker setDate={onChange} date={value} labels={labels} />
+          <TimePicker setDate={onChange} date={value} />
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
               mode="single"

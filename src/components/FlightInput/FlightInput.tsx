@@ -7,15 +7,13 @@ import {
 import Input, { InputProps } from '@/components/Input'
 
 export type Props = {
-  labels: {
-    flight: string
-  }
+  label: string
 } & InputProps
 
-function FlightInput({ labels, value, onChange, onBlur }: Props) {
+function FlightInput({ label, value, onChange, onBlur }: Props) {
   return (
     <FormItem>
-      <FormLabel className="font-bold">{labels.flight}</FormLabel>
+      <FormLabel className="font-bold">{label}</FormLabel>
       <FormControl>
         <Input
           value={value}

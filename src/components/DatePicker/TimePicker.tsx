@@ -1,20 +1,20 @@
 'use client'
 
 import { useRef } from 'react'
+import { useTranslations } from 'next-intl'
 
 import Label from '@/components/Label'
 import TimePickerInput from '@/components/TimePickerInput'
-import type { Props } from './DatePicker'
 
 interface TimePickerDemoProps {
   date: Date | undefined
   setDate: (_date: Date | undefined) => void
-  labels: Props['labels']
 }
 
-export const TimePicker = ({ date, setDate, labels }: TimePickerDemoProps) => {
+export const TimePicker = ({ date, setDate }: TimePickerDemoProps) => {
   const minuteRef = useRef<HTMLInputElement>(null)
   const hourRef = useRef<HTMLInputElement>(null)
+  const t = useTranslations('form.DatePicker')
 
   return (
     <div className="flex items-center gap-2">
@@ -27,7 +27,7 @@ export const TimePicker = ({ date, setDate, labels }: TimePickerDemoProps) => {
           onRightFocus={() => minuteRef.current?.focus()}
         />
         <Label htmlFor="hours" className="text-xs" hidden>
-          {labels.hours}
+          {t('hours')}
         </Label>
       </div>
       :
@@ -40,7 +40,7 @@ export const TimePicker = ({ date, setDate, labels }: TimePickerDemoProps) => {
           onLeftFocus={() => hourRef.current?.focus()}
         />
         <Label htmlFor="minutes" className="text-xs" hidden>
-          {labels.minutes}
+          {t('minutes')}
         </Label>
       </div>
     </div>

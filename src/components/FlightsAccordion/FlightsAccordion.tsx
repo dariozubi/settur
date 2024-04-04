@@ -6,31 +6,23 @@ import {
   AccordionTrigger,
 } from '@/components/Accordion'
 import { FormField } from '@/components/Form'
-import DatePicker, {
-  type Props as DatePickerProps,
-} from '@/components/DatePicker'
-import FlightInput, {
-  type Props as FlightInputProps,
-} from '@/components/FlightInput'
+import DatePicker from '@/components/DatePicker'
+import FlightInput from '@/components/FlightInput'
 import { addDays } from 'date-fns'
+import { useTranslations } from 'next-intl'
 
 export type Props = {
   form: UseFormReturn<any>
-  labels: {
-    flights: string
-    departureFlight: FlightInputProps['labels']
-    departureDate: DatePickerProps['labels']
-    arrivalFlight: FlightInputProps['labels']
-    arrivalDate: DatePickerProps['labels']
-  }
 }
 
-function FlightsAccordion({ form, labels }: Props) {
+function FlightsAccordion({ form }: Props) {
   const type = form.watch('type')
   const arrivalDate = form.watch('arrivalDate')
+  const t = useTranslations('form')
+
   return (
     <AccordionItem value="flights">
-      <AccordionTrigger>{labels.flights}</AccordionTrigger>
+      <AccordionTrigger>{t('flights')}</AccordionTrigger>
 
       <AccordionContent className="flex items-center justify-center gap-40 border-t py-10">
         {type !== 'airport' && (
@@ -41,7 +33,7 @@ function FlightsAccordion({ form, labels }: Props) {
                 name="arrivalDate"
                 render={({ field }) => (
                   <DatePicker
-                    labels={labels.arrivalDate}
+                    label={t('DatePicker.arrival-date')}
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -55,7 +47,7 @@ function FlightsAccordion({ form, labels }: Props) {
                 name="arrivalFlight"
                 render={({ field }) => (
                   <FlightInput
-                    labels={labels.arrivalFlight}
+                    label={t('FlightInput.arrival-flight')}
                     value={field.value}
                     onChange={field.onChange}
                     onBlur={field.onBlur}
@@ -74,7 +66,7 @@ function FlightsAccordion({ form, labels }: Props) {
                 name="departureDate"
                 render={({ field }) => (
                   <DatePicker
-                    labels={labels.departureDate}
+                    label={t('DatePicker.departure-date')}
                     value={field.value}
                     onChange={field.onChange}
                     limitDate={addDays(arrivalDate, 1)}
@@ -89,7 +81,7 @@ function FlightsAccordion({ form, labels }: Props) {
                 name="departureFlight"
                 render={({ field }) => (
                   <FlightInput
-                    labels={labels.departureFlight}
+                    label={t('FlightInput.departure-flight')}
                     value={field.value}
                     onChange={field.onChange}
                     onBlur={field.onBlur}

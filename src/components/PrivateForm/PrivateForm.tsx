@@ -8,16 +8,12 @@ import VehicleAccordion from '@/components/VehicleAccordion'
 import FlightsAccordion from '@/components/FlightsAccordion'
 import UserAccordion from '@/components/UserAccordion'
 import AdditionalsAccordion from '@/components/AdditionalsAccordion'
-import { PrivateFormLabels, usePrivateForm } from './usePrivateForm'
+import { usePrivateForm } from './usePrivateForm'
 import { useState } from 'react'
 import { ReviewDialog } from './ReviewDialog'
 
-type Props = {
-  labels: PrivateFormLabels
-}
-
-function PrivateForm({ labels }: Props) {
-  const { form, onSubmit } = usePrivateForm({ error: labels.error })
+function PrivateForm() {
+  const { form, onSubmit } = usePrivateForm()
   const [openAccordions, setOpenAccordions] = useState([
     'user',
     'destination',
@@ -35,17 +31,17 @@ function PrivateForm({ labels }: Props) {
           value={openAccordions}
           onValueChange={setOpenAccordions}
         >
-          <UserAccordion form={form} labels={labels} />
+          <UserAccordion form={form} />
 
-          <DestinationAccordion form={form} labels={labels} isPrivate />
+          <DestinationAccordion form={form} isPrivate />
 
-          <PeopleAccordion form={form} labels={labels} />
+          <PeopleAccordion form={form} />
 
-          <FlightsAccordion form={form} labels={labels} />
+          <FlightsAccordion form={form} />
 
-          <VehicleAccordion form={form} labels={labels} />
+          <VehicleAccordion form={form} />
 
-          <AdditionalsAccordion form={form} labels={labels} type="private" />
+          <AdditionalsAccordion form={form} type="private" />
         </Accordion>
 
         <ReviewDialog form={form} setOpenAccordions={setOpenAccordions} />

@@ -1,19 +1,16 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import Button from '@/components/Button'
 import Form, { FormField } from '@/components/Form'
 import HotelSelect from '@/components/HotelSelect'
 import PeopleInput from '@/components/PeopleInput'
 import { VehicleTypeRadio } from './VehicleTypeRadio'
 import { useBookForm } from './hooks'
-import { BookFormLabels } from './types'
 
-type Props = {
-  labels: BookFormLabels
-}
-
-export function BookForm({ labels }: Props) {
-  const { form, onSubmit, isLoading, hotels } = useBookForm(labels.error)
+export function BookForm() {
+  const t = useTranslations('form')
+  const { form, onSubmit, isLoading, hotels } = useBookForm()
 
   return (
     <Form {...form}>
@@ -23,11 +20,7 @@ export function BookForm({ labels }: Props) {
           disabled={isLoading}
           name="type"
           render={({ field }) => (
-            <VehicleTypeRadio
-              labels={labels.vehicleType}
-              value={field.value}
-              onChange={field.onChange}
-            />
+            <VehicleTypeRadio value={field.value} onChange={field.onChange} />
           )}
         />
 
@@ -36,7 +29,6 @@ export function BookForm({ labels }: Props) {
           name="hotel"
           render={({ field }) => (
             <HotelSelect
-              labels={labels.hotel}
               value={field.value}
               onSelect={v => {
                 form.setValue('hotel', v)
@@ -51,7 +43,7 @@ export function BookForm({ labels }: Props) {
           name="people"
           render={({ field }) => (
             <PeopleInput
-              labels={labels.people}
+              label={t('PeopleInput.adults-number')}
               onChange={field.onChange}
               value={field.value}
             />
@@ -60,7 +52,7 @@ export function BookForm({ labels }: Props) {
 
         <div className=" flex w-full justify-center">
           <Button className="mt-5" type="submit">
-            {labels.submit}
+            {t('continue')}
           </Button>
         </div>
       </form>

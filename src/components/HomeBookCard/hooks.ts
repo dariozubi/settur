@@ -8,13 +8,13 @@ import { useRouter } from '@/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { BookFormLabels } from './types'
+import { useTranslations } from 'next-intl'
 
-export function useBookForm({
-  required,
-  minimum,
-  notAvailable,
-}: BookFormLabels['error']) {
+export function useBookForm() {
+  const t = useTranslations('form.errors')
+  const required = t('required')
+  const minimum = t('minimum', { value: 0 })
+  const notAvailable = t('not-available')
   const router = useRouter()
   const { isLoading, error, data } = useQuery<{ hotels: Hotel[] }>({
     queryKey: ['hotels'],

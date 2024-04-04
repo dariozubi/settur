@@ -19,20 +19,16 @@ import {
   FormMessage,
 } from '@/components/Form'
 import { Hotel } from '@prisma/client'
+import { useTranslations } from 'next-intl'
 
 export type Props = {
-  labels: {
-    selectHotel: string
-    searchHotel: string
-    noResults: string
-  }
   onSelect: (_v: number) => void
   value: number
   hotels: Hotel[]
 }
 
-function HotelSelect({ value, labels, onSelect, hotels }: Props) {
-  const { selectHotel, searchHotel, noResults } = labels
+function HotelSelect({ value, onSelect, hotels }: Props) {
+  const t = useTranslations('form.HotelSelect')
   const [open, setOpen] = useState(false)
 
   return (
@@ -49,12 +45,12 @@ function HotelSelect({ value, labels, onSelect, hotels }: Props) {
 
                     <span className="max-w-[250px] truncate">
                       {hotels.find(h => h.id === Number(value))?.name ??
-                        selectHotel}
+                        t('select-hotel')}
                     </span>
                   </div>
                 ) : (
                   <div className="flex w-full items-center justify-between">
-                    {selectHotel} <ChevronsUpDown className="size-4" />
+                    {t('select-hotel')} <ChevronsUpDown className="size-4" />
                   </div>
                 )}
               </Button>
@@ -62,9 +58,9 @@ function HotelSelect({ value, labels, onSelect, hotels }: Props) {
           </PopoverTrigger>
           <PopoverContent className="p-0" side="bottom" align="start">
             <Command>
-              <CommandInput placeholder={searchHotel} />
+              <CommandInput placeholder={t('search-hotel')} />
               <CommandList>
-                <CommandEmpty>{noResults}</CommandEmpty>
+                <CommandEmpty>{t('no-results')}</CommandEmpty>
                 <CommandGroup>
                   {hotels.map(hotel => (
                     <CommandItem

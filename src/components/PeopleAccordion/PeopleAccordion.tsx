@@ -1,4 +1,5 @@
 import { UseFormReturn } from 'react-hook-form'
+import { useTranslations } from 'next-intl'
 
 import {
   AccordionContent,
@@ -6,23 +7,16 @@ import {
   AccordionTrigger,
 } from '@/components/Accordion'
 import { FormField } from '@/components/Form'
-import PeopleInput, {
-  type Props as PeopleInputProps,
-} from '@/components/PeopleInput'
+import PeopleInput from '@/components/PeopleInput'
 
 export type Props = {
   form: UseFormReturn<any>
-  labels: {
-    people: string
-    adults: PeopleInputProps['labels']
-    children: PeopleInputProps['labels']
-    infants: PeopleInputProps['labels']
-  }
 }
-function PeopleAccordion({ labels, form }: Props) {
+function PeopleAccordion({ form }: Props) {
+  const t = useTranslations('form')
   return (
     <AccordionItem value="people">
-      <AccordionTrigger>{labels.people}</AccordionTrigger>
+      <AccordionTrigger>{t('people')}</AccordionTrigger>
 
       <AccordionContent className="flex justify-center border-t py-10">
         <div className="w-[120px] ">
@@ -31,7 +25,8 @@ function PeopleAccordion({ labels, form }: Props) {
             name="adults"
             render={({ field }) => (
               <PeopleInput
-                labels={labels.adults}
+                label={t('PeopleInput.grown-ups')}
+                description={t('PeopleInput.grown-ups-description')}
                 onChange={field.onChange}
                 value={field.value}
                 onBlur={field.onBlur}
@@ -47,7 +42,8 @@ function PeopleAccordion({ labels, form }: Props) {
             name="children"
             render={({ field }) => (
               <PeopleInput
-                labels={labels.children}
+                label={t('PeopleInput.children')}
+                description={t('PeopleInput.children-description')}
                 onChange={field.onChange}
                 value={field.value}
                 onBlur={field.onBlur}
@@ -62,7 +58,8 @@ function PeopleAccordion({ labels, form }: Props) {
             name="infants"
             render={({ field }) => (
               <PeopleInput
-                labels={labels.infants}
+                label={t('PeopleInput.infants')}
+                description={t('PeopleInput.infants-description')}
                 onChange={field.onChange}
                 value={field.value}
                 onBlur={field.onBlur}

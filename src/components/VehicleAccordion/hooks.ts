@@ -1,18 +1,14 @@
 import { useEffect } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 
-import { FormErrors } from '@/lib/types'
-
 export function useVehicleIndividualsValidation({
   individuals,
   form,
-  labels,
+  tooManyPeopleError,
 }: {
   individuals: number
   form: UseFormReturn<any>
-  labels: {
-    error: Pick<FormErrors, 'tooManyPeople'>
-  }
+  tooManyPeopleError: string
 }) {
   const vehicle = form.watch('vehicle')
 
@@ -20,7 +16,7 @@ export function useVehicleIndividualsValidation({
     if (individuals > 17) {
       form.setError('vehicle', {
         type: 'custom',
-        message: labels.error.tooManyPeople,
+        message: tooManyPeopleError,
       })
     } else {
       form.clearErrors()
@@ -43,5 +39,5 @@ export function useVehicleIndividualsValidation({
         form.setValue('vehicle', 'suburban')
       }
     }
-  }, [form, individuals, labels.error.tooManyPeople, vehicle])
+  }, [form, individuals, tooManyPeopleError, vehicle])
 }

@@ -6,23 +6,18 @@ import {
   AccordionTrigger,
 } from '@/components/Accordion'
 import { FormField } from '@/components/Form'
-import NameInput, { type Props as NameInputProps } from '@/components/NameInput'
+import NameInput from '@/components/NameInput'
+import { useTranslations } from 'next-intl'
 
 export type Props = {
   form: UseFormReturn<any>
-  labels: {
-    user: string
-    name: NameInputProps['labels']
-    surname: NameInputProps['labels']
-    email: NameInputProps['labels']
-    phone: NameInputProps['labels']
-  }
 }
 
-function UserAccordion({ form, labels }: Props) {
+function UserAccordion({ form }: Props) {
+  const t = useTranslations('form')
   return (
     <AccordionItem value="user">
-      <AccordionTrigger>{labels.user}</AccordionTrigger>
+      <AccordionTrigger>{t('user')}</AccordionTrigger>
 
       <AccordionContent className="flex flex-col items-center justify-center gap-6 border-t py-10">
         <div className="flex items-center justify-center gap-6">
@@ -32,7 +27,7 @@ function UserAccordion({ form, labels }: Props) {
               name="name"
               render={({ field }) => (
                 <NameInput
-                  labels={labels.name}
+                  label={t('NameInput.name')}
                   value={field.value}
                   onChange={field.onChange}
                   onBlur={field.onBlur}
@@ -47,7 +42,7 @@ function UserAccordion({ form, labels }: Props) {
               name="surname"
               render={({ field }) => (
                 <NameInput
-                  labels={labels.surname}
+                  label={t('NameInput.surname')}
                   value={field.value}
                   onChange={field.onChange}
                   onBlur={field.onBlur}
@@ -64,7 +59,7 @@ function UserAccordion({ form, labels }: Props) {
               name="email"
               render={({ field }) => (
                 <NameInput
-                  labels={labels.email}
+                  label={t('NameInput.email')}
                   value={field.value}
                   onChange={field.onChange}
                   onBlur={field.onBlur}
@@ -79,7 +74,7 @@ function UserAccordion({ form, labels }: Props) {
               name="phone"
               render={({ field }) => (
                 <NameInput
-                  labels={labels.phone}
+                  label={t('NameInput.phone')}
                   value={field.value}
                   onChange={field.onChange}
                   onBlur={field.onBlur}

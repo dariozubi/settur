@@ -6,21 +6,18 @@ import {
 import { FormField } from '@/components/Form'
 import { UseFormReturn } from 'react-hook-form'
 import VehiclesRadio from '@/components/VehiclesRadio'
-import { FormErrors } from '@/lib/types'
 import { useVehicleIndividualsValidation } from './hooks'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Hotel } from '@prisma/client'
+import { useTranslations } from 'next-intl'
 
 export type Props = {
   form: UseFormReturn<any>
-  labels: {
-    vehicle: string
-    error: Pick<FormErrors, 'tooManyPeople'>
-  }
 }
 
-function VehicleAccordion({ form, labels }: Props) {
+function VehicleAccordion({ form }: Props) {
+  const t = useTranslations('form')
   const { isLoading, error, data } = useQuery<{ hotels: Hotel[] }>({
     queryKey: ['hotels'],
     queryFn: async () => axios.get('/api/hotels').then(r => r.data),
@@ -32,12 +29,16 @@ function VehicleAccordion({ form, labels }: Props) {
     Number(form.watch('children')) +
     Number(form.watch('infants'))
 
-  useVehicleIndividualsValidation({ individuals, form, labels })
+  useVehicleIndividualsValidation({
+    individuals,
+    form,
+    tooManyPeopleError: t('errors.too-many-people'),
+  })
 
   if (!zone || isLoading || error) return null
   return (
     <AccordionItem value="vehicle">
-      <AccordionTrigger>{labels.vehicle}</AccordionTrigger>
+      <AccordionTrigger>{t('vehicle')}</AccordionTrigger>
 
       <AccordionContent className="space-y-6 border-t py-10">
         <FormField

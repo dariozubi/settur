@@ -67,13 +67,13 @@
         },
         "Items": {
             "shopping": "I need a grocery stop (30m)",
-            "car-seat": "I need a car seat for babies",
-            "booster-seat": "I need a booster seat for children",
+            "carseat": "I need a car seat for babies",
+            "boosterseat": "I need a booster seat for children",
             "wheelchair": "I'm traveling with a wheelchair",
             "kayak": "I'm traveling with a kayak",
             "bicycle": "I'm traveling with a bicycle",
-            "surf-table": "I'm traveling with a surf table",
-            "pet-box": "I'm traveling with a pet box",
+            "surftable": "I'm traveling with a surf table",
+            "petbox": "I'm traveling with a pet box",
             "nothing": "I won't bring extra items"
         },
         "errors": {
@@ -85,7 +85,7 @@
             "too-many-people": "There's too many people for one vehicle only. Have you seen our groups page?",
             "departure-after-arrival": "Departure date must be after arrival date",
             "invalid-flight": "Invalid flight number",
-            "notAvailable": "Hotel not available for shared vehicles",
+            "not-available": "Hotel not available for shared vehicles",
             "form": "Please check again the form. There are errors in the values you are submitting"
         },
         "user": "User",
