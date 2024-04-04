@@ -41,11 +41,11 @@ function AdditionalsAccordion({ form, type }: Props) {
       : [
           {
             id: 'CARSEAT',
-            label: `${t('Items.carSeat')} (+5 USD)`,
+            label: `${t('Items.carseat')} (+5 USD)`,
           },
           {
             id: 'BOOSTERSEAT',
-            label: `${t('Items.boosterSeat')} (+3 USD)`,
+            label: `${t('Items.boosterseat')} (+3 USD)`,
           },
         ]
   return (

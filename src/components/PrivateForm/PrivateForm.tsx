@@ -8,11 +8,12 @@ import VehicleAccordion from '@/components/VehicleAccordion'
 import FlightsAccordion from '@/components/FlightsAccordion'
 import UserAccordion from '@/components/UserAccordion'
 import AdditionalsAccordion from '@/components/AdditionalsAccordion'
+import { Props as HotelSelectProps } from '@/components/HotelSelect'
 import { usePrivateForm } from './usePrivateForm'
 import { useState } from 'react'
-import { ReviewDialog } from './ReviewDialog'
+import ReviewDialog from '../ReviewDialog'
 
-function PrivateForm() {
+function PrivateForm({ hotels }: Pick<HotelSelectProps, 'hotels'>) {
   const { form, onSubmit } = usePrivateForm()
   const [openAccordions, setOpenAccordions] = useState([
     'user',
@@ -33,7 +34,7 @@ function PrivateForm() {
         >
           <UserAccordion form={form} />
 
-          <DestinationAccordion form={form} isPrivate />
+          <DestinationAccordion form={form} hotels={hotels} />
 
           <PeopleAccordion form={form} />
 
@@ -44,7 +45,11 @@ function PrivateForm() {
           <AdditionalsAccordion form={form} type="private" />
         </Accordion>
 
-        <ReviewDialog form={form} setOpenAccordions={setOpenAccordions} />
+        <ReviewDialog
+          form={form}
+          setOpenAccordions={setOpenAccordions}
+          hotels={hotels}
+        />
       </form>
     </Form>
   )

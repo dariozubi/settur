@@ -1,6 +1,8 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { Hotel } from '@prisma/client'
+
 import Button from '@/components/Button'
 import Form, { FormField } from '@/components/Form'
 import HotelSelect from '@/components/HotelSelect'
@@ -8,16 +10,19 @@ import PeopleInput from '@/components/PeopleInput'
 import { VehicleTypeRadio } from './VehicleTypeRadio'
 import { useBookForm } from './hooks'
 
-export function BookForm() {
+type Props = {
+  dataHotels: Hotel[]
+}
+
+export function BookForm({ dataHotels }: Props) {
   const t = useTranslations('form')
-  const { form, onSubmit, isLoading, hotels } = useBookForm()
+  const { form, onSubmit, hotels } = useBookForm(dataHotels)
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
         <FormField
           control={form.control}
-          disabled={isLoading}
           name="type"
           render={({ field }) => (
             <VehicleTypeRadio value={field.value} onChange={field.onChange} />

@@ -2,7 +2,9 @@ import Text from '@/components/Text'
 import Card, { CardContent, CardHeader } from '@/components/Card'
 import { BookForm } from './BookForm'
 
-function HomeBookCard() {
+async function HomeBookCard() {
+  const resp = await fetch(`${process.env.NEXTAUTH_URL}api/hotels`)
+  const data = await resp.json()
   return (
     <Card>
       <CardHeader>
@@ -16,7 +18,7 @@ function HomeBookCard() {
         </Text>
       </CardHeader>
       <CardContent className="mb-10">
-        <BookForm />
+        <BookForm dataHotels={data.hotels} />
       </CardContent>
     </Card>
   )

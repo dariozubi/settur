@@ -1,7 +1,5 @@
 import { useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import { Hotel } from '@prisma/client'
-import axios from 'axios'
 
 import { showHotel } from '@/lib/utils'
 import { useRouter } from '@/navigation'
@@ -10,20 +8,13 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useTranslations } from 'next-intl'
 
-export function useBookForm() {
+export function useBookForm(dataHotels: Hotel[]) {
   const t = useTranslations('form.errors')
   const required = t('required')
   const minimum = t('minimum', { value: 0 })
   const notAvailable = t('not-available')
   const router = useRouter()
-  const { isLoading, error, data } = useQuery<{ hotels: Hotel[] }>({
-    queryKey: ['hotels'],
-    queryFn: async () => axios.get('/api/hotels').then(r => r.data),
-    staleTime: Infinity,
-  })
-  const dataHotels = data?.hotels
 
-  if (error) throw Error('Hotels endpoint is not working')
   const FormSchema = useMemo(
     () =>
       z
@@ -77,5 +68,5 @@ export function useBookForm() {
     router.push(`/${data.type}?${params.toString()}`)
   }
 
-  return { form, onSubmit, isLoading, hotels }
+  return { form, onSubmit, hotels }
 }

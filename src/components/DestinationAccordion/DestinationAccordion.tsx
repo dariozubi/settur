@@ -1,6 +1,8 @@
 import { UseFormReturn } from 'react-hook-form'
 
-import HotelSelect from '@/components/HotelSelect'
+import HotelSelect, {
+  Props as HotelSelectProps,
+} from '@/components/HotelSelect'
 import TripTypeRadio from '@/components/TripTypeRadio'
 import {
   AccordionContent,
@@ -8,31 +10,15 @@ import {
   AccordionTrigger,
 } from '@/components/Accordion'
 import { FormField } from '@/components/Form'
-import { useQuery } from '@tanstack/react-query'
-import { Hotel } from '@prisma/client'
-import axios from 'axios'
-import { showHotel } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 
 export type Props = {
   form: UseFormReturn<any>
-  isPrivate?: boolean
-}
+} & Pick<HotelSelectProps, 'hotels'>
 
-function DestinationAccordion({ form, isPrivate }: Props) {
+function DestinationAccordion({ form, hotels }: Props) {
   const t = useTranslations('form')
-  const { isLoading, error, data } = useQuery<{ hotels: Hotel[] }>({
-    queryKey: ['hotels'],
-    queryFn: async () => axios.get('/api/hotels').then(r => r.data),
-    staleTime: Infinity,
-  })
 
-  if (error) throw Error('Hotels endpoint is not working')
-  const hotels = data?.hotels
-    ? !!isPrivate
-      ? data.hotels
-      : data.hotels.filter(h => showHotel(h.zone))
-    : []
   return (
     <AccordionItem value="destination">
       <AccordionTrigger>{t('destination')}</AccordionTrigger>
@@ -40,7 +26,6 @@ function DestinationAccordion({ form, isPrivate }: Props) {
       <AccordionContent className="flex items-center justify-center gap-6 border-t py-10">
         <div className="w-[300px]">
           <FormField
-            disabled={isLoading}
             control={form.control}
             name="hotel"
             render={({ field }) => (

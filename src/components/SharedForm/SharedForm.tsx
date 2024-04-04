@@ -1,8 +1,9 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useState } from 'react'
+import { Hotel } from '@prisma/client'
+
 import Form from '@/components/Form'
-import Button from '@/components/Button'
 import Accordion from '@/components/Accordion'
 import DestinationAccordion from '@/components/DestinationAccordion'
 import PeopleAccordion from '@/components/PeopleAccordion'
@@ -10,26 +11,33 @@ import FlightsAccordion from '@/components/FlightsAccordion'
 import UserAccordion from '@/components/UserAccordion'
 import AdditionalsAccordion from '@/components/AdditionalsAccordion'
 import { useSharedForm } from './useSharedForm'
+import ReviewDialog from '../ReviewDialog'
 
-function SharedForm() {
-  const t = useTranslations('form')
+type Props = {
+  hotels: Hotel[]
+}
+
+function SharedForm({ hotels }: Props) {
   const { form, onSubmit } = useSharedForm()
+  const [openAccordions, setOpenAccordions] = useState([
+    'user',
+    'destination',
+    'people',
+    'vehicle',
+    'flights',
+    'additionals',
+  ])
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Accordion
           type="multiple"
-          defaultValue={[
-            'user',
-            'destination',
-            'people',
-            'flights',
-            'additionals',
-          ]}
+          value={openAccordions}
+          onValueChange={setOpenAccordions}
         >
           <UserAccordion form={form} />
 
-          <DestinationAccordion form={form} />
+          <DestinationAccordion form={form} hotels={hotels} />
 
           <PeopleAccordion form={form} />
 
@@ -38,11 +46,12 @@ function SharedForm() {
           <AdditionalsAccordion form={form} type="shared" />
         </Accordion>
 
-        <div className=" flex w-full justify-center">
-          <Button className="mt-5" type="submit">
-            {t('continue')}
-          </Button>
-        </div>
+        <ReviewDialog
+          form={form}
+          setOpenAccordions={setOpenAccordions}
+          hotels={hotels}
+          isShared
+        />
       </form>
     </Form>
   )
