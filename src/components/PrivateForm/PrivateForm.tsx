@@ -8,12 +8,17 @@ import VehicleAccordion from '@/components/VehicleAccordion'
 import FlightsAccordion from '@/components/FlightsAccordion'
 import UserAccordion from '@/components/UserAccordion'
 import AdditionalsAccordion from '@/components/AdditionalsAccordion'
-import { Props as HotelSelectProps } from '@/components/HotelSelect'
 import { usePrivateForm } from './usePrivateForm'
 import { useState } from 'react'
 import ReviewDialog from '../ReviewDialog'
+import { Hotel, Rate } from '@prisma/client'
 
-function PrivateForm({ hotels }: Pick<HotelSelectProps, 'hotels'>) {
+type Props = {
+  hotels: Hotel[]
+  rates: Rate[]
+}
+
+function PrivateForm({ hotels, rates }: Props) {
   const { form, onSubmit } = usePrivateForm()
   const [openAccordions, setOpenAccordions] = useState([
     'user',
@@ -40,7 +45,7 @@ function PrivateForm({ hotels }: Pick<HotelSelectProps, 'hotels'>) {
 
           <FlightsAccordion form={form} />
 
-          <VehicleAccordion form={form} />
+          <VehicleAccordion form={form} hotels={hotels} rates={rates} />
 
           <AdditionalsAccordion form={form} type="private" />
         </Accordion>
@@ -49,6 +54,7 @@ function PrivateForm({ hotels }: Pick<HotelSelectProps, 'hotels'>) {
           form={form}
           setOpenAccordions={setOpenAccordions}
           hotels={hotels}
+          rates={rates}
         />
       </form>
     </Form>

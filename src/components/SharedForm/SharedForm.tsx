@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Hotel } from '@prisma/client'
+import { Hotel, Rate } from '@prisma/client'
 
 import Form from '@/components/Form'
 import Accordion from '@/components/Accordion'
@@ -15,9 +15,10 @@ import ReviewDialog from '../ReviewDialog'
 
 type Props = {
   hotels: Hotel[]
+  rates: Rate[]
 }
 
-function SharedForm({ hotels }: Props) {
+function SharedForm({ hotels, rates }: Props) {
   const { form, onSubmit } = useSharedForm()
   const [openAccordions, setOpenAccordions] = useState([
     'user',
@@ -51,6 +52,7 @@ function SharedForm({ hotels }: Props) {
           setOpenAccordions={setOpenAccordions}
           hotels={hotels}
           isShared
+          rates={rates}
         />
       </form>
     </Form>

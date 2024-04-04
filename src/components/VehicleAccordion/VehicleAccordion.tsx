@@ -7,22 +7,18 @@ import { FormField } from '@/components/Form'
 import { UseFormReturn } from 'react-hook-form'
 import VehiclesRadio from '@/components/VehiclesRadio'
 import { useVehicleIndividualsValidation } from './hooks'
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import { Hotel } from '@prisma/client'
+import { Hotel, Rate } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 
 export type Props = {
   form: UseFormReturn<any>
+  hotels: Hotel[]
+  rates: Rate[]
 }
 
-function VehicleAccordion({ form }: Props) {
+function VehicleAccordion({ form, hotels, rates }: Props) {
   const t = useTranslations('form')
-  const { isLoading, error, data } = useQuery<{ hotels: Hotel[] }>({
-    queryKey: ['hotels'],
-    queryFn: async () => axios.get('/api/hotels').then(r => r.data),
-  })
-  const zone = data?.hotels.find(h => h.id === form.watch('hotel'))?.zone
+  const zone = hotels.find(h => h.id === form.watch('hotel'))?.zone
 
   const individuals =
     Number(form.watch('adults')) +
@@ -35,7 +31,7 @@ function VehicleAccordion({ form }: Props) {
     tooManyPeopleError: t('errors.too-many-people'),
   })
 
-  if (!zone || isLoading || error) return null
+  if (!zone) return null
   return (
     <AccordionItem value="vehicle">
       <AccordionTrigger>{t('vehicle')}</AccordionTrigger>
@@ -51,6 +47,7 @@ function VehicleAccordion({ form }: Props) {
               zone={zone}
               tripType={form.watch('type')}
               individuals={individuals}
+              rates={rates}
             />
           )}
         />

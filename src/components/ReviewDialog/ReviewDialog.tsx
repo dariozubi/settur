@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 import { format } from 'date-fns'
 import { enUS, es } from 'date-fns/locale'
-import { Hotel } from '@prisma/client'
+import { Additional, Hotel, Rate } from '@prisma/client'
 
 import Button from '@/components/Button'
 import Dialog, { DialogContent } from '@/components/Dialog'
@@ -16,13 +16,46 @@ type Props = {
   form: UseFormReturn<any>
   setOpenAccordions: Dispatch<SetStateAction<string[]>>
   hotels: Hotel[]
+  rates: Rate[]
   isShared?: boolean
 }
 
-function ReviewDialog({ form, setOpenAccordions, hotels, isShared }: Props) {
+function ReviewDialog({
+  form,
+  setOpenAccordions,
+  hotels,
+  isShared,
+  rates,
+}: Props) {
   const [openDialog, setOpenDialog] = useState(false)
   const isEnglish = useIsEnglish()
   const t = useTranslations('form')
+  const zone = hotels.find(h => h.id === form.getValues('hotel'))?.zone
+  const vehicle = isShared ? 'SPRINTER' : form.getValues('vehicle')
+  const hasItems = form.getValues('items').length > 0
+  const hasPrivateItems =
+    !isShared && form.getValues('privateItems') !== 'NOTHING'
+
+  const vehiclePrice = Number(
+    rates.find(
+      r =>
+        r.zone === zone &&
+        r.trip ===
+          (form.getValues('type') === 'round-trip' ? 'ROUND' : 'ONEWAY') &&
+        r.vehicle === (isShared ? 'SHARED' : form.getValues('vehicle'))
+    )?.value
+  )
+  const itemsPrice = hasItems
+    ? form.getValues('items').reduce((prev: number, curr: Additional) => {
+        const value =
+          curr !== 'WHEELCHAIR'
+            ? Number(rates.find(r => r.additionalId === curr)?.value)
+            : 0
+        return prev + value
+      }, 0)
+    : 0
+  const privateItemsPrice = hasPrivateItems ? 5 : 0
+  const total = vehiclePrice + itemsPrice + privateItemsPrice
 
   const handleReviewClick = useCallback(async () => {
     await form.trigger()
@@ -75,7 +108,7 @@ function ReviewDialog({ form, setOpenAccordions, hotels, isShared }: Props) {
               <b className="text-xs uppercase">{t('user')}</b>
               {`\n${form.getValues('name')} ${form.getValues('surname')}\n${form.getValues('email')}\n${form.getValues('phone')}\n\n`}
               <b className="text-xs uppercase">{t('destination')}</b>
-              {`\n${form.getValues('type') === 'round-trip' ? t('TripTypeRadio.round-trip') : t(`TripTypeRadio.${form.getValues('type')}`)}`}
+              {`\n${t(`TripTypeRadio.${form.getValues('type')}`)}`}
               {`\n${hotels.find(h => h.id === Number(form.getValues('hotel')))?.name}\n\n`}
               <b className="text-xs uppercase">{t('people')}</b>
               {`\n${t('PeopleInput.grown-ups')}: ${form.getValues('adults')}.`}
@@ -90,15 +123,15 @@ function ReviewDialog({ form, setOpenAccordions, hotels, isShared }: Props) {
             <div className="w-1/2">
               <p className="whitespace-pre-line">
                 <b className="text-xs uppercase">{t('vehicle')}</b>
-                {`\n${isShared ? 'SPRINTER' : form.getValues('vehicle')}`}
+                {`\n${vehicle}`}
               </p>
               <div className="relative mt-10 h-[125px]">
                 <Image
-                  src={`/img/${isShared ? 'sprinter' : form.getValues('vehicle').toLowerCase()}.png`}
-                  alt={isShared ? 'sprinter' : form.getValues('vehicle')}
+                  src={`/img/${vehicle.toLowerCase()}.png`}
+                  alt={vehicle}
                   fill
                   className="pointer-events-none object-contain"
-                  sizes="(max-width: 1280px) 100vw, 25vw"
+                  sizes="(max-width: 1280px) 33vw, 50vw"
                 />
               </div>
             </div>
@@ -128,12 +161,10 @@ function ReviewDialog({ form, setOpenAccordions, hotels, isShared }: Props) {
                   : ''
               }`}
               {'\n'}
-              {(form.getValues('items').length > 0 ||
-                (!isShared &&
-                  form.getValues('privateItems') !== 'NOTHING')) && (
+              {(hasItems || hasPrivateItems) && (
                 <b className="text-xs uppercase">{t('additionals')}</b>
               )}
-              {form.getValues('items').length > 0 &&
+              {hasItems &&
                 `${form
                   .getValues('items')
                   .reduce(
@@ -141,9 +172,11 @@ function ReviewDialog({ form, setOpenAccordions, hotels, isShared }: Props) {
                       `${prev}\n${t(`Items.${curr.toLowerCase()}`)}`,
                     ''
                   )}`}
-              {!isShared &&
-                form.getValues('privateItems') !== 'NOTHING' &&
+              {hasPrivateItems &&
                 `\n${t(`Items.${form.getValues('privateItems').toLowerCase()}`)}`}
+            </p>
+            <p className="w-full pb-4 pt-10 text-center text-lg">
+              <b className="uppercase">{`Total: ${total} USD`}</b>
             </p>
 
             <div className=" flex w-full justify-center">
