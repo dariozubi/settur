@@ -31,7 +31,7 @@ function PrivateForm({ hotels, rates }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} id="private-form">
+      <form onSubmit={form.handleSubmit(onSubmit)} id="trip-form">
         <Accordion
           type="multiple"
           value={openAccordions}

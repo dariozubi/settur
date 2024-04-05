@@ -49,10 +49,11 @@ export async function POST(request: NextRequest) {
         },
       })
 
-      let priceIds = []
+      let rates = []
       let transfers, trip
+      const payingIndividuals = vehicle === 'SHARED' ? adults + children : 1
       if (type === 'round-trip') {
-        const tripRate = await prisma.rate.findFirst({
+        const vehicleRate = await prisma.rate.findFirst({
           select: { priceId: true },
           where: {
             trip: 'ROUND',
@@ -60,24 +61,24 @@ export async function POST(request: NextRequest) {
             zone: hotelValues?.zone,
           },
         })
+        rates.push(`${vehicleRate?.priceId},${payingIndividuals}`)
         transfers = {
           create: [
             {
-              flight: arrivalFlight || '',
+              flight: arrivalFlight?.toUpperCase() || '',
               date: arrivalDate || '',
               direction: 'HOTEL' as Direction,
             },
             {
-              flight: departureFlight || '',
+              flight: departureFlight?.toUpperCase() || '',
               date: departureDate || '',
               direction: 'AIRPORT' as Direction,
             },
           ],
         }
         trip = 'ROUND' as Trip
-        priceIds.push(tripRate?.priceId || '')
       } else {
-        const tripRate = await prisma.rate.findFirst({
+        const vehicleRate = await prisma.rate.findFirst({
           select: { priceId: true },
           where: {
             trip: 'ONEWAY',
@@ -85,12 +86,12 @@ export async function POST(request: NextRequest) {
             zone: hotelValues?.zone,
           },
         })
-        priceIds.push(tripRate?.priceId || '')
+        rates.push(`${vehicleRate?.priceId},${payingIndividuals}`)
         trip = 'ONEWAY' as Trip
         if (type === 'airport') {
           transfers = {
             create: {
-              flight: departureFlight || '',
+              flight: departureFlight?.toUpperCase() || '',
               date: departureDate || '',
               direction: 'AIRPORT' as Direction,
             },
@@ -98,7 +99,7 @@ export async function POST(request: NextRequest) {
         } else {
           transfers = {
             create: {
-              flight: arrivalFlight || '',
+              flight: arrivalFlight?.toUpperCase() || '',
               date: arrivalDate || '',
               direction: 'HOTEL' as Direction,
             },
@@ -114,7 +115,7 @@ export async function POST(request: NextRequest) {
                 additionalId: item,
               },
             })
-            priceIds.push(itemRate?.priceId || '')
+            rates.push(`${itemRate?.priceId},1`)
           }
         }
       }
@@ -129,7 +130,7 @@ export async function POST(request: NextRequest) {
         surname,
         phone,
         transfers,
-        priceIds,
+        rates,
         vehicle: vehicle as Vehicle,
         isEnglish,
         trip,

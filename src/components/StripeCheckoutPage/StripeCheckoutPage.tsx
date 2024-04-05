@@ -10,7 +10,7 @@ import { getStripe } from '@/lib/utils'
 import { Order } from '@prisma/client'
 
 type Props = {
-  order: Pick<Order, 'priceIds' | 'id'> | null
+  order: Pick<Order, 'rates' | 'id'> | null
 }
 
 function StripeCheckoutPage({ order }: Props) {
@@ -26,7 +26,7 @@ function StripeCheckoutPage({ order }: Props) {
 
   if (!order) return null
   return (
-    <div id="checkout" className="py-10">
+    <div id="checkout" className="min-h-[820px] py-4">
       <EmbeddedCheckoutProvider stripe={getStripe()} options={options}>
         <EmbeddedCheckout />
       </EmbeddedCheckoutProvider>

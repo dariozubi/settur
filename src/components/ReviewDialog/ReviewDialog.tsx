@@ -36,15 +36,19 @@ function ReviewDialog({
   const hasPrivateItems =
     !isShared && form.getValues('privateItems') !== 'NOTHING'
 
-  const vehiclePrice = Number(
-    rates.find(
-      r =>
-        r.zone === zone &&
-        r.trip ===
-          (form.getValues('type') === 'round-trip' ? 'ROUND' : 'ONEWAY') &&
-        r.vehicle === (isShared ? 'SHARED' : form.getValues('vehicle'))
-    )?.value
-  )
+  const vehiclePrice =
+    Number(
+      rates.find(
+        r =>
+          r.zone === zone &&
+          r.trip ===
+            (form.getValues('type') === 'round-trip' ? 'ROUND' : 'ONEWAY') &&
+          r.vehicle === (isShared ? 'SHARED' : form.getValues('vehicle'))
+      )?.value
+    ) *
+    (isShared
+      ? Number(form.getValues('adults')) + Number(form.getValues('children'))
+      : 1)
   const itemsPrice = hasItems
     ? form.getValues('items').reduce((prev: number, curr: Additional) => {
         const value =
@@ -111,9 +115,9 @@ function ReviewDialog({
               {`\n${t(`TripTypeRadio.${form.getValues('type')}`)}`}
               {`\n${hotels.find(h => h.id === Number(form.getValues('hotel')))?.name}\n\n`}
               <b className="text-xs uppercase">{t('people')}</b>
-              {`\n${t('PeopleInput.grown-ups')}: ${form.getValues('adults')}.`}
+              {`\n${t('PeopleInput.grown-ups')}: ${form.getValues('adults')}. `}
               {form.getValues('children') > 0
-                ? `${t('PeopleInput.children')}: ${form.getValues('children')}.`
+                ? `${t('PeopleInput.children')}: ${form.getValues('children')}. `
                 : ''}
               {form.getValues('infants') > 0
                 ? `${t('PeopleInput.infants')}: ${form.getValues('infants')}`
@@ -180,12 +184,7 @@ function ReviewDialog({
             </p>
 
             <div className=" flex w-full justify-center">
-              <Button
-                className="mt-5"
-                type="submit"
-                form="private-form"
-                disabled
-              >
+              <Button className="mt-5" type="submit" form="trip-form">
                 {t('continue')}
               </Button>
             </div>

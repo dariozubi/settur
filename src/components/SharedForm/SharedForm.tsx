@@ -30,7 +30,7 @@ function SharedForm({ hotels, rates }: Props) {
   ])
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} id="trip-form">
         <Accordion
           type="multiple"
           value={openAccordions}

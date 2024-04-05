@@ -59,7 +59,9 @@ export function usePrivateForm() {
         queryFn: async () =>
           axios.post('/api/order', { ...data, isEnglish }).then(r => r.data),
       })
-      router.push(`/checkout?orderId=${res.orderId}`)
+      if (res.orderId) {
+        router.push(`/checkout?orderId=${res.orderId}`)
+      }
     } catch (e) {
       errorHandler(e)
     }

@@ -58,12 +58,14 @@ export function useSharedForm() {
             .post('/api/order', {
               ...data,
               vehicle: 'SHARED',
-              privateItems: 'nothing',
+              privateItems: 'NOTHING',
               isEnglish,
             })
             .then(r => r.data),
       })
-      router.push(`/checkout?orderId=${res.orderId}`)
+      if (res.orderId) {
+        router.push(`/checkout?orderId=${res.orderId}`)
+      }
     } catch (e) {
       errorHandler(e)
     }

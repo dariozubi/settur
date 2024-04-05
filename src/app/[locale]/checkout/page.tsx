@@ -8,7 +8,7 @@ async function Private({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const order = await prisma.order.findUnique({
-    select: { priceIds: true, id: true },
+    select: { rates: true, id: true },
     where: {
       id: Number(searchParams.orderId),
     },

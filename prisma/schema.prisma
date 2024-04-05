@@ -84,7 +84,7 @@ model Order {
   surname     String
   phone       String
   transfers   Transfer[]
-  priceIds    String[]
+  rates       String[]
   vehicle     Vehicle
   isEnglish   Boolean
   trip        Trip

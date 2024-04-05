@@ -25,10 +25,13 @@ export async function POST(request: NextRequest) {
       try {
         const session = await stripe.checkout.sessions.create({
           ui_mode: 'embedded',
-          line_items: order.priceIds.map((p: string) => ({
-            price: p,
-            quantity: 1,
-          })),
+          line_items: order.rates.map((p: string) => {
+            const [price, quantity] = p.split(',')
+            return {
+              price,
+              quantity,
+            }
+          }),
           mode: 'payment',
           metadata: {
             order_id: order.id,
