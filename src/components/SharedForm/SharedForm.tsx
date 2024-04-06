@@ -19,18 +19,18 @@ type Props = {
 }
 
 function SharedForm({ hotels, rates }: Props) {
-  const { form, onSubmit } = useSharedForm()
+  const { form, onReserve, onFullPay } = useSharedForm()
   const [openAccordions, setOpenAccordions] = useState([
     'user',
     'destination',
     'people',
-    'vehicle',
     'flights',
     'additionals',
   ])
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} id="trip-form">
+      <form id="trip-form">
         <Accordion
           type="multiple"
           value={openAccordions}
@@ -53,6 +53,8 @@ function SharedForm({ hotels, rates }: Props) {
           hotels={hotels}
           isShared
           rates={rates}
+          onReserve={onReserve}
+          onFullPay={onFullPay}
         />
       </form>
     </Form>

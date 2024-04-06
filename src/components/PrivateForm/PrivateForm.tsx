@@ -19,7 +19,7 @@ type Props = {
 }
 
 function PrivateForm({ hotels, rates }: Props) {
-  const { form, onSubmit } = usePrivateForm()
+  const { form, onFullPay, onReserve } = usePrivateForm()
   const [openAccordions, setOpenAccordions] = useState([
     'user',
     'destination',
@@ -31,7 +31,7 @@ function PrivateForm({ hotels, rates }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} id="trip-form">
+      <form id="trip-form">
         <Accordion
           type="multiple"
           value={openAccordions}
@@ -51,6 +51,8 @@ function PrivateForm({ hotels, rates }: Props) {
         </Accordion>
 
         <ReviewDialog
+          onFullPay={onFullPay}
+          onReserve={onReserve}
           form={form}
           setOpenAccordions={setOpenAccordions}
           hotels={hotels}

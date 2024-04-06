@@ -7,7 +7,7 @@ import { Direction, Trip, Vehicle } from '@prisma/client'
 export async function POST(request: NextRequest) {
   try {
     const req = await request.json()
-    const { privateItems, isEnglish, ...data } = req
+    const { privateItems, isEnglish, isReserve, ...data } = req
     const parsedResponse = schema.safeParse(data)
 
     if (!parsedResponse.success) {
@@ -42,26 +42,52 @@ export async function POST(request: NextRequest) {
       const allItems =
         privateItems !== 'NOTHING' ? [...items, privateItems] : items
 
-      const hotelValues = await prisma.hotel.findUnique({
-        select: { zone: true },
-        where: {
-          id: hotel,
-        },
-      })
-
-      let rates = []
-      let transfers, trip
-      const payingIndividuals = vehicle === 'SHARED' ? adults + children : 1
-      if (type === 'round-trip') {
-        const vehicleRate = await prisma.rate.findFirst({
-          select: { priceId: true },
+      // Price ids for rates
+      const rates = await prisma.rate.findMany()
+      let priceIds = []
+      if (isReserve) {
+        const reservationRate = rates.find(
+          r => r.additionalId === 'RESERVATION'
+        )
+        priceIds.push(`${reservationRate?.priceId},${adults + children}`)
+      } else {
+        const payingIndividuals = vehicle === 'SHARED' ? adults + children : 1
+        const hotelValues = await prisma.hotel.findUnique({
+          select: { zone: true },
           where: {
-            trip: 'ROUND',
-            vehicle: vehicle as Vehicle,
-            zone: hotelValues?.zone,
+            id: hotel,
           },
         })
-        rates.push(`${vehicleRate?.priceId},${payingIndividuals}`)
+        if (type === 'round-trip') {
+          const vehicleRate = rates.find(
+            r =>
+              r.zone === hotelValues?.zone &&
+              r.trip === 'ROUND' &&
+              r.vehicle === vehicle
+          )
+          priceIds.push(`${vehicleRate?.priceId},${payingIndividuals}`)
+        } else {
+          const vehicleRate = rates.find(
+            r =>
+              r.zone === hotelValues?.zone &&
+              r.trip === 'ONEWAY' &&
+              r.vehicle === vehicle
+          )
+          priceIds.push(`${vehicleRate?.priceId},${payingIndividuals}`)
+        }
+        if (allItems.length > 0) {
+          for (const item of allItems) {
+            if (item !== 'WHEELCHAIR') {
+              const itemRate = rates.find(r => r.additionalId === item)
+              priceIds.push(`${itemRate?.priceId},1`)
+            }
+          }
+        }
+      }
+
+      // Transfers and trip
+      let transfers, trip
+      if (type === 'round-trip') {
         transfers = {
           create: [
             {
@@ -78,15 +104,6 @@ export async function POST(request: NextRequest) {
         }
         trip = 'ROUND' as Trip
       } else {
-        const vehicleRate = await prisma.rate.findFirst({
-          select: { priceId: true },
-          where: {
-            trip: 'ONEWAY',
-            vehicle: vehicle as Vehicle,
-            zone: hotelValues?.zone,
-          },
-        })
-        rates.push(`${vehicleRate?.priceId},${payingIndividuals}`)
         trip = 'ONEWAY' as Trip
         if (type === 'airport') {
           transfers = {
@@ -106,19 +123,6 @@ export async function POST(request: NextRequest) {
           }
         }
       }
-      if (allItems.length > 0) {
-        for (const item of allItems) {
-          if (item !== 'WHEELCHAIR') {
-            const itemRate = await prisma.rate.findFirst({
-              select: { priceId: true },
-              where: {
-                additionalId: item,
-              },
-            })
-            rates.push(`${itemRate?.priceId},1`)
-          }
-        }
-      }
 
       const data = {
         adults,
@@ -130,11 +134,12 @@ export async function POST(request: NextRequest) {
         surname,
         phone,
         transfers,
-        rates,
+        rates: priceIds,
         vehicle: vehicle as Vehicle,
         isEnglish,
         trip,
         hotelId: hotel,
+        isReserve,
       }
 
       const order = await prisma.order.create({ data, select: { id: true } })

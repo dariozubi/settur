@@ -97,6 +97,8 @@
         "extras": "Extras you might need",
         "continue": "Continue",
         "review": "Review",
-        "review-order": "Review Order"
+        "review-order": "Review Order",
+        "reserve": "Reserve",
+        "pay-in-full": "Pay in full"
     }
 }

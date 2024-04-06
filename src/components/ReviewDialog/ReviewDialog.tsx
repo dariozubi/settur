@@ -17,6 +17,8 @@ type Props = {
   setOpenAccordions: Dispatch<SetStateAction<string[]>>
   hotels: Hotel[]
   rates: Rate[]
+  onFullPay: (_data: { [x: string]: any; type?: any }) => Promise<void>
+  onReserve: (_data: { [x: string]: any; type?: any }) => Promise<void>
   isShared?: boolean
 }
 
@@ -26,6 +28,8 @@ function ReviewDialog({
   hotels,
   isShared,
   rates,
+  onFullPay,
+  onReserve,
 }: Props) {
   const [openDialog, setOpenDialog] = useState(false)
   const isEnglish = useIsEnglish()
@@ -33,7 +37,7 @@ function ReviewDialog({
   const zone = hotels.find(h => h.id === form.getValues('hotel'))?.zone
   const vehicle = isShared ? 'SPRINTER' : form.getValues('vehicle')
   const hasItems = form.getValues('items').length > 0
-  const hasPrivateItems =
+  const hasPrivateItem =
     !isShared && form.getValues('privateItems') !== 'NOTHING'
 
   const vehiclePrice =
@@ -58,8 +62,10 @@ function ReviewDialog({
         return prev + value
       }, 0)
     : 0
-  const privateItemsPrice = hasPrivateItems ? 5 : 0
-  const total = vehiclePrice + itemsPrice + privateItemsPrice
+  const privateItemPrice = hasPrivateItem
+    ? Number(rates.find(r => r.additionalId === 'PETBOX')?.value)
+    : 0
+  const total = vehiclePrice + itemsPrice + privateItemPrice
 
   const handleReviewClick = useCallback(async () => {
     await form.trigger()
@@ -165,7 +171,7 @@ function ReviewDialog({
                   : ''
               }`}
               {'\n'}
-              {(hasItems || hasPrivateItems) && (
+              {(hasItems || hasPrivateItem) && (
                 <b className="text-xs uppercase">{t('additionals')}</b>
               )}
               {hasItems &&
@@ -176,18 +182,31 @@ function ReviewDialog({
                       `${prev}\n${t(`Items.${curr.toLowerCase()}`)}`,
                     ''
                   )}`}
-              {hasPrivateItems &&
+              {hasPrivateItem &&
                 `\n${t(`Items.${form.getValues('privateItems').toLowerCase()}`)}`}
             </p>
-            <p className="w-full pb-4 pt-10 text-center text-lg">
+            <p className="w-full pb-4 pt-10 text-center text-lg text-black">
               <b className="uppercase">{`Total: ${total} USD`}</b>
             </p>
+          </div>
+          <div className=" flex w-full justify-center gap-4">
+            <Button
+              className="mt-5"
+              type="submit"
+              form="trip-form"
+              onClick={form.handleSubmit(onReserve)}
+            >
+              {t('reserve')}
+            </Button>
 
-            <div className=" flex w-full justify-center">
-              <Button className="mt-5" type="submit" form="trip-form">
-                {t('continue')}
-              </Button>
-            </div>
+            <Button
+              className="mt-5"
+              type="submit"
+              form="trip-form"
+              onClick={form.handleSubmit(onFullPay)}
+            >
+              {t('pay-in-full')}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

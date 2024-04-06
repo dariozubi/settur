@@ -97,6 +97,8 @@
         "extras": "Extras que puedes necesitar",
         "continue": "Continuar",
         "review": "Revisar",
-        "review-order": "Revisar orden"
+        "review-order": "Revisar orden",
+        "reserve": "Reservar",
+        "pay-in-full": "Pagar completo"
     }
 }

@@ -52,12 +52,14 @@ export function usePrivateForm() {
   const isEnglish = useIsEnglish()
   const router = useRouter()
 
-  async function onSubmit(data: z.infer<typeof schema>) {
+  async function onReserve(data: z.infer<typeof schema>) {
     try {
       const res = await queryClient.fetchQuery({
         queryKey: ['createOrder'],
         queryFn: async () =>
-          axios.post('/api/order', { ...data, isEnglish }).then(r => r.data),
+          axios
+            .post('/api/order', { ...data, isEnglish, isReserve: true })
+            .then(r => r.data),
       })
       if (res.orderId) {
         router.push(`/checkout?orderId=${res.orderId}`)
@@ -67,5 +69,22 @@ export function usePrivateForm() {
     }
   }
 
-  return { form, onSubmit }
+  async function onFullPay(data: z.infer<typeof schema>) {
+    try {
+      const res = await queryClient.fetchQuery({
+        queryKey: ['createOrder'],
+        queryFn: async () =>
+          axios
+            .post('/api/order', { ...data, isEnglish, isReserve: false })
+            .then(r => r.data),
+      })
+      if (res.orderId) {
+        router.push(`/checkout?orderId=${res.orderId}`)
+      }
+    } catch (e) {
+      errorHandler(e)
+    }
+  }
+
+  return { form, onReserve, onFullPay }
 }
