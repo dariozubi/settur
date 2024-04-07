@@ -99,6 +99,9 @@
         "review": "Review",
         "review-order": "Review Order",
         "reserve": "Reserve",
-        "pay-in-full": "Pay in full"
+        "pay-in-full": "Pay in full",
+        "reservations-text": "You can choose to make a reservation or pay in full your order. The reservation price is of { price } USD per person and you will have to pay the reminder on your arrival IN CASH.",
+        "accept": "I accept the",
+        "terms-and-conditions": "terms and conditions"
     }
 }

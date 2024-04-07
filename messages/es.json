@@ -99,6 +99,9 @@
         "review": "Revisar",
         "review-order": "Revisar orden",
         "reserve": "Reservar",
-        "pay-in-full": "Pagar completo"
+        "pay-in-full": "Pagar completo",
+        "reservations-text": "Puedes elegir entre reservar o pagar el precio completo. El precio de la reservación es de { price } USD por persona y el resto se paga al llegar EN EFECTIVO.",
+        "accept": "Acepto los",
+        "terms-and-conditions": "términos y condiciones"
     }
 }

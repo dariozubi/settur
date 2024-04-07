@@ -11,6 +11,8 @@ import { toast } from '../Toast'
 import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 import { UseFormReturn } from 'react-hook-form'
 import { useTranslations } from 'next-intl'
+import Checkbox from '../Checkbox'
+import { Link } from '@/navigation'
 
 type Props = {
   form: UseFormReturn<any>
@@ -32,6 +34,7 @@ function ReviewDialog({
   onReserve,
 }: Props) {
   const [openDialog, setOpenDialog] = useState(false)
+  const [accept, setAccept] = useState(false)
   const isEnglish = useIsEnglish()
   const t = useTranslations('form')
   const zone = hotels.find(h => h.id === form.getValues('hotel'))?.zone
@@ -113,7 +116,7 @@ function ReviewDialog({
           <DialogHeader>
             <DialogTitle>{t('review-order')}</DialogTitle>
           </DialogHeader>
-          <div className="flex flex-wrap text-sm text-slate-500">
+          <div className="flex flex-wrap text-sm">
             <p className="w-1/2 whitespace-pre-line">
               <b className="text-xs uppercase">{t('user')}</b>
               {`\n${form.getValues('name')} ${form.getValues('surname')}\n${form.getValues('email')}\n${form.getValues('phone')}\n\n`}
@@ -185,15 +188,42 @@ function ReviewDialog({
               {hasPrivateItem &&
                 `\n${t(`Items.${form.getValues('privateItems').toLowerCase()}`)}`}
             </p>
-            <p className="w-full pb-4 pt-10 text-center text-lg text-black">
+            <p className="w-full py-4 text-center text-lg text-black">
               <b className="uppercase">{`Total: ${total} USD`}</b>
             </p>
+            <p className="text-justify text-xs">
+              {t('reservations-text', {
+                price: rates.filter(r => r.additionalId === 'RESERVATION')[0]
+                  .value,
+              })}
+            </p>
+          </div>
+          <div className="mt-4 flex items-center justify-center space-x-2">
+            <Checkbox
+              id="terms"
+              checked={accept}
+              onCheckedChange={() => setAccept(p => !p)}
+            />
+            <label
+              htmlFor="terms"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {t('accept')}{' '}
+              <Link
+                href="/terms-and-conditions"
+                className="underline"
+                target="_blank"
+              >
+                {t('terms-and-conditions')}
+              </Link>
+            </label>
           </div>
           <div className=" flex w-full justify-center gap-4">
             <Button
               className="mt-5"
               type="submit"
               form="trip-form"
+              disabled={!accept}
               onClick={form.handleSubmit(onReserve)}
             >
               {t('reserve')}
@@ -203,6 +233,7 @@ function ReviewDialog({
               className="mt-5"
               type="submit"
               form="trip-form"
+              disabled={!accept}
               onClick={form.handleSubmit(onFullPay)}
             >
               {t('pay-in-full')}
