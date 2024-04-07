@@ -35,6 +35,7 @@ export async function POST(request: NextRequest) {
           mode: 'payment',
           metadata: {
             order_id: order.id,
+            is_reserve: order.isReserve,
           },
           return_url: `${process.env.NEXTAUTH_URL}/return?session_id={CHECKOUT_SESSION_ID}`,
         })

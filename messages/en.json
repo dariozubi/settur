@@ -100,8 +100,10 @@
         "review-order": "Review Order",
         "reserve": "Reserve",
         "pay-in-full": "Pay in full",
-        "reservations-text": "You can choose to make a reservation or pay in full your order. The reservation price is of { price } USD per person and you will have to pay the reminder on your arrival IN CASH.",
+        "reserve-for": "Reservation price:",
+        "reservations-text": "You can choose to make a reservation or pay in full your order. In case you pay the reservation, the rest must be paid IN CASH once you meet one of our representatives.",
         "accept": "I accept the",
-        "terms-and-conditions": "terms and conditions"
+        "terms-and-conditions": "terms and conditions",
+        "and": "and"
     }
 }

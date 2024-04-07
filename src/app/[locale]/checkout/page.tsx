@@ -2,13 +2,13 @@ import MainLayout from '@/components/MainLayout'
 import StripeCheckoutPage from '@/components/StripeCheckoutPage'
 import prisma from '@/db'
 
-async function Private({
+async function CheckoutPage({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const order = await prisma.order.findUnique({
-    select: { rates: true, id: true },
+    select: { rates: true, id: true, isReserve: true },
     where: {
       id: Number(searchParams.orderId),
     },
@@ -19,4 +19,4 @@ async function Private({
     </MainLayout>
   )
 }
-export default Private
+export default CheckoutPage

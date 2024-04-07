@@ -18,7 +18,9 @@ export const Header = ({ order, texts }: Props) => (
       style={logo}
     />
     <Text style={tertiary}>{texts.subtitle}</Text>
-    <Heading style={secondary}>{texts.orderHeader}</Heading>
+    <Heading style={secondary}>
+      {order.isReserve ? texts.reservationHeader : texts.orderHeader}
+    </Heading>
     <Section style={codeContainer}>
       <Text style={code}>{`${texts.order} #${order.id}`}</Text>
     </Section>

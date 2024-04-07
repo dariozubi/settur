@@ -50,7 +50,7 @@ function ReceiptPage() {
     )
   }
 
-  return <div className="">Loading...</div>
+  return null
 }
 
 export default ReceiptPage

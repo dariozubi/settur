@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 import { format } from 'date-fns'
 import { enUS, es } from 'date-fns/locale'
-import { Additional, Hotel, Rate } from '@prisma/client'
+import { Hotel, Rate } from '@prisma/client'
 
 import Button from '@/components/Button'
 import Dialog, { DialogContent } from '@/components/Dialog'
@@ -13,6 +13,7 @@ import { UseFormReturn } from 'react-hook-form'
 import { useTranslations } from 'next-intl'
 import Checkbox from '../Checkbox'
 import { Link } from '@/navigation'
+import { getPrices } from '@/lib/utils'
 
 type Props = {
   form: UseFormReturn<any>
@@ -42,33 +43,19 @@ function ReviewDialog({
   const hasItems = form.getValues('items').length > 0
   const hasPrivateItem =
     !isShared && form.getValues('privateItems') !== 'NOTHING'
+  const hasInfants = form.getValues('infants') > 0
 
-  const vehiclePrice =
-    Number(
-      rates.find(
-        r =>
-          r.zone === zone &&
-          r.trip ===
-            (form.getValues('type') === 'round-trip' ? 'ROUND' : 'ONEWAY') &&
-          r.vehicle === (isShared ? 'SHARED' : form.getValues('vehicle'))
-      )?.value
-    ) *
-    (isShared
-      ? Number(form.getValues('adults')) + Number(form.getValues('children'))
-      : 1)
-  const itemsPrice = hasItems
-    ? form.getValues('items').reduce((prev: number, curr: Additional) => {
-        const value =
-          curr !== 'WHEELCHAIR'
-            ? Number(rates.find(r => r.additionalId === curr)?.value)
-            : 0
-        return prev + value
-      }, 0)
-    : 0
-  const privateItemPrice = hasPrivateItem
-    ? Number(rates.find(r => r.additionalId === 'PETBOX')?.value)
-    : 0
-  const total = vehiclePrice + itemsPrice + privateItemPrice
+  const { vehiclePrice, itemsPrice, reservationPrice } = getPrices({
+    rates,
+    zone,
+    trip: form.getValues('type') === 'round-trip' ? 'ROUND' : 'ONEWAY',
+    vehicle: isShared ? 'SHARED' : form.getValues('vehicle'),
+    payingIndividuals:
+      Number(form.getValues('adults')) + Number(form.getValues('children')),
+    items: hasPrivateItem
+      ? [...form.getValues('items'), form.getValues('privateItems')]
+      : form.getValues('items'),
+  })
 
   const handleReviewClick = useCallback(async () => {
     await form.trigger()
@@ -112,30 +99,30 @@ function ReviewDialog({
         {t('review')}
       </Button>
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-        <DialogContent>
+        <DialogContent className="max-h-screen overflow-y-scroll">
           <DialogHeader>
             <DialogTitle>{t('review-order')}</DialogTitle>
           </DialogHeader>
-          <div className="flex flex-wrap text-sm">
+          <div className="flex flex-wrap text-xs">
             <p className="w-1/2 whitespace-pre-line">
-              <b className="text-xs uppercase">{t('user')}</b>
+              <b className=" uppercase">{t('user')}</b>
               {`\n${form.getValues('name')} ${form.getValues('surname')}\n${form.getValues('email')}\n${form.getValues('phone')}\n\n`}
-              <b className="text-xs uppercase">{t('destination')}</b>
+              <b className=" uppercase">{t('destination')}</b>
               {`\n${t(`TripTypeRadio.${form.getValues('type')}`)}`}
               {`\n${hotels.find(h => h.id === Number(form.getValues('hotel')))?.name}\n\n`}
-              <b className="text-xs uppercase">{t('people')}</b>
-              {`\n${t('PeopleInput.grown-ups')}: ${form.getValues('adults')}. `}
+              <b className=" uppercase">{t('people')}</b>
+              {`\n${form.getValues('adults')} ${t('PeopleInput.grown-ups')}`}
               {form.getValues('children') > 0
-                ? `${t('PeopleInput.children')}: ${form.getValues('children')}. `
+                ? `${hasInfants ? ',' : ` ${t('and')}`} ${form.getValues('children')} ${t('PeopleInput.children')}`
                 : ''}
-              {form.getValues('infants') > 0
-                ? `${t('PeopleInput.infants')}: ${form.getValues('infants')}`
+              {hasInfants
+                ? `and ${form.getValues('infants')} ${t('PeopleInput.infants')}`
                 : ''}
               {'\n\n'}
             </p>
             <div className="w-1/2">
               <p className="whitespace-pre-line">
-                <b className="text-xs uppercase">{t('vehicle')}</b>
+                <b className=" uppercase">{t('vehicle')}</b>
                 {`\n${vehicle}`}
               </p>
               <div className="relative mt-10 h-[125px]">
@@ -149,7 +136,7 @@ function ReviewDialog({
               </div>
             </div>
             <p className="w-full whitespace-pre-line">
-              <b className="text-xs uppercase">{t('flights')}</b>
+              <b className=" uppercase">{t('flights')}</b>
               {'\n'}
               {`${
                 !!form.getValues('arrivalDate')
@@ -175,7 +162,7 @@ function ReviewDialog({
               }`}
               {'\n'}
               {(hasItems || hasPrivateItem) && (
-                <b className="text-xs uppercase">{t('additionals')}</b>
+                <b className=" uppercase">{t('additionals')}</b>
               )}
               {hasItems &&
                 `${form
@@ -188,17 +175,20 @@ function ReviewDialog({
               {hasPrivateItem &&
                 `\n${t(`Items.${form.getValues('privateItems').toLowerCase()}`)}`}
             </p>
-            <p className="w-full py-4 text-center text-lg text-black">
-              <b className="uppercase">{`Total: ${total} USD`}</b>
-            </p>
-            <p className="text-justify text-xs">
+            <p className="mt-4 text-justify text-xs">
               {t('reservations-text', {
                 price: rates.filter(r => r.additionalId === 'RESERVATION')[0]
                   .value,
               })}
             </p>
+            <p className="w-full pt-4 text-center text-base text-black">
+              <b className="uppercase">{`${t('reserve-for')} ${reservationPrice} USD`}</b>
+            </p>
+            <p className="w-full pb-4 text-center text-base text-black">
+              <b className="uppercase">{`Total: ${vehiclePrice + itemsPrice} USD`}</b>
+            </p>
           </div>
-          <div className="mt-4 flex items-center justify-center space-x-2">
+          <div className="flex items-center justify-center space-x-2">
             <Checkbox
               id="terms"
               checked={accept}

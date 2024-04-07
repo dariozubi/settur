@@ -3,8 +3,6 @@ import { NextResponse } from 'next/server'
 import stripe from '@/payment'
 import prisma from '@/db'
 import { renderAsync } from '@react-email/render'
-import { format } from 'date-fns'
-import { enUS, es } from 'date-fns/locale'
 
 import resend from '@/email'
 import OrderReceipt from '@/emails/OrderReceipt'
@@ -23,12 +21,13 @@ export async function POST(req: Request) {
         event.data.object.id
       )
       if (session.metadata.order_id) {
+        const rates = await prisma.rate.findMany()
         const order = await prisma.order.update({
           where: {
             id: Number(session.metadata.order_id),
           },
           data: {
-            status: 'PAID',
+            status: session.metadata.is_reserve ? 'RESERVED' : 'PAID',
           },
           include: {
             hotel: true,
@@ -36,49 +35,11 @@ export async function POST(req: Request) {
           },
         })
         const subject = order.isEnglish
-          ? `Order #${order.id} confirmed`
-          : `Orden #${order.id} confirmada`
-        const type =
-          order.trip === 'ROUND'
-            ? 'round-trip'
-            : order.transfers[0].direction === 'AIRPORT'
-              ? 'airport'
-              : 'hotel'
-        const arrivalFlight =
-          type === 'hotel' ? order.transfers[0].flight : undefined
-        const arrivalDate =
-          type === 'hotel' ? order.transfers[0].date : undefined
-        const departureFlight =
-          type === 'airport' ? order.transfers[0].flight : undefined
-        const departureDate =
-          type === 'airport' ? order.transfers[0].date : undefined
+          ? `${order.isReserve ? 'Reservation' : 'Order'} #${order.id} confirmed`
+          : `${order.isReserve ? 'Reservación' : 'Orden'} #${order.id} confirmada`
 
         const emailHTML = await renderAsync(
-          <OrderReceipt
-            order={order}
-            hotelLabel={order.hotel.name}
-            isEnglish={order.isEnglish}
-            tripType={type}
-            transportationServicePrice={200}
-            additionalsPrice={50}
-            arrivalFlight={arrivalFlight}
-            arrivalDate={
-              arrivalDate
-                ? format(arrivalDate, 'PPP p', {
-                    locale: order.isEnglish ? enUS : es,
-                  })
-                : undefined
-            }
-            departureFlight={departureFlight}
-            departureDate={
-              departureDate
-                ? format(departureDate, 'PPP p', {
-                    locale: order.isEnglish ? enUS : es,
-                  })
-                : undefined
-            }
-            vehicle={order.vehicle}
-          />
+          <OrderReceipt order={order} rates={rates} />
         )
         await resend.emails.send({
           from: 'SETTUR<info@settur.com.mx>',

@@ -1,8 +1,7 @@
 import { Body, Container, Head, Hr, Html } from '@react-email/components'
 import * as React from 'react'
 
-import { trips } from '@/lib/consts'
-import { Order } from '@prisma/client'
+import { $Enums, Order, Rate } from '@prisma/client'
 import { labels } from './const'
 import { ArrivalInfo } from './ArrivalInfo'
 import { OrderTable } from './OrderTable'
@@ -12,33 +11,32 @@ import { DepartureInfo } from './DepartureInfo'
 import { Footer } from './Footer'
 
 export type Props = {
-  order: Order
-  hotelLabel: string
-  isEnglish: boolean
-  tripType: (typeof trips)[number]
-  transportationServicePrice: number
-  additionalsPrice: number
-  arrivalFlight?: string
-  arrivalDate?: string
-  departureFlight?: string
-  departureDate?: string
-  vehicle: string
+  order: Order & {
+    hotel: {
+      id: number
+      name: string
+      zone: $Enums.Zone
+    }
+    transfers: {
+      id: number
+      flight: string
+      date: Date
+      direction: $Enums.Direction
+      orderId: number
+    }[]
+  }
+  rates: Rate[]
 }
 
-const OrderReceipt = ({
-  order,
-  isEnglish,
-  hotelLabel,
-  tripType,
-  transportationServicePrice,
-  additionalsPrice,
-  arrivalFlight,
-  arrivalDate,
-  departureFlight,
-  departureDate,
-  vehicle,
-}: Props) => {
-  const texts = labels[isEnglish ? 'en' : 'es']
+const OrderReceipt = ({ order, rates }: Props) => {
+  const texts = labels[order.isEnglish ? 'en' : 'es']
+  const tripType =
+    order.trip === 'ROUND'
+      ? 'round-trip'
+      : order.transfers[0].direction === 'AIRPORT'
+        ? 'airport'
+        : 'hotel'
+
   return (
     <Html>
       <Head />
@@ -49,22 +47,14 @@ const OrderReceipt = ({
           <OrderTable
             texts={texts}
             order={order}
-            isEnglish={isEnglish}
-            hotelLabel={hotelLabel}
             tripType={tripType}
-            transportationServicePrice={transportationServicePrice}
-            additionalsPrice={additionalsPrice}
-            arrivalFlight={arrivalFlight}
-            arrivalDate={arrivalDate}
-            departureFlight={departureFlight}
-            departureDate={departureDate}
-            vehicle={vehicle}
+            rates={rates}
           />
 
           <Hr style={hr} />
 
           {tripType !== 'airport' && (
-            <ArrivalInfo texts={texts} vehicle={vehicle} />
+            <ArrivalInfo texts={texts} isPrivate={order.vehicle !== 'SHARED'} />
           )}
 
           {tripType !== 'hotel' && <DepartureInfo texts={texts} />}

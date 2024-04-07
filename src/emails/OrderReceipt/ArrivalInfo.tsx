@@ -1,15 +1,14 @@
 import { Heading, Hr, Section, Text } from '@react-email/components'
 import * as React from 'react'
-import { Props as OrderProps } from './OrderReceipt'
 import { hr, paragraph, secondary } from './styles'
 import { labels } from './const'
 
 type Props = {
   texts: (typeof labels)['es']
-} & Pick<OrderProps, 'vehicle'>
+  isPrivate: boolean
+}
 
-export const ArrivalInfo = ({ vehicle, texts }: Props) => {
-  const isPrivate = vehicle !== 'SHARED'
+export const ArrivalInfo = ({ isPrivate, texts }: Props) => {
   return (
     <>
       <Section>
