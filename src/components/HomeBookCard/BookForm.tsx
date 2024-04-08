@@ -9,6 +9,7 @@ import HotelSelect from '@/components/HotelSelect'
 import PeopleInput from '@/components/PeopleInput'
 import { VehicleTypeRadio } from './VehicleTypeRadio'
 import { useBookForm } from './hooks'
+import { useState } from 'react'
 
 type Props = {
   dataHotels: Hotel[]
@@ -17,6 +18,7 @@ type Props = {
 export function BookForm({ dataHotels }: Props) {
   const t = useTranslations('form')
   const { form, onSubmit, hotels } = useBookForm(dataHotels)
+  const [loading, setLoading] = useState(false)
 
   return (
     <Form {...form}>
@@ -56,7 +58,12 @@ export function BookForm({ dataHotels }: Props) {
         />
 
         <div className=" flex w-full justify-center">
-          <Button className="mt-5" type="submit">
+          <Button
+            className="mt-5"
+            type="submit"
+            isLoading={loading}
+            onClick={() => setLoading(true)}
+          >
             {t('continue')}
           </Button>
         </div>

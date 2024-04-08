@@ -14,6 +14,7 @@ import { useTranslations } from 'next-intl'
 import Checkbox from '../Checkbox'
 import { Link } from '@/navigation'
 import { getPrices } from '@/lib/utils'
+import { Status } from '@/lib/types'
 
 type Props = {
   form: UseFormReturn<any>
@@ -23,6 +24,7 @@ type Props = {
   onFullPay: (_data: { [x: string]: any; type?: any }) => Promise<void>
   onReserve: (_data: { [x: string]: any; type?: any }) => Promise<void>
   isShared?: boolean
+  status: Status
 }
 
 function ReviewDialog({
@@ -33,18 +35,19 @@ function ReviewDialog({
   rates,
   onFullPay,
   onReserve,
+  status,
 }: Props) {
   const [openDialog, setOpenDialog] = useState(false)
   const [accept, setAccept] = useState(false)
   const isEnglish = useIsEnglish()
   const t = useTranslations('form')
+
   const zone = hotels.find(h => h.id === form.getValues('hotel'))?.zone
   const vehicle = isShared ? 'SPRINTER' : form.getValues('vehicle')
   const hasItems = form.getValues('items').length > 0
   const hasPrivateItem =
     !isShared && form.getValues('privateItems') !== 'NOTHING'
   const hasInfants = form.getValues('infants') > 0
-
   const { vehiclePrice, itemsPrice, reservationPrice } = getPrices({
     rates,
     zone,
@@ -215,6 +218,7 @@ function ReviewDialog({
               form="trip-form"
               disabled={!accept}
               onClick={form.handleSubmit(onReserve)}
+              isLoading={status === 'reserving'}
             >
               {t('reserve')}
             </Button>
@@ -225,6 +229,7 @@ function ReviewDialog({
               form="trip-form"
               disabled={!accept}
               onClick={form.handleSubmit(onFullPay)}
+              isLoading={status === 'paying'}
             >
               {t('pay-in-full')}
             </Button>

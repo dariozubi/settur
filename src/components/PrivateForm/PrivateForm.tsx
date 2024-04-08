@@ -19,7 +19,7 @@ type Props = {
 }
 
 function PrivateForm({ hotels, rates }: Props) {
-  const { form, onFullPay, onReserve } = usePrivateForm()
+  const { form, onFullPay, onReserve, status } = usePrivateForm()
   const [openAccordions, setOpenAccordions] = useState([
     'user',
     'destination',
@@ -57,6 +57,7 @@ function PrivateForm({ hotels, rates }: Props) {
           setOpenAccordions={setOpenAccordions}
           hotels={hotels}
           rates={rates}
+          status={status}
         />
       </form>
     </Form>

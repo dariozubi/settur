@@ -101,9 +101,15 @@
         "reserve": "Reserve",
         "pay-in-full": "Pay in full",
         "reserve-for": "Reservation price:",
-        "reservations-text": "You can choose to make a reservation or pay in full your order. In case you pay the reservation, the rest must be paid IN CASH once you meet one of our representatives.",
+        "reservations-text": "You can choose to make a reservation or pay in full. In case you pay the reservation, the rest must be paid IN CASH once you meet one of our representatives.",
         "accept": "I accept the",
         "terms-and-conditions": "terms and conditions",
         "and": "and"
+    },
+    "receipt": {
+        "header": "Thank you for choosing us!",
+        "text": "We received your order. Your order number is #{ orderId }. You will receive an email with all the details from info@settur.com.mx. If you need any additional information don't hesitate to call us to",
+        "or-email": "or send an email to",
+        "return-home": "Return to home"
     }
 }

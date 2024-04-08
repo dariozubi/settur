@@ -105,5 +105,11 @@
         "accept": "Acepto los",
         "terms-and-conditions": "términos y condiciones",
         "and": "y"
+    },
+    "receipt": {
+        "header": "¡Gracias por elegirnos!",
+        "text": "Recibimos tu orden. Tu número de orden es el #{ orderId }. Te llegará un correo electrónico de info@settur.com.mx con todos los detalles. Si requieres de alguna información adicional no dudes en contactarnos al teléfono",
+        "or-email": "o mándanos un correo a",
+        "return-home": "Regresar a la página principal"
     }
 }

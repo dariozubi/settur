@@ -10,6 +10,8 @@ import { useURLParams } from '@/lib/hooks/useURLParams'
 import { useRouter } from '@/navigation'
 import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 import { useTranslations } from 'next-intl'
+import { Status } from '@/lib/types'
+import { useState } from 'react'
 
 export function usePrivateForm() {
   const t = useTranslations('form.errors')
@@ -51,8 +53,10 @@ export function usePrivateForm() {
   const queryClient = useQueryClient()
   const isEnglish = useIsEnglish()
   const router = useRouter()
+  const [status, setStatus] = useState<Status>(undefined)
 
   async function onReserve(data: z.infer<typeof schema>) {
+    setStatus('reserving')
     try {
       const res = await queryClient.fetchQuery({
         queryKey: ['createOrder'],
@@ -70,6 +74,7 @@ export function usePrivateForm() {
   }
 
   async function onFullPay(data: z.infer<typeof schema>) {
+    setStatus('paying')
     try {
       const res = await queryClient.fetchQuery({
         queryKey: ['createOrder'],
@@ -86,5 +91,5 @@ export function usePrivateForm() {
     }
   }
 
-  return { form, onReserve, onFullPay }
+  return { form, onReserve, onFullPay, status }
 }

@@ -1,15 +1,19 @@
 'use client'
 
-import { useRouter } from '@/navigation'
+import { Link, useRouter } from '@/navigation'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Card, { CardContent, CardHeader, CardTitle } from '../Card'
+import Card, { CardContent, CardFooter, CardHeader, CardTitle } from '../Card'
+import { useTranslations } from 'next-intl'
+import Skeleton from '../Skeleton'
+import Button from '../Button'
 
 function ReceiptPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [status, setStatus] = useState(null)
   const [orderId, setOrderId] = useState(null)
+  const t = useTranslations('receipt')
 
   useEffect(() => {
     const sessionId = searchParams.get('session_id')
@@ -28,29 +32,59 @@ function ReceiptPage() {
       })
   }, [router, searchParams])
 
-  if (status === 'complete') {
-    return (
-      <section id="success" className="flex w-full justify-center p-10">
-        <Card className="max-w-[300px]">
-          <CardHeader>
-            <CardTitle className="text-center">
-              Order #{orderId} confirmed
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            Thank you for traveling with us. You&apos;ll soon receive an email
-            with your order confirmation. We still have it stored in our system
-            with the number {orderId}.
-            <br />
-            <br />
-            Please contact us if you have any questions.
-          </CardContent>
-        </Card>
-      </section>
-    )
-  }
-
-  return null
+  return (
+    <section
+      id="success"
+      className="-mt-[108px] flex min-h-screen w-full items-center justify-center p-10"
+    >
+      <Card className="max-w-[300px]">
+        {status === 'complete' ? (
+          <>
+            <CardHeader>
+              <CardTitle className="text-center">{t('header')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {`${t('text', { orderId })} `}
+              <Link href="tel:+525531455826" className="underline">
+                +52 (55)31455826
+              </Link>
+              {` ${t('or-email')} `}
+              <Link
+                href="mailto:reservations@settur.com.mx"
+                className="underline"
+              >
+                reservations@settur.com.mx
+              </Link>
+            </CardContent>
+            <CardFooter className="flex justify-center">
+              <Button asChild>
+                <Link href="/">{t('return-home')}</Link>
+              </Button>
+            </CardFooter>
+          </>
+        ) : (
+          <>
+            <CardHeader className="flex items-center">
+              <Skeleton className="h-6 w-[200px]" />
+              <Skeleton className="h-6 w-[200px]" />
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[250px]" />
+            </CardContent>
+          </>
+        )}
+      </Card>
+    </section>
+  )
 }
 
 export default ReceiptPage

@@ -15,3 +15,5 @@ export type FormErrors = {
   invalidFlight: string
   form: string
 }
+
+export type Status = 'reserving' | 'paying' | undefined
