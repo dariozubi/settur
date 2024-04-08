@@ -1,7 +1,6 @@
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
-import Text from '@/components/Text'
 import Card, {
   CardContent,
   CardFooter,
@@ -16,11 +15,12 @@ function HomeCardSection() {
   return (
     <section className="flex bg-sky-950">
       <div className="mx-auto flex w-full max-w-screen-xl flex-wrap">
-        <div className="w-5/12 text-balance py-16 text-center">
-          <Text from="Home" variant="lg" isRichText className="text-neutral-50">
-            solutions
-          </Text>
-        </div>
+        <p className="w-full text-balance pt-24 text-center text-2xl text-neutral-50">
+          {t.rich('solutions', {
+            br: () => <br />,
+            b: m => <span className="font-extrabold">{m}</span>,
+          })}
+        </p>
 
         <div className="flex w-full p-24">
           <Card className="mr-6 w-1/3">
@@ -41,9 +41,7 @@ function HomeCardSection() {
                 />
               </div>
 
-              <Text from="Home" className="text-center">
-                private-text
-              </Text>
+              <p className="text-center">{t('private-text')}</p>
             </CardContent>
 
             <CardFooter>
@@ -69,9 +67,7 @@ function HomeCardSection() {
                 />
               </div>
 
-              <Text from="Home" className="text-center">
-                shared-text
-              </Text>
+              <p className="text-center">{t('shared-text')}</p>
             </CardContent>
 
             <CardFooter>
@@ -95,9 +91,7 @@ function HomeCardSection() {
                 />
               </div>
 
-              <Text from="Home" className="text-center">
-                groups-text
-              </Text>
+              <p className="text-center">{t('groups-text')}</p>
             </CardContent>
 
             <CardFooter>

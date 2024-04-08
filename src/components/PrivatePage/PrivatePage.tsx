@@ -1,15 +1,14 @@
 import PrivateForm from '@/components/PrivateForm'
+import prisma from '@/db'
 
 async function PrivatePage() {
-  const hotelsResponse = await fetch(`${process.env.NEXTAUTH_URL}api/hotels`)
-  const hotelsData = await hotelsResponse.json()
-  const ratesResponse = await fetch(`${process.env.NEXTAUTH_URL}api/rates`)
-  const ratesData = await ratesResponse.json()
+  const hotels = await prisma.hotel.findMany({ orderBy: { id: 'asc' } })
+  const rates = await prisma.rate.findMany()
 
   return (
     <section className="w-full bg-neutral-50">
       <div className="mx-auto w-full max-w-screen-xl pb-20 pt-10">
-        <PrivateForm hotels={hotelsData.hotels} rates={ratesData.rates} />
+        <PrivateForm hotels={hotels} rates={rates} />
       </div>
     </section>
   )

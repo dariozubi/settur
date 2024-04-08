@@ -1,24 +1,20 @@
-import Text from '@/components/Text'
 import Card, { CardContent, CardHeader } from '@/components/Card'
 import { BookForm } from './BookForm'
+import { Header } from './Header'
+import { Hotel } from '@prisma/client'
 
-async function HomeBookCard() {
-  const resp = await fetch(`${process.env.NEXTAUTH_URL}api/hotels`)
-  const data = await resp.json()
+type Props = {
+  hotels: Hotel[]
+}
+
+async function HomeBookCard({ hotels }: Props) {
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
-        <Text
-          from="Home"
-          as="h2"
-          variant="lg"
-          className="mb-10 mt-5 px-10 font-bold"
-        >
-          book-your-trip
-        </Text>
+        <Header />
       </CardHeader>
       <CardContent className="mb-10">
-        <BookForm dataHotels={data.hotels} />
+        <BookForm dataHotels={hotels} />
       </CardContent>
     </Card>
   )

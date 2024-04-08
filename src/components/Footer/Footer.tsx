@@ -1,5 +1,4 @@
 import { Mail, Phone } from 'lucide-react'
-import Text from '../Text'
 
 function Footer() {
   return (
@@ -8,20 +7,16 @@ function Footer() {
         <a href="mailto:info@settur.com.mx" className="flex items-center">
           <Mail className="mr-1" size={14} />
 
-          <Text variant="sm" as="span">
-            info@settur.com.mx
-          </Text>
+          <span className="text-sm font-medium">info@settur.com.mx</span>
         </a>
 
         <a href="tel:+525531455826" className="flex items-center">
           <Phone className="mr-1" size={14} />
 
-          <Text variant="sm" as="span">
-            +52 5531455826
-          </Text>
+          <span className="text-sm font-medium">+52 5531455826</span>
         </a>
 
-        <Text variant="sm">© SETTUR 2024</Text>
+        <span className="text-sm font-medium">© SETTUR 2024</span>
       </div>
     </footer>
   )
