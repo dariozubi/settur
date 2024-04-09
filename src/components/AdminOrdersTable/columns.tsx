@@ -2,8 +2,6 @@
 
 import { Order } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
-import { format } from 'date-fns'
-import { es } from 'date-fns/locale'
 import Button from '../Button'
 import { ArrowUpDown } from 'lucide-react'
 
@@ -24,22 +22,20 @@ export const columns: ColumnDef<Order>[] = [
     cell: ({ row }) => <div className="text-center">{row.getValue('id')}</div>,
   },
   {
-    accessorKey: 'created',
-    header: 'Created',
-    cell: ({ row }) => {
-      const formattedDate = format(row.getValue('created'), 'P - p', {
-        locale: es,
-      })
-      return formattedDate
-    },
+    accessorKey: 'name',
+    header: 'Name',
+    cell: ({ row }) => `${row.getValue('name')} ${row.original.surname}`,
   },
   {
     accessorKey: 'email',
     header: 'Email',
   },
   {
-    accessorKey: 'name',
-    header: 'Name',
-    cell: ({ row }) => `${row.getValue('name')} ${row.original.surname}`,
+    accessorKey: 'phone',
+    header: 'Phone',
+  },
+  {
+    accessorKey: 'trip',
+    header: 'Trip',
   },
 ]

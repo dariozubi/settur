@@ -48,6 +48,7 @@ function AdminDataTable<TData, TValue>({
       columnFilters,
     },
   })
+  console.log(data)
 
   return (
     <div>
