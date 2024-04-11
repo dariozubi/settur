@@ -1,7 +1,7 @@
 {
     "Navigation": {
         "contact": "Contacto",
-        "about": "Acerca"
+        "services": "Servicios"
     },
     "Home": {
         "ground-transportation-services": "Servicios de transporte terrestre",
@@ -120,5 +120,26 @@
         "cancellation-text": "Se cobrará una tarifa del 15% por servicio en cualquier cancelación si esta se realiza con 48 horas de anticipación a la fecha del servicio. Después de esta fecha cualquier cancelación estará sujeta a una tarifa del 100% no reembolsable. Por favor llame al +52 (55)31455826 o envíe un correo electrónico a reservations@settur.com.mx para realizar cambios, preguntas o cancelar este servicio y evitar cargos completos. Debe obtener un número de cancelación para que esto suceda.",
         "changes": "Cambios",
         "changes-text": "En caso de que necesite realizar un cambio, tiene que ser con al menos 24 horas de antelación a la fecha del servicio y se cobrará un cargo del 15% por servicio."
+    },
+    "services": {
+        "hero-header": "Servicios Premium de Transportación",
+        "hero-text": "Disfruta de tu estancia en Los Cabos y deja que nosotros nos encarguemos de tus traslados.",
+        "private-service": "Servicio Privado",
+        "private-text": "Elige entre nuestras 5 diferentes opciones dependiendo de tus necesidades. Todas nuestras unidades se encuentran en perfectas condiciones para recibirte a ti y tu familia o amigos para que puedas disfrutar al máximo tus vacaciones.",
+        "private-items": "Nos adecuamos a tus necesidades. Si viajas con cualquiera de estos objetos menciónalo en tu reservación.",
+        "wheelchair": "Silla de ruedas",
+        "petbox": "Jaula para mascotas",
+        "bicycle": "Bicicleta",
+        "surf-table": "Tabla de surf",
+        "child-seats-text": "¿Necesitas un asiento especial para tus niños? Los tenemos:",
+        "car-seat": "Silla para bebé",
+        "booster-seat": "Asiento para niño",
+        "shopping": "¿Quieres realizar compras para tu estancia? Te podemos dar 30 minutos de compras cuando llegues.",
+        "reserve": "Reservar",
+        "shared-service": "Servicio Compartido",
+        "shared-text": "Disfruta de nuestras cómodas camionetas que te transportarán hasta la entrada de tu hotel.",
+        "group-service": "Servicio para Grupos",
+        "group-service-text": "Viajas con un grupo grande de gente y quieren visitar muchos lugares. Contáctanos para que planeemos tu ruta.",
+        "contact": "Contactar"
     }
 }

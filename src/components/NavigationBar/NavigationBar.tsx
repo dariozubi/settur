@@ -19,14 +19,14 @@ import { useTranslations } from 'next-intl'
 function NavigationBar() {
   const t = useTranslations('Navigation')
   return (
-    <div className="mx-auto flex max-w-screen-xl justify-between bg-transparent">
+    <div className="mx-auto flex max-w-screen-xl justify-between bg-transparent px-4">
       <Link href="/" className="relative aspect-[978/182] w-[100px]">
         <Image
           src="/img/logo.png"
           alt="logo"
           fill
           className="pointer-events-none object-contain"
-          sizes="(max-width: 1280px) 100vw, 33vw"
+          sizes="20vw"
         />
       </Link>
 
@@ -34,10 +34,10 @@ function NavigationBar() {
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuLink
-              href="/"
+              href="/services"
               className={cn(navigationMenuTriggerStyle(), 'bg-transparent')}
             >
-              {t('about')}
+              {t('services')}
             </NavigationMenuLink>
           </NavigationMenuItem>
 

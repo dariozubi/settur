@@ -12,6 +12,7 @@ const publicPages = [
   '/checkout',
   '/return',
   '/terms-and-conditions',
+  '/services',
 ]
 
 const intlMiddleware = createIntlMiddleware({

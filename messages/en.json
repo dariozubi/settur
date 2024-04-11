@@ -1,7 +1,7 @@
 {
     "Navigation": {
         "contact": "Contact",
-        "about": "About"
+        "services": "Services"
     },
     "Home": {
         "ground-transportation-services": "Ground transportation services",
@@ -120,5 +120,26 @@
         "cancellation-text": "A 15% fee per service will be charged for any cancellation done with 48 hours in advance of the service date. After this date any cancellation will be subject to 100% non-refundable fee. Please call +52 (55)31455826 or send an email to reservations@settur.com.mx for changes, questions or to cancel this service to avoid full charges. You must obtain a cancellation number.",
         "changes": "Changes",
         "changes-text": "In the event that you need to make a change it has to be at least 24 hours in advance of the service date and a 15% fee per service will be charged."
+    },
+    "services": {
+        "hero-header": "Transportation Premium Services",
+        "hero-text": "Enjoy your stay in Los Cabos and let us handle your transfers.",
+        "private-service": "Private service",
+        "private-text": "Choose between our 5 unit options according to your needs. All of our units are in perfect conditions to accomodate you and your family or friends so you can enjoy your vactions.",
+        "private-items": "We adequate to your needs. If you are traveling with any of these objects just let us know when you reserve.",
+        "wheelchair": "Wheelchair",
+        "petbox": "Pet box",
+        "bicycle": "Bicycle",
+        "surf-table": "Surf table",
+        "child-seats-text": "Do you need a seat for your kids? We have them:",
+        "car-seat": "Car seat",
+        "booster-seat": "Booster seat",
+        "shopping": "Do you need shopping for your stay? We can give you 30min of shopping time when you arrive.",
+        "reserve": "Reserve",
+        "shared-service": "Shared Service",
+        "shared-text": "Enjoy our comfortable vans that will leave you on the doorstep of your hotel.",
+        "group-service": "Group Service",
+        "group-service-text": "Are you traveling with a large group of people and you want to go to a lot of places? Contact us so we can plan your route.",
+        "contact": "Contact"
     }
 }

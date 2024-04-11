@@ -9,7 +9,7 @@ import HotelSelect from '@/components/HotelSelect'
 import PeopleInput from '@/components/PeopleInput'
 import { VehicleTypeRadio } from './VehicleTypeRadio'
 import { useBookForm } from './hooks'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 type Props = {
   dataHotels: Hotel[]
@@ -19,6 +19,13 @@ export function BookForm({ dataHotels }: Props) {
   const t = useTranslations('form')
   const { form, onSubmit, hotels } = useBookForm(dataHotels)
   const [loading, setLoading] = useState(false)
+
+  const handleClick = useCallback(async () => {
+    await form.trigger()
+    if (form.formState.isValid) {
+      setLoading(true)
+    }
+  }, [form])
 
   return (
     <Form {...form}>
@@ -62,7 +69,7 @@ export function BookForm({ dataHotels }: Props) {
             className="mt-5"
             type="submit"
             isLoading={loading}
-            onClick={() => setLoading(true)}
+            onClick={handleClick}
           >
             {t('continue')}
           </Button>
