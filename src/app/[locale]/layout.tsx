@@ -6,6 +6,8 @@ import { cn } from '@/lib/utils'
 import '../globals.css'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
+import ErrorBoundary from '@/components/ErrorBoundary'
+import ErrorPage from '@/components/ErrorPage'
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -26,13 +28,13 @@ export default function LocaleLayout({ children, params: { locale } }: Props) {
     <html lang={locale}>
       <body
         className={cn(
-          'bg-background min-h-screen font-sans antialiased',
+          'min-h-screen bg-background font-sans antialiased',
           fontSans.variable
         )}
       >
         <ReactQueryProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
+            <ErrorBoundary fallback={<ErrorPage />}>{children}</ErrorBoundary>
           </NextIntlClientProvider>
         </ReactQueryProvider>
       </body>

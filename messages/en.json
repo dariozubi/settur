@@ -141,5 +141,9 @@
         "group-service": "Group Service",
         "group-service-text": "Are you traveling with a large group of people and you want to go to a lot of places? Contact us so we can plan your route.",
         "contact": "Contact"
+    },
+    "error": {
+        "general-error": "There was an error. Sorry for the inconvenience.",
+        "return-home": "Return to home"
     }
 }
