@@ -69,7 +69,11 @@ function FlightsAccordion({ form }: Props) {
                     label={t('DatePicker.departure-date')}
                     value={field.value}
                     onChange={field.onChange}
-                    limitDate={addDays(arrivalDate, 1)}
+                    limitDate={
+                      arrivalDate && type === 'round-trip'
+                        ? addDays(arrivalDate, 1)
+                        : undefined
+                    }
                   />
                 )}
               />
