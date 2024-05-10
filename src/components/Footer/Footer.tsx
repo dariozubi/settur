@@ -3,7 +3,7 @@ import { Mail, Phone } from 'lucide-react'
 function Footer() {
   return (
     <footer className="w-full bg-slate-800 py-6 text-neutral-50">
-      <div className="mx-auto flex w-full max-w-screen-xl items-center justify-between">
+      <div className="mx-auto flex w-full max-w-screen-xl flex-wrap items-center justify-between gap-4 px-4">
         <a href="mailto:info@settur.com.mx" className="flex items-center">
           <Mail className="mr-1" size={14} />
 
