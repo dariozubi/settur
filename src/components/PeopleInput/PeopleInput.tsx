@@ -23,8 +23,8 @@ function PeopleInput({
 }: Props) {
   return (
     <FormItem className="mx-auto max-w-[300px]">
-      <div className="flex flex-col gap-2">
-        <FormLabel className="flex w-[180px] items-center justify-start font-bold">
+      <div className="flex flex-col items-center gap-2">
+        <FormLabel className="flex items-center justify-start font-bold">
           {label}
         </FormLabel>
         <FormControl>
@@ -38,8 +38,8 @@ function PeopleInput({
             max={max}
           />
         </FormControl>
+        {description && <FormDescription>{description}</FormDescription>}
       </div>
-      {description && <FormDescription>{description}</FormDescription>}
       <FormMessage />
     </FormItem>
   )

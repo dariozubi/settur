@@ -36,7 +36,7 @@ function VehicleAccordion({ form, hotels, rates }: Props) {
     <AccordionItem value="vehicle">
       <AccordionTrigger>{t('vehicle')}</AccordionTrigger>
 
-      <AccordionContent className="space-y-6 border-t py-10">
+      <AccordionContent className="space-y-6 border-t py-2 sm:py-10">
         <FormField
           control={form.control}
           name="vehicle"

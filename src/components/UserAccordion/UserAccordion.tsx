@@ -20,7 +20,7 @@ function UserAccordion({ form }: Props) {
       <AccordionTrigger>{t('user')}</AccordionTrigger>
 
       <AccordionContent className="flex flex-col items-center justify-center gap-6 border-t py-10">
-        <div className="flex items-center justify-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-6">
           <div className="w-[300px]">
             <FormField
               control={form.control}
@@ -52,7 +52,7 @@ function UserAccordion({ form }: Props) {
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-6">
           <div className="w-[300px]">
             <FormField
               control={form.control}

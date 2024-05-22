@@ -23,7 +23,7 @@ function DestinationAccordion({ form, hotels }: Props) {
     <AccordionItem value="destination">
       <AccordionTrigger>{t('destination')}</AccordionTrigger>
 
-      <AccordionContent className="flex items-center justify-center gap-6 border-t py-10">
+      <AccordionContent className="flex flex-wrap items-center justify-center gap-6 border-t py-10">
         <div className="w-[300px]">
           <FormField
             control={form.control}

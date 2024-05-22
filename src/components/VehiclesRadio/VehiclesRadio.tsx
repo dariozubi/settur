@@ -27,7 +27,7 @@ function VehiclesRadio({
         <RadioGroup
           value={value}
           onValueChange={onChange}
-          className="flex w-full justify-center"
+          className="flex w-full flex-wrap justify-center gap-0"
         >
           {Object.keys(vehicles).map(
             v =>
@@ -45,7 +45,7 @@ function VehiclesRadio({
                   }
                   seats={String(vehicles[v].seats)}
                   value={v as Vehicle}
-                  className={`my-6 ${vehicles[v].imgAspect}`}
+                  className={`my-2 sm:my-6 ${vehicles[v].imgAspect}`}
                 />
               )
           )}

@@ -24,7 +24,7 @@ function FlightsAccordion({ form }: Props) {
     <AccordionItem value="flights">
       <AccordionTrigger>{t('flights')}</AccordionTrigger>
 
-      <AccordionContent className="flex items-center justify-center gap-40 border-t py-10">
+      <AccordionContent className="flex flex-wrap items-center justify-center gap-10 border-t py-10 sm:gap-40">
         {type !== 'airport' && (
           <div className="flex flex-col items-center gap-6">
             <div className="w-[300px]">

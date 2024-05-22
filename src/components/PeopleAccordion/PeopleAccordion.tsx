@@ -18,8 +18,8 @@ function PeopleAccordion({ form }: Props) {
     <AccordionItem value="people">
       <AccordionTrigger>{t('people')}</AccordionTrigger>
 
-      <AccordionContent className="flex justify-center border-t py-10">
-        <div className="w-[120px] ">
+      <AccordionContent className="flex flex-wrap justify-center border-t py-10">
+        <div className="w-[120px]">
           <FormField
             control={form.control}
             name="adults"

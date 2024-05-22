@@ -52,16 +52,16 @@ function AdditionalsAccordion({ form, type }: Props) {
     <AccordionItem value="additionals">
       <AccordionTrigger>{t('additionals')}</AccordionTrigger>
 
-      <AccordionContent className="flex flex-col items-center justify-center border-t py-10">
+      <AccordionContent className="flex flex-col items-center justify-center border-t py-2 sm:py-10">
         <FormField
           control={form.control}
           name="items"
           render={() => (
-            <FormItem className="w-full space-y-6">
-              <div className="mb-4">
+            <FormItem className="w-full sm:space-y-6">
+              <div className="hidden px-4 sm:visible sm:mb-4">
                 <FormLabel className="text-base">{t('extras')}</FormLabel>
               </div>
-              <div className="flex flex-wrap">
+              <div className="flex flex-wrap px-4">
                 {items.map(item => (
                   <FormField
                     key={item.id}
@@ -73,7 +73,7 @@ function AdditionalsAccordion({ form, type }: Props) {
                         onChange={field.onChange}
                         id={item.id}
                         label={`${item.label}`}
-                        className="w-1/2 py-4"
+                        className="w-full py-4 sm:w-1/2"
                       />
                     )}
                   />

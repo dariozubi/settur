@@ -14,7 +14,7 @@ type Props = {
 
 export const VehicleItem = ({ value, className, price, seats }: Props) => {
   return (
-    <div className="w-1/4">
+    <div className="w-1/2 p-2 sm:w-1/4">
       <RadioGroupItem value={value} id={value} className="peer sr-only" />
       <Label
         htmlFor={value}
@@ -23,13 +23,13 @@ export const VehicleItem = ({ value, className, price, seats }: Props) => {
         <span className="text-center text-lg font-bold">
           {value.charAt(0) + value.slice(1).toLowerCase()}
         </span>
-        <div className={`relative h-[125px] ${className}`}>
+        <div className={`relative h-[75px] sm:h-[125px] ${className}`}>
           <Image
             src={`/img/${value}.png`}
             alt={value}
             fill
             className="pointer-events-none object-contain"
-            sizes="(max-width: 1280px) 100vw, 25vw"
+            sizes="(max-width: 1280px) 100vw, 50vw"
           />
         </div>
         <div className="flex items-baseline justify-between">

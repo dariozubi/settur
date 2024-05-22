@@ -40,7 +40,10 @@ const PrivateAdditionalsRadio = ({ value, onChange }: Props) => {
           className="flex w-full flex-wrap gap-0"
         >
           {additionals.map(({ id, label }) => (
-            <FormItem key={id} className="flex w-1/2 items-center py-2">
+            <FormItem
+              key={id}
+              className="flex w-full items-center px-4 py-2 sm:w-1/2"
+            >
               <FormControl className="mt-2">
                 <RadioGroupItem value={id} id={id} />
               </FormControl>
