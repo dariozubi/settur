@@ -5,15 +5,6 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { buttonVariants } from '../Button'
 import Card, { CardContent, CardFooter, CardHeader, CardTitle } from '../Card'
-import {
-  Accessibility,
-  Baby,
-  Bike,
-  FishSymbol,
-  PawPrint,
-  Rocket,
-  Ship,
-} from 'lucide-react'
 import { Link } from '@/navigation'
 
 function ServicesPage() {
@@ -21,12 +12,14 @@ function ServicesPage() {
   return (
     <section className="min-h-screen w-full bg-neutral-50">
       <div className="mx-auto w-full max-w-screen-xl px-4">
-        <div className="flex py-40">
-          <div className="flex w-1/2 flex-col items-center justify-center gap-4 px-8 text-center">
-            <h1 className="text-5xl font-black">{t('hero-header')}</h1>
+        <div className="flex flex-wrap py-20 sm:py-40">
+          <div className="flex w-full flex-col items-center justify-center gap-4 px-8 text-center sm:w-1/2">
+            <h1 className="text-3xl font-black sm:text-5xl">
+              {t('hero-header')}
+            </h1>
             <p className="text-xl font-bold">{t('hero-text')}</p>
           </div>
-          <div className="flex w-1/2 items-center px-10">
+          <div className="flex w-full items-center px-10 pt-20 sm:w-1/2 sm:pt-0">
             <div
               className={`relative w-full ${vehicles['ESCALADE'].imgAspect}`}
             >
@@ -41,8 +34,8 @@ function ServicesPage() {
           </div>
         </div>
         <hr />
-        <div className="flex py-20">
-          <div className="flex w-1/2 items-center px-10">
+        <div className="flex flex-wrap py-10 sm:py-20">
+          <div className="flex w-full items-center px-4 py-2 sm:w-1/2 sm:px-10">
             <Card>
               <CardHeader>
                 <CardTitle>{t('private-service')}</CardTitle>
@@ -51,36 +44,31 @@ function ServicesPage() {
                 <p>{t('private-text')}</p>
                 <hr className="my-4" />
                 <p>{t('private-items')}</p>
-                <div className="flex items-center gap-4">
-                  <Accessibility className="size-4" />
-                  <p>{t('wheelchair')}</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <PawPrint className="size-4" />
-                  <p>{t('petbox')}</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Ship className="size-4" />
-                  <p>Kayak</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Bike className="size-4" />
-                  <p>{t('bicycle')}</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <FishSymbol className="size-4" />
-                  <p>{'surf-table'}</p>
-                </div>
+                <ul className="pl-4">
+                  <li className="flex items-center gap-4">
+                    &#x2022; {t('wheelchair')}
+                  </li>
+                  <li className="flex items-center gap-4">
+                    &#x2022; {t('petbox')}
+                  </li>
+                  <li className="flex items-center gap-4">&#x2022; Kayak</li>
+                  <li className="flex items-center gap-4">
+                    &#x2022; {t('bicycle')}
+                  </li>
+                  <li className="flex items-center gap-4">
+                    &#x2022; {t('surf-table')}
+                  </li>
+                </ul>
                 <hr className="my-4" />
                 <p>{t('child-seats-text')}</p>
-                <div className="flex items-center gap-4">
-                  <Baby className="size-4" />
-                  <p>{t('car-seat')}</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Rocket className="size-4" />
-                  <p>{t('booster-seat')}</p>
-                </div>
+                <ul className="pl-4">
+                  <li className="flex items-center gap-4">
+                    &#x2022; {t('car-seat')}
+                  </li>
+                  <li className="flex items-center gap-4">
+                    &#x2022; {t('booster-seat')}
+                  </li>
+                </ul>
                 <hr className="my-4" />
                 <p>{t('shopping')}</p>
               </CardContent>
@@ -95,7 +83,7 @@ function ServicesPage() {
             </Card>
           </div>
 
-          <div className="flex w-1/2 flex-col items-center justify-between px-10">
+          <div className="flex w-full flex-col items-center justify-between gap-4 px-4 py-2 sm:w-1/2 sm:px-10">
             <Card>
               <CardHeader>
                 <CardTitle>{t('shared-service')}</CardTitle>
@@ -104,14 +92,14 @@ function ServicesPage() {
                 <p>{t('shared-text')}</p>
                 <hr className="my-4" />
                 <p>{t('child-seats-text')}</p>
-                <div className="flex items-center gap-4">
-                  <Baby className="size-4" />
-                  <p>{t('car-seat')}</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Rocket className="size-4" />
-                  <p>{t('booster-seat')}</p>
-                </div>
+                <ul className="pl-4">
+                  <li className="flex items-center gap-4">
+                    &#x2022; {t('car-seat')}
+                  </li>
+                  <li className="flex items-center gap-4">
+                    &#x2022; {t('booster-seat')}
+                  </li>
+                </ul>
               </CardContent>
               <CardFooter className="flex justify-center">
                 <Link
