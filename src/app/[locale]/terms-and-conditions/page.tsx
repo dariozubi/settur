@@ -1,7 +1,7 @@
 import MainLayout from '@/components/MainLayout'
 import TermsPage from '@/components/TermsPage'
 
-export default function Shared() {
+export default function TermsAndConditionsPage() {
   return (
     <MainLayout>
       <TermsPage />

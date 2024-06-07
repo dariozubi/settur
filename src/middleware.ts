@@ -13,6 +13,7 @@ const publicPages = [
   '/return',
   '/terms-and-conditions',
   '/services',
+  '/aviso-de-privacidad',
 ]
 
 const intlMiddleware = createIntlMiddleware({
