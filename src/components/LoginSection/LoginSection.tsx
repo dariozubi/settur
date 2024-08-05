@@ -16,6 +16,7 @@ type Props = {
 function LoginSection({ session }: Props) {
   const router = useRouter()
   const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
   const errorHandler = useErrorHandler()
 
   useEffect(() => {
@@ -28,6 +29,7 @@ function LoginSection({ session }: Props) {
     <section className="flex flex-col gap-1 rounded border border-stone-400 bg-white p-4">
       <form
         onSubmit={async event => {
+          setLoading(true)
           event.preventDefault()
           try {
             const res = await axios.get('/api/admin')
@@ -60,7 +62,13 @@ function LoginSection({ session }: Props) {
           }}
           className="rounded border border-stone-400 px-2 py-1"
         />
-        <Button type="submit">
+        <Button type="submit" disabled={loading}>
+          {loading && (
+            <div
+              className="text-surface inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+              role="status"
+            />
+          )}
           <span className="ml-2">Enviar link</span>
         </Button>
       </form>
