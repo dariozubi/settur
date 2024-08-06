@@ -65,7 +65,7 @@ function HotelSelect({ value, onSelect, hotels }: Props) {
                   {hotels.map(hotel => (
                     <CommandItem
                       key={hotel.id}
-                      value={String(hotel.id)}
+                      value={hotel.name}
                       onSelect={() => {
                         onSelect(hotel.id)
                         setOpen(false)

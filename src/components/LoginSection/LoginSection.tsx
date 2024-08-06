@@ -21,7 +21,7 @@ function LoginSection({ session }: Props) {
 
   useEffect(() => {
     if (session?.user) {
-      router.replace('/dahsboard')
+      router.replace('/dashboard')
     }
   }, [router, session?.user])
 

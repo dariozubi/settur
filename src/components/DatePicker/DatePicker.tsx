@@ -17,7 +17,6 @@ import {
   FormMessage,
 } from '@/components/Form'
 import { TimePicker } from './TimePicker'
-import { SelectSingleEventHandler } from 'react-day-picker'
 import { useTranslations } from 'next-intl'
 
 export type Props = {
@@ -32,7 +31,7 @@ function DatePicker({ label, value, onChange, limitDate }: Props) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const t = useTranslations('form.DatePicker')
 
-  const handleOnSelect: SelectSingleEventHandler = (d?: Date) => {
+  const handleOnSelect = (d?: Date) => {
     onChange(d)
     setIsPopoverOpen(false)
   }
@@ -74,7 +73,6 @@ function DatePicker({ label, value, onChange, limitDate }: Props) {
                 const last = addMonths(now, 6)
                 return date < now || date > last
               }}
-              initialFocus
             />
           </PopoverContent>
         </Popover>
