@@ -1,41 +1,59 @@
 'use client'
 
-import { Order } from '@prisma/client'
+import { Hotel, Order, OrderStatus, Transfer } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
-import Button from '../Button'
-import { ArrowUpDown } from 'lucide-react'
+import { format } from 'date-fns'
 
-export const columns: ColumnDef<Order>[] = [
+export const columns: ColumnDef<
+  Transfer & { order: Order & { hotel: Hotel } }
+>[] = [
   {
-    accessorKey: 'id',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          ID
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
+    accessorKey: 'order.id',
+    header: 'Orden',
+    cell: ({ row }) => row.original.order.id,
+  },
+  {
+    accessorKey: 'date',
+    header: 'Fecha',
+    cell: ({ row }) => {
+      const date = new Date(row.getValue('date'))
+      return format(date, 'dd/MM/yyyy hh:mm aaaa')
     },
-    cell: ({ row }) => <div className="text-center">{row.getValue('id')}</div>,
   },
   {
-    accessorKey: 'name',
-    header: 'Name',
-    cell: ({ row }) => `${row.getValue('name')} ${row.original.surname}`,
+    accessorKey: 'direction',
+    header: 'Dirección',
+    cell: ({ row }) =>
+      row.original.direction === 'AIRPORT' ? 'Aeropuerto' : 'Hotel',
   },
   {
-    accessorKey: 'email',
-    header: 'Email',
+    accessorKey: 'order.hotel.zone',
+    header: 'Zona',
+    cell: ({ row }) => (
+      <div className="text-center">
+        {row.original.order.hotel.zone.substring(4)}
+      </div>
+    ),
   },
   {
-    accessorKey: 'phone',
-    header: 'Phone',
+    accessorKey: 'order.vehicle',
+    header: 'Vehículo',
+    cell: ({ row }) =>
+      row.original.order.vehicle === 'SHARED'
+        ? 'Compartido'
+        : `${row.original.order.vehicle.substring(0, 1)}${row.original.order.vehicle.substring(1).toLowerCase()}`,
   },
   {
-    accessorKey: 'trip',
-    header: 'Trip',
+    accessorKey: 'order.status',
+    header: 'Estado',
+    cell: ({ row }) => estado[row.original.order.status],
   },
 ]
+
+const estado: Record<OrderStatus, string> = {
+  CREATED: 'En espera',
+  RESERVED: 'Reserva',
+  PAID: 'Pagado',
+  CANCELLED: 'Cancelado',
+  FULFILLED: 'Realizado',
+}

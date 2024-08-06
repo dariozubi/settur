@@ -21,7 +21,6 @@ import Table, {
   TableRow,
 } from '@/components/Table'
 import Button from '../Button'
-import Input from '../Input'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -51,16 +50,6 @@ function AdminDataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-          onChange={event =>
-            table.getColumn('email')?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -81,6 +70,7 @@ function AdminDataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
+
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
@@ -111,6 +101,7 @@ function AdminDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
@@ -120,6 +111,7 @@ function AdminDataTable<TData, TValue>({
         >
           Anterior
         </Button>
+
         <Button
           variant="outline"
           size="sm"
