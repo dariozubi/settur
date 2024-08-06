@@ -1,7 +1,9 @@
 {
     "Navigation": {
         "contact": "Contacto",
-        "services": "Servicios"
+        "services": "Servicios",
+        "terms-and-conditions": "Términos y condiciones",
+        "privacy-policy": "Aviso de privacidad"
     },
     "Home": {
         "ground-transportation-services": "Servicios de transporte terrestre",
@@ -141,5 +143,9 @@
         "group-service": "Servicio para Grupos",
         "group-service-text": "Viajas con un grupo grande de gente y quieren visitar muchos lugares. Contáctanos para que planeemos tu ruta.",
         "contact": "Contactar"
+    },
+    "error": {
+        "general-error": "Hubo un error. Perdón por la inconveniencia.",
+        "return-home": "Regresar a la página principal"
     }
 }

@@ -23,7 +23,7 @@ function PeopleInput({
 }: Props) {
   return (
     <FormItem className="mx-auto max-w-[300px]">
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col gap-2">
         <FormLabel className="flex items-center justify-start font-bold">
           {label}
         </FormLabel>

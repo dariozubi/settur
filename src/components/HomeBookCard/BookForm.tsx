@@ -29,7 +29,7 @@ export function BookForm({ dataHotels }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="type"
@@ -64,9 +64,9 @@ export function BookForm({ dataHotels }: Props) {
           )}
         />
 
-        <div className=" flex w-full justify-center">
+        <div className=" flex w-full justify-center px-16">
           <Button
-            className="mt-5"
+            className="mt-2 w-full"
             type="submit"
             isLoading={loading}
             onClick={handleClick}

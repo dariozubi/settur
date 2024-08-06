@@ -1,7 +1,9 @@
 {
     "Navigation": {
         "contact": "Contact",
-        "services": "Services"
+        "services": "Services",
+        "terms-and-conditions": "Terms and conditions",
+        "privacy-policy": "Privacy policy"
     },
     "Home": {
         "ground-transportation-services": "Ground transportation services",

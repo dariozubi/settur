@@ -7,8 +7,8 @@ import Card, {
   CardHeader,
   CardTitle,
 } from '@/components/Card'
-import Button from '@/components/Button'
 import { vehicles } from '@/lib/consts'
+import Link from 'next/link'
 
 function HomeCardSection() {
   const t = useTranslations('Home')
@@ -46,7 +46,12 @@ function HomeCardSection() {
               </CardContent>
 
               <CardFooter>
-                <Button className="w-full">{t('learn-more')}</Button>
+                <Link
+                  className="inline-flex h-10 w-full items-center justify-center whitespace-nowrap rounded-md bg-stone-900 px-4 py-2 text-sm font-medium text-stone-50 ring-offset-white transition-colors hover:bg-stone-900/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:bg-stone-50 dark:text-stone-900 dark:ring-offset-stone-950 dark:hover:bg-stone-50/90 dark:focus-visible:ring-stone-300"
+                  href="/services"
+                >
+                  {t('learn-more')}
+                </Link>
               </CardFooter>
             </Card>
           </div>
@@ -74,7 +79,12 @@ function HomeCardSection() {
               </CardContent>
 
               <CardFooter>
-                <Button className="w-full">{t('learn-more')}</Button>
+                <Link
+                  className="inline-flex h-10 w-full items-center justify-center whitespace-nowrap rounded-md bg-stone-900 px-4 py-2 text-sm font-medium text-stone-50 ring-offset-white transition-colors hover:bg-stone-900/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:bg-stone-50 dark:text-stone-900 dark:ring-offset-stone-950 dark:hover:bg-stone-50/90 dark:focus-visible:ring-stone-300"
+                  href="/services"
+                >
+                  {t('learn-more')}
+                </Link>
               </CardFooter>
             </Card>
           </div>
@@ -102,7 +112,12 @@ function HomeCardSection() {
               </CardContent>
 
               <CardFooter>
-                <Button className="w-full">{t('learn-more')}</Button>
+                <Link
+                  className="inline-flex h-10 w-full items-center justify-center whitespace-nowrap rounded-md bg-stone-900 px-4 py-2 text-sm font-medium text-stone-50 ring-offset-white transition-colors hover:bg-stone-900/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:bg-stone-50 dark:text-stone-900 dark:ring-offset-stone-950 dark:hover:bg-stone-50/90 dark:focus-visible:ring-stone-300"
+                  href="/services"
+                >
+                  {t('learn-more')}
+                </Link>
               </CardFooter>
             </Card>
           </div>
