@@ -21,6 +21,7 @@ import Table, {
   TableRow,
 } from '@/components/Table'
 import Button from '../Button'
+import { Filters } from './Filters'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -50,6 +51,7 @@ function AdminDataTable<TData, TValue>({
 
   return (
     <div>
+      <Filters table={table} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

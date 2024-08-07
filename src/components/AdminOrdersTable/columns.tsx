@@ -1,6 +1,13 @@
 'use client'
 
-import { Hotel, Order, OrderStatus, Transfer } from '@prisma/client'
+import {
+  Direction,
+  Hotel,
+  Order,
+  OrderStatus,
+  Transfer,
+  Vehicle,
+} from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
 
@@ -23,8 +30,7 @@ export const columns: ColumnDef<
   {
     accessorKey: 'direction',
     header: 'Dirección',
-    cell: ({ row }) =>
-      row.original.direction === 'AIRPORT' ? 'Aeropuerto' : 'Hotel',
+    cell: ({ row }) => direccion[row.original.direction],
   },
   {
     accessorKey: 'order.hotel.zone',
@@ -38,10 +44,7 @@ export const columns: ColumnDef<
   {
     accessorKey: 'order.vehicle',
     header: 'Vehículo',
-    cell: ({ row }) =>
-      row.original.order.vehicle === 'SHARED'
-        ? 'Compartido'
-        : `${row.original.order.vehicle.substring(0, 1)}${row.original.order.vehicle.substring(1).toLowerCase()}`,
+    cell: ({ row }) => vehiculo[row.original.order.vehicle],
   },
   {
     accessorKey: 'order.status',
@@ -50,10 +53,24 @@ export const columns: ColumnDef<
   },
 ]
 
-const estado: Record<OrderStatus, string> = {
+export const estado: Record<OrderStatus, string> = {
   CREATED: 'En espera',
   RESERVED: 'Reserva',
   PAID: 'Pagado',
   CANCELLED: 'Cancelado',
   FULFILLED: 'Realizado',
+}
+
+export const direccion: Record<Direction, string> = {
+  AIRPORT: 'Aeropuerto',
+  HOTEL: 'Hotel',
+}
+
+export const vehiculo: Record<Vehicle, string> = {
+  SPRINTER: 'Sprinter',
+  HIACE: 'Hiace',
+  SUBURBAN: 'Suburban',
+  ESCALADE: 'Escalade',
+  COACH: 'Autobus',
+  SHARED: 'Compartido',
 }
