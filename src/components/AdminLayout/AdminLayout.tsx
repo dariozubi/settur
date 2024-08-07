@@ -5,7 +5,7 @@ function AdminLayout({ children }: PropsWithChildren) {
   return (
     <>
       <main className="h-full w-full">
-        <div className="mx-auto flex h-full max-w-screen-lg flex-col gap-8 p-10">
+        <div className="mx-auto flex h-full max-w-screen-lg flex-col gap-8 p-4">
           {children}
         </div>
       </main>

@@ -1,7 +1,7 @@
 import { Table } from '@tanstack/react-table'
 import Select, { SelectContent, SelectItem, SelectTrigger } from '../Select'
 import { Direction, OrderStatus, Vehicle, Zone } from '@prisma/client'
-import { direccion, estado, vehiculo } from '../AdminOrdersTable/columns'
+import { direccion, estado, vehiculo } from '../AdminServices/utils'
 import { CarFront, HandCoins, MapPinned, SignpostBig } from 'lucide-react'
 
 type Props = {
@@ -20,7 +20,7 @@ export const Filters = ({ table }: Props) => {
         defaultValue="all"
       >
         <SelectTrigger noIcon>
-          <SignpostBig size={20} />
+          <SignpostBig size={18} />
           <span className="ml-2 font-normal">Dirección</span>
         </SelectTrigger>
 
@@ -44,7 +44,7 @@ export const Filters = ({ table }: Props) => {
         defaultValue="all"
       >
         <SelectTrigger noIcon>
-          <MapPinned size={20} />
+          <MapPinned size={18} />
           <span className="ml-2 font-normal">Zona</span>
         </SelectTrigger>
 
@@ -68,7 +68,7 @@ export const Filters = ({ table }: Props) => {
         defaultValue="all"
       >
         <SelectTrigger noIcon>
-          <CarFront size={20} />
+          <CarFront size={18} />
           <span className="ml-2 font-normal">Vehículo</span>
         </SelectTrigger>
 
@@ -94,7 +94,7 @@ export const Filters = ({ table }: Props) => {
         defaultValue="all"
       >
         <SelectTrigger noIcon>
-          <HandCoins size={20} />
+          <HandCoins size={18} />
           <span className="ml-2 font-normal">Estado</span>
         </SelectTrigger>
 

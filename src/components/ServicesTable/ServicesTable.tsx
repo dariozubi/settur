@@ -28,7 +28,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-function AdminDataTable<TData, TValue>({
+function ServicesTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -127,4 +127,4 @@ function AdminDataTable<TData, TValue>({
   )
 }
 
-export default AdminDataTable
+export default ServicesTable
