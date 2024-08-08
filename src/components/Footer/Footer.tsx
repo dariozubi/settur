@@ -10,6 +10,10 @@ function Footer() {
     <footer className="w-full bg-slate-800 py-6 text-neutral-50">
       <div className="mx-auto flex w-full max-w-screen-xl flex-wrap items-center justify-between gap-4 px-4">
         <div className="flex gap-4">
+          <Link href="/" className="text-sm font-medium">
+            © SETTUR 2024
+          </Link>
+
           <a href="mailto:info@settur.com.mx">
             <Mail size={20} />
           </a>
@@ -19,13 +23,11 @@ function Footer() {
           </a>
         </div>
 
-        <Link href="/terms-and-conditions">{t('terms-and-conditions')}</Link>
+        <div className="flex gap-4 text-sm underline">
+          <Link href="/terms-and-conditions">{t('terms-and-conditions')}</Link>
 
-        <Link href="/aviso-de-privacidad">{t('privacy-policy')}</Link>
-
-        <Link href="/" className="text-sm font-medium">
-          © SETTUR 2024
-        </Link>
+          <Link href="/aviso-de-privacidad">{t('privacy-policy')}</Link>
+        </div>
       </div>
     </footer>
   )
