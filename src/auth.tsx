@@ -45,4 +45,22 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async signIn({ user }) {
+      if (user.email) {
+        const admin = await prisma.admin.findUnique({
+          where: { email: user.email },
+        })
+        if (!!admin) {
+          await prisma.user.update({
+            where: { email: user.email },
+            data: { image: admin.role, name: admin.name }, // Hacky way to set the role without changing types
+          })
+          return true
+        }
+      }
+
+      return '/unauthorized'
+    },
+  },
 }

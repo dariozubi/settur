@@ -4,11 +4,7 @@ import { useEffect, useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Session } from 'next-auth'
-import axios from 'axios'
-
 import Button from '@/components/Button'
-import { toast } from '@/components/Toast'
-import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
 
 type Props = {
   session: Session | null
@@ -17,7 +13,6 @@ function LoginSection({ session }: Props) {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-  const errorHandler = useErrorHandler()
 
   useEffect(() => {
     if (session?.user) {
@@ -33,24 +28,7 @@ function LoginSection({ session }: Props) {
         onSubmit={async event => {
           setLoading(true)
           event.preventDefault()
-          try {
-            const res = await axios.post('/api/admin', { email })
-            if (res.data.isAdmin) {
-              signIn('email', { callbackUrl: '/dashboard', email })
-            } else {
-              setLoading(false)
-              toast({
-                title: 'Error',
-                description: (
-                  <p className="mt-2 w-full whitespace-pre-line rounded-md p-4 text-red-500">
-                    Este correo no se encuentra en nuestro sistema
-                  </p>
-                ),
-              })
-            }
-          } catch (e) {
-            errorHandler(e)
-          }
+          signIn('email', { callbackUrl: '/dashboard', email })
         }}
         className="flex flex-col gap-2"
       >

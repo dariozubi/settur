@@ -14,6 +14,7 @@ const publicPages = [
   '/terms-and-conditions',
   '/services',
   '/aviso-de-privacidad',
+  '/unauthorized',
 ]
 
 const intlMiddleware = createIntlMiddleware({
@@ -23,9 +24,6 @@ const intlMiddleware = createIntlMiddleware({
 })
 
 const authMiddleware = withAuth(
-  // Note that this callback is only invoked if
-  // the `authorized` callback has returned `true`
-  // and not for pages listed in `pages`.
   function onSuccess(req) {
     return intlMiddleware(req)
   },

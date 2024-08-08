@@ -1,20 +1,15 @@
 import { getServerSession } from 'next-auth'
-
-import { authOptions } from '@/auth'
 import LogoutButton from '@/components/LogoutButton'
 import AdminLayout from '@/components/AdminLayout'
 import AdminServices from '@/components/AdminServices'
 
 export default async function Page() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
   return (
     <AdminLayout>
       <div className="flex w-full items-center justify-between">
         <p>
-          {`Hola `}
-          <span className="font-extrabold">
-            {session?.user?.email?.split('@')[0]}
-          </span>
+          Hola <span className="font-extrabold">{session?.user?.name}</span>
         </p>
         <LogoutButton />
       </div>

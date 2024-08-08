@@ -106,6 +106,13 @@ model Transfer {
 model Admin {
   id      Int @id @default(autoincrement())
   email   String @unique
+  role    Role @default(OPERACION)
+  name    String @default("novato")
+}
+
+enum Role {
+  ADMIN
+  OPERACION
 }
 
 enum Additional {
