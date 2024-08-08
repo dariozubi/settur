@@ -25,9 +25,9 @@ type EnhancedTransfer = Transfer & { order: Order & { hotel: Hotel } }
 
 export const columns: ColumnDef<EnhancedTransfer>[] = [
   {
-    accessorKey: 'order.id',
-    header: 'Orden',
-    cell: ({ row }) => row.original.order.id,
+    accessorKey: 'id',
+    header: 'Servicio',
+    cell: ({ row }) => row.original.id,
   },
   {
     accessorKey: 'date',
@@ -92,7 +92,7 @@ export const columns: ColumnDef<EnhancedTransfer>[] = [
 ]
 
 function getOperatorMessage(transfer: EnhancedTransfer, telephone: string) {
-  const message = `*Servicio #${transfer.order.id}* (${estado[transfer.order.status]})
+  const message = `*Servicio #${transfer.id}* (${estado[transfer.order.status]})
 
 _Dirección_: ${direccion[transfer.direction]}
 _Vuelo_: ${transfer.flight} - ${format(transfer.date, 'PPP p', { locale: es })}
