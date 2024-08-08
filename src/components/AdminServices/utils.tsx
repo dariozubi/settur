@@ -92,17 +92,15 @@ export const columns: ColumnDef<EnhancedTransfer>[] = [
 ]
 
 function getOperatorMessage(transfer: EnhancedTransfer, telephone: string) {
-  const message = `Orden de Servicio #${transfer.order.id} (${estado[transfer.order.status]})
+  const message = `*Servicio #${transfer.order.id}* (${estado[transfer.order.status]})
 
-  Dirección: ${direccion[transfer.direction]}
-  Vuelo: ${transfer.flight} - ${format(transfer.date, 'PPP p', {
-    locale: es,
-  })}
-  Vehículo: ${vehiculo[transfer.order.vehicle]}
-  Hotel: ${transfer.order.hotel.name} (Zona ${transfer.order.hotel.zone.substring(4)})
-  Usuario: ${transfer.order.name} ${transfer.order.surname} ( ${transfer.order.phone} )
-  Personas: ${transfer.order.adults} adultos, ${transfer.order.children} niños y ${transfer.order.infants} infantes
-  ${transfer.order.items.length > 0 ? `Adicionales ${transfer.order.items.reduce((prev, curr) => `${prev}, ${adicionales[curr]}`, ',').substring(1)}` : ''}`
+_Dirección_: ${direccion[transfer.direction]}
+_Vuelo_: ${transfer.flight} - ${format(transfer.date, 'PPP p', { locale: es })}
+_Vehículo_: ${vehiculo[transfer.order.vehicle]}
+_Hotel_: ${transfer.order.hotel.name} (Zona ${transfer.order.hotel.zone.substring(4)})
+_Usuario_: ${transfer.order.name} ${transfer.order.surname} ( ${transfer.order.phone} )
+_Personas_: ${transfer.order.adults} adultos, ${transfer.order.children} niños y ${transfer.order.infants} infantes
+${transfer.order.items.length > 0 ? `_Adicionales_: ${transfer.order.items.reduce((prev, curr) => `${prev}, ${adicionales[curr]}`, ',').substring(2)}` : ''}`
   return `https://wa.me/${telephone}?text=${encodeURIComponent(message)}`
 }
 

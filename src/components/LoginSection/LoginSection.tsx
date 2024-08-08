@@ -25,6 +25,8 @@ function LoginSection({ session }: Props) {
     }
   }, [router, session?.user])
 
+  if (session?.user) return null
+
   return (
     <section className="flex flex-col gap-1 rounded border border-stone-400 bg-white p-4">
       <form
@@ -32,16 +34,16 @@ function LoginSection({ session }: Props) {
           setLoading(true)
           event.preventDefault()
           try {
-            const res = await axios.get('/api/admin')
-            const isAdmin = res.data.admins.find((a: any) => a.email === email)
-            if (isAdmin) {
+            const res = await axios.post('/api/admin', { email })
+            if (res.data.isAdmin) {
               signIn('email', { callbackUrl: '/dashboard', email })
             } else {
+              setLoading(false)
               toast({
                 title: 'Error',
                 description: (
-                  <p className="mt-2 w-[340px] whitespace-pre-line rounded-md bg-slate-950 p-4 text-red-500">
-                    PROHIBIDO EL PASO
+                  <p className="mt-2 w-full whitespace-pre-line rounded-md p-4 text-red-500">
+                    Este correo no se encuentra en nuestro sistema
                   </p>
                 ),
               })
