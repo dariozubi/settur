@@ -10,7 +10,7 @@ async function AdminServices() {
         { order: { status: { equals: 'PAID' } } },
       ],
       AND: {
-        date: { gt: new Date(new Date().setDate(new Date().getDate() - 1)) },
+        date: { gte: new Date(new Date().setDate(new Date().getDate() - 1)) },
       },
     },
     include: { order: { include: { hotel: true } } },
