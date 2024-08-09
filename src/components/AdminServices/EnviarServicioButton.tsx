@@ -63,4 +63,8 @@ const operadores = [
     label: 'Dario',
     number: '525514510958',
   },
+  {
+    label: 'Ernesto',
+    number: '525527272149',
+  },
 ]
