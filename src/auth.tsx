@@ -52,10 +52,6 @@ export const authOptions: NextAuthOptions = {
           where: { email: user.email },
         })
         if (!!admin) {
-          await prisma.user.update({
-            where: { email: user.email },
-            data: { image: admin.role, name: admin.name }, // Hacky way to set the role without changing types
-          })
           return true
         }
       }
