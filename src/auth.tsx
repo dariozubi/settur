@@ -1,12 +1,10 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
 import { renderAsync } from '@react-email/render'
 import { NextAuthOptions } from 'next-auth'
 import EmailProvider from 'next-auth/providers/email'
 import { createTransport } from 'nodemailer'
 import MagicLink from './emails/MagicLink'
-
-const prisma = new PrismaClient()
+import prisma from './db'
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -57,6 +55,25 @@ export const authOptions: NextAuthOptions = {
       }
 
       return '/unauthorized'
+    },
+    async jwt({ token, user }) {
+      if (user.email) {
+        const admin = await prisma.admin.findUnique({
+          where: { email: user.email },
+        })
+        // Setting the role in the picture/image to avoid type issues
+        token.picture = admin?.role
+        token.name = admin?.name
+      }
+      return token
+    },
+    async session({ token, session }) {
+      if (token && session.user) {
+        session.user.image = token.picture
+        session.user.name = token.name
+      }
+
+      return session
     },
   },
 }
