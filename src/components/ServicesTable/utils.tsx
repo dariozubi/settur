@@ -81,16 +81,6 @@ export function getColumns({ units }: GetColumnsProps): ColumnDef<any, any>[] {
       cell: ({ row }) => vehiculo[row.original.order.vehicle as Vehicle],
     },
     {
-      accessorKey: 'order.status',
-      header: () => (
-        <div className="flex items-center justify-center gap-1">
-          <HandCoins size={14} />
-          <span className="hidden lg:block">Pago</span>
-        </div>
-      ),
-      cell: ({ row }) => estado[row.original.order.status as OrderStatus],
-    },
-    {
       id: 'unidad',
       accessorFn: originalRow => {
         if (originalRow.unitId) return String(originalRow.unitId)
@@ -109,6 +99,16 @@ export function getColumns({ units }: GetColumnsProps): ColumnDef<any, any>[] {
           transferId={row.original.id}
         />
       ),
+    },
+    {
+      accessorKey: 'order.status',
+      header: () => (
+        <div className="flex items-center justify-center gap-1">
+          <HandCoins size={14} />
+          <span className="hidden lg:block">Pago</span>
+        </div>
+      ),
+      cell: ({ row }) => estado[row.original.order.status as OrderStatus],
     },
     {
       id: 'verOrden',

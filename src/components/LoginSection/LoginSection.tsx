@@ -16,7 +16,7 @@ function LoginSection({ session }: Props) {
 
   useEffect(() => {
     if (session?.user) {
-      router.replace('/dashboard')
+      router.replace('/servicios')
     }
   }, [router, session?.user])
 
@@ -28,7 +28,7 @@ function LoginSection({ session }: Props) {
         onSubmit={async event => {
           setLoading(true)
           event.preventDefault()
-          signIn('email', { callbackUrl: '/dashboard', email })
+          signIn('email', { callbackUrl: '/servicios', email })
         }}
         className="flex flex-col gap-2"
       >
