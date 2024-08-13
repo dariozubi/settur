@@ -31,6 +31,7 @@ async function AdminLayout({ children }: PropsWithChildren) {
                 </div>
               )}
             </div>
+
             <LogoutButton />
           </div>
           {children}
