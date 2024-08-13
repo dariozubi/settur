@@ -102,12 +102,21 @@ model Transfer {
 
   order     Order @relation(fields: [orderId], references: [id])
   orderId   Int
+  unit      Unit? @relation(fields: [unitId], references: [id])
+  unitId    Int?
 }
 model Admin {
   id      Int @id @default(autoincrement())
   email   String @unique
   role    Role @default(OPERACION)
   name    String @default("novato")
+}
+
+model Unit {
+  id          Int @id @default(autoincrement())
+  label       String @unique
+  vehicle     Vehicle
+  transfer    Transfer[]
 }
 
 enum Role {

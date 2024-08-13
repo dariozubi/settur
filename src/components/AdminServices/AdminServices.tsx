@@ -1,6 +1,5 @@
 import prisma from '@/db'
 import ServicesTable from '../ServicesTable'
-import { columns } from './utils'
 
 async function AdminServices() {
   const data = await prisma.transfer.findMany({
@@ -13,15 +12,12 @@ async function AdminServices() {
         date: { gte: new Date(new Date().setDate(new Date().getDate() - 1)) },
       },
     },
-    include: { order: { include: { hotel: true } } },
+    include: { order: { include: { hotel: true } }, unit: true },
     orderBy: { date: 'asc' },
   })
-  return (
-    <div>
-      <h1 className="text-lg font-bold">Servicios</h1>
-      <ServicesTable columns={columns} data={data} />
-    </div>
-  )
+  const units = await prisma.unit.findMany()
+
+  return <ServicesTable units={units} data={data} />
 }
 
 export default AdminServices

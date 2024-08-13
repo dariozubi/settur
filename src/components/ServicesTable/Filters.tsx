@@ -1,16 +1,23 @@
 import { Table } from '@tanstack/react-table'
 import Select, { SelectContent, SelectItem, SelectTrigger } from '../Select'
-import { Direction, OrderStatus, Vehicle, Zone } from '@prisma/client'
-import { direccion, estado, vehiculo } from '../AdminServices/utils'
-import { CarFront, HandCoins, MapPinned, SignpostBig } from 'lucide-react'
+import { Direction, OrderStatus, Unit, Vehicle, Zone } from '@prisma/client'
+import { direccion, estado, vehiculo } from './utils'
+import {
+  CarFront,
+  HandCoins,
+  MapPinned,
+  SignpostBig,
+  SquareUserRound,
+} from 'lucide-react'
 
 type Props = {
   table: Table<any>
+  units: Unit[]
 }
 
-export const Filters = ({ table }: Props) => {
+export const Filters = ({ table, units }: Props) => {
   return (
-    <div className="flex w-fit gap-4 py-2">
+    <div className="order-1 flex w-fit flex-row flex-wrap gap-2 py-2 md:order-last md:flex-col md:px-2 md:py-0">
       <Select
         onValueChange={v =>
           table
@@ -19,9 +26,8 @@ export const Filters = ({ table }: Props) => {
         }
         defaultValue="all"
       >
-        <SelectTrigger noIcon>
-          <SignpostBig size={18} />
-          <span className="ml-2 font-normal">Dirección</span>
+        <SelectTrigger noIcon className="size-12">
+          <SignpostBig size={18} className="text-stone-500" />
         </SelectTrigger>
 
         <SelectContent>
@@ -43,9 +49,8 @@ export const Filters = ({ table }: Props) => {
         }
         defaultValue="all"
       >
-        <SelectTrigger noIcon>
-          <MapPinned size={18} />
-          <span className="ml-2 font-normal">Zona</span>
+        <SelectTrigger noIcon className="size-12">
+          <MapPinned size={18} className="text-stone-500" />
         </SelectTrigger>
 
         <SelectContent>
@@ -67,9 +72,8 @@ export const Filters = ({ table }: Props) => {
         }
         defaultValue="all"
       >
-        <SelectTrigger noIcon>
-          <CarFront size={18} />
-          <span className="ml-2 font-normal">Vehículo</span>
+        <SelectTrigger noIcon className="size-12">
+          <CarFront size={18} className="text-stone-500" />
         </SelectTrigger>
 
         <SelectContent>
@@ -93,9 +97,8 @@ export const Filters = ({ table }: Props) => {
         }
         defaultValue="all"
       >
-        <SelectTrigger noIcon>
-          <HandCoins size={18} />
-          <span className="ml-2 font-normal">Estado</span>
+        <SelectTrigger noIcon className="size-12">
+          <HandCoins size={18} className="text-stone-500" />
         </SelectTrigger>
 
         <SelectContent>
@@ -104,6 +107,27 @@ export const Filters = ({ table }: Props) => {
           {Object.values(OrderStatus).map(v => (
             <SelectItem key={v} value={v}>
               {estado[v]}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Select
+        onValueChange={v =>
+          table.getColumn('unidad')?.setFilterValue(v !== 'all' ? v : undefined)
+        }
+        defaultValue="all"
+      >
+        <SelectTrigger noIcon className="size-12">
+          <SquareUserRound size={18} className="text-stone-500" />
+        </SelectTrigger>
+
+        <SelectContent>
+          <SelectItem value="all">Todas</SelectItem>
+
+          {units.map(unit => (
+            <SelectItem key={unit.id} value={String(unit.id)}>
+              {unit.label}
             </SelectItem>
           ))}
         </SelectContent>

@@ -6,6 +6,9 @@ import DropdownMenu, {
 } from '../DropdownMenu'
 import Button from '../Button'
 import { MessageCirclePlus } from 'lucide-react'
+
+import { format } from 'date-fns'
+import { es } from 'date-fns/locale'
 import {
   adicionales,
   direccion,
@@ -13,8 +16,6 @@ import {
   estado,
   vehiculo,
 } from './utils'
-import { format } from 'date-fns'
-import { es } from 'date-fns/locale'
 
 type Props = {
   transfer: EnhancedTransfer
@@ -25,7 +26,8 @@ export const EnviarServicioButton = ({ transfer }: Props) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="flex gap-1">
-          <MessageCirclePlus size={18} /> Enviar
+          <MessageCirclePlus size={18} />{' '}
+          <span className="hidden lg:block">Enviar</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
