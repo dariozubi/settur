@@ -31,7 +31,7 @@ interface DataTableProps<TData> {
   data: TData[]
 }
 
-function ServicesTable<TData>({ data, units }: DataTableProps<TData>) {
+function MainTable<TData>({ data, units }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const columns = useMemo(() => getColumns({ units }), [units])
@@ -142,4 +142,4 @@ function ServicesTable<TData>({ data, units }: DataTableProps<TData>) {
   )
 }
 
-export default ServicesTable
+export default MainTable

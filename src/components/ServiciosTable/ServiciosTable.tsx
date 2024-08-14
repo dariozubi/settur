@@ -1,7 +1,7 @@
 import prisma from '@/db'
-import ServicesTable from '../ServicesTable'
+import MainTable from './MainTable'
 
-async function AdminServices() {
+async function ServiciosTable() {
   const data = await prisma.transfer.findMany({
     where: {
       OR: [
@@ -17,7 +17,7 @@ async function AdminServices() {
   })
   const units = await prisma.unit.findMany()
 
-  return <ServicesTable units={units} data={data} />
+  return <MainTable units={units} data={data} />
 }
 
-export default AdminServices
+export default ServiciosTable

@@ -21,9 +21,9 @@ async function AdminLayout({ children }: PropsWithChildren) {
 
               {isAdmin && (
                 <div className="items ml-4 flex h-full items-center gap-4 border-l py-2 pl-4">
-                  <Link href="/servicios" className="underline">
+                  <a href="/servicios" className="underline">
                     Servicios
-                  </Link>
+                  </a>
 
                   <Link href="/dashboard" className="underline">
                     Administración

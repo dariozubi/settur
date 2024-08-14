@@ -1,10 +1,10 @@
 import AdminLayout from '@/components/AdminLayout'
-import AdminServices from '@/components/AdminServices'
+import ServiciosTable from '@/components/ServiciosTable'
 
 export default async function Page() {
   return (
     <AdminLayout>
-      <AdminServices />
+      <ServiciosTable />
     </AdminLayout>
   )
 }
