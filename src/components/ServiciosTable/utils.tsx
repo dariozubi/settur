@@ -2,6 +2,7 @@ import {
   Additional,
   Direction,
   Hotel,
+  Operator,
   Order,
   OrderStatus,
   Transfer,
@@ -29,9 +30,13 @@ export type EnhancedTransfer = Transfer & {
 
 type GetColumnsProps = {
   units: Unit[]
+  operators: Operator[]
 }
 
-export function getColumns({ units }: GetColumnsProps): ColumnDef<any, any>[] {
+export function getColumns({
+  units,
+  operators,
+}: GetColumnsProps): ColumnDef<any, any>[] {
   return [
     {
       accessorKey: 'id',
@@ -122,7 +127,9 @@ export function getColumns({ units }: GetColumnsProps): ColumnDef<any, any>[] {
       id: 'enviarServicio',
       cell: ({ row }) => {
         const transfer = row.original
-        return <EnviarServicioButton transfer={transfer} />
+        return (
+          <EnviarServicioButton transfer={transfer} operators={operators} />
+        )
       },
     },
   ]

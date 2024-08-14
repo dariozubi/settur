@@ -15,9 +15,10 @@ async function ServiciosTable() {
     include: { order: { include: { hotel: true } }, unit: true },
     orderBy: { date: 'asc' },
   })
-  const units = await prisma.unit.findMany()
+  const units = await prisma.unit.findMany({ orderBy: { id: 'asc' } })
+  const operators = await prisma.operator.findMany({ orderBy: { id: 'asc' } })
 
-  return <MainTable units={units} data={data} />
+  return <MainTable units={units} data={data} operators={operators} />
 }
 
 export default ServiciosTable

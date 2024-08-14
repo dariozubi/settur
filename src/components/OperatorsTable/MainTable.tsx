@@ -14,11 +14,11 @@ import Table, {
   TableRow,
 } from '@/components/Table'
 import { useMemo, useState } from 'react'
-import { UpsertUnit } from './UpsertUnit'
-import { Unit } from '@prisma/client'
+import { UpsertOperator } from './UpsertOperator'
+import { Operator } from '@prisma/client'
 
 interface MainTableProps {
-  initialData: Unit[]
+  initialData: Operator[]
 }
 
 export function MainTable({ initialData }: MainTableProps) {
@@ -31,22 +31,22 @@ export function MainTable({ initialData }: MainTableProps) {
         cell: ({ row }) => row.original.id,
       },
       {
-        id: 'label',
+        id: 'nombre',
         header: 'Nombre',
-        cell: ({ row }) => row.original.label,
+        cell: ({ row }) => row.original.name,
       },
       {
-        id: 'vehicle',
-        header: 'Auto',
-        cell: ({ row }) => row.original.vehicle,
+        id: 'phone',
+        header: 'Telefono',
+        cell: ({ row }) => row.original.phone,
       },
       {
         id: 'actions',
         cell: ({ row }) => {
-          const unit = row.original
-          return <UpsertUnit unit={unit} setData={setData} />
+          const operator = row.original
+          return <UpsertOperator operator={operator} setData={setData} />
         },
-        header: () => <UpsertUnit setData={setData} />,
+        header: () => <UpsertOperator setData={setData} />,
       },
     ],
     []

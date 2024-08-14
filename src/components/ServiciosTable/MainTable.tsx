@@ -23,18 +23,22 @@ import Table, {
 import Button from '../Button'
 import { Filters } from './Filters'
 import { getColumns } from './utils'
-import { Unit } from '@prisma/client'
+import { Operator, Unit } from '@prisma/client'
 import { MoveLeft, MoveRight } from 'lucide-react'
 
 interface DataTableProps<TData> {
   units: Unit[]
+  operators: Operator[]
   data: TData[]
 }
 
-function MainTable<TData>({ data, units }: DataTableProps<TData>) {
+function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const columns = useMemo(() => getColumns({ units }), [units])
+  const columns = useMemo(
+    () => getColumns({ units, operators }),
+    [units, operators]
+  )
   const table = useReactTable({
     data,
     columns,

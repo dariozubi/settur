@@ -1,4 +1,5 @@
 import AdminLayout from '@/components/AdminLayout'
+import OperatorsTable from '@/components/OperatorsTable'
 import UnitsTable from '@/components/UnitsTable'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
@@ -11,7 +12,11 @@ export default async function Page() {
 
   return (
     <AdminLayout>
-      <UnitsTable />
+      <div className="flex gap-4">
+        <UnitsTable />
+
+        <OperatorsTable />
+      </div>
     </AdminLayout>
   )
 }

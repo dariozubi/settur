@@ -16,12 +16,14 @@ import {
   estado,
   vehiculo,
 } from './utils'
+import { Operator } from '@prisma/client'
 
 type Props = {
   transfer: EnhancedTransfer
+  operators: Operator[]
 }
 
-export const EnviarServicioButton = ({ transfer }: Props) => {
+export const EnviarServicioButton = ({ transfer, operators }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,14 +33,14 @@ export const EnviarServicioButton = ({ transfer }: Props) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {operadores.map((o, i) => (
-          <DropdownMenuItem key={`${o.label}-${i}`}>
+        {operators.map(o => (
+          <DropdownMenuItem key={o.id}>
             <Link
-              href={getOperatorMessage(transfer, o.number)}
+              href={getOperatorMessage(transfer, o.phone)}
               target="_blank"
               className="w-full"
             >
-              {`A ${o.label}`}
+              {`A ${o.name}`}
             </Link>
           </DropdownMenuItem>
         ))}
@@ -59,14 +61,3 @@ function getOperatorMessage(transfer: EnhancedTransfer, telephone: string) {
   ${transfer.order.items.length > 0 ? `_Adicionales_: ${transfer.order.items.reduce((prev, curr) => `${prev}, ${adicionales[curr]}`, ',').substring(2)}` : ''}`
   return `https://wa.me/${telephone}?text=${encodeURIComponent(message)}`
 }
-
-const operadores = [
-  {
-    label: 'Dario',
-    number: '525514510958',
-  },
-  {
-    label: 'Ernesto',
-    number: '525527272149',
-  },
-]
