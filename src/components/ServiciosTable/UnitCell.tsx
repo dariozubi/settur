@@ -1,4 +1,4 @@
-import { Unit } from '@prisma/client'
+import { Unit, Vehicle } from '@prisma/client'
 import { CirclePlus } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
@@ -10,9 +10,15 @@ type Props = {
   transferId: number
   initialUnit: Unit | null
   units: Unit[]
+  vehicle: Vehicle
 }
 
-export const UnitCell = ({ transferId, initialUnit, units }: Props) => {
+export const UnitCell = ({
+  transferId,
+  initialUnit,
+  units,
+  vehicle,
+}: Props) => {
   const errorHandler = useErrorHandler()
   const [unit, setUnit] = useState<Unit | null>(initialUnit)
   const handleClick = useCallback(
@@ -42,11 +48,16 @@ export const UnitCell = ({ transferId, initialUnit, units }: Props) => {
         </SelectTrigger>
 
         <SelectContent>
-          {units.map(v => (
-            <SelectItem key={v.id} value={String(v.id)}>
-              {v.label}
-            </SelectItem>
-          ))}
+          {units
+            .filter(u => {
+              if (vehicle === 'SHARED') return true
+              else return u.vehicle === vehicle
+            })
+            .map(v => (
+              <SelectItem key={v.id} value={String(v.id)}>
+                {v.label}
+              </SelectItem>
+            ))}
         </SelectContent>
       </Select>
     </div>

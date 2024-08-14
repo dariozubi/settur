@@ -94,6 +94,7 @@ export function getColumns({ units }: GetColumnsProps): ColumnDef<any, any>[] {
       ),
       cell: ({ row }) => (
         <UnitCell
+          vehicle={row.original.order.vehicle}
           initialUnit={row.original.unit}
           units={units}
           transferId={row.original.id}
