@@ -50,7 +50,7 @@ export const OperatorDialog = ({ open, setOpen, operator, setData }: Props) => {
         queryKey: ['updateOperator'],
         queryFn: async () =>
           axios
-            .post('/api/operator', { ...data, id: operator?.id })
+            .post('/api/admin/operator', { ...data, id: operator?.id })
             .then(r => r.data),
       })
       if (operator?.id) {

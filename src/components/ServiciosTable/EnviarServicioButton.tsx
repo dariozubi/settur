@@ -27,7 +27,7 @@ export const EnviarServicioButton = ({ transfer, operators }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="flex gap-1">
+        <Button variant="secondary" className="flex gap-1">
           <MessageCirclePlus size={18} />{' '}
           <span className="hidden lg:block">Enviar</span>
         </Button>

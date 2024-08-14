@@ -21,7 +21,7 @@ export const TransferDetails = ({ transfer }: Props) => {
   return (
     <>
       <Button
-        variant="outline"
+        variant="secondary"
         onClick={() => setOpen(true)}
         type="button"
         className="flex gap-1"

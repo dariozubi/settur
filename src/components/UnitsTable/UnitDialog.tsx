@@ -56,7 +56,13 @@ export const UnitDialog = ({ open, setOpen, unit, setData }: Props) => {
       const res = await queryClient.fetchQuery({
         queryKey: ['updateUnit'],
         queryFn: async () =>
-          axios.post('/api/unit', { ...data, id: unit?.id }).then(r => r.data),
+          axios
+            .post('/api/admin/unit', {
+              ...data,
+              id: unit?.id,
+              fn: 'updateUnit',
+            })
+            .then(r => r.data),
       })
       if (unit?.id) {
         setData(prev =>

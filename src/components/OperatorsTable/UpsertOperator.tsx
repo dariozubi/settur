@@ -13,7 +13,7 @@ export const UpsertOperator = ({ operator, setData }: Props) => {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <Button variant="outline" onClick={() => setOpen(true)}>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         {!!operator ? <Pencil size={18} /> : <Plus size={18} />}
       </Button>
       <OperatorDialog

@@ -1,10 +1,16 @@
 import { Unit, Vehicle } from '@prisma/client'
-import { CirclePlus } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
-import Select, { SelectContent, SelectItem, SelectTrigger } from '../Select'
+import Select, {
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../Select'
 import axios from 'axios'
 import { toast } from '../Toast'
+import { useQueryClient } from '@tanstack/react-query'
 
 type Props = {
   transferId: number
@@ -21,14 +27,24 @@ export const UnitCell = ({
 }: Props) => {
   const errorHandler = useErrorHandler()
   const [unit, setUnit] = useState<Unit | null>(initialUnit)
+  const queryClient = useQueryClient()
+
   const handleClick = useCallback(
     async (v: string) => {
       try {
-        const response = await axios.post<{ unit: Unit }>('/api/admin', {
-          transferId,
-          unitId: Number(v),
+        const res = await queryClient.fetchQuery({
+          queryKey: ['addTransferUnit'],
+          queryFn: async () =>
+            axios
+              .post('/api/admin/unit', {
+                transferId,
+                unitId: Number(v),
+                fn: 'addTransferUnit',
+              })
+              .then(r => r.data),
         })
-        setUnit(response.data.unit)
+
+        setUnit(res.unit)
         toast({
           title: 'Unidad agregada',
         })
@@ -36,15 +52,19 @@ export const UnitCell = ({
         errorHandler(e)
       }
     },
-    [errorHandler, transferId]
+    [errorHandler, queryClient, transferId]
   )
-  return unit ? (
-    <div className="flex justify-center">{unit.label}</div>
-  ) : (
+
+  return (
     <div className="flex justify-center">
-      <Select onValueChange={handleClick} defaultValue="all">
+      <Select
+        onValueChange={handleClick}
+        value={unit ? String(unit.id) : undefined}
+      >
         <SelectTrigger noIcon className="w-fit">
-          <CirclePlus size={18} className="text-stone-500" />
+          <SelectValue
+            placeholder={<Plus size={18} className="text-stone-500" />}
+          />
         </SelectTrigger>
 
         <SelectContent>

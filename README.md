@@ -1,8 +1,10 @@
 # SETTUR
 
-Página web de SETTUR. Usa Next 14, Tailwind, Prisma, Next-auth, Supabase.
+Página web de SETTUR. Hecha con Next, shadcn, Tailwind, Prisma, next-auth, Supabase.
 
-## Migraciones
+## Prisma
+
+### Migraciones
 
 Al realizar un cambio en el `schema` de Prisma, hay que correr:
 
@@ -10,7 +12,7 @@ Al realizar un cambio en el `schema` de Prisma, hay que correr:
 npx prisma migrate dev --name some_name --skip-seed
 ```
 
-## Seeding
+### Seeding
 
 Para crear nuevas órdenes (por default son 10) se puede usar:
 

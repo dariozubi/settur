@@ -13,7 +13,7 @@ export const UpsertUnit = ({ unit, setData }: Props) => {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <Button variant="outline" onClick={() => setOpen(true)}>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         {!!unit ? <Pencil size={18} /> : <Plus size={18} />}
       </Button>
       <UnitDialog open={open} setOpen={setOpen} unit={unit} setData={setData} />
