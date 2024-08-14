@@ -168,5 +168,5 @@ export const vehiculo: Record<Vehicle, string> = {
   SUBURBAN: 'Suburban',
   ESCALADE: 'Escalade',
   COACH: 'Autobus',
-  SHARED: 'Común',
+  SHARED: '-',
 }
