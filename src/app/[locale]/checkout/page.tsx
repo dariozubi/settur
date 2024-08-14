@@ -8,7 +8,7 @@ async function CheckoutPage({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const order = await prisma.order.findUnique({
-    select: { rates: true, id: true, isReserve: true },
+    select: { prices: true, id: true, owed: true },
     where: {
       id: Number(searchParams.orderId),
     },

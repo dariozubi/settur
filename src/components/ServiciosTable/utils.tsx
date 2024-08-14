@@ -111,10 +111,12 @@ export function getColumns({
       header: () => (
         <div className="flex items-center justify-center gap-1">
           <HandCoins size={14} />
-          <span className="hidden lg:block">Pago</span>
+          <span className="hidden lg:block">Debe</span>
         </div>
       ),
-      cell: ({ row }) => estado[row.original.order.status as OrderStatus],
+      cell: ({ row }) => (
+        <span className="flex w-full justify-center">{`${row.original.order.status === 'RESERVED' ? row.original.order.owed + 'USD' : '-'}`}</span>
+      ),
     },
     {
       id: 'verOrden',
@@ -149,7 +151,7 @@ export const adicionales: Record<Additional, string> = {
 
 export const estado: Record<OrderStatus, string> = {
   CREATED: 'En espera',
-  RESERVED: 'Reserva',
+  RESERVED: 'Debe',
   PAID: 'Pagado',
   CANCELLED: 'Cancelado',
   FULFILLED: 'Realizado',

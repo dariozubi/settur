@@ -28,4 +28,6 @@ Para probar stripe localmente hay que bajar el CLI y usar:
 stripe listen --forward-to localhost:3000/api/webhook
 ```
 
+Hay que hacer login antes de que funcione con `stripe login` si es que no hay sesión.
+
 Este comando regresa un token que debe ser el mismo que el de `.env`. Esto habilita las acciones del endpoint `api/webhook` una vez que se realiza una compra via stripe.

@@ -10,7 +10,7 @@ import { getStripe } from '@/lib/utils'
 import { Order } from '@prisma/client'
 
 type Props = {
-  order: Pick<Order, 'rates' | 'id'> | null
+  order: Pick<Order, 'prices' | 'owed' | 'id'> | null
 }
 
 function StripeCheckoutPage({ order }: Props) {

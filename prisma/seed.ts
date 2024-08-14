@@ -17,6 +17,10 @@ async function main() {
 
   for (let i = 0; i < numberOfOrders; i++) {
     const trip = faker.helpers.arrayElement(['ROUND', 'ONEWAY']) as Trip
+    const status = faker.helpers.arrayElement([
+      'RESERVED',
+      'PAID',
+    ]) as OrderStatus
     let transfers
     const transfer = {
       flight: `${faker.airline.airline().iataCode}${faker.airline.flightNumber({ addLeadingZeros: true })}`,
@@ -58,7 +62,7 @@ async function main() {
       transfers: {
         create: transfers,
       },
-      rates: ['price_1OzS7nFMaNpUdK6VMSUj5I5f,2'],
+      prices: ['price_1OzS7nFMaNpUdK6VMSUj5I5f,2'],
       vehicle: faker.helpers.arrayElement([
         'SPRINTER',
         'HIACE',
@@ -69,8 +73,8 @@ async function main() {
       isEnglish: faker.datatype.boolean(),
       trip,
       hotelId: faker.number.int({ max: 177, min: 0 }),
-      isReserve: faker.datatype.boolean(),
-      status: faker.helpers.arrayElement(['RESERVED', 'PAID']) as OrderStatus,
+      owed: status === 'RESERVED' ? faker.number.int({ min: 50, max: 200 }) : 0,
+      status,
     }
     await prisma.order.create({ data })
   }

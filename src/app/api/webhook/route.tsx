@@ -21,13 +21,14 @@ export async function POST(req: Request) {
         event.data.object.id
       )
       if (session.metadata.order_id) {
+        const isReserve = session.metadata.is_reserve === 'true'
         const rates = await prisma.rate.findMany()
         const order = await prisma.order.update({
           where: {
             id: Number(session.metadata.order_id),
           },
           data: {
-            status: session.metadata.is_reserve ? 'RESERVED' : 'PAID',
+            status: isReserve ? 'RESERVED' : 'PAID',
           },
           include: {
             hotel: true,
@@ -35,8 +36,8 @@ export async function POST(req: Request) {
           },
         })
         const subject = order.isEnglish
-          ? `${order.isReserve ? 'Reservation' : 'Order'} #${order.id} confirmed`
-          : `${order.isReserve ? 'Reservación' : 'Orden'} #${order.id} confirmada`
+          ? `${isReserve ? 'Reservation' : 'Order'} #${order.id} confirmed`
+          : `${isReserve ? 'Reservación' : 'Orden'} #${order.id} confirmada`
 
         const emailHTML = await renderAsync(
           <OrderReceipt order={order} rates={rates} />

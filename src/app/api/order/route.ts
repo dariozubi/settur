@@ -41,46 +41,58 @@ export async function POST(request: NextRequest) {
     try {
       const allItems =
         privateItems !== 'NOTHING' ? [...items, privateItems] : items
-
-      // Price ids for rates
       const rates = await prisma.rate.findMany()
+      const hotelValues = await prisma.hotel.findUnique({
+        select: { zone: true },
+        where: {
+          id: hotel,
+        },
+      })
+
+      // Prices and amount owed
       let priceIds = []
+      let totalPrice = 0
+      let reservationPrice = 0
+
       if (isReserve) {
         const reservationRate = rates.find(
           r => r.additionalId === 'RESERVATION'
         )
+        reservationPrice = reservationRate
+          ? reservationRate.value * (adults + children)
+          : 0
         priceIds.push(`${reservationRate?.priceId},${adults + children}`)
+      }
+
+      const payingIndividuals = vehicle === 'SHARED' ? adults + children : 1
+      if (type === 'round-trip') {
+        const vehicleRate = rates.find(
+          r =>
+            r.zone === hotelValues?.zone &&
+            r.trip === 'ROUND' &&
+            r.vehicle === vehicle
+        )
+        totalPrice += vehicleRate ? vehicleRate.value * payingIndividuals : 0
+        if (!isReserve)
+          priceIds.push(`${vehicleRate?.priceId},${payingIndividuals}`)
       } else {
-        const payingIndividuals = vehicle === 'SHARED' ? adults + children : 1
-        const hotelValues = await prisma.hotel.findUnique({
-          select: { zone: true },
-          where: {
-            id: hotel,
-          },
-        })
-        if (type === 'round-trip') {
-          const vehicleRate = rates.find(
-            r =>
-              r.zone === hotelValues?.zone &&
-              r.trip === 'ROUND' &&
-              r.vehicle === vehicle
-          )
+        const vehicleRate = rates.find(
+          r =>
+            r.zone === hotelValues?.zone &&
+            r.trip === 'ONEWAY' &&
+            r.vehicle === vehicle
+        )
+        totalPrice += vehicleRate ? vehicleRate.value * payingIndividuals : 0
+        if (!isReserve)
           priceIds.push(`${vehicleRate?.priceId},${payingIndividuals}`)
-        } else {
-          const vehicleRate = rates.find(
-            r =>
-              r.zone === hotelValues?.zone &&
-              r.trip === 'ONEWAY' &&
-              r.vehicle === vehicle
-          )
-          priceIds.push(`${vehicleRate?.priceId},${payingIndividuals}`)
-        }
-        if (allItems.length > 0) {
-          for (const item of allItems) {
-            if (item !== 'WHEELCHAIR') {
-              const itemRate = rates.find(r => r.additionalId === item)
-              priceIds.push(`${itemRate?.priceId},1`)
-            }
+      }
+
+      if (allItems.length > 0) {
+        for (const item of allItems) {
+          if (item !== 'WHEELCHAIR') {
+            const itemRate = rates.find(r => r.additionalId === item)
+            totalPrice += itemRate?.value || 0
+            if (!isReserve) priceIds.push(`${itemRate?.priceId},1`)
           }
         }
       }
@@ -134,12 +146,12 @@ export async function POST(request: NextRequest) {
         surname,
         phone,
         transfers,
-        rates: priceIds,
+        prices: priceIds,
+        owed: isReserve ? totalPrice - reservationPrice : 0,
         vehicle: vehicle as Vehicle,
         isEnglish,
         trip,
         hotelId: hotel,
-        isReserve,
       }
 
       const order = await prisma.order.create({ data, select: { id: true } })

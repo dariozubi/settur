@@ -1,26 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { Session } from 'next-auth'
 import Button from '@/components/Button'
 
-type Props = {
-  session: Session | null
-}
-function LoginSection({ session }: Props) {
-  const router = useRouter()
+function LoginSection() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    if (session?.user) {
-      router.replace('/servicios')
-    }
-  }, [router, session?.user])
-
-  if (session?.user) return null
 
   return (
     <section className="flex flex-col gap-1 rounded border border-stone-400 bg-white p-4">

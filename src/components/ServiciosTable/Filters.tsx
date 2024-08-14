@@ -104,11 +104,13 @@ export const Filters = ({ table, units }: Props) => {
         <SelectContent>
           <SelectItem value="all">Todos</SelectItem>
 
-          {Object.values(OrderStatus).map(v => (
-            <SelectItem key={v} value={v}>
-              {estado[v]}
-            </SelectItem>
-          ))}
+          {Object.values(OrderStatus)
+            .filter(s => s === 'RESERVED' || s === 'PAID')
+            .map(v => (
+              <SelectItem key={v} value={v}>
+                {estado[v]}
+              </SelectItem>
+            ))}
         </SelectContent>
       </Select>
 

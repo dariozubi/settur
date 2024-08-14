@@ -56,7 +56,7 @@ function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
 
   return (
     <div className="flex flex-col justify-between md:flex-row">
-      <div className="order-last mb-4 max-w-[calc(100vw-20px)] overflow-auto rounded-md border md:order-1">
+      <div className="order-last max-w-[calc(100vw-20px)] overflow-auto rounded-md border md:order-1">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
@@ -100,7 +100,7 @@ function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  No hay servicios programados.
                 </TableCell>
               </TableRow>
             )}
@@ -141,7 +141,7 @@ function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
         </Table>
       </div>
 
-      <Filters table={table} units={units} />
+      {data.length > 0 && <Filters table={table} units={units} />}
     </div>
   )
 }

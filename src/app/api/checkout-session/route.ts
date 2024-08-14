@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       try {
         const session = await stripe.checkout.sessions.create({
           ui_mode: 'embedded',
-          line_items: order.rates.map((p: string) => {
+          line_items: order.prices.map((p: string) => {
             const [price, quantity] = p.split(',')
             return {
               price,
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
           mode: 'payment',
           metadata: {
             order_id: order.id,
-            is_reserve: order.isReserve,
+            is_reserve: order.owed > 0,
           },
           return_url: `${process.env.NEXTAUTH_URL}return?session_id={CHECKOUT_SESSION_ID}`,
         })

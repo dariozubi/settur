@@ -92,7 +92,7 @@ export const OrderTable = ({ order, texts, tripType, rates }: Props) => {
               >{`${vehiclePrice + itemsPrice} USD`}</Text>
             </Column>
           </Row>
-          {order.isReserve && (
+          {order.owed > 0 && (
             <>
               <Row>
                 <Column style={informationTableColumn}>

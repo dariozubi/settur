@@ -84,11 +84,11 @@ model Order {
   surname     String
   phone       String
   transfers   Transfer[]
-  rates       String[]
+  prices       String[]
   vehicle     Vehicle
   isEnglish   Boolean
   trip        Trip
-  isReserve   Boolean
+  owed        Int
 
   hotel       Hotel @relation(fields: [hotelId], references: [id])
   hotelId     Int

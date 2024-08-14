@@ -50,14 +50,20 @@ export const EnviarServicioButton = ({ transfer, operators }: Props) => {
 }
 
 function getOperatorMessage(transfer: EnhancedTransfer, telephone: string) {
-  const message = `*Servicio #${transfer.id}* (${estado[transfer.order.status]})
-  
-  _Dirección_: ${direccion[transfer.direction]}
-  _Vuelo_: ${transfer.flight} - ${format(transfer.date, 'PPP p', { locale: es })}
-  _Vehículo_: ${vehiculo[transfer.order.vehicle]}
-  _Hotel_: ${transfer.order.hotel.name} (Zona ${transfer.order.hotel.zone.substring(4)})
-  _Usuario_: ${transfer.order.name} ${transfer.order.surname} ( ${transfer.order.phone} )
-  _Personas_: ${transfer.order.adults} adultos, ${transfer.order.children} niños y ${transfer.order.infants} infantes
-  ${transfer.order.items.length > 0 ? `_Adicionales_: ${transfer.order.items.reduce((prev, curr) => `${prev}, ${adicionales[curr]}`, ',').substring(2)}` : ''}`
+  const message = `*Servicio #${transfer.id}*
+${
+  transfer.order.status !== 'PAID'
+    ? `
+  *${estado[transfer.order.status]} ${transfer.order.owed} USD*
+  `
+    : ''
+}
+_Dirección_: ${direccion[transfer.direction]}
+_Vuelo_: ${transfer.flight} - ${format(transfer.date, 'PPP p', { locale: es })}
+_Vehículo_: ${vehiculo[transfer.order.vehicle]}
+_Hotel_: ${transfer.order.hotel.name} (Zona ${transfer.order.hotel.zone.substring(4)})
+_Usuario_: ${transfer.order.name} ${transfer.order.surname} ( ${transfer.order.phone} )
+_Personas_: ${transfer.order.adults} adultos, ${transfer.order.children} niños y ${transfer.order.infants} infantes
+${transfer.order.items.length > 0 ? `_Adicionales_: ${transfer.order.items.reduce((prev, curr) => `${prev}, ${adicionales[curr]}`, ',').substring(2)}` : ''}`
   return `https://wa.me/${telephone}?text=${encodeURIComponent(message)}`
 }
