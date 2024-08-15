@@ -7,7 +7,7 @@ type Props = {
   hotels: Hotel[]
 }
 
-async function HomeBookCard({ hotels }: Props) {
+function HomeBookCard({ hotels }: Props) {
   return (
     <Card className="w-full">
       <CardHeader>

@@ -6,22 +6,28 @@ import Image from 'next/image'
 import { buttonVariants } from '../Button'
 import Card, { CardContent, CardFooter, CardHeader, CardTitle } from '../Card'
 import { Link } from '@/navigation'
+import RightStar from '@/svg/rightStar.svg'
 
 function ServicesPage() {
   const t = useTranslations('services')
   return (
     <section className="min-h-screen w-full bg-neutral-50">
       <div className="mx-auto w-full max-w-screen-xl px-4">
-        <div className="flex flex-wrap py-20 sm:py-40">
-          <div className="flex w-full flex-col items-center justify-center gap-4 px-8 text-center sm:w-1/2">
-            <h1 className="text-3xl font-black sm:text-5xl">
+        <div className="relative flex flex-wrap overflow-hidden py-20 lg:py-40">
+          <div className="z-10 flex w-full flex-col items-center justify-center gap-4 px-8 md:w-1/2">
+            <h1 className="text-3xl font-black md:text-5xl">
               {t('hero-header')}
             </h1>
             <p className="text-xl font-bold">{t('hero-text')}</p>
           </div>
-          <div className="flex w-full items-center px-10 pt-20 sm:w-1/2 sm:pt-0">
+
+          <div className="top-42 absolute -right-0 top-80 size-[400px] md:-right-20 md:top-0 md:size-[950px]">
+            <RightStar />
+          </div>
+
+          <div className="flex w-full items-center px-10 pt-20 md:w-1/2 md:pt-0">
             <div
-              className={`relative w-full ${vehicles['ESCALADE'].imgAspect}`}
+              className={`relative w-[300px] md:w-full ${vehicles['ESCALADE'].imgAspect}`}
             >
               <Image
                 src={`/img/escalade.png`}

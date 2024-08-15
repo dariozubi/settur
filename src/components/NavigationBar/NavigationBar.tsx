@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { Mail, Phone } from 'lucide-react'
 
 import NavigationMenu, {
@@ -15,19 +14,14 @@ import { Link } from '@/navigation'
 import { cn } from '@/lib/utils'
 import { LanguageSelector } from './LanguageSelector'
 import { useTranslations } from 'next-intl'
+import SetturLogo from '@/svg/settur.svg'
 
 function NavigationBar() {
   const t = useTranslations('Navigation')
   return (
     <div className="mx-auto flex max-w-screen-xl justify-between bg-transparent px-4">
       <Link href="/" className="relative aspect-[978/182] w-[100px]">
-        <Image
-          src="/img/logo.png"
-          alt="logo"
-          fill
-          className="pointer-events-none object-contain"
-          sizes="20vw"
-        />
+        <SetturLogo className="h-full w-full" />
       </Link>
 
       <NavigationMenu>
