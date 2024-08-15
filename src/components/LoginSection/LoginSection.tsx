@@ -14,7 +14,7 @@ function LoginSection() {
         onSubmit={async event => {
           setLoading(true)
           event.preventDefault()
-          signIn('email', { callbackUrl: '/servicios', email })
+          signIn('email', { callbackUrl: '/admin/servicios', email })
         }}
         className="flex flex-col gap-2"
       >

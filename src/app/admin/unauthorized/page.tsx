@@ -15,7 +15,7 @@ async function Page() {
             <span>Este correo no está autorizado para ingresar.</span>
             <Link
               className="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-stone-200 bg-white py-4 text-xl font-bold ring-offset-white transition-colors hover:bg-stone-100 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:border-stone-800 dark:bg-stone-950 dark:ring-offset-stone-950 dark:hover:bg-stone-800 dark:hover:text-stone-50 dark:focus-visible:ring-stone-300"
-              href="/login"
+              href="/admin/login"
             >
               Ingresar
             </Link>

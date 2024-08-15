@@ -8,8 +8,8 @@ import prisma from './db'
 
 export const authOptions: NextAuthOptions = {
   pages: {
-    signIn: '/login',
-    verifyRequest: '/verify',
+    signIn: '/admin/login',
+    verifyRequest: '/admin/verify',
   },
   adapter: PrismaAdapter(prisma),
   session: {
@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
-      return '/unauthorized'
+      return '/admin/unauthorized'
     },
     async jwt({ token, user }) {
       if (user.email) {

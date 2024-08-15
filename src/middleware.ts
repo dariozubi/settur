@@ -1,9 +1,10 @@
 import { withAuth } from 'next-auth/middleware'
 import createIntlMiddleware from 'next-intl/middleware'
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { locales } from './i18n'
 
-const privates = ['/dashboard', '/servicios']
+const admin = ['/dashboard', '/servicios', '/precios']
+const login = ['/login', '/verify', '/unauthorized']
 
 const intlMiddleware = createIntlMiddleware({
   locales,
@@ -11,32 +12,31 @@ const intlMiddleware = createIntlMiddleware({
   defaultLocale: 'es',
 })
 
-const authMiddleware = withAuth(
-  function onSuccess(req) {
-    return intlMiddleware(req)
+const authMiddleware = withAuth({
+  callbacks: {
+    authorized: ({ token }) => token != null,
   },
-  {
-    callbacks: {
-      authorized: ({ token }) => token != null,
-    },
-    pages: {
-      signIn: '/login',
-      verifyRequest: '/verify',
-    },
-  }
-)
+  pages: {
+    signIn: '/admin/login',
+    verifyRequest: '/verify',
+  },
+})
 
 export default function middleware(req: NextRequest) {
-  const privatePages = RegExp(
-    `^(/(${locales.join('|')}))?(${privates
-      .flatMap(p => (p === '/' ? ['', '/'] : p))
-      .join('|')})/?$`,
+  const isAdmin = RegExp(
+    `^/admin(${admin.flatMap(p => (p === '/' ? ['', '/'] : p)).join('|')})/?$`,
     'i'
-  )
-  const isPrivate = privatePages.test(req.nextUrl.pathname)
+  ).test(req.nextUrl.pathname)
 
-  if (isPrivate) {
+  const isLogin = RegExp(
+    `^/admin(${login.flatMap(p => (p === '/' ? ['', '/'] : p)).join('|')})/?$`,
+    'i'
+  ).test(req.nextUrl.pathname)
+
+  if (isAdmin) {
     return (authMiddleware as any)(req)
+  } else if (isLogin) {
+    return NextResponse.next()
   } else {
     return intlMiddleware(req)
   }
