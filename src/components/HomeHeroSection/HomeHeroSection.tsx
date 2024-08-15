@@ -14,8 +14,8 @@ function HomeHeroSection({ hotels }: Props) {
   return (
     <section className="relative -mt-[64px] min-h-screen w-full bg-gradient-to-b from-blue-200 via-violet-100 to-rose-50">
       <div className="mx-auto flex min-h-screen w-full max-w-screen-xl flex-wrap justify-between">
-        <div className="my-20 flex w-full flex-col items-center justify-center md:my-28 md:mt-0 md:w-5/12 lg:w-1/2">
-          <SetturLogo className="w-full px-8" />
+        <div className="mb-20 mt-40 flex w-full flex-col items-center justify-center md:my-28 md:mt-0 md:w-5/12 lg:w-1/2">
+          <SetturLogo className="mb-10 px-8 *:w-full" />
           <h1 className="px-8 text-center text-3xl">
             {t.rich('hero-text', {
               br: () => <br />,
