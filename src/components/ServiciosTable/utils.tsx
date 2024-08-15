@@ -1,8 +1,8 @@
 import {
   Additional,
   Direction,
-  Hotel,
   Operator,
+  Hotel as HotelType,
   Order,
   OrderStatus,
   Transfer,
@@ -16,15 +16,18 @@ import { TransferDetails } from './TransferDetails'
 import {
   CarFront,
   HandCoins,
+  Hotel,
   MapPinned,
+  PlaneTakeoff,
   SignpostBig,
   SquareUserRound,
 } from 'lucide-react'
 import { UnitCell } from './UnitCell'
 import { ColumnDef } from '@tanstack/react-table'
+import { ReactNode } from 'react'
 
 export type EnhancedTransfer = Transfer & {
-  order: Order & { hotel: Hotel }
+  order: Order & { hotel: HotelType }
   unit: Unit | null
 }
 
@@ -55,8 +58,7 @@ export function getColumns({
       accessorKey: 'direction',
       header: () => (
         <div className="flex items-center justify-center gap-1">
-          <SignpostBig size={14} />{' '}
-          <span className="hidden lg:block">Ruta</span>
+          <SignpostBig size={14} />
         </div>
       ),
       cell: ({ row }) => direccion[row.original.direction as Direction],
@@ -111,19 +113,11 @@ export function getColumns({
       header: () => (
         <div className="flex items-center justify-center gap-1">
           <HandCoins size={14} />
-          <span className="hidden lg:block">Debe</span>
         </div>
       ),
       cell: ({ row }) => (
-        <span className="flex w-full justify-center">{`${row.original.order.status === 'RESERVED' ? row.original.order.owed + 'USD' : '-'}`}</span>
+        <span className="flex w-full justify-center">{`${row.original.order.status === 'RESERVED' ? '$' + row.original.order.owed : '-'}`}</span>
       ),
-    },
-    {
-      id: 'verOrden',
-      cell: ({ row }) => {
-        const transfer = row.original
-        return <TransferDetails transfer={transfer} />
-      },
     },
     {
       id: 'enviarServicio',
@@ -132,6 +126,13 @@ export function getColumns({
         return (
           <EnviarServicioButton transfer={transfer} operators={operators} />
         )
+      },
+    },
+    {
+      id: 'verOrden',
+      cell: ({ row }) => {
+        const transfer = row.original
+        return <TransferDetails transfer={transfer} />
       },
     },
   ]
@@ -157,9 +158,9 @@ export const estado: Record<OrderStatus, string> = {
   FULFILLED: 'Realizado',
 }
 
-export const direccion: Record<Direction, string> = {
-  AIRPORT: 'Aeropuerto',
-  HOTEL: 'Hotel',
+export const direccion: Record<Direction, ReactNode> = {
+  AIRPORT: <PlaneTakeoff size={18} />,
+  HOTEL: <Hotel size={18} />,
 }
 
 export const vehiculo: Record<Vehicle, string> = {

@@ -5,8 +5,7 @@ import DropdownMenu, {
   DropdownMenuTrigger,
 } from '../DropdownMenu'
 import Button from '../Button'
-import { MessageCirclePlus } from 'lucide-react'
-
+import { MessageSquareText } from 'lucide-react'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import {
@@ -28,8 +27,7 @@ export const EnviarServicioButton = ({ transfer, operators }: Props) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="secondary" className="flex gap-1">
-          <MessageCirclePlus size={18} />{' '}
-          <span className="hidden lg:block">Enviar</span>
+          <MessageSquareText size={18} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

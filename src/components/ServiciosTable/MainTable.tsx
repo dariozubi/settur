@@ -40,6 +40,11 @@ function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: 20,
+      },
+    },
   })
 
   return (
@@ -73,7 +78,7 @@ function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -94,38 +99,40 @@ function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
             )}
           </TableBody>
 
-          <TableFooter>
-            <TableRow>
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
+          {(table.getCanPreviousPage() || table.getCanNextPage()) && (
+            <TableFooter>
+              <TableRow>
+                <TableCell />
+                <TableCell />
+                <TableCell />
+                <TableCell />
+                <TableCell />
+                <TableCell />
+                <TableCell />
+                <TableCell />
 
-              <TableCell className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <MoveLeft size={16} />
-                </Button>
+                <TableCell className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => table.previousPage()}
+                    disabled={!table.getCanPreviousPage()}
+                  >
+                    <MoveLeft size={16} />
+                  </Button>
 
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <MoveRight size={16} />
-                </Button>
-              </TableCell>
-            </TableRow>
-          </TableFooter>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => table.nextPage()}
+                    disabled={!table.getCanNextPage()}
+                  >
+                    <MoveRight size={16} />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            </TableFooter>
+          )}
         </Table>
       </div>
 

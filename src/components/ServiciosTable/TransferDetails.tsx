@@ -27,7 +27,6 @@ export const TransferDetails = ({ transfer }: Props) => {
         className="flex gap-1"
       >
         <Eye size={18} />
-        <span className="hidden lg:block">Ver</span>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-h-screen overflow-y-scroll">

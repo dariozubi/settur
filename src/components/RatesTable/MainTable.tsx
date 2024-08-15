@@ -55,7 +55,7 @@ export function MainTable({ initialData }: MainTableProps) {
       {
         id: 'value',
         header: 'Precio',
-        cell: ({ row }) => row.original.value,
+        cell: ({ row }) => '$' + row.original.value,
       },
       {
         id: 'priceId',
@@ -111,7 +111,7 @@ export function MainTable({ initialData }: MainTableProps) {
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
