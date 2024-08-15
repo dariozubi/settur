@@ -1,44 +1,82 @@
 'use client'
 
 import {
+  ColumnDef,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { useMemo } from 'react'
-
 import Table, {
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from '@/components/Table'
-import Button from '../Button'
+import { useMemo, useState } from 'react'
+import { UpdateRate } from './UpdateRate'
+import { Rate } from '@prisma/client'
 import { Filters } from './Filters'
-import { getColumns } from './utils'
-import { Operator, Unit } from '@prisma/client'
-import { MoveLeft, MoveRight } from 'lucide-react'
 
-interface DataTableProps<TData> {
-  units: Unit[]
-  operators: Operator[]
-  data: TData[]
+interface MainTableProps {
+  initialData: Rate[]
 }
 
-function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
-  const columns = useMemo(
-    () => getColumns({ units, operators }),
-    [units, operators]
+export function MainTable({ initialData }: MainTableProps) {
+  const [data, setData] = useState(initialData)
+  const columns: ColumnDef<any, any>[] = useMemo(
+    () => [
+      {
+        id: 'id',
+        header: 'ID',
+        cell: ({ row }) => row.original.id,
+      },
+      {
+        accessorKey: 'trip',
+        header: 'Ruta',
+        cell: ({ row }) => row.original.trip,
+      },
+      {
+        accessorKey: 'vehicle',
+        header: 'Auto',
+        cell: ({ row }) => row.original.vehicle,
+      },
+      {
+        accessorKey: 'zone',
+        header: 'Zona',
+        cell: ({ row }) => row.original.zone,
+      },
+      {
+        accessorKey: 'additionalId',
+        header: 'Extra',
+        cell: ({ row }) => row.original.additionalId,
+      },
+      {
+        id: 'value',
+        header: 'Precio',
+        cell: ({ row }) => row.original.value,
+      },
+      {
+        id: 'priceId',
+        header: 'Stripe ID',
+        cell: ({ row }) => row.original.priceId,
+      },
+      {
+        id: 'actions',
+        cell: ({ row }) => {
+          const rate = row.original
+          return <UpdateRate rate={rate} setData={setData} />
+        },
+      },
+    ],
+    []
   )
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   })
 
@@ -88,50 +126,15 @@ function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No hay servicios programados.
+                  No hay resultados
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
-
-          <TableFooter>
-            <TableRow>
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell />
-
-              <TableCell className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <MoveLeft size={16} />
-                </Button>
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <MoveRight size={16} />
-                </Button>
-              </TableCell>
-            </TableRow>
-          </TableFooter>
         </Table>
       </div>
 
-      {data.length > 0 && <Filters table={table} units={units} />}
+      <Filters table={table} />
     </div>
   )
 }
-
-export default MainTable

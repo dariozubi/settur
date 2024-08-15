@@ -10,9 +10,9 @@ async function AdminLayout({ children }: PropsWithChildren) {
 
   return (
     <>
-      <main className="h-full w-full">
-        <div className="mx-auto flex h-full max-w-screen-lg flex-col gap-4 p-4">
-          <div className="flex w-full items-center justify-between border-b py-2">
+      <main className="w-full h-full">
+        <div className="flex flex-col h-full max-w-screen-lg gap-4 p-4 mx-auto">
+          <div className="flex items-center justify-between w-full py-2 border-b">
             <div className="flex items-center">
               <p>
                 Hola{' '}
@@ -20,13 +20,17 @@ async function AdminLayout({ children }: PropsWithChildren) {
               </p>
 
               {isAdmin && (
-                <div className="items ml-4 flex h-full items-center gap-4 border-l py-2 pl-4">
+                <div className="flex items-center h-full gap-4 py-2 pl-4 ml-4 border-l items">
                   <a href="/servicios" className="underline">
                     Servicios
                   </a>
 
                   <Link href="/dashboard" className="underline">
                     Administración
+                  </Link>
+
+                  <Link href="/precios" className="underline">
+                    Precios
                   </Link>
                 </div>
               )}
