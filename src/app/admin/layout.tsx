@@ -20,7 +20,7 @@ type Props = {
 
 export default function Layout({ children }: Props) {
   return (
-    <html>
+    <html lang="es">
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
