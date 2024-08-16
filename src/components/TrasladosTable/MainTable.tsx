@@ -97,7 +97,7 @@ function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No hay servicios programados.
+                  No hay traslados programados.
                 </TableCell>
               </TableRow>
             )}

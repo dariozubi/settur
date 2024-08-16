@@ -1,7 +1,7 @@
 import prisma from '@/db'
 import MainTable from './MainTable'
 
-async function ServiciosTable() {
+async function TrasladosTable() {
   const data = await prisma.transfer.findMany({
     where: {
       OR: [
@@ -21,4 +21,4 @@ async function ServiciosTable() {
   return <MainTable units={units} data={data} operators={operators} />
 }
 
-export default ServiciosTable
+export default TrasladosTable

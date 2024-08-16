@@ -42,7 +42,7 @@ export const EnviarServicioButton = ({ transfer, operators }: Props) => {
 }
 
 function getOperatorMessage(transfer: EnhancedTransfer, telephone: string) {
-  const message = `*Servicio #${transfer.id}*
+  const message = `*Traslado #${transfer.id}*
 ${
   transfer.order.status !== 'PAID'
     ? `

@@ -21,7 +21,7 @@ export const TransferDialog = ({ open, setOpen, transfer }: Props) => {
       {transfer && (
         <DialogContent className="max-h-screen overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>{`Servicio #${transfer.id}`}</DialogTitle>
+            <DialogTitle className="text-center text-3xl">{`#${transfer.id}`}</DialogTitle>
           </DialogHeader>
           <Table>
             <TableRow>

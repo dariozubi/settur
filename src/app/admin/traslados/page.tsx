@@ -1,10 +1,10 @@
 import AdminLayout from '@/components/AdminLayout'
-import ServiciosTable from '@/components/ServiciosTable'
+import TrasladosTable from '@/components/TrasladosTable'
 
 export default async function Page() {
   return (
     <AdminLayout>
-      <ServiciosTable />
+      <TrasladosTable />
     </AdminLayout>
   )
 }

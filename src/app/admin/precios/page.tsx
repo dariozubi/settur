@@ -7,7 +7,7 @@ export default async function Page() {
   const session = await getServerSession()
   const isAdmin = session?.user?.image === 'ADMIN'
 
-  if (!isAdmin) redirect('/admin/servicios')
+  if (!isAdmin) redirect('/admin/traslados')
 
   return (
     <AdminLayout>

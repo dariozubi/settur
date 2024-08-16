@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 
 async function Page() {
   const session = await getServerSession()
-  if (session?.user) redirect('/admin/servicios')
+  if (session?.user) redirect('/admin/traslados')
 
   return (
     <main className="h-full w-full">
