@@ -7,7 +7,7 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 import Table, {
   TableBody,
@@ -19,9 +19,10 @@ import Table, {
 } from '@/components/Table'
 import Button from '../Button'
 import { Filters } from './Filters'
-import { getColumns } from './utils'
+import { EnhancedTransfer, getColumns } from './utils'
 import { Operator, Unit } from '@prisma/client'
 import { MoveLeft, MoveRight } from 'lucide-react'
+import { TransferDialog } from './TransferDialog'
 
 interface DataTableProps<TData> {
   units: Unit[]
@@ -30,8 +31,11 @@ interface DataTableProps<TData> {
 }
 
 function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
+  const [openDialog, setOpenDialog] = useState(false)
+  const [currentTransfer, setCurrentTransfer] =
+    useState<EnhancedTransfer | null>(null)
   const columns = useMemo(
-    () => getColumns({ units, operators }),
+    () => getColumns({ units, operators, setOpenDialog, setCurrentTransfer }),
     [units, operators]
   )
   const table = useReactTable({
@@ -137,6 +141,12 @@ function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
       </div>
 
       {data.length > 0 && <Filters table={table} units={units} />}
+
+      <TransferDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        transfer={currentTransfer}
+      />
     </div>
   )
 }

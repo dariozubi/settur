@@ -12,9 +12,9 @@ import {
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { EnviarServicioButton } from './EnviarServicioButton'
-import { TransferDetails } from './TransferDetails'
 import {
   CarFront,
+  Eye,
   HandCoins,
   Hotel,
   MapPinned,
@@ -24,7 +24,8 @@ import {
 } from 'lucide-react'
 import { UnitCell } from './UnitCell'
 import { ColumnDef } from '@tanstack/react-table'
-import { ReactNode } from 'react'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
+import Button from '../Button'
 
 export type EnhancedTransfer = Transfer & {
   order: Order & { hotel: HotelType }
@@ -34,11 +35,15 @@ export type EnhancedTransfer = Transfer & {
 type GetColumnsProps = {
   units: Unit[]
   operators: Operator[]
+  setOpenDialog: Dispatch<SetStateAction<boolean>>
+  setCurrentTransfer: Dispatch<SetStateAction<EnhancedTransfer | null>>
 }
 
 export function getColumns({
   units,
   operators,
+  setOpenDialog,
+  setCurrentTransfer,
 }: GetColumnsProps): ColumnDef<any, any>[] {
   return [
     {
@@ -132,7 +137,19 @@ export function getColumns({
       id: 'verOrden',
       cell: ({ row }) => {
         const transfer = row.original
-        return <TransferDetails transfer={transfer} />
+        return (
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setCurrentTransfer(transfer)
+              setOpenDialog(true)
+            }}
+            type="button"
+            className="flex gap-1"
+          >
+            <Eye size={18} />
+          </Button>
+        )
       },
     },
   ]

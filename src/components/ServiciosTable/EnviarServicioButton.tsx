@@ -8,13 +8,7 @@ import Button from '../Button'
 import { MessageSquareText } from 'lucide-react'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import {
-  adicionales,
-  direccion,
-  EnhancedTransfer,
-  estado,
-  vehiculo,
-} from './utils'
+import { adicionales, EnhancedTransfer, estado, vehiculo } from './utils'
 import { Operator } from '@prisma/client'
 
 type Props = {
@@ -56,7 +50,7 @@ ${
   `
     : ''
 }
-_Dirección_: ${direccion[transfer.direction]}
+_Transfer_: ${transfer.direction === 'AIRPORT' ? 'OUT' : 'IN'}
 _Vuelo_: ${transfer.flight} - ${format(transfer.date, 'PPP p', { locale: es })}
 _Vehículo_: ${vehiculo[transfer.order.vehicle]}
 _Hotel_: ${transfer.order.hotel.name} (Zona ${transfer.order.hotel.zone.substring(4)})
