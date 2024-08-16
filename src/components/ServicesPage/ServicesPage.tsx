@@ -8,7 +8,11 @@ import Card, { CardContent, CardFooter, CardHeader, CardTitle } from '../Card'
 import { Link } from '@/navigation'
 import RightStar from '@/svg/rightStar.svg'
 
-function ServicesPage() {
+type Props = {
+  isActive: boolean
+}
+
+function ServicesPage({ isActive }: Props) {
   const t = useTranslations('services')
   return (
     <section className="min-h-screen w-full bg-neutral-50">
@@ -78,14 +82,16 @@ function ServicesPage() {
                 <hr className="my-4" />
                 <p>{t('shopping')}</p>
               </CardContent>
-              <CardFooter className="flex justify-center">
-                <Link
-                  href="/private"
-                  className={buttonVariants({ variant: 'outline' })}
-                >
-                  {t('reserve')}
-                </Link>
-              </CardFooter>
+              {isActive && (
+                <CardFooter className="flex justify-center">
+                  <Link
+                    href="/private"
+                    className={buttonVariants({ variant: 'outline' })}
+                  >
+                    {t('reserve')}
+                  </Link>
+                </CardFooter>
+              )}
             </Card>
           </div>
 
@@ -107,14 +113,16 @@ function ServicesPage() {
                   </li>
                 </ul>
               </CardContent>
-              <CardFooter className="flex justify-center">
-                <Link
-                  href="/shared"
-                  className={buttonVariants({ variant: 'outline' })}
-                >
-                  {t('reserve')}
-                </Link>
-              </CardFooter>
+              {isActive && (
+                <CardFooter className="flex justify-center">
+                  <Link
+                    href="/shared"
+                    className={buttonVariants({ variant: 'outline' })}
+                  >
+                    {t('reserve')}
+                  </Link>
+                </CardFooter>
+              )}
             </Card>
 
             <Card>

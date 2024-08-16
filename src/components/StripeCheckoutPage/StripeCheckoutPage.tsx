@@ -8,6 +8,8 @@ import {
 import axios from 'axios'
 import { getStripe } from '@/lib/utils'
 import { Order } from '@prisma/client'
+import ErrorPage from '../ErrorPage'
+import MainLayout from '../MainLayout'
 
 type Props = {
   order: Pick<Order, 'prices' | 'owed' | 'id'> | null
@@ -22,15 +24,19 @@ function StripeCheckoutPage({ order }: Props) {
     return r.data.clientSecret
   }, [order])
 
-  const options = { fetchClientSecret }
+  if (!order) return <ErrorPage error="order" />
 
-  if (!order) return null
   return (
-    <div id="checkout" className="min-h-[820px] py-4">
-      <EmbeddedCheckoutProvider stripe={getStripe()} options={options}>
-        <EmbeddedCheckout />
-      </EmbeddedCheckoutProvider>
-    </div>
+    <MainLayout>
+      <div id="checkout" className="min-h-[820px] py-4">
+        <EmbeddedCheckoutProvider
+          stripe={getStripe()}
+          options={{ fetchClientSecret }}
+        >
+          <EmbeddedCheckout />
+        </EmbeddedCheckoutProvider>
+      </div>
+    </MainLayout>
   )
 }
 

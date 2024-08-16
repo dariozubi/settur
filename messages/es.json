@@ -145,7 +145,9 @@
         "contact": "Contactar"
     },
     "error": {
-        "general-error": "Hubo un error. Perdón por la inconveniencia.",
+        "general": "Hubo un error. Perdón por la inconveniencia.",
+        "order": "Lo siento, no encontramos tu orden. Contáctanos si sigues encontrando este error.",
+        "receipt": "Hubo un error al generar tu recibo. Contáctanos si quieres saber más.",
         "return-home": "Regresar a la página principal"
     }
 }

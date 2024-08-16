@@ -125,6 +125,11 @@ model Operator {
   phone   String
 }
 
+model Flag {
+  id      String @id
+  value   Boolean
+}
+
 enum Role {
   ADMIN
   OPERACION

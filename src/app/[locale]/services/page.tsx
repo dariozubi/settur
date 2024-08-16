@@ -1,10 +1,15 @@
 import MainLayout from '@/components/MainLayout'
 import ServicesPage from '@/components/ServicesPage'
+import prisma from '@/db'
 
-export default function Shared() {
+async function Services() {
+  const flag = await prisma.flag.findUnique({ where: { id: 'IS_ACTIVE' } })
+
   return (
     <MainLayout>
-      <ServicesPage />
+      <ServicesPage isActive={!!flag?.value} />
     </MainLayout>
   )
 }
+
+export default Services

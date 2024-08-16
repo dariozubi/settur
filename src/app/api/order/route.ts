@@ -20,6 +20,11 @@ export async function POST(request: NextRequest) {
       return new NextResponse(error, { status: 400 })
     }
 
+    const flag = await prisma.flag.findUnique({ where: { id: 'IS_ACTIVE' } })
+    if (!flag?.value) {
+      return new NextResponse('Site is not active', { status: 400 })
+    }
+
     const {
       name,
       surname,

@@ -2,20 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import stripe from '@/payment'
 
-export async function GET(request: NextRequest) {
-  try {
-    const searchParams = request.nextUrl.searchParams
-    const sessionId = searchParams.get('session_id')
-    const session = await stripe.checkout.sessions.retrieve(sessionId)
-    return Response.json({
-      status: session.status,
-      orderId: session.metadata.order_id,
-    })
-  } catch (e) {
-    return new NextResponse('Stripe error', { status: 400 })
-  }
-}
-
 export async function POST(request: NextRequest) {
   try {
     const req = await request.json()

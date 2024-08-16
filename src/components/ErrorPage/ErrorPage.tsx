@@ -5,7 +5,11 @@ import Card, { CardFooter, CardHeader, CardTitle } from '../Card'
 import Button from '../Button'
 import { useTranslations } from 'next-intl'
 
-export default function ErrorPage() {
+type Props = {
+  error?: string
+}
+
+export default function ErrorPage({ error }: Props) {
   const t = useTranslations('error')
   return (
     <MainLayout>
@@ -15,7 +19,7 @@ export default function ErrorPage() {
       >
         <Card className="max-w-[300px]">
           <CardHeader>
-            <CardTitle className="text-red">{t('general-error')}</CardTitle>
+            <CardTitle className="text-red">{t(error || 'general')}</CardTitle>
           </CardHeader>
           <CardFooter>
             <Button asChild>
