@@ -8,7 +8,7 @@ export const TableCaption = forwardRef<
 >(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn('mt-4 text-sm text-stone-500 dark:text-stone-400', className)}
+    className={cn('my-4 text-sm text-stone-500 dark:text-stone-400', className)}
     {...props}
   />
 ))

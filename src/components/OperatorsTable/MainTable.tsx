@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-table'
 import Table, {
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -101,6 +102,8 @@ export function MainTable({ initialData }: MainTableProps) {
           </TableRow>
         )}
       </TableBody>
+
+      <TableCaption>Operadores</TableCaption>
     </Table>
   )
 }

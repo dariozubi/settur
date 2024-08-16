@@ -16,13 +16,14 @@ export default async function Page() {
 
   return (
     <AdminLayout>
-      <div className="flex justify-end">
-        <IsActiveButton isActive={!!flag?.value} />
-      </div>
       <div className="flex flex-wrap gap-4">
         <UnitsTable />
 
         <OperatorsTable />
+      </div>
+
+      <div className="flex">
+        <IsActiveButton isActive={!!flag?.value} />
       </div>
     </AdminLayout>
   )
