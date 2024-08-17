@@ -5,7 +5,7 @@ import Dialog, {
 } from '@/components/Dialog'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Rate } from '@prisma/client'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Form, {
@@ -17,131 +17,116 @@ import Form, {
 } from '../Form'
 import Input from '../Input'
 import Button from '../Button'
-import axios from 'axios'
-import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
-import { useQueryClient } from '@tanstack/react-query'
 import { toast } from '../Toast'
+import { updateRate } from '@/app/actions/rate'
 
 type Props = {
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
-  rate: Rate
-  setData: Dispatch<SetStateAction<Rate[]>>
+  rate: Rate | null
 }
 
-export const RateDialog = ({ open, setOpen, rate, setData }: Props) => {
+export const RateDialog = ({ open, setOpen, rate }: Props) => {
   const [loading, setLoading] = useState(false)
-  const errorHandler = useErrorHandler()
-  const queryClient = useQueryClient()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     mode: 'onBlur',
-    defaultValues: {
-      value: rate.value,
-      priceId: rate.priceId,
-    },
   })
+
+  useEffect(() => {
+    form.setValue('value', rate?.value || 0)
+    form.setValue('priceId', rate?.priceId || '')
+  }, [form, rate])
 
   async function onSave(data: z.infer<typeof schema>) {
     setLoading(true)
-    try {
-      const res = await queryClient.fetchQuery({
-        queryKey: ['updateRate'],
-        queryFn: async () =>
-          axios
-            .post('/api/admin/rate', {
-              ...data,
-              id: rate?.id,
-              fn: 'updateRate',
-            })
-            .then(r => r.data),
+
+    if (rate) {
+      const res = await updateRate({
+        value: data.value,
+        priceId: data.priceId,
+        id: rate.id,
       })
-      if (rate?.id) {
-        setData(prev =>
-          prev.map(u => {
-            if (rate.id === u.id) {
-              return res.rate
-            } else {
-              return u
-            }
-          })
-        )
+      if (res.error) {
+        toast({
+          description: (
+            <p className="mt-2 whitespace-pre-line p-4 text-red-500">
+              {res.error}
+            </p>
+          ),
+        })
       } else {
-        setData(prev => [...prev, res.rate])
+        toast({
+          description: (
+            <p className="mt-2 whitespace-pre-line p-4">{res.message}</p>
+          ),
+        })
       }
-      toast({
-        description: (
-          <p className="p-4 mt-2 whitespace-pre-line">
-            Los cambios al precio fueron realizados.
-          </p>
-        ),
-      })
-      setOpen(false)
-    } catch (e) {
-      errorHandler(e)
-    } finally {
-      setLoading(false)
     }
+    setLoading(false)
+    setOpen(false)
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-h-screen overflow-y-scroll">
-        <DialogHeader>
-          <DialogTitle>{`Precio #${rate.id}`}</DialogTitle>
-        </DialogHeader>
-        <div>
-          <Form {...form}>
-            <form id="Rate-form" className="flex flex-col gap-4">
-              <FormField
-                control={form.control}
-                name="value"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold">Valor</FormLabel>
-                    <FormControl>
-                      <Input
-                        value={field.value}
-                        onChange={field.onChange}
-                        onBlur={field.onBlur}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+      {rate && (
+        <DialogContent className="max-h-screen overflow-y-scroll">
+          <DialogHeader>
+            <DialogTitle>{`Precio #${rate.id}`}</DialogTitle>
+          </DialogHeader>
+          <div>
+            <Form {...form}>
+              <form id="Rate-form" className="flex flex-col gap-4">
+                <FormField
+                  control={form.control}
+                  name="value"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold">Valor</FormLabel>
+                      <FormControl>
+                        <Input
+                          value={field.value}
+                          onChange={field.onChange}
+                          onBlur={field.onBlur}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="priceId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold">Stripe ID</FormLabel>
-                    <FormControl>
-                      <Input
-                        value={field.value}
-                        onChange={field.onChange}
-                        onBlur={field.onBlur}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="priceId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold">Stripe ID</FormLabel>
+                      <FormControl>
+                        <Input
+                          value={field.value}
+                          onChange={field.onChange}
+                          onBlur={field.onBlur}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <Button
-                className="mt-5"
-                type="submit"
-                form="Rate-form"
-                disabled={loading}
-                onClick={form.handleSubmit(onSave)}
-              >
-                Guardar cambios
-              </Button>
-            </form>
-          </Form>
-        </div>
-      </DialogContent>
+                <Button
+                  className="mt-5"
+                  type="submit"
+                  form="Rate-form"
+                  disabled={loading}
+                  onClick={form.handleSubmit(onSave)}
+                >
+                  Guardar cambios
+                </Button>
+              </form>
+            </Form>
+          </div>
+        </DialogContent>
+      )}
     </Dialog>
   )
 }

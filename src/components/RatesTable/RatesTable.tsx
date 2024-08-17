@@ -1,10 +1,10 @@
-import prisma from '@/db'
 import { MainTable } from './MainTable'
+import { getRates } from '@/app/actions/rate'
 
 async function RatesTable() {
-  const data = await prisma.rate.findMany({ orderBy: { id: 'asc' } })
+  const res = await getRates()
 
-  return <MainTable initialData={data} />
+  return <MainTable data={res.data || []} />
 }
 
 export default RatesTable

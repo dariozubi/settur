@@ -15,16 +15,19 @@ import Table, {
   TableRow,
 } from '@/components/Table'
 import { useMemo, useState } from 'react'
-import { UpdateRate } from './UpdateRate'
 import { Rate } from '@prisma/client'
 import { Filters } from './Filters'
+import { RateDialog } from './RateDialog'
+import Button from '../Button'
+import { Pencil } from 'lucide-react'
 
 interface MainTableProps {
-  initialData: Rate[]
+  data: Rate[]
 }
 
-export function MainTable({ initialData }: MainTableProps) {
-  const [data, setData] = useState(initialData)
+export function MainTable({ data }: MainTableProps) {
+  const [openDialog, setOpenDialog] = useState(false)
+  const [currentRate, setCurrentRate] = useState<Rate | null>(null)
   const columns: ColumnDef<any, any>[] = useMemo(
     () => [
       {
@@ -66,7 +69,17 @@ export function MainTable({ initialData }: MainTableProps) {
         id: 'actions',
         cell: ({ row }) => {
           const rate = row.original
-          return <UpdateRate rate={rate} setData={setData} />
+          return (
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setCurrentRate(rate)
+                setOpenDialog(true)
+              }}
+            >
+              <Pencil size={18} />
+            </Button>
+          )
         },
       },
     ],
@@ -135,6 +148,11 @@ export function MainTable({ initialData }: MainTableProps) {
       </div>
 
       <Filters table={table} />
+      <RateDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        rate={currentRate}
+      />
     </div>
   )
 }
