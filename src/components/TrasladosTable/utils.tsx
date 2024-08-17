@@ -107,7 +107,7 @@ export function getColumns({
       cell: ({ row }) => (
         <UnitCell
           vehicle={row.original.order.vehicle}
-          initialUnit={row.original.unit}
+          unit={row.original.unit}
           units={units}
           transferId={row.original.id}
         />

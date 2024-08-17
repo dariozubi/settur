@@ -1,58 +1,48 @@
 import { Unit, Vehicle } from '@prisma/client'
 import { Plus } from 'lucide-react'
 import { useCallback, useState } from 'react'
-import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
 import Select, {
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '../Select'
-import axios from 'axios'
 import { toast } from '../Toast'
-import { useQueryClient } from '@tanstack/react-query'
+import { addTransferUnit } from '@/app/actions/transfer'
 
 type Props = {
   transferId: number
-  initialUnit: Unit | null
+  unit: Unit | null
   units: Unit[]
   vehicle: Vehicle
 }
 
-export const UnitCell = ({
-  transferId,
-  initialUnit,
-  units,
-  vehicle,
-}: Props) => {
-  const errorHandler = useErrorHandler()
-  const [unit, setUnit] = useState<Unit | null>(initialUnit)
-  const queryClient = useQueryClient()
+export const UnitCell = ({ transferId, unit, units, vehicle }: Props) => {
+  const [loading, setLoading] = useState(false)
 
   const handleClick = useCallback(
     async (v: string) => {
-      try {
-        const res = await queryClient.fetchQuery({
-          queryKey: ['addTransferUnit'],
-          queryFn: async () =>
-            axios
-              .post('/api/admin/unit', {
-                transferId,
-                unitId: Number(v),
-                fn: 'addTransferUnit',
-              })
-              .then(r => r.data),
-        })
+      setLoading(true)
 
-        setUnit(res.unit)
+      const res = await addTransferUnit({ transferId, unitId: Number(v) })
+      if (res.error) {
         toast({
-          title: 'Unidad agregada',
+          description: (
+            <p className="mt-2 whitespace-pre-line p-4 text-red-500">
+              {res.error}
+            </p>
+          ),
         })
-      } catch (e) {
-        errorHandler(e)
+      } else {
+        toast({
+          description: (
+            <p className="mt-2 whitespace-pre-line p-4">{res.message}</p>
+          ),
+        })
       }
+      setLoading(false)
     },
-    [errorHandler, queryClient, transferId]
+    [transferId]
   )
 
   return (
@@ -60,6 +50,7 @@ export const UnitCell = ({
       <Select
         onValueChange={handleClick}
         value={unit ? String(unit.id) : undefined}
+        disabled={loading}
       >
         <SelectTrigger noIcon className="w-fit">
           <SelectValue

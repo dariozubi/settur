@@ -15,15 +15,18 @@ import Table, {
   TableRow,
 } from '@/components/Table'
 import { useMemo, useState } from 'react'
-import { UpsertOperator } from './UpsertOperator'
 import { Operator } from '@prisma/client'
+import { OperatorDialog } from './OperatorDialog'
+import Button from '../Button'
+import { Pencil, Plus } from 'lucide-react'
 
 interface MainTableProps {
-  initialData: Operator[]
+  data: Operator[]
 }
 
-export function MainTable({ initialData }: MainTableProps) {
-  const [data, setData] = useState(initialData)
+export function MainTable({ data }: MainTableProps) {
+  const [openDialog, setOpenDialog] = useState(false)
+  const [currentOperator, setCurrentOperator] = useState<Operator | null>(null)
   const columns: ColumnDef<any, any>[] = useMemo(
     () => [
       {
@@ -45,9 +48,29 @@ export function MainTable({ initialData }: MainTableProps) {
         id: 'actions',
         cell: ({ row }) => {
           const operator = row.original
-          return <UpsertOperator operator={operator} setData={setData} />
+          return (
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setCurrentOperator(operator)
+                setOpenDialog(true)
+              }}
+            >
+              <Pencil size={18} />
+            </Button>
+          )
         },
-        header: () => <UpsertOperator setData={setData} />,
+        header: () => (
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setCurrentOperator(null)
+              setOpenDialog(true)
+            }}
+          >
+            <Plus size={18} />
+          </Button>
+        ),
       },
     ],
     []
@@ -60,50 +83,58 @@ export function MainTable({ initialData }: MainTableProps) {
   })
 
   return (
-    <Table>
-      <TableHeader>
-        {table.getHeaderGroups().map(headerGroup => (
-          <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map(header => {
-              return (
-                <TableHead key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </TableHead>
-              )
-            })}
-          </TableRow>
-        ))}
-      </TableHeader>
-
-      <TableBody>
-        {table.getRowModel().rows?.length ? (
-          table.getRowModel().rows.map(row => (
-            <TableRow
-              key={row.id}
-              data-state={row.getIsSelected() && 'selected'}
-            >
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
+    <div className="w-fit rounded border">
+      <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map(headerGroup => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map(header => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                )
+              })}
             </TableRow>
-          ))
-        ) : (
-          <TableRow>
-            <TableCell colSpan={columns.length} className="h-24 text-center">
-              No hay resultados
-            </TableCell>
-          </TableRow>
-        )}
-      </TableBody>
+          ))}
+        </TableHeader>
 
-      <TableCaption>Operadores</TableCaption>
-    </Table>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map(row => (
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && 'selected'}
+              >
+                {row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No hay resultados
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+
+        <TableCaption>Operadores</TableCaption>
+      </Table>
+
+      <OperatorDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        operator={currentOperator}
+      />
+    </div>
   )
 }

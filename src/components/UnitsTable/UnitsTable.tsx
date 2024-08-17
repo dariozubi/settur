@@ -1,14 +1,10 @@
-import prisma from '@/db'
 import { MainTable } from './MainTable'
+import { getUnits } from '@/app/actions/unit'
 
 async function UnitsTable() {
-  const data = await prisma.unit.findMany({ orderBy: { id: 'asc' } })
+  const res = await getUnits()
 
-  return (
-    <div className="w-fit rounded border">
-      <MainTable initialData={data} />
-    </div>
-  )
+  return <MainTable data={res.data || []} />
 }
 
 export default UnitsTable

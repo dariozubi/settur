@@ -5,7 +5,7 @@ import Dialog, {
 } from '@/components/Dialog'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Operator } from '@prisma/client'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Form, {
@@ -17,68 +17,61 @@ import Form, {
 } from '../Form'
 import Input from '../Input'
 import Button from '../Button'
-import axios from 'axios'
-import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
-import { useQueryClient } from '@tanstack/react-query'
 import { toast } from '../Toast'
+import { createOperator, updateOperator } from '@/app/actions/operator'
 
 type Props = {
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
-  operator?: Operator
-  setData: Dispatch<SetStateAction<Operator[]>>
+  operator: Operator | null
 }
 
-export const OperatorDialog = ({ open, setOpen, operator, setData }: Props) => {
+export const OperatorDialog = ({ open, setOpen, operator }: Props) => {
   const [loading, setLoading] = useState(false)
-  const errorHandler = useErrorHandler()
-  const queryClient = useQueryClient()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     mode: 'onBlur',
-    defaultValues: {
-      name: operator?.name || '',
-      phone: operator?.phone || '',
-    },
   })
+
+  useEffect(() => {
+    form.setValue('name', operator?.name || '')
+    form.setValue('phone', operator?.phone || '')
+  }, [form, operator])
 
   async function onSave(data: z.infer<typeof schema>) {
     setLoading(true)
-    try {
-      const res = await queryClient.fetchQuery({
-        queryKey: ['updateOperator'],
-        queryFn: async () =>
-          axios
-            .post('/api/admin/operator', { ...data, id: operator?.id })
-            .then(r => r.data),
+
+    let res
+    if (operator?.id) {
+      res = await updateOperator({
+        name: data.name,
+        phone: data.phone,
+        id: operator?.id,
       })
-      if (operator?.id) {
-        setData(prev =>
-          prev.map(u => {
-            if (operator.id === u.id) {
-              return res.operator
-            } else {
-              return u
-            }
-          })
-        )
-      } else {
-        setData(prev => [...prev, res.operator])
-      }
+    } else {
+      res = await createOperator({
+        name: data.name,
+        phone: data.phone,
+      })
+    }
+    if (res.error) {
       toast({
         description: (
-          <p className="mt-2 whitespace-pre-line p-4">
-            Los cambios de operadores fueron realizados.
+          <p className="mt-2 whitespace-pre-line p-4 text-red-500">
+            {res.error}
           </p>
         ),
       })
-      setOpen(false)
-    } catch (e) {
-      errorHandler(e)
-    } finally {
-      setLoading(false)
+    } else {
+      toast({
+        description: (
+          <p className="mt-2 whitespace-pre-line p-4">{res.message}</p>
+        ),
+      })
     }
+    setLoading(false)
+    setOpen(false)
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>

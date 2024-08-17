@@ -20,17 +20,17 @@ import Table, {
 import Button from '../Button'
 import { Filters } from './Filters'
 import { EnhancedTransfer, getColumns } from './utils'
-import { Operator, Unit } from '@prisma/client'
+import { Operator, Transfer, Unit } from '@prisma/client'
 import { MoveLeft, MoveRight } from 'lucide-react'
 import { TransferDialog } from './TransferDialog'
 
-interface DataTableProps<TData> {
+type DataTableProps = {
   units: Unit[]
   operators: Operator[]
-  data: TData[]
+  data: Transfer[]
 }
 
-function MainTable<TData>({ data, units, operators }: DataTableProps<TData>) {
+function MainTable({ data, units, operators }: DataTableProps) {
   const [openDialog, setOpenDialog] = useState(false)
   const [currentTransfer, setCurrentTransfer] =
     useState<EnhancedTransfer | null>(null)

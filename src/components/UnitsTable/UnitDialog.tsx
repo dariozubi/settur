@@ -11,8 +11,8 @@ import Select, {
 } from '@/components/Select'
 import { vehicleBrands, vehicles } from '@/lib/consts'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Unit } from '@prisma/client'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Unit, Vehicle } from '@prisma/client'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Form, {
@@ -24,72 +24,61 @@ import Form, {
 } from '../Form'
 import Input from '../Input'
 import Button from '../Button'
-import axios from 'axios'
-import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
-import { useQueryClient } from '@tanstack/react-query'
 import { toast } from '../Toast'
+import { createUnit, updateUnit } from '@/app/actions/unit'
 
 type Props = {
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
-  unit?: Unit
-  setData: Dispatch<SetStateAction<Unit[]>>
+  unit: Unit | null
 }
 
-export const UnitDialog = ({ open, setOpen, unit, setData }: Props) => {
+export const UnitDialog = ({ open, setOpen, unit }: Props) => {
   const [loading, setLoading] = useState(false)
-  const errorHandler = useErrorHandler()
-  const queryClient = useQueryClient()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     mode: 'onBlur',
-    defaultValues: {
-      label: unit?.label || '',
-      vehicle: unit?.vehicle || 'SUBURBAN',
-    },
   })
+
+  useEffect(() => {
+    form.setValue('label', unit?.label || '')
+    form.setValue('vehicle', unit?.vehicle || '')
+  }, [form, unit])
 
   async function onSave(data: z.infer<typeof schema>) {
     setLoading(true)
-    try {
-      const res = await queryClient.fetchQuery({
-        queryKey: ['updateUnit'],
-        queryFn: async () =>
-          axios
-            .post('/api/admin/unit', {
-              ...data,
-              id: unit?.id,
-              fn: 'updateUnit',
-            })
-            .then(r => r.data),
+
+    let res
+    if (unit?.id) {
+      res = await updateUnit({
+        label: data.label,
+        vehicle: data.vehicle as Vehicle,
+        id: unit?.id,
       })
-      if (unit?.id) {
-        setData(prev =>
-          prev.map(u => {
-            if (unit.id === u.id) {
-              return res.unit
-            } else {
-              return u
-            }
-          })
-        )
-      } else {
-        setData(prev => [...prev, res.unit])
-      }
+    } else {
+      res = await createUnit({
+        label: data.label,
+        vehicle: data.vehicle as Vehicle,
+      })
+    }
+    if (res.error) {
       toast({
         description: (
-          <p className="mt-2 whitespace-pre-line p-4">
-            Los cambios a la unidad fueron realizados.
+          <p className="mt-2 whitespace-pre-line p-4 text-red-500">
+            {res.error}
           </p>
         ),
       })
-      setOpen(false)
-    } catch (e) {
-      errorHandler(e)
-    } finally {
-      setLoading(false)
+    } else {
+      toast({
+        description: (
+          <p className="mt-2 whitespace-pre-line p-4">{res.message}</p>
+        ),
+      })
     }
+    setLoading(false)
+    setOpen(false)
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>

@@ -1,14 +1,10 @@
-import prisma from '@/db'
 import { MainTable } from './MainTable'
+import { getOperators } from '@/app/actions/operator'
 
 async function OperatorsTable() {
-  const data = await prisma.operator.findMany({ orderBy: { id: 'asc' } })
+  const res = await getOperators()
 
-  return (
-    <div className="w-fit rounded border">
-      <MainTable initialData={data} />
-    </div>
-  )
+  return <MainTable data={res.data || []} />
 }
 
 export default OperatorsTable
