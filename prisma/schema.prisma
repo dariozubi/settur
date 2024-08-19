@@ -89,6 +89,8 @@ model Order {
   isEnglish   Boolean
   trip        Trip
   owed        Int
+  extras      Int @default(0)
+  notes       String @default("")
 
   hotel       Hotel @relation(fields: [hotelId], references: [id])
   hotelId     Int

@@ -80,7 +80,7 @@ function getFinalSchema({
         path: ['departureDate'],
       }
     )
-    .refine(data => data.adults + data.children + data.infants < 50, {
+    .refine(data => data.adults + data.children + data.infants < 17, {
       message: maximum,
       path: ['adults'],
     })
@@ -105,17 +105,17 @@ function getBaseSchema({
       .number({ required_error: required })
       .int()
       .min(1, { message: minimumOne })
-      .max(50, { message: maximum }),
+      .max(17, { message: maximum }),
     children: z.coerce
       .number({ required_error: required })
       .int()
       .min(0, { message: minimum })
-      .max(50, { message: maximum }),
+      .max(16, { message: maximum }),
     infants: z.coerce
       .number({ required_error: required })
       .int()
       .min(0, { message: minimum })
-      .max(50, { message: maximum }),
+      .max(16, { message: maximum }),
     items: z.array(z.enum(items)),
   })
   return schema

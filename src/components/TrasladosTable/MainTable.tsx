@@ -23,6 +23,7 @@ import { EnhancedTransfer, getColumns } from './utils'
 import { Operator, Transfer, Unit } from '@prisma/client'
 import { MoveLeft, MoveRight } from 'lucide-react'
 import { TransferDialog } from './TransferDialog'
+import { EditTransferDialog } from './EditTransferDialog'
 
 type DataTableProps = {
   units: Unit[]
@@ -32,10 +33,18 @@ type DataTableProps = {
 
 function MainTable({ data, units, operators }: DataTableProps) {
   const [openDialog, setOpenDialog] = useState(false)
+  const [openEditDialog, setOpenEditDialog] = useState(false)
   const [currentTransfer, setCurrentTransfer] =
     useState<EnhancedTransfer | null>(null)
   const columns = useMemo(
-    () => getColumns({ units, operators, setOpenDialog, setCurrentTransfer }),
+    () =>
+      getColumns({
+        units,
+        operators,
+        setOpenDialog,
+        setOpenEditDialog,
+        setCurrentTransfer,
+      }),
     [units, operators]
   )
   const table = useReactTable({
@@ -145,6 +154,12 @@ function MainTable({ data, units, operators }: DataTableProps) {
       <TransferDialog
         open={openDialog}
         setOpen={setOpenDialog}
+        transfer={currentTransfer}
+      />
+
+      <EditTransferDialog
+        open={openEditDialog}
+        setOpen={setOpenEditDialog}
         transfer={currentTransfer}
       />
     </div>

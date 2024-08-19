@@ -56,6 +56,26 @@ export const TransferDialog = ({ open, setOpen, transfer }: Props) => {
                 <TableCell>{`${transfer.order.items.reduce((prev, curr) => `${prev}, ${adicionales[curr]}`, ',').substring(2)}`}</TableCell>
               </TableRow>
             )}
+            {transfer.order.status !== 'PAID' && (
+              <TableRow>
+                <TableCell className="font-bold">Debe</TableCell>
+                <TableCell>
+                  {'$' + (transfer.order.extras + transfer.order.owed)}
+                </TableCell>
+              </TableRow>
+            )}
+            {transfer.order.extras && (
+              <TableRow>
+                <TableCell className="font-bold">Extras</TableCell>
+                <TableCell>{'$' + transfer.order.extras}</TableCell>
+              </TableRow>
+            )}
+            {transfer.order.notes && (
+              <TableRow>
+                <TableCell className="font-bold">Notas</TableCell>
+                <TableCell>{transfer.order.notes}</TableCell>
+              </TableRow>
+            )}
           </Table>
         </DialogContent>
       )}

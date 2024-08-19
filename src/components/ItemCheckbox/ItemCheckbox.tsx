@@ -8,9 +8,17 @@ export type Props = {
   onChange: (_v: string[]) => void
   value: string[]
   className?: string
+  disabled?: boolean
 }
 
-function ItemCheckbox({ label, id, value, onChange, className }: Props) {
+function ItemCheckbox({
+  label,
+  id,
+  value,
+  onChange,
+  className,
+  disabled,
+}: Props) {
   return (
     <FormItem
       key={id}
@@ -18,6 +26,7 @@ function ItemCheckbox({ label, id, value, onChange, className }: Props) {
     >
       <FormControl>
         <Checkbox
+          disabled={disabled}
           checked={value?.includes(id)}
           onCheckedChange={checked => {
             return checked

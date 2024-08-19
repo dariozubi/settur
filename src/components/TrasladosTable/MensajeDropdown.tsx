@@ -16,7 +16,7 @@ type Props = {
   operators: Operator[]
 }
 
-export const EnviarServicioButton = ({ transfer, operators }: Props) => {
+export const MensajeDropdown = ({ transfer, operators }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

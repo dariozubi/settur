@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Order" ADD COLUMN     "extras" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "notes" TEXT NOT NULL DEFAULT '';

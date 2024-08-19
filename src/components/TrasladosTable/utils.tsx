@@ -11,10 +11,9 @@ import {
 } from '@prisma/client'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { EnviarServicioButton } from './EnviarServicioButton'
+import { MensajeDropdown } from './MensajeDropdown'
 import {
   CarFront,
-  Eye,
   HandCoins,
   Hotel,
   MapPinned,
@@ -25,7 +24,7 @@ import {
 import { UnitCell } from './UnitCell'
 import { ColumnDef } from '@tanstack/react-table'
 import { Dispatch, ReactNode, SetStateAction } from 'react'
-import Button from '../Button'
+import { MoreDropdown } from './MoreDropdown'
 
 export type EnhancedTransfer = Transfer & {
   order: Order & { hotel: HotelType }
@@ -36,6 +35,7 @@ type GetColumnsProps = {
   units: Unit[]
   operators: Operator[]
   setOpenDialog: Dispatch<SetStateAction<boolean>>
+  setOpenEditDialog: Dispatch<SetStateAction<boolean>>
   setCurrentTransfer: Dispatch<SetStateAction<EnhancedTransfer | null>>
 }
 
@@ -43,6 +43,7 @@ export function getColumns({
   units,
   operators,
   setOpenDialog,
+  setOpenEditDialog,
   setCurrentTransfer,
 }: GetColumnsProps): ColumnDef<any, any>[] {
   return [
@@ -120,17 +121,23 @@ export function getColumns({
           <HandCoins size={14} />
         </div>
       ),
-      cell: ({ row }) => (
-        <span className="flex w-full justify-center">{`${row.original.order.status === 'RESERVED' ? '$' + row.original.order.owed : '-'}`}</span>
-      ),
+      cell: ({ row }) => {
+        const order = row.original.order
+        const total = order.owed + order.extras
+        const show =
+          (order.status === 'RESERVED' || order.extras !== 0) &&
+          (order.trip === 'ONEWAY' ||
+            (order.trip === 'ROUND' && row.original.direction === 'HOTEL'))
+        return (
+          <span className="flex w-full justify-center">{`${show ? '$' + total : '-'}`}</span>
+        )
+      },
     },
     {
       id: 'enviarServicio',
       cell: ({ row }) => {
         const transfer = row.original
-        return (
-          <EnviarServicioButton transfer={transfer} operators={operators} />
-        )
+        return <MensajeDropdown transfer={transfer} operators={operators} />
       },
     },
     {
@@ -138,17 +145,12 @@ export function getColumns({
       cell: ({ row }) => {
         const transfer = row.original
         return (
-          <Button
-            variant="secondary"
-            onClick={() => {
-              setCurrentTransfer(transfer)
-              setOpenDialog(true)
-            }}
-            type="button"
-            className="flex gap-1"
-          >
-            <Eye size={18} />
-          </Button>
+          <MoreDropdown
+            transfer={transfer}
+            setCurrentTransfer={setCurrentTransfer}
+            setOpenDialog={setOpenDialog}
+            setOpenEditDialog={setOpenEditDialog}
+          />
         )
       },
     },
