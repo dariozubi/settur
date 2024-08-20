@@ -7,6 +7,7 @@ import Button from '../Button'
 import { MoreHorizontal } from 'lucide-react'
 import { EnhancedTransfer } from './utils'
 import { Dispatch, SetStateAction } from 'react'
+import { setAsNoShow } from '@/app/actions/transfer'
 
 type Props = {
   transfer: EnhancedTransfer
@@ -42,6 +43,7 @@ export const MoreDropdown = ({
             Ver Detalles
           </Button>
         </DropdownMenuItem>
+
         <DropdownMenuItem>
           <Button
             variant="ghost"
@@ -55,6 +57,19 @@ export const MoreDropdown = ({
             Agregar Extras
           </Button>
         </DropdownMenuItem>
+
+        {!transfer.isNoShow && (
+          <DropdownMenuItem className="flex justify-center">
+            <Button
+              variant="destructive"
+              onClick={() => setAsNoShow({ transferId: transfer.id })}
+              type="button"
+              className="flex gap-1"
+            >
+              No show
+            </Button>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )

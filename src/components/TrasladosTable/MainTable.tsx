@@ -89,6 +89,9 @@ function MainTable({ data, units, operators }: DataTableProps) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
+                  className={
+                    !!row.original.isNoShow ? '[&>td]:bg-red-200' : undefined
+                  }
                 >
                   {row.getVisibleCells().map(cell => (
                     <TableCell key={cell.id} className="text-center">

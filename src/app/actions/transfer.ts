@@ -16,7 +16,10 @@ export async function getTraslados() {
           date: { gte: new Date(new Date().setDate(new Date().getDate() - 1)) },
         },
       },
-      include: { order: { include: { hotel: true } }, unit: true },
+      include: {
+        order: { include: { hotel: true } },
+        unit: true,
+      },
       orderBy: { date: 'asc' },
     })
     return { data }
@@ -38,6 +41,25 @@ export async function addTransferUnit({
       await prisma.transfer.update({
         where: { id: transferId },
         data: { unit: { connect: { id: unitId } } },
+      })
+      revalidatePath('/admin/traslados')
+
+      return { message: 'Traslado actualizado' }
+    } catch (e) {
+      return { error: 'Error con Prisma' }
+    }
+  }
+
+  return { error: 'Sin autorización' }
+}
+
+export async function setAsNoShow({ transferId }: { transferId: number }) {
+  const session = await getServerSession()
+  if (session && transferId) {
+    try {
+      await prisma.transfer.update({
+        where: { id: transferId },
+        data: { isNoShow: true },
       })
       revalidatePath('/admin/traslados')
 

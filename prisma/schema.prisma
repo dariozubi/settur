@@ -101,6 +101,7 @@ model Transfer {
   flight    String
   date      DateTime
   direction Direction
+  isNoShow  Boolean @default(false)
 
   order     Order @relation(fields: [orderId], references: [id])
   orderId   Int

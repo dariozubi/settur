@@ -64,7 +64,7 @@ export const TransferDialog = ({ open, setOpen, transfer }: Props) => {
                 </TableCell>
               </TableRow>
             )}
-            {transfer.order.extras && (
+            {transfer.order.extras > 0 && (
               <TableRow>
                 <TableCell className="font-bold">Extras</TableCell>
                 <TableCell>{'$' + transfer.order.extras}</TableCell>
