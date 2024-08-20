@@ -57,10 +57,24 @@ export async function setAsNoShow({ transferId }: { transferId: number }) {
   const session = await getServerSession()
   if (session && transferId) {
     try {
-      await prisma.transfer.update({
+      const transfer = await prisma.transfer.update({
         where: { id: transferId },
         data: { isNoShow: true },
+        select: { orderId: true, id: true },
       })
+      const order = await prisma.order.findUnique({
+        where: { id: transfer.orderId },
+        select: { notes: true },
+      })
+      if (order)
+        await prisma.order.update({
+          where: { id: transfer.orderId },
+          data: {
+            notes:
+              order.notes +
+              `${new Date().toLocaleString('es')} ${session.user?.name} decretó la transferencia #${transfer.id} como NO SHOW\n`,
+          },
+        })
       revalidatePath('/admin/traslados')
 
       return { message: 'Traslado actualizado' }

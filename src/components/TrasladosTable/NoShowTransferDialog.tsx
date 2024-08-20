@@ -4,7 +4,7 @@ import Dialog, {
   DialogTitle,
 } from '@/components/Dialog'
 import { EnhancedTransfer } from './utils'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Button from '../Button'
 import { TransferDialog } from './MainTable'
 import { setAsNoShow } from '@/app/actions/transfer'
@@ -16,6 +16,7 @@ type Props = {
 }
 
 export const NoShowTransferDialog = ({ open, setOpen, transfer }: Props) => {
+  const [loading, setLoading] = useState(false)
   return (
     <Dialog open={open} onOpenChange={open => setOpen(open ? 'noshow' : null)}>
       {transfer && (
@@ -32,10 +33,12 @@ export const NoShowTransferDialog = ({ open, setOpen, transfer }: Props) => {
             <Button
               variant="destructive"
               onClick={() => {
+                setLoading(true)
                 setAsNoShow({ transferId: transfer.id })
                 setOpen(null)
               }}
               type="button"
+              disabled={loading}
               className="flex gap-1"
             >
               No show
