@@ -22,8 +22,9 @@ import { Filters } from './Filters'
 import { EnhancedTransfer, getColumns } from './utils'
 import { Operator, Transfer, Unit } from '@prisma/client'
 import { MoveLeft, MoveRight } from 'lucide-react'
-import { TransferDialog } from './TransferDialog'
+import { ViewTransferDialog } from './ViewTransferDialog'
 import { EditTransferDialog } from './EditTransferDialog'
+import { NoShowTransferDialog } from './NoShowTransferDialog'
 
 type DataTableProps = {
   units: Unit[]
@@ -31,9 +32,10 @@ type DataTableProps = {
   data: Transfer[]
 }
 
+export type TransferDialog = 'edit' | 'view' | 'noshow' | null
+
 function MainTable({ data, units, operators }: DataTableProps) {
-  const [openDialog, setOpenDialog] = useState(false)
-  const [openEditDialog, setOpenEditDialog] = useState(false)
+  const [openDialog, setOpenDialog] = useState<TransferDialog>(null)
   const [currentTransfer, setCurrentTransfer] =
     useState<EnhancedTransfer | null>(null)
   const columns = useMemo(
@@ -42,7 +44,6 @@ function MainTable({ data, units, operators }: DataTableProps) {
         units,
         operators,
         setOpenDialog,
-        setOpenEditDialog,
         setCurrentTransfer,
       }),
     [units, operators]
@@ -154,15 +155,21 @@ function MainTable({ data, units, operators }: DataTableProps) {
 
       {data.length > 0 && <Filters table={table} units={units} />}
 
-      <TransferDialog
-        open={openDialog}
+      <ViewTransferDialog
+        open={openDialog === 'view'}
         setOpen={setOpenDialog}
         transfer={currentTransfer}
       />
 
       <EditTransferDialog
-        open={openEditDialog}
-        setOpen={setOpenEditDialog}
+        open={openDialog === 'edit'}
+        setOpen={setOpenDialog}
+        transfer={currentTransfer}
+      />
+
+      <NoShowTransferDialog
+        open={openDialog === 'noshow'}
+        setOpen={setOpenDialog}
         transfer={currentTransfer}
       />
     </div>

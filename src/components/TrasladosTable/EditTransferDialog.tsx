@@ -16,10 +16,11 @@ import { items } from '@/lib/consts'
 import ItemCheckbox from '../ItemCheckbox'
 import { updateOrder } from '@/app/actions/order'
 import { Additional } from '@prisma/client'
+import { TransferDialog } from './MainTable'
 
 type Props = {
   open: boolean
-  setOpen: Dispatch<SetStateAction<boolean>>
+  setOpen: Dispatch<SetStateAction<TransferDialog>>
   transfer: EnhancedTransfer | null
 }
 
@@ -67,10 +68,10 @@ export const EditTransferDialog = ({ open, setOpen, transfer }: Props) => {
       }
     }
     setLoading(false)
-    setOpen(false)
+    setOpen(null)
   }
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={open => setOpen(open ? 'edit' : null)}>
       {transfer && (
         <DialogContent className="max-h-screen overflow-y-scroll">
           <DialogHeader>

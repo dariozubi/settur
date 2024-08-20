@@ -25,6 +25,7 @@ import { UnitCell } from './UnitCell'
 import { ColumnDef } from '@tanstack/react-table'
 import { Dispatch, ReactNode, SetStateAction } from 'react'
 import { MoreDropdown } from './MoreDropdown'
+import { TransferDialog } from './MainTable'
 
 export type EnhancedTransfer = Transfer & {
   order: Order & { hotel: HotelType }
@@ -34,8 +35,7 @@ export type EnhancedTransfer = Transfer & {
 type GetColumnsProps = {
   units: Unit[]
   operators: Operator[]
-  setOpenDialog: Dispatch<SetStateAction<boolean>>
-  setOpenEditDialog: Dispatch<SetStateAction<boolean>>
+  setOpenDialog: Dispatch<SetStateAction<TransferDialog>>
   setCurrentTransfer: Dispatch<SetStateAction<EnhancedTransfer | null>>
 }
 
@@ -43,7 +43,6 @@ export function getColumns({
   units,
   operators,
   setOpenDialog,
-  setOpenEditDialog,
   setCurrentTransfer,
 }: GetColumnsProps): ColumnDef<any, any>[] {
   return [
@@ -149,7 +148,6 @@ export function getColumns({
             transfer={transfer}
             setCurrentTransfer={setCurrentTransfer}
             setOpenDialog={setOpenDialog}
-            setOpenEditDialog={setOpenEditDialog}
           />
         )
       },

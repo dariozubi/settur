@@ -8,16 +8,17 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Dispatch, SetStateAction } from 'react'
 import Table, { TableCell, TableRow } from '../Table'
+import { TransferDialog } from './MainTable'
 
 type Props = {
   open: boolean
-  setOpen: Dispatch<SetStateAction<boolean>>
+  setOpen: Dispatch<SetStateAction<TransferDialog>>
   transfer: EnhancedTransfer | null
 }
 
-export const TransferDialog = ({ open, setOpen, transfer }: Props) => {
+export const ViewTransferDialog = ({ open, setOpen, transfer }: Props) => {
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={open => setOpen(open ? 'view' : null)}>
       {transfer && (
         <DialogContent className="max-h-screen overflow-y-scroll">
           <DialogHeader>

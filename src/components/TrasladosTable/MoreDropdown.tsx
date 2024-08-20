@@ -7,20 +7,18 @@ import Button from '../Button'
 import { MoreHorizontal } from 'lucide-react'
 import { EnhancedTransfer } from './utils'
 import { Dispatch, SetStateAction } from 'react'
-import { setAsNoShow } from '@/app/actions/transfer'
+import { TransferDialog } from './MainTable'
 
 type Props = {
   transfer: EnhancedTransfer
   setCurrentTransfer: Dispatch<SetStateAction<EnhancedTransfer | null>>
-  setOpenDialog: Dispatch<SetStateAction<boolean>>
-  setOpenEditDialog: Dispatch<SetStateAction<boolean>>
+  setOpenDialog: Dispatch<SetStateAction<TransferDialog>>
 }
 
 export const MoreDropdown = ({
   transfer,
   setCurrentTransfer,
   setOpenDialog,
-  setOpenEditDialog,
 }: Props) => {
   return (
     <DropdownMenu>
@@ -35,7 +33,7 @@ export const MoreDropdown = ({
             variant="ghost"
             onClick={() => {
               setCurrentTransfer(transfer)
-              setOpenDialog(true)
+              setOpenDialog('view')
             }}
             type="button"
             className="flex gap-1"
@@ -49,7 +47,7 @@ export const MoreDropdown = ({
             variant="ghost"
             onClick={() => {
               setCurrentTransfer(transfer)
-              setOpenEditDialog(true)
+              setOpenDialog('edit')
             }}
             type="button"
             className="flex gap-1"
@@ -59,14 +57,17 @@ export const MoreDropdown = ({
         </DropdownMenuItem>
 
         {!transfer.isNoShow && (
-          <DropdownMenuItem className="flex justify-center">
+          <DropdownMenuItem>
             <Button
-              variant="destructive"
-              onClick={() => setAsNoShow({ transferId: transfer.id })}
+              variant="ghost"
+              onClick={() => {
+                setCurrentTransfer(transfer)
+                setOpenDialog('noshow')
+              }}
               type="button"
               className="flex gap-1"
             >
-              No show
+              No Show
             </Button>
           </DropdownMenuItem>
         )}
