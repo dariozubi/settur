@@ -6,7 +6,6 @@ import { es, enUS } from 'date-fns/locale'
 import { Calendar as CalendarIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
-import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 import Button from '@/components/Button'
 import Calendar from '@/components/Calendar'
 import Popover, { PopoverContent, PopoverTrigger } from '@/components/Popover'
@@ -17,19 +16,22 @@ import {
   FormMessage,
 } from '@/components/Form'
 import { TimePicker } from './TimePicker'
-import { useTranslations } from 'next-intl'
 
 export type Props = {
-  label: string
+  labels: {
+    main: string
+    pick: string
+    hours: string
+    minutes: string
+  }
   onChange: (_d?: Date) => void
   value: Date
   limitDate?: Date
+  isEnglish: boolean
 }
 
-function DatePicker({ label, value, onChange, limitDate }: Props) {
-  const isEnglish = useIsEnglish()
+function DatePicker({ labels, value, onChange, limitDate, isEnglish }: Props) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
-  const t = useTranslations('form.DatePicker')
 
   const handleOnSelect = (d?: Date) => {
     onChange(d)
@@ -37,7 +39,7 @@ function DatePicker({ label, value, onChange, limitDate }: Props) {
   }
   return (
     <FormItem className="flex flex-col">
-      <FormLabel className="font-bold">{label}</FormLabel>
+      <FormLabel className="font-bold">{labels.main}</FormLabel>
       <div className="flex items-center gap-2">
         <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
           <PopoverTrigger asChild>
@@ -56,13 +58,17 @@ function DatePicker({ label, value, onChange, limitDate }: Props) {
                     })}
                   </span>
                 ) : (
-                  <span className="mr-2">{t('pick-date')}</span>
+                  <span className="mr-2">{labels.pick}</span>
                 )}
                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
               </Button>
             </FormControl>
           </PopoverTrigger>
-          <TimePicker setDate={onChange} date={value} />
+          <TimePicker
+            setDate={onChange}
+            date={value}
+            labels={{ hours: labels.hours, minutes: labels.minutes }}
+          />
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
               mode="single"

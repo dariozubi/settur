@@ -49,7 +49,7 @@ export async function updateOrder({
           notes += `${hora} ${session.user?.name} agregó ${payingIndividuals} personas que pagan a $${rate} pp\n`
         }
 
-        notes += `${hora} ${session.user?.name} añadió ${'$' + extras} en extras`
+        notes += `${hora} ${session.user?.name} añadió ${'$' + extras} en extras\n`
 
         await prisma.order.update({
           where: { id },

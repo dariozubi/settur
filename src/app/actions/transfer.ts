@@ -28,6 +28,59 @@ export async function getTraslados() {
   }
 }
 
+export async function addReturnTransfer({
+  orderId,
+  date,
+  flight,
+  rateId,
+}: {
+  orderId: number
+  date: Date
+  flight: string
+  rateId: number
+}) {
+  const session = await getServerSession()
+  if (session) {
+    if (orderId && date && flight && rateId) {
+      try {
+        const transfer = await prisma.transfer.create({
+          data: {
+            orderId,
+            date,
+            flight: flight.toUpperCase(),
+            direction: 'AIRPORT',
+          },
+          select: { id: true },
+        })
+        const order = await prisma.order.findUnique({
+          where: { id: orderId },
+          include: { hotel: true },
+        })
+        const rate = await prisma.rate.findUnique({ where: { id: rateId } })
+        await prisma.order.update({
+          where: { id: orderId },
+          data: {
+            trip: 'ROUND',
+            notes:
+              order?.notes +
+              `${new Date().toLocaleString('es')} ${session.user?.name} agregó el regreso #${transfer.id}\n${new Date().toLocaleString('es')} ${session.user?.name} agregó un extra de $${rate?.value}\n`,
+            extras: rate?.value,
+          },
+        })
+        revalidatePath('/admin/traslados')
+
+        return { message: 'Traslado creado' }
+      } catch (e) {
+        return { error: 'Error con Prisma' }
+      }
+    }
+
+    return { error: 'Error en los datos' }
+  }
+
+  return { error: 'Sin autorización' }
+}
+
 export async function addTransferUnit({
   transferId,
   unitId,

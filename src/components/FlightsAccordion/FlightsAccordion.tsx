@@ -10,6 +10,8 @@ import DatePicker from '@/components/DatePicker'
 import FlightInput from '@/components/FlightInput'
 import { addDays } from 'date-fns'
 import { useTranslations } from 'next-intl'
+import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
+import { useMemo } from 'react'
 
 export type Props = {
   form: UseFormReturn<any>
@@ -19,6 +21,16 @@ function FlightsAccordion({ form }: Props) {
   const type = form.watch('type')
   const arrivalDate = form.watch('arrivalDate')
   const t = useTranslations('form')
+  const isEnglish = useIsEnglish()
+  const labels = useMemo(
+    () => ({
+      main: t('DatePicker.arrival-date'),
+      pick: t('DatePicker.pick-date'),
+      hours: t('DatePicker.hours'),
+      minutes: t('DatePicker.minutes'),
+    }),
+    [t]
+  )
 
   return (
     <AccordionItem value="flights">
@@ -33,7 +45,8 @@ function FlightsAccordion({ form }: Props) {
                 name="arrivalDate"
                 render={({ field }) => (
                   <DatePicker
-                    label={t('DatePicker.arrival-date')}
+                    labels={labels}
+                    isEnglish={isEnglish}
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -66,7 +79,8 @@ function FlightsAccordion({ form }: Props) {
                 name="departureDate"
                 render={({ field }) => (
                   <DatePicker
-                    label={t('DatePicker.departure-date')}
+                    labels={labels}
+                    isEnglish={isEnglish}
                     value={field.value}
                     onChange={field.onChange}
                     limitDate={

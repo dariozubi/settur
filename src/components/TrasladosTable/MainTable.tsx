@@ -20,21 +20,23 @@ import Table, {
 import Button from '../Button'
 import { Filters } from './Filters'
 import { EnhancedTransfer, getColumns } from './utils'
-import { Operator, Transfer, Unit } from '@prisma/client'
+import { Operator, Rate, Transfer, Unit } from '@prisma/client'
 import { MoveLeft, MoveRight } from 'lucide-react'
 import { ViewTransferDialog } from './ViewTransferDialog'
 import { EditTransferDialog } from './EditTransferDialog'
 import { NoShowTransferDialog } from './NoShowTransferDialog'
+import { NewTransferDialog } from './NewTransferDialog'
 
 type DataTableProps = {
   units: Unit[]
   operators: Operator[]
   data: Transfer[]
+  rates: Rate[]
 }
 
-export type TransferDialog = 'edit' | 'view' | 'noshow' | null
+export type TransferDialog = 'edit' | 'view' | 'noshow' | 'new' | null
 
-function MainTable({ data, units, operators }: DataTableProps) {
+function MainTable({ data, units, operators, rates }: DataTableProps) {
   const [openDialog, setOpenDialog] = useState<TransferDialog>(null)
   const [currentTransfer, setCurrentTransfer] =
     useState<EnhancedTransfer | null>(null)
@@ -91,7 +93,7 @@ function MainTable({ data, units, operators }: DataTableProps) {
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                   className={
-                    !!row.original.isNoShow ? '[&>td]:bg-red-200' : undefined
+                    !!row.original.isNoShow ? '[&>td]:bg-red-100' : undefined
                   }
                 >
                   {row.getVisibleCells().map(cell => (
@@ -169,6 +171,13 @@ function MainTable({ data, units, operators }: DataTableProps) {
 
       <NoShowTransferDialog
         open={openDialog === 'noshow'}
+        setOpen={setOpenDialog}
+        transfer={currentTransfer}
+      />
+
+      <NewTransferDialog
+        rates={rates}
+        open={openDialog === 'new'}
         setOpen={setOpenDialog}
         transfer={currentTransfer}
       />

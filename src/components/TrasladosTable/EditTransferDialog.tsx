@@ -179,6 +179,4 @@ const schema = z.object({
   children: z.coerce.number().int(),
   infants: z.coerce.number().int(),
   items: z.array(z.enum(items)),
-  //   departureDate: z.date(),
-  //   departureFlight: z.string().trim(),
 })
