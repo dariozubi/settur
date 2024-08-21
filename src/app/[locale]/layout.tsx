@@ -13,13 +13,14 @@ const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
   title: 'SETTUR | Ground transportation services',
-  description: 'Your best option for airport transfers in Los Cabos, México',
+  description:
+    'With 35 years at your service, we are your best option for all your transportation needs around Los Cabos, México.',
   applicationName: 'SETTUR',
   referrer: 'origin-when-cross-origin',
   authors: [{ name: 'Dario Zubillaga', url: 'https://dazu.ma' }],
-  creator: 'Dario Zubillaga',
-  publisher: 'Dario Zubillaga',
-  metadataBase: new URL('https://settur.netlify.app/'),
+  creator: 'Darío Zubillaga',
+  publisher: 'Darío Zubillaga',
+  metadataBase: new URL('https://settur.com.mx/'),
 }
 
 type Props = {

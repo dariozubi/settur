@@ -38,7 +38,7 @@ function HomeCardSection() {
                     alt={t('private')}
                     fill
                     className="pointer-events-none object-contain"
-                    sizes="(max-width: 1280px) 100vw, 33vw"
+                    sizes="(max-width: 350px) 100vw, 33vw"
                   />
                 </div>
 
@@ -71,7 +71,7 @@ function HomeCardSection() {
                     alt={t('shared')}
                     fill
                     className="pointer-events-none object-contain"
-                    sizes="(max-width: 1280px) 100vw, 33vw"
+                    sizes="(max-width: 350px) 100vw, 33vw"
                   />
                 </div>
 
@@ -104,7 +104,7 @@ function HomeCardSection() {
                     alt={t('groups')}
                     fill
                     className="pointer-events-none object-contain"
-                    sizes="(max-width: 1280px) 100vw, 33vw"
+                    sizes="(max-width: 350px) 100vw, 33vw"
                   />
                 </div>
 
