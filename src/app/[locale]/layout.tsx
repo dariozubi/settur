@@ -12,8 +12,13 @@ import ErrorPage from '@/components/ErrorPage'
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
-  title: 'SETTUR',
-  description: 'Ground transportation services',
+  title: 'SETTUR | Ground transportation services',
+  description: 'Your best option for airport transfers in Los Cabos, México',
+  applicationName: 'SETTUR',
+  referrer: 'origin-when-cross-origin',
+  authors: [{ name: 'Dario Zubillaga', url: 'https://dazu.ma' }],
+  creator: 'Dario Zubillaga',
+  publisher: 'Dario Zubillaga',
 }
 
 type Props = {
