@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Dario Zubillaga', url: 'https://dazu.ma' }],
   creator: 'Dario Zubillaga',
   publisher: 'Dario Zubillaga',
+  metadataBase: new URL('https://settur.netlify.app/'),
 }
 
 type Props = {
