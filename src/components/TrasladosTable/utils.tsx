@@ -54,10 +54,7 @@ export function getColumns({
     {
       accessorKey: 'date',
       header: 'Fecha',
-      cell: ({ row }) => {
-        const date = new Date(row.original.date)
-        return format(date, 'd MMM, p', { locale: es })
-      },
+      cell: ({ row }) => format(row.original.date, 'd MMM, p', { locale: es }),
     },
     {
       accessorKey: 'direction',

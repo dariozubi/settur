@@ -3,7 +3,7 @@ export const labels = {
     subtitle: 'Servicios de transportación terrestre',
     orderHeader: 'Su orden de viaje ha sido confirmada.',
     reservationHeader:
-      'Su reservación de viaje ha sido confirmada. Por favor pague en efectivo el monto a deber una vez que contacte a nuestros representantes.',
+      'Su reservación de viaje ha sido confirmada. Por favor pague EN EFECTIVO el monto a deber una vez que contacte a nuestros representantes.',
     order: 'Orden',
     orderDetails: 'Detalles de la orden',
     client: 'Cliente',
@@ -48,7 +48,7 @@ export const labels = {
       'Estaremos monitoreando su vuelo, por lo que si se demora o adelanta lo sabremos, ¡estaremos esperándolo!',
     departures: 'Salidas',
     departureText:
-      'Se recomienda llegar al aeropuerto 2 horas antes en vuelos Nacionales y 3 horas antes en vuelos Internacionales, considere el tiempo de traslado. La hora de salida la asigna el sistema automáticamente. Nuestros representantes se le confirmarán antes de su salida.',
+      'Se recomienda llegar al aeropuerto 2 horas antes en vuelos Nacionales y 3 horas antes en vuelos Internacionales, considere el tiempo de traslado. La hora de salida es asignada por el sistema automáticamente y nuestros representantes se la confirmarán antes de su traslado.',
     departureInstructions:
       'El chofer de su transporte de lujo lo buscará en el lobby de su Hotel o bien tocará a la puerta de su Villa 10 minutos antes de la hora de salida indicada. El tiempo de tolerancia es de 10 minutos después de la hora de salida señalada. Le pedimos sea puntual. Fuera de este horario se considerará que no se presentó a su cita y la unidad se retirará sin pasajeros.',
     changes:
@@ -61,7 +61,7 @@ export const labels = {
     subtitle: 'Ground transportation services',
     orderHeader: 'Your order is confirmed.',
     reservationHeader:
-      'Your reservation is confirmed. Please pay the amount due in cash once you contact one of our representatives.',
+      'Your reservation is confirmed. Please pay the amount due IN CASH once you contact one of our representatives.',
     order: 'Order',
     orderDetails: 'Order Details',
     client: 'Client',

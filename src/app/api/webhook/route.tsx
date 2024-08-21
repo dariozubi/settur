@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server'
 import stripe from '@/payment'
 import prisma from '@/db'
 import { renderAsync } from '@react-email/render'
-
 import resend from '@/email'
 import OrderReceipt from '@/emails/OrderReceipt'
 
