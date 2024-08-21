@@ -1,6 +1,7 @@
 'use server'
 
 import prisma from '@/db'
+import { format } from 'date-fns'
 import { getServerSession } from 'next-auth'
 import { revalidatePath } from 'next/cache'
 
@@ -57,17 +58,21 @@ export async function addReturnTransfer({
           include: { hotel: true },
         })
         const rate = await prisma.rate.findUnique({ where: { id: rateId } })
-        await prisma.order.update({
-          where: { id: orderId },
-          data: {
-            trip: 'ROUND',
-            notes:
-              order?.notes +
-              `${new Date().toLocaleString('es')} ${session.user?.name} agregó el regreso #${transfer.id}\n${new Date().toLocaleString('es')} ${session.user?.name} agregó un extra de $${rate?.value}\n`,
-            extras: rate?.value,
-          },
-        })
-        revalidatePath('/admin/traslados')
+        if (order && rate) {
+          const hour = format(new Date(), 'dd/MM/yy HH:mm')
+          let notes = order.notes
+          notes += `${hour} ${session.user?.name} agregó traslado #${transfer.id}\n`
+          notes += `${hour} ${session.user?.name} añadió $${rate?.value} en extras\n`
+          await prisma.order.update({
+            where: { id: orderId },
+            data: {
+              trip: 'ROUND',
+              notes,
+              extras: order.extras + rate.value,
+            },
+          })
+          revalidatePath('/admin/traslados')
+        }
 
         return { message: 'Traslado creado' }
       } catch (e) {

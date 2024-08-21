@@ -2,6 +2,7 @@
 
 import prisma from '@/db'
 import { Order } from '@prisma/client'
+import { format } from 'date-fns'
 import { getServerSession } from 'next-auth'
 import { revalidatePath } from 'next/cache'
 
@@ -23,16 +24,16 @@ export async function updateOrder({
         const rates = await prisma.rate.findMany()
         const isPrivate = order.vehicle !== 'SHARED'
         const newItems = items.filter(i => !order.items.includes(i))
-        let extras = 0
+        let extras = order.extras
         let notes = order.notes
-        const hora = new Date().toLocaleString('es')
+        const hour = format(new Date(), 'dd/MM/yy HH:mm')
         if (newItems.length > 0) {
           extras += newItems.reduce(
             (prev, curr) =>
               prev + (rates.find(i => i.additionalId === curr)?.value || 0),
             0
           )
-          notes += `${hora} ${session.user?.name} agregó ${newItems.toString()}\n`
+          notes += `${hour} ${session.user?.name} agregó ${newItems.toString()}\n`
         }
 
         if (!isPrivate) {
@@ -46,10 +47,10 @@ export async function updateOrder({
                 i.zone === order.hotel.zone
             )?.value || 1
           extras += rate * payingIndividuals
-          notes += `${hora} ${session.user?.name} agregó ${payingIndividuals} personas que pagan a $${rate} pp\n`
+          notes += `${hour} ${session.user?.name} agregó ${payingIndividuals} personas a $${rate} pp\n`
         }
 
-        notes += `${hora} ${session.user?.name} añadió ${'$' + extras} en extras\n`
+        notes += `${hour} ${session.user?.name} añadió $${extras} en extras\n`
 
         await prisma.order.update({
           where: { id },

@@ -74,7 +74,13 @@ export const ViewTransferDialog = ({ open, setOpen, transfer }: Props) => {
             {transfer.order.notes && (
               <TableRow>
                 <TableCell className="font-bold">Notas</TableCell>
-                <TableCell>{transfer.order.notes}</TableCell>
+                <TableCell>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: transfer.order.notes.replace('\n', '</br>'),
+                    }}
+                  />
+                </TableCell>
               </TableRow>
             )}
           </Table>

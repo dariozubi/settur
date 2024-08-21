@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import DatePicker from '../DatePicker'
 import FlightInput from '../FlightInput'
 import { toast } from '../Toast'
+import { addDays } from 'date-fns'
 
 type Props = {
   open: boolean
@@ -55,7 +56,10 @@ export const NewTransferDialog = ({
   )
 
   useEffect(() => {
-    form.setValue('departureDate', new Date(Date.now()))
+    form.setValue(
+      'departureDate',
+      addDays(transfer?.date || new Date(Date.now()), 1)
+    )
     form.setValue('departureFlight', '')
   }, [form, transfer])
 
@@ -109,6 +113,7 @@ export const NewTransferDialog = ({
                     labels={labels}
                     value={field.value}
                     onChange={field.onChange}
+                    limitDate={addDays(transfer.date, 1)}
                   />
                 )}
               />
