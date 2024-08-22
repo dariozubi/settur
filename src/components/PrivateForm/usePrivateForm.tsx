@@ -12,6 +12,7 @@ import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 import { useTranslations } from 'next-intl'
 import { Status } from '@/lib/types'
 import { useState } from 'react'
+import { getUTCDates } from '@/lib/utils'
 
 export function usePrivateForm() {
   const t = useTranslations('form.errors')
@@ -57,12 +58,22 @@ export function usePrivateForm() {
 
   async function onReserve(data: z.infer<typeof schema>) {
     setStatus('reserving')
+    const { arrivalDate, departureDate } = getUTCDates(
+      data.arrivalDate,
+      data.departureDate
+    )
     try {
       const res = await queryClient.fetchQuery({
         queryKey: ['createOrder'],
         queryFn: async () =>
           axios
-            .post('/api/order', { ...data, isEnglish, isReserve: true })
+            .post('/api/order', {
+              ...data,
+              arrivalDate,
+              departureDate,
+              isEnglish,
+              isReserve: true,
+            })
             .then(r => r.data),
       })
       if (res.orderId) {
@@ -75,12 +86,22 @@ export function usePrivateForm() {
 
   async function onFullPay(data: z.infer<typeof schema>) {
     setStatus('paying')
+    const { arrivalDate, departureDate } = getUTCDates(
+      data.arrivalDate,
+      data.departureDate
+    )
     try {
       const res = await queryClient.fetchQuery({
         queryKey: ['createOrder'],
         queryFn: async () =>
           axios
-            .post('/api/order', { ...data, isEnglish, isReserve: false })
+            .post('/api/order', {
+              ...data,
+              arrivalDate,
+              departureDate,
+              isEnglish,
+              isReserve: false,
+            })
             .then(r => r.data),
       })
       if (res.orderId) {

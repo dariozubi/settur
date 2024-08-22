@@ -6,8 +6,6 @@ import DropdownMenu, {
 } from '../DropdownMenu'
 import Button from '../Button'
 import { MessageSquareText } from 'lucide-react'
-import { format } from 'date-fns'
-import { es } from 'date-fns/locale'
 import { adicionales, EnhancedTransfer, estado, vehiculo } from './utils'
 import { Operator } from '@prisma/client'
 
@@ -51,7 +49,14 @@ ${
     : ''
 }
 _Transfer_: ${transfer.direction === 'AIRPORT' ? 'OUT' : 'IN'}
-_Vuelo_: ${transfer.flight} - ${format(transfer.date, 'PPP p', { locale: es })}
+_Vuelo_: ${transfer.flight} - ${new Date(transfer.date).toLocaleString('es', {
+    timeZone: 'UTC',
+    weekday: 'short',
+    month: 'short',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  })}
 _Vehículo_: ${vehiculo[transfer.order.vehicle]}
 _Hotel_: ${transfer.order.hotel.name} (Zona ${transfer.order.hotel.zone.substring(4)})
 _Usuario_: ${transfer.order.name} ${transfer.order.surname} ( ${transfer.order.phone} )

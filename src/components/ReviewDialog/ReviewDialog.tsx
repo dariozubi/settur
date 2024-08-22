@@ -108,12 +108,12 @@ function ReviewDialog({
           </DialogHeader>
           <div className="flex flex-wrap text-xs">
             <p className="w-1/2 whitespace-pre-line">
-              <b className=" uppercase">{t('user')}</b>
+              <b className="uppercase">{t('user')}</b>
               {`\n${form.getValues('name')} ${form.getValues('surname')}\n${form.getValues('email')}\n${form.getValues('phone')}\n\n`}
-              <b className=" uppercase">{t('destination')}</b>
+              <b className="uppercase">{t('destination')}</b>
               {`\n${t(`TripTypeRadio.${form.getValues('type')}`)}`}
               {`\n${hotels.find(h => h.id === Number(form.getValues('hotel')))?.name}\n\n`}
-              <b className=" uppercase">{t('people')}</b>
+              <b className="uppercase">{t('people')}</b>
               {`\n${form.getValues('adults')} ${t('PeopleInput.grown-ups')}`}
               {form.getValues('children') > 0
                 ? `${hasInfants ? ',' : ` ${t('and')}`} ${form.getValues('children')} ${t('PeopleInput.children')}`
@@ -125,7 +125,7 @@ function ReviewDialog({
             </p>
             <div className="w-1/2">
               <p className="whitespace-pre-line">
-                <b className=" uppercase">{t('vehicle')}</b>
+                <b className="uppercase">{t('vehicle')}</b>
                 {`\n${vehicle}`}
               </p>
               <div className="relative mt-10 h-[125px]">
@@ -139,7 +139,7 @@ function ReviewDialog({
               </div>
             </div>
             <p className="w-full whitespace-pre-line">
-              <b className=" uppercase">{t('flights')}</b>
+              <b className="uppercase">{t('flights')}</b>
               {'\n'}
               {`${
                 !!form.getValues('arrivalDate')
@@ -165,7 +165,7 @@ function ReviewDialog({
               }`}
               {'\n'}
               {(hasItems || hasPrivateItem) && (
-                <b className=" uppercase">{t('additionals')}</b>
+                <b className="uppercase">{t('additionals')}</b>
               )}
               {hasItems &&
                 `${form
@@ -211,7 +211,7 @@ function ReviewDialog({
               </Link>
             </label>
           </div>
-          <div className=" flex w-full justify-center gap-4">
+          <div className="flex w-full justify-center gap-4">
             <Button
               className="mt-5"
               type="submit"

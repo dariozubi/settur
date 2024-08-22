@@ -9,8 +9,6 @@ import {
   informationTableValue,
 } from './styles'
 import { labels } from './const'
-import { format } from 'date-fns'
-import { enUS, es } from 'date-fns/locale'
 import { getPrices } from '@/lib/utils'
 import { Rate } from '@prisma/client'
 
@@ -162,9 +160,10 @@ export const OrderTable = ({ order, texts, tripType, rates }: Props) => {
             <Text style={informationTableLabel}>{texts.arrivalFlight}</Text>
             <Text style={informationTableValue}>{arrival.flight}</Text>
             <Text style={informationTableValue}>
-              {format(arrival.date, 'PPP p', {
-                locale: order.isEnglish ? enUS : es,
-              })}
+              {new Date(arrival.date).toLocaleString(
+                order.isEnglish ? 'en-US' : 'es',
+                { timeZone: 'UTC' }
+              )}
             </Text>
           </Column>
         )}
@@ -173,9 +172,10 @@ export const OrderTable = ({ order, texts, tripType, rates }: Props) => {
             <Text style={informationTableLabel}>{texts.departureFlight}</Text>
             <Text style={informationTableValue}>{departure.flight}</Text>
             <Text style={informationTableValue}>
-              {format(departure.date, 'PPP p', {
-                locale: order.isEnglish ? enUS : es,
-              })}
+              {new Date(departure.date).toLocaleString(
+                order.isEnglish ? 'en-US' : 'es',
+                { timeZone: 'UTC' }
+              )}
             </Text>
           </Column>
         )}

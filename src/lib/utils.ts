@@ -59,3 +59,30 @@ export function getPrices({
       : 0
   return { vehiclePrice, itemsPrice, reservationPrice }
 }
+
+export function getUTCDates(arrival: Date, departure: Date) {
+  const arrivalDate = arrival
+    ? new Date(
+        Date.UTC(
+          arrival.getFullYear(),
+          arrival.getMonth(),
+          arrival.getDate(),
+          arrival.getHours(),
+          arrival.getMinutes()
+        )
+      )
+    : undefined
+  const departureDate = departure
+    ? new Date(
+        Date.UTC(
+          departure.getFullYear(),
+          departure.getMonth(),
+          departure.getDate(),
+          departure.getHours(),
+          departure.getMinutes()
+        )
+      )
+    : undefined
+
+  return { arrivalDate, departureDate }
+}

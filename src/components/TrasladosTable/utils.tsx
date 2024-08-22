@@ -9,8 +9,6 @@ import {
   Unit,
   Vehicle,
 } from '@prisma/client'
-import { format } from 'date-fns'
-import { es } from 'date-fns/locale'
 import { MensajeDropdown } from './MensajeDropdown'
 import {
   CarFront,
@@ -54,7 +52,15 @@ export function getColumns({
     {
       accessorKey: 'date',
       header: 'Fecha',
-      cell: ({ row }) => format(row.original.date, 'd MMM, p', { locale: es }),
+      cell: ({ row }) =>
+        new Date(row.original.date).toLocaleString('es', {
+          timeZone: 'UTC',
+          weekday: 'short',
+          month: 'short',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
     },
     {
       accessorKey: 'direction',

@@ -12,6 +12,7 @@ import { useRouter } from '@/navigation'
 import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 import { useState } from 'react'
 import { Status } from '@/lib/types'
+import { getUTCDates } from '@/lib/utils'
 
 export function useSharedForm() {
   const t = useTranslations('form.errors')
@@ -54,6 +55,10 @@ export function useSharedForm() {
 
   async function onReserve(data: z.infer<typeof schema>) {
     setStatus('reserving')
+    const { arrivalDate, departureDate } = getUTCDates(
+      data.arrivalDate,
+      data.departureDate
+    )
     try {
       const res = await queryClient.fetchQuery({
         queryKey: ['createOrder'],
@@ -61,6 +66,8 @@ export function useSharedForm() {
           axios
             .post('/api/order', {
               ...data,
+              arrivalDate,
+              departureDate,
               vehicle: 'SHARED',
               privateItems: 'NOTHING',
               isEnglish,
@@ -78,6 +85,10 @@ export function useSharedForm() {
 
   async function onFullPay(data: z.infer<typeof schema>) {
     setStatus('paying')
+    const { arrivalDate, departureDate } = getUTCDates(
+      data.arrivalDate,
+      data.departureDate
+    )
     try {
       const res = await queryClient.fetchQuery({
         queryKey: ['createOrder'],
@@ -85,6 +96,8 @@ export function useSharedForm() {
           axios
             .post('/api/order', {
               ...data,
+              arrivalDate,
+              departureDate,
               vehicle: 'SHARED',
               privateItems: 'NOTHING',
               isEnglish,

@@ -4,8 +4,6 @@ import Dialog, {
   DialogTitle,
 } from '@/components/Dialog'
 import { adicionales, EnhancedTransfer, vehiculo } from './utils'
-import { format } from 'date-fns'
-import { es } from 'date-fns/locale'
 import { Dispatch, SetStateAction } from 'react'
 import Table, { TableCell, TableRow } from '../Table'
 import { TransferDialog } from './MainTable'
@@ -37,7 +35,16 @@ export const ViewTransferDialog = ({ open, setOpen, transfer }: Props) => {
             </TableRow>
             <TableRow>
               <TableCell className="font-bold">Vuelo</TableCell>
-              <TableCell>{`${transfer.flight} - ${format(transfer.date, 'PPP p', { locale: es })}`}</TableCell>
+              <TableCell>{`${transfer.flight} - ${new Date(
+                transfer.date
+              ).toLocaleString('es', {
+                timeZone: 'UTC',
+                weekday: 'short',
+                month: 'short',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+              })}`}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell className="font-bold">Vehículo</TableCell>
