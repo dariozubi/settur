@@ -5,6 +5,7 @@ import { Order } from '@prisma/client'
 import { format } from 'date-fns'
 import { getServerSession } from 'next-auth'
 import { revalidatePath } from 'next/cache'
+import { getRates } from './rate'
 
 export async function updateOrder({
   adults,
@@ -22,7 +23,7 @@ export async function updateOrder({
           include: { hotel: true },
         })
         if (order) {
-          const rates = await prisma.rate.findMany()
+          const rates = await getRates()
           const isPrivate = order.vehicle !== 'SHARED'
           const newItems = items.filter(i => !order.items.includes(i))
           let extras = order.extras

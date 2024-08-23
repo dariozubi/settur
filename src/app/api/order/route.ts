@@ -55,9 +55,13 @@ export async function POST(request: NextRequest) {
       })
 
       // Prices and amount owed
-      let priceIds = []
+      let products = []
       let totalPrice = 0
       let reservationPrice = 0
+      const prodId =
+        process.env.NEXTAUTH_URL === 'http://localhost:3000/'
+          ? 'testProductId'
+          : 'productId'
 
       if (isReserve) {
         const reservationRate = rates.find(
@@ -66,7 +70,7 @@ export async function POST(request: NextRequest) {
         reservationPrice = reservationRate
           ? reservationRate.value * (adults + children)
           : 0
-        priceIds.push(`${reservationRate?.priceId},${adults + children}`)
+        products.push(`${reservationRate?.[prodId]},${adults + children}`)
       }
 
       const payingIndividuals = vehicle === 'SHARED' ? adults + children : 1
@@ -79,7 +83,7 @@ export async function POST(request: NextRequest) {
         )
         totalPrice += vehicleRate ? vehicleRate.value * payingIndividuals : 0
         if (!isReserve)
-          priceIds.push(`${vehicleRate?.priceId},${payingIndividuals}`)
+          products.push(`${vehicleRate?.[prodId]},${payingIndividuals}`)
       } else {
         const vehicleRate = rates.find(
           r =>
@@ -89,7 +93,7 @@ export async function POST(request: NextRequest) {
         )
         totalPrice += vehicleRate ? vehicleRate.value * payingIndividuals : 0
         if (!isReserve)
-          priceIds.push(`${vehicleRate?.priceId},${payingIndividuals}`)
+          products.push(`${vehicleRate?.[prodId]},${payingIndividuals}`)
       }
 
       if (allItems.length > 0) {
@@ -97,7 +101,7 @@ export async function POST(request: NextRequest) {
           if (item !== 'WHEELCHAIR') {
             const itemRate = rates.find(r => r.additionalId === item)
             totalPrice += itemRate?.value || 0
-            if (!isReserve) priceIds.push(`${itemRate?.priceId},1`)
+            if (!isReserve) products.push(`${itemRate?.[prodId]},1`)
           }
         }
       }
@@ -151,7 +155,7 @@ export async function POST(request: NextRequest) {
         surname,
         phone,
         transfers,
-        prices: priceIds,
+        products,
         owed: isReserve ? totalPrice - reservationPrice : 0,
         vehicle: vehicle as Vehicle,
         isEnglish,

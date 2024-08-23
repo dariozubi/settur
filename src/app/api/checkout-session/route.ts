@@ -8,16 +8,21 @@ export async function POST(request: NextRequest) {
     const { order } = req
     try {
       if (!order) return new NextResponse(`Order not found`, { status: 400 })
+      const products = order.products.map((p: string) => {
+        const [product, quantity] = p.split(',')
+        return { product, quantity }
+      }) as { product: string; quantity: string }[]
       try {
+        const stripeProducts = (await stripe.products.list({
+          ids: products.map(p => p.product),
+        })) as { data: { id: string; default_price: string }[] }
+        const prices = stripeProducts.data.map(product => ({
+          price: product.default_price,
+          quantity: products.filter(p => p.product === product.id)[0].quantity,
+        }))
         const session = await stripe.checkout.sessions.create({
           ui_mode: 'embedded',
-          line_items: order.prices.map((p: string) => {
-            const [price, quantity] = p.split(',')
-            return {
-              price,
-              quantity,
-            }
-          }),
+          line_items: prices,
           mode: 'payment',
           metadata: {
             order_id: order.id,

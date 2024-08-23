@@ -36,7 +36,8 @@ export const RateDialog = ({ open, setOpen, rate }: Props) => {
 
   useEffect(() => {
     form.setValue('value', rate?.value || 0)
-    form.setValue('priceId', rate?.priceId || '')
+    form.setValue('productId', rate?.productId || '')
+    form.setValue('testProductId', rate?.testProductId || '')
   }, [form, rate])
 
   async function onSave(data: z.infer<typeof schema>) {
@@ -45,7 +46,8 @@ export const RateDialog = ({ open, setOpen, rate }: Props) => {
     if (rate) {
       const res = await updateRate({
         value: data.value,
-        priceId: data.priceId,
+        productId: data.productId,
+        testProductId: data.testProductId,
         id: rate.id,
       })
       if (res.error) {
@@ -61,12 +63,13 @@ export const RateDialog = ({ open, setOpen, rate }: Props) => {
     setLoading(false)
     setOpen(false)
   }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {rate && (
         <DialogContent className="max-h-screen overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>{`Precio #${rate.id}`}</DialogTitle>
+            <DialogTitle>{`${rate.additionalId ?? `${rate.trip} ${rate.vehicle} ${rate.zone}`}`}</DialogTitle>
           </DialogHeader>
           <div>
             <Form {...form}>
@@ -91,10 +94,30 @@ export const RateDialog = ({ open, setOpen, rate }: Props) => {
 
                 <FormField
                   control={form.control}
-                  name="priceId"
+                  name="productId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-bold">Stripe ID</FormLabel>
+                      <FormLabel className="font-bold">Product ID</FormLabel>
+                      <FormControl>
+                        <Input
+                          value={field.value}
+                          onChange={field.onChange}
+                          onBlur={field.onBlur}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="testProductId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold">
+                        Test Product ID
+                      </FormLabel>
                       <FormControl>
                         <Input
                           value={field.value}
@@ -130,5 +153,6 @@ const schema = z.object({
     .number({ required_error: 'Requerido' })
     .int({ message: 'Sólo números enteros' })
     .min(1, { message: 'El valor debe ser al menos 1' }),
-  priceId: z.string().trim().min(1, { message: 'Requerido' }),
+  productId: z.string().trim().min(1, { message: 'Requerido' }),
+  testProductId: z.string().trim().min(1, { message: 'Requerido' }),
 })

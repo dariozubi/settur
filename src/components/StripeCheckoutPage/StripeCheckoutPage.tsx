@@ -12,7 +12,7 @@ import ErrorPage from '../ErrorPage'
 import MainLayout from '../MainLayout'
 
 type Props = {
-  order: Pick<Order, 'prices' | 'owed' | 'id'> | null
+  order: Pick<Order, 'products' | 'owed' | 'id'> | null
 }
 
 function StripeCheckoutPage({ order }: Props) {

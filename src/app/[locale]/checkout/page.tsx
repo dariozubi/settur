@@ -13,7 +13,7 @@ async function CheckoutPage({
 
   const order = searchParams.orderId
     ? await prisma.order.findUnique({
-        select: { prices: true, id: true, owed: true },
+        select: { products: true, id: true, owed: true },
         where: {
           id: Number(searchParams.orderId),
           status: 'CREATED',

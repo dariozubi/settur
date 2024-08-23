@@ -31,11 +31,6 @@ export function MainTable({ data }: MainTableProps) {
   const columns: ColumnDef<any, any>[] = useMemo(
     () => [
       {
-        id: 'id',
-        header: 'ID',
-        cell: ({ row }) => row.original.id,
-      },
-      {
         accessorKey: 'trip',
         header: 'Ruta',
         cell: ({ row }) => row.original.trip,
@@ -61,9 +56,22 @@ export function MainTable({ data }: MainTableProps) {
         cell: ({ row }) => '$' + row.original.value,
       },
       {
-        id: 'priceId',
-        header: 'Stripe ID',
-        cell: ({ row }) => row.original.priceId,
+        id: 'productId',
+        header: 'Stripe Product',
+        cell: ({ row }) => (
+          <span className="block w-[90px] truncate">
+            {row.original.productId}
+          </span>
+        ),
+      },
+      {
+        id: 'testProductId',
+        header: 'Stripe Test Product',
+        cell: ({ row }) => (
+          <span className="block w-[90px] truncate">
+            {row.original.testProductId}
+          </span>
+        ),
       },
       {
         id: 'actions',
@@ -72,6 +80,7 @@ export function MainTable({ data }: MainTableProps) {
           return (
             <Button
               variant="secondary"
+              className="h-8"
               onClick={() => {
                 setCurrentRate(rate)
                 setOpenDialog(true)

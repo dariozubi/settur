@@ -67,7 +67,8 @@ model Rate {
   zone          Zone?
   additionalId  Additional?
   value         Int
-  priceId       String
+  productId     String @default("-")
+  testProductId String @default("-")
 }
 
 model Order {
@@ -84,7 +85,7 @@ model Order {
   surname     String
   phone       String
   transfers   Transfer[]
-  prices       String[]
+  products    String[]
   vehicle     Vehicle
   isEnglish   Boolean
   trip        Trip

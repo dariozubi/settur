@@ -3,7 +3,7 @@
 import prisma from '@/db'
 import { Rate } from '@prisma/client'
 import { getServerSession } from 'next-auth'
-import { revalidatePath, unstable_cache } from 'next/cache'
+import { revalidateTag, unstable_cache } from 'next/cache'
 
 export const getRates = unstable_cache(
   async () => {
@@ -21,17 +21,18 @@ export const getRates = unstable_cache(
 export async function updateRate({
   id,
   value,
-  priceId,
-}: Pick<Rate, 'id' | 'value' | 'priceId'>) {
+  productId,
+  testProductId,
+}: Pick<Rate, 'id' | 'value' | 'productId' | 'testProductId'>) {
   const session = await getServerSession()
   if (session) {
-    if (value && priceId && id) {
+    if (value && productId && id) {
       try {
         await prisma.rate.update({
           where: { id },
-          data: { value, priceId },
+          data: { value, productId, testProductId },
         })
-        revalidatePath('/admin/dashboard')
+        revalidateTag('getRates')
 
         return { message: 'Precio actualizado' }
       } catch (e) {

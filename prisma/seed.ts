@@ -72,7 +72,7 @@ async function main() {
       transfers: {
         create: transfers,
       },
-      prices: ['price_1OzS7nFMaNpUdK6VMSUj5I5f,2'],
+      products: ['price_1OzS7nFMaNpUdK6VMSUj5I5f,2'],
       vehicle: faker.helpers.arrayElement([
         'SPRINTER',
         'HIACE',
