@@ -2,9 +2,9 @@ import { MainTable } from './MainTable'
 import { getRates } from '@/app/actions/rate'
 
 async function RatesTable() {
-  const res = await getRates()
+  const rates = await getRates()
 
-  return <MainTable data={res.data || []} />
+  return <MainTable data={rates} />
 }
 
 export default RatesTable

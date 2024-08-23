@@ -70,12 +70,6 @@ export const UnitDialog = ({ open, setOpen, unit }: Props) => {
           </p>
         ),
       })
-    } else {
-      toast({
-        description: (
-          <p className="mt-2 whitespace-pre-line p-4">{res.message}</p>
-        ),
-      })
     }
     setLoading(false)
     setOpen(false)

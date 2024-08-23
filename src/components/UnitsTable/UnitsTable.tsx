@@ -2,9 +2,9 @@ import { MainTable } from './MainTable'
 import { getUnits } from '@/app/actions/unit'
 
 async function UnitsTable() {
-  const res = await getUnits()
+  const units = await getUnits()
 
-  return <MainTable data={res.data || []} />
+  return <MainTable data={units} />
 }
 
 export default UnitsTable

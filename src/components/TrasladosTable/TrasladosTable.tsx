@@ -1,17 +1,19 @@
-import prisma from '@/db'
 import MainTable from './MainTable'
 import { getTraslados } from '@/app/actions/transfer'
+import { getRates } from '@/app/actions/rate'
+import { getOperators } from '@/app/actions/operator'
+import { getUnits } from '@/app/actions/unit'
 
 async function TrasladosTable() {
-  const res = await getTraslados()
-  const units = await prisma.unit.findMany({ orderBy: { id: 'asc' } })
-  const operators = await prisma.operator.findMany({ orderBy: { id: 'asc' } })
-  const rates = await prisma.rate.findMany()
+  const traslados = await getTraslados()
+  const units = await getUnits()
+  const operators = await getOperators()
+  const rates = await getRates()
 
   return (
     <MainTable
       units={units}
-      data={res.data || []}
+      data={traslados}
       operators={operators}
       rates={rates}
     />

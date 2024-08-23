@@ -1,13 +1,11 @@
+import { getIsActive } from '@/app/actions/flag'
 import MainLayout from '@/components/MainLayout'
 import SharedPage from '@/components/SharedPage'
-import prisma from '@/db'
 import { redirect } from '@/navigation'
 
 async function Shared() {
-  const flag = await prisma.flag.findUnique({ where: { id: 'IS_ACTIVE' } })
-  if (!flag?.value) {
-    redirect('/')
-  }
+  const isActive = await getIsActive()
+  if (!isActive) redirect('/')
 
   return (
     <MainLayout>

@@ -23,9 +23,9 @@ export async function getTraslados() {
       },
       orderBy: { date: 'asc' },
     })
-    return { data }
+    return data
   } catch (e) {
-    return { data: null }
+    return []
   }
 }
 
@@ -94,18 +94,21 @@ export async function addTransferUnit({
   unitId: number
 }) {
   const session = await getServerSession()
-  if (session && transferId && unitId) {
-    try {
-      await prisma.transfer.update({
-        where: { id: transferId },
-        data: { unit: { connect: { id: unitId } } },
-      })
-      revalidatePath('/admin/traslados')
+  if (session) {
+    if (transferId && unitId) {
+      try {
+        await prisma.transfer.update({
+          where: { id: transferId },
+          data: { unit: { connect: { id: unitId } } },
+        })
+        revalidatePath('/admin/traslados')
 
-      return { message: 'Traslado actualizado' }
-    } catch (e) {
-      return { error: 'Error con Prisma' }
+        return { message: 'Traslado actualizado' }
+      } catch (e) {
+        return { error: 'Error con Prisma' }
+      }
     }
+    return { error: 'Error en los datos' }
   }
 
   return { error: 'Sin autorización' }
@@ -113,32 +116,35 @@ export async function addTransferUnit({
 
 export async function setAsNoShow({ transferId }: { transferId: number }) {
   const session = await getServerSession()
-  if (session && transferId) {
-    try {
-      const transfer = await prisma.transfer.update({
-        where: { id: transferId },
-        data: { isNoShow: true },
-        select: { orderId: true, id: true },
-      })
-      const order = await prisma.order.findUnique({
-        where: { id: transfer.orderId },
-        select: { notes: true },
-      })
-      if (order)
-        await prisma.order.update({
-          where: { id: transfer.orderId },
-          data: {
-            notes:
-              order.notes +
-              `${new Date().toLocaleString('es')} ${session.user?.name} decretó la transferencia #${transfer.id} como NO SHOW\n`,
-          },
+  if (session) {
+    if (transferId) {
+      try {
+        const transfer = await prisma.transfer.update({
+          where: { id: transferId },
+          data: { isNoShow: true },
+          select: { orderId: true, id: true },
         })
-      revalidatePath('/admin/traslados')
+        const order = await prisma.order.findUnique({
+          where: { id: transfer.orderId },
+          select: { notes: true },
+        })
+        if (order)
+          await prisma.order.update({
+            where: { id: transfer.orderId },
+            data: {
+              notes:
+                order.notes +
+                `${new Date().toLocaleString('es')} ${session.user?.name} decretó la transferencia #${transfer.id} como NO SHOW\n`,
+            },
+          })
+        revalidatePath('/admin/traslados')
 
-      return { message: 'Traslado actualizado' }
-    } catch (e) {
-      return { error: 'Error con Prisma' }
+        return { message: 'Traslado actualizado' }
+      } catch (e) {
+        return { error: 'Error con Prisma' }
+      }
     }
+    return { error: 'Error en los datos' }
   }
 
   return { error: 'Sin autorización' }

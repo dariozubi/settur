@@ -1,10 +1,12 @@
-import IsActiveButton from '@/components/IsActiveButton'
 import AdminLayout from '@/components/AdminLayout'
 import OperatorsTable from '@/components/OperatorsTable'
 import UnitsTable from '@/components/UnitsTable'
-import prisma from '@/db'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+import { getIsActive, updateIsActive } from '@/app/actions/flag'
+import Button from '@/components/Button'
+import { Suspense } from 'react'
+import IsActiveButton from '@/components/IsActiveButton'
 
 export default async function Page() {
   const session = await getServerSession()
@@ -12,7 +14,7 @@ export default async function Page() {
 
   if (!isAdmin) redirect('/admin/traslados')
 
-  const flag = await prisma.flag.findUnique({ where: { id: 'IS_ACTIVE' } })
+  const isActive = await getIsActive()
 
   return (
     <AdminLayout>
@@ -23,7 +25,13 @@ export default async function Page() {
       </div>
 
       <div className="flex">
-        <IsActiveButton isActive={!!flag?.value} />
+        <Suspense
+          fallback={
+            <Button isLoading variant={isActive ? 'destructive' : 'default'} />
+          }
+        >
+          <IsActiveButton isActive={isActive} updateIsActive={updateIsActive} />
+        </Suspense>
       </div>
     </AdminLayout>
   )

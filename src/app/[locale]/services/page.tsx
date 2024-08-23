@@ -1,13 +1,13 @@
+import { getIsActive } from '@/app/actions/flag'
 import MainLayout from '@/components/MainLayout'
 import ServicesPage from '@/components/ServicesPage'
-import prisma from '@/db'
 
 async function Services() {
-  const flag = await prisma.flag.findUnique({ where: { id: 'IS_ACTIVE' } })
+  const isActive = await getIsActive()
 
   return (
     <MainLayout>
-      <ServicesPage isActive={!!flag?.value} />
+      <ServicesPage isActive={isActive} />
     </MainLayout>
   )
 }

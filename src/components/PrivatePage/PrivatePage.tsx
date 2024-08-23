@@ -1,9 +1,10 @@
+import { getHotels } from '@/app/actions/hotel'
+import { getRates } from '@/app/actions/rate'
 import PrivateForm from '@/components/PrivateForm'
-import prisma from '@/db'
 
 async function PrivatePage() {
-  const hotels = await prisma.hotel.findMany({ orderBy: { id: 'asc' } })
-  const rates = await prisma.rate.findMany()
+  const hotels = await getHotels()
+  const rates = await getRates()
 
   return (
     <section className="w-full bg-neutral-50">

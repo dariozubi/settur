@@ -1,47 +1,19 @@
 'use client'
 
-import { useQueryClient } from '@tanstack/react-query'
 import Button from '../Button'
-import { useCallback, useState } from 'react'
-import axios from 'axios'
-import { useErrorHandler } from '@/lib/hooks/useErrorHandler'
-
 type Props = {
   isActive: boolean
+  // eslint-disable-next-line no-unused-vars
+  updateIsActive: ({ value }: { value: boolean }) => void
 }
 
-function IsActiveButton({ isActive }: Props) {
-  const [value, setValue] = useState(isActive)
-  const [loading, setLoading] = useState(false)
-  const errorHandler = useErrorHandler()
-  const queryClient = useQueryClient()
-
-  const handleClick = useCallback(async () => {
-    setLoading(true)
-    try {
-      await queryClient.fetchQuery({
-        queryKey: ['updateIsActive'],
-        queryFn: async () =>
-          axios.post('/api/admin/flags', {
-            id: 'IS_ACTIVE',
-            value: !isActive,
-          }),
-      })
-      setValue(!isActive)
-    } catch (e) {
-      errorHandler(e)
-    } finally {
-      setLoading(false)
-    }
-  }, [errorHandler, isActive, queryClient])
-
+function IsActiveButton({ isActive, updateIsActive }: Props) {
   return (
     <Button
-      variant={value ? 'destructive' : 'default'}
-      onClick={handleClick}
-      disabled={loading}
+      variant={isActive ? 'destructive' : 'default'}
+      onClick={() => updateIsActive({ value: !isActive })}
     >
-      {value ? 'Detener nuevas operaciones' : 'Activar operaciones'}
+      {isActive ? 'Detener nuevas operaciones' : 'Activar operaciones'}
     </Button>
   )
 }

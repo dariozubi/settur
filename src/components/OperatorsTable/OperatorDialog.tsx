@@ -63,12 +63,6 @@ export const OperatorDialog = ({ open, setOpen, operator }: Props) => {
           </p>
         ),
       })
-    } else {
-      toast({
-        description: (
-          <p className="mt-2 whitespace-pre-line p-4">{res.message}</p>
-        ),
-      })
     }
     setLoading(false)
     setOpen(false)
