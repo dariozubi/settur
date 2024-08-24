@@ -59,6 +59,9 @@ function ReviewDialog({
       ? [...form.getValues('items'), form.getValues('privateItems')]
       : form.getValues('items'),
   })
+  const showReserve =
+    isShared ||
+    (!isShared && (zone === 'ZONE1' || zone === 'ZONE2' || zone === 'ZONE4'))
 
   const handleReviewClick = useCallback(async () => {
     await form.trigger()
@@ -178,15 +181,20 @@ function ReviewDialog({
               {hasPrivateItem &&
                 `\n${t(`Items.${form.getValues('privateItems').toLowerCase()}`)}`}
             </p>
-            <p className="mt-4 text-justify text-xs">
-              {t('reservations-text', {
-                price: rates.filter(r => r.additionalId === 'RESERVATION')[0]
-                  .value,
-              })}
-            </p>
-            <p className="w-full pt-4 text-center text-base text-black">
-              <b className="uppercase">{`${t('reserve-for')} ${reservationPrice} USD`}</b>
-            </p>
+            {showReserve && (
+              <>
+                <p className="mt-4 text-justify text-xs">
+                  {t('reservations-text', {
+                    price: rates.filter(
+                      r => r.additionalId === 'RESERVATION'
+                    )[0].value,
+                  })}
+                </p>
+                <p className="w-full pt-4 text-center text-base text-black">
+                  <b className="uppercase">{`${t('reserve-for')} ${reservationPrice} USD`}</b>
+                </p>
+              </>
+            )}
             <p className="w-full pb-4 text-center text-base text-black">
               <b className="uppercase">{`Total: ${vehiclePrice + itemsPrice} USD`}</b>
             </p>
@@ -212,16 +220,18 @@ function ReviewDialog({
             </label>
           </div>
           <div className="flex w-full justify-center gap-4">
-            <Button
-              className="mt-5"
-              type="submit"
-              form="trip-form"
-              disabled={!accept}
-              onClick={form.handleSubmit(onReserve)}
-              isLoading={status === 'reserving'}
-            >
-              {t('reserve')}
-            </Button>
+            {showReserve && (
+              <Button
+                className="mt-5"
+                type="submit"
+                form="trip-form"
+                disabled={!accept}
+                onClick={form.handleSubmit(onReserve)}
+                isLoading={status === 'reserving'}
+              >
+                {t('reserve')}
+              </Button>
+            )}
 
             <Button
               className="mt-5"
@@ -231,7 +241,7 @@ function ReviewDialog({
               onClick={form.handleSubmit(onFullPay)}
               isLoading={status === 'paying'}
             >
-              {t('pay-in-full')}
+              {showReserve ? t('pay-in-full') : t('pay')}
             </Button>
           </div>
         </DialogContent>

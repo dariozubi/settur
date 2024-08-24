@@ -10,6 +10,7 @@ import Table, {
 } from '@/components/Table'
 import { useTranslations } from 'next-intl'
 import { Rate } from '@prisma/client'
+import { useIsEnglish } from '@/lib/hooks/useIsEnglish'
 
 type Props = {
   rates: Rate[]
@@ -17,6 +18,8 @@ type Props = {
 
 function HomeRatesSection({ rates }: Props) {
   const t = useTranslations('Home')
+  const isEnglish = useIsEnglish()
+  const zone = isEnglish ? 'Zone' : 'Zona'
 
   return (
     <section className="flex bg-neutral-50 pb-24 pt-16">
@@ -31,16 +34,16 @@ function HomeRatesSection({ rates }: Props) {
             <TableRow className="hover:bg-neutral-50">
               <TableHead />
               <TableHead className="text-center text-slate-800">
-                San José del Cabo
+                {`San José del Cabo (${zone} 1)`}
               </TableHead>
               <TableHead className="text-center text-slate-800">
-                {t('tourist-corridor')}
+                {`${t('tourist-corridor')} (${zone} 2)`}
               </TableHead>
               <TableHead className="text-center text-slate-800">
-                Cabo San Lucas
+                {`Cabo San Lucas (${zone} 3)`}
               </TableHead>
               <TableHead className="text-center text-slate-800">
-                Puerto Los Cabos
+                {`Puerto Los Cabos (${zone} 4)`}
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -110,15 +113,15 @@ function HomeRatesSection({ rates }: Props) {
           </TableCaption>
           <TableHeader className="[&_tr]:border-slate-800">
             <TableRow className="hover:bg-neutral-50">
-              <TableHead className="text-center text-slate-800">{`${t('east-cape')}**`}</TableHead>
+              <TableHead className="text-center text-slate-800">{`${t('east-cape')} (${zone} 5)**`}</TableHead>
               <TableHead className="text-center text-slate-800">
-                Diamante**
+                {`Diamante (${zone} 6)**`}
               </TableHead>
               <TableHead className="text-center text-slate-800">
-                Todos Santos**
+                {`Todos Santos (${zone} 7)**`}
               </TableHead>
               <TableHead className="text-center text-slate-800">
-                La Paz**
+                {`La Paz (${zone} 8)**`}
               </TableHead>
             </TableRow>
           </TableHeader>
