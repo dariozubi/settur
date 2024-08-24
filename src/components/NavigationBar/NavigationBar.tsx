@@ -44,13 +44,13 @@ function NavigationBar() {
                 <li>
                   <NavigationMenuLink asChild>
                     <a
-                      href="mailto:info@settur.com.mx"
+                      href="mailto:reservation@settur.com.mx"
                       className="flex items-center gap-1 p-4"
                     >
                       <Mail size={14} />
 
                       <span className="text-sm font-medium">
-                        info@settur.com.mx
+                        reservation@settur.com.mx
                       </span>
                     </a>
                   </NavigationMenuLink>

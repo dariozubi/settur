@@ -14,7 +14,7 @@ function Footer() {
             © SETTUR 2024
           </Link>
 
-          <a href="mailto:info@settur.com.mx">
+          <a href="mailto:reservation@settur.com.mx">
             <Mail size={20} />
           </a>
 

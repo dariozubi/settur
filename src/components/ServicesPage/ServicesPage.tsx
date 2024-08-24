@@ -134,7 +134,7 @@ function ServicesPage({ isActive }: Props) {
               </CardContent>
               <CardFooter className="flex justify-center">
                 <a
-                  href="mailto:info@settur.com.mx"
+                  href="mailto:reservation@settur.com.mx"
                   className={buttonVariants({ variant: 'outline' })}
                 >
                   {t('contact')}

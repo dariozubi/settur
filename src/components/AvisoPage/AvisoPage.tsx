@@ -239,7 +239,9 @@ function AvisoPage() {
           Carranza, CDMX. CP 15300. Tel.{' '}
           <a href="tel:+525557895519">+52 55 5789 55 19</a>. Horario del centro:
           7:00 am 7:00 pm, Domingo a Domingo{' '}
-          <a href="mailto:info@settur.com.mx">info@settur.com.mx</a>
+          <a href="mailto:reservation@settur.com.mx">
+            reservation@settur.com.mx
+          </a>
         </p>
 
         <p>
