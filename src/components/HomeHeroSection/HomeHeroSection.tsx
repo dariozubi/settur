@@ -13,7 +13,6 @@ type Props = {
 function HomeHeroSection({ hotels, isActive }: Props) {
   const t = useTranslations('Home')
   const activeClassName = isActive ? 'md:w-5/12 lg:w-1/2' : ''
-  console.log(process.env.NODE_ENV)
 
   return (
     <section className="relative -mt-[64px] min-h-screen w-full bg-gradient-to-b from-blue-200 via-violet-100 to-rose-50">

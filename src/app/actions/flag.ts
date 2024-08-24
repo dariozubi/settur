@@ -7,7 +7,7 @@ import { revalidateTag, unstable_cache } from 'next/cache'
 export const getIsActive = unstable_cache(
   async () => {
     try {
-      if (process.env.NODE_ENV !== 'production') return true
+      if (process.env.DEPLOY_CONTEXT !== 'production') return true
       const data = await prisma.flag.findUnique({ where: { id: 'IS_ACTIVE' } })
       return data ? data?.value : false
     } catch (e) {

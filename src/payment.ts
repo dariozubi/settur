@@ -12,4 +12,5 @@ const stripe = globalThis.stripeGlobal ?? stripeSingleton()
 
 export default stripe
 
-if (process.env.NODE_ENV !== 'production') globalThis.stripeGlobal = stripe
+if (process.env.DEPLOY_CONTEXT !== 'production')
+  globalThis.stripeGlobal = stripe

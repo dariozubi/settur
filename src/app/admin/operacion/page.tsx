@@ -24,7 +24,7 @@ export default async function Page() {
         <OperatorsTable />
       </div>
 
-      {process.env.NODE_ENV === 'production' && (
+      {process.env.DEPLOY_CONTEXT === 'production' && (
         <div className="flex">
           <Suspense
             fallback={

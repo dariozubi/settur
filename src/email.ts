@@ -12,4 +12,5 @@ const resend = globalThis.resendGlobal ?? resendSingleton()
 
 export default resend
 
-if (process.env.NODE_ENV !== 'production') globalThis.resendGlobal = resend
+if (process.env.DEPLOY_CONTEXT !== 'production')
+  globalThis.resendGlobal = resend

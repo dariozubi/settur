@@ -61,7 +61,9 @@ export async function POST(request: NextRequest) {
       let totalPrice = 0
       let reservationPrice = 0
       const prodId =
-        process.env.NODE_ENV === 'production' ? 'productId' : 'testProductId'
+        process.env.DEPLOY_CONTEXT === 'production'
+          ? 'productId'
+          : 'testProductId'
 
       if (isReserve) {
         const isShared = vehicle === 'SHARED'
