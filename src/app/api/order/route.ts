@@ -61,9 +61,7 @@ export async function POST(request: NextRequest) {
       let totalPrice = 0
       let reservationPrice = 0
       const prodId =
-        process.env.NEXTAUTH_URL === 'http://localhost:3000/'
-          ? 'testProductId'
-          : 'productId'
+        process.env.NODE_ENV === 'production' ? 'productId' : 'testProductId'
 
       if (isReserve) {
         const isShared = vehicle === 'SHARED'
