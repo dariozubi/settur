@@ -9,7 +9,7 @@ type Props = {
 
 export const Filters = ({ table }: Props) => {
   return (
-    <div className="flex flex-row flex-wrap order-1 gap-2 py-2 w-fit md:order-last md:flex-col md:px-2 md:py-0">
+    <div className="order-1 flex w-fit flex-row flex-wrap gap-2 py-2 md:order-last md:flex-col md:px-2 md:py-0">
       <Select
         onValueChange={v =>
           table.getColumn('trip')?.setFilterValue(v !== 'all' ? v : undefined)

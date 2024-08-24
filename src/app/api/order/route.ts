@@ -54,6 +54,8 @@ export async function POST(request: NextRequest) {
         },
       })
 
+      if (!hotelValues) throw Error('Hotel no encontrado')
+
       // Prices and amount owed
       let products = []
       let totalPrice = 0
@@ -64,24 +66,41 @@ export async function POST(request: NextRequest) {
           : 'productId'
 
       if (isReserve) {
-        const reservationRate = rates.find(
-          r => r.additionalId === 'RESERVATION'
-        )
-        reservationPrice = reservationRate
+        const isShared = vehicle === 'SHARED'
+        const reservationRate = isShared
+          ? rates.find(
+              r => r.additionalId === 'RESERVATION' && vehicle === 'SHARED'
+            )
+          : rates.find(
+              r =>
+                r.additionalId === 'RESERVATION' &&
+                r.vehicle === vehicle &&
+                r.zone === hotelValues.zone
+            )
+
+        if (!reservationRate) throw Error('Precio de reserva no encontrado')
+
+        reservationPrice = isShared
           ? reservationRate.value * (adults + children)
-          : 0
-        products.push(`${reservationRate?.[prodId]},${adults + children}`)
+          : reservationRate.value
+        products.push(
+          `${reservationRate[prodId]},${isShared ? adults + children : '1'}`
+        )
       }
 
       const payingIndividuals = vehicle === 'SHARED' ? adults + children : 1
+
       if (type === 'round-trip') {
         const vehicleRate = rates.find(
           r =>
-            r.zone === hotelValues?.zone &&
+            r.zone === hotelValues.zone &&
             r.trip === 'ROUND' &&
             r.vehicle === vehicle
         )
-        totalPrice += vehicleRate ? vehicleRate.value * payingIndividuals : 0
+
+        if (!vehicleRate) throw Error('Precio de vehículo no encontrado')
+
+        totalPrice += vehicleRate.value * payingIndividuals
         if (!isReserve)
           products.push(`${vehicleRate?.[prodId]},${payingIndividuals}`)
       } else {
@@ -91,17 +110,21 @@ export async function POST(request: NextRequest) {
             r.trip === 'ONEWAY' &&
             r.vehicle === vehicle
         )
-        totalPrice += vehicleRate ? vehicleRate.value * payingIndividuals : 0
+        if (!vehicleRate) throw Error('Precio de vehículo no encontrado')
+
+        totalPrice += vehicleRate.value * payingIndividuals
         if (!isReserve)
-          products.push(`${vehicleRate?.[prodId]},${payingIndividuals}`)
+          products.push(`${vehicleRate[prodId]},${payingIndividuals}`)
       }
 
       if (allItems.length > 0) {
         for (const item of allItems) {
           if (item !== 'WHEELCHAIR') {
             const itemRate = rates.find(r => r.additionalId === item)
-            totalPrice += itemRate?.value || 0
-            if (!isReserve) products.push(`${itemRate?.[prodId]},1`)
+            if (!itemRate) throw Error('Precio de adicional no encontrado')
+
+            totalPrice += itemRate.value || 0
+            if (!isReserve) products.push(`${itemRate[prodId]},1`)
           }
         }
       }
@@ -167,7 +190,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ orderId: order.id })
     } catch (e) {
       console.error(e)
-      return new NextResponse(`Prisma error`, { status: 400 })
+      return new NextResponse(`Error creating order`, { status: 400 })
     }
   } catch (e) {
     return new NextResponse('JSON error', { status: 400 })
