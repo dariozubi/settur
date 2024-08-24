@@ -17,8 +17,8 @@ export const Footer = ({ texts }: Props) => (
             +52 (55)31455826
           </Link>{' '}
           {texts.orMail}{' '}
-          <Link href="mailto:reservations@settur.com.mx" style={link}>
-            reservations@settur.com.mx
+          <Link href="mailto:reservation@settur.com.mx" style={link}>
+            reservation@settur.com.mx
           </Link>
           {'. '}
           {texts.timeOpen}

@@ -33,11 +33,8 @@ function ReceiptPage({ status, orderId }: Props) {
               +52 (55)31455826
             </Link>
             {` ${t('or-email')} `}
-            <Link
-              href="mailto:reservations@settur.com.mx"
-              className="underline"
-            >
-              reservations@settur.com.mx
+            <Link href="mailto:reservation@settur.com.mx" className="underline">
+              reservation@settur.com.mx
             </Link>
           </CardContent>
           <CardFooter className="flex justify-center">
