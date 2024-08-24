@@ -24,15 +24,23 @@ export default async function Page() {
         <OperatorsTable />
       </div>
 
-      <div className="flex">
-        <Suspense
-          fallback={
-            <Button isLoading variant={isActive ? 'destructive' : 'default'} />
-          }
-        >
-          <IsActiveButton isActive={isActive} updateIsActive={updateIsActive} />
-        </Suspense>
-      </div>
+      {process.env.NODE_ENV === 'production' && (
+        <div className="flex">
+          <Suspense
+            fallback={
+              <Button
+                isLoading
+                variant={isActive ? 'destructive' : 'default'}
+              />
+            }
+          >
+            <IsActiveButton
+              isActive={isActive}
+              updateIsActive={updateIsActive}
+            />
+          </Suspense>
+        </div>
+      )}
     </AdminLayout>
   )
 }
