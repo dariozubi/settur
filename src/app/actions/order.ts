@@ -58,7 +58,7 @@ export async function updateOrder({
             where: { id },
             data: { adults, children, infants, items, extras, notes },
           })
-          revalidatePath('/admin/dashboard')
+          revalidatePath('/admin/operacion')
         }
 
         return { message: 'Orden actualizada' }

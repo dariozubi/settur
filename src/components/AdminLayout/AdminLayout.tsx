@@ -22,8 +22,8 @@ async function AdminLayout({ children }: PropsWithChildren) {
                     Traslados
                   </Link>
 
-                  <Link href="/admin/dashboard" className="underline">
-                    Administración
+                  <Link href="/admin/operacion" className="underline">
+                    Operación
                   </Link>
 
                   <Link href="/admin/precios" className="underline">
