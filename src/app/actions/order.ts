@@ -1,11 +1,15 @@
 'use server'
 
 import prisma from '@/db'
-import { Order } from '@prisma/client'
+import { Order, Vehicle, Zone } from '@prisma/client'
 import { format } from 'date-fns'
 import { getServerSession } from 'next-auth'
 import { revalidatePath } from 'next/cache'
 import { getRates } from './rate'
+import { ZoneChartData } from '@/components/OrderZonesChart'
+import { VehicleChartData } from '@/components/OrderVehiclesChart'
+import { OrdersChartData } from '@/components/OrdersChart'
+import { OrderEarningsData } from '@/components/OrderEarningsChart'
 
 export async function updateOrder({
   adults,
@@ -71,4 +75,108 @@ export async function updateOrder({
   }
 
   return { error: 'Sin autorización' }
+}
+
+export async function getOrderChartsData() {
+  const session = await getServerSession()
+  if (session) {
+    try {
+      const orders = await prisma.order.findMany({ include: { hotel: true } })
+
+      let zoneData = [] as ZoneChartData
+      Object.keys(Zone).forEach(z =>
+        zoneData.push({ zone: z as Zone, total: 0, cash: 0 })
+      )
+
+      let vehicleData = [] as VehicleChartData
+      Object.keys(Vehicle).forEach(v =>
+        vehicleData.push({ vehicle: v as Vehicle, total: 0, cash: 0 })
+      )
+
+      let ordersData = [
+        {
+          trip: 'round',
+          total: 0,
+          fill: 'var(--color-round)',
+        },
+        {
+          trip: 'oneway',
+          total: 0,
+          fill: 'var(--color-oneway)',
+        },
+      ] as OrdersChartData
+      let ordersCreated = 0
+
+      let earningsData = [
+        {
+          money: 'cash',
+          total: 0,
+          fill: 'var(--color-cash)',
+        },
+        {
+          money: 'online',
+          total: 0,
+          fill: 'var(--color-online)',
+        },
+      ] as OrderEarningsData
+
+      orders.forEach(o => {
+        const zIdx = zoneData.findIndex(z => z.zone === o.hotel.zone)
+        zoneData[zIdx].total += o.total - o.owed
+        zoneData[zIdx].cash += o.owed
+
+        const vIdx = vehicleData.findIndex(v => v.vehicle === o.vehicle)
+        vehicleData[vIdx].total += o.total - o.owed
+        vehicleData[vIdx].cash += o.owed
+
+        earningsData[0].total += o.owed
+        earningsData[1].total += o.total - o.owed
+
+        const oIdx = ordersData.findIndex(
+          order => order.trip.toUpperCase() === o.trip
+        )
+        if (o.status === 'PAID' || o.status === 'RESERVED')
+          ordersData[oIdx].total += 1
+        if (o.status === 'CREATED') ordersCreated += 1
+      })
+
+      return {
+        zone: {
+          data: zoneData.filter(z => z.total > 0),
+        },
+        vehicle: {
+          data: vehicleData.filter(v => v.total > 0),
+        },
+        orders: {
+          data: ordersData.filter(o => o.total > 0),
+          created: ordersCreated,
+        },
+        earnings: { data: earningsData },
+      }
+    } catch (e) {
+      return {
+        ...empty,
+        error: 'Error con Prisma',
+      }
+    }
+  }
+
+  return {
+    ...empty,
+    error: 'Sin autorización',
+  }
+}
+
+const empty = {
+  zone: {
+    data: [],
+  },
+  vehicle: {
+    data: [],
+  },
+  orders: {
+    data: [],
+    created: 0,
+  },
+  earnings: { data: [] },
 }

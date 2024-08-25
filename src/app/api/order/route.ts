@@ -180,6 +180,7 @@ export async function POST(request: NextRequest) {
         transfers,
         products,
         owed: isReserve ? totalPrice - reservationPrice : 0,
+        total: totalPrice,
         vehicle: vehicle as Vehicle,
         isEnglish,
         trip,

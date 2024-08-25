@@ -26,6 +26,10 @@ async function AdminLayout({ children }: PropsWithChildren) {
                     Operación
                   </Link>
 
+                  <Link href="/admin/ordenes" className="underline">
+                    Ordenes
+                  </Link>
+
                   <Link href="/admin/precios" className="underline">
                     Precios
                   </Link>

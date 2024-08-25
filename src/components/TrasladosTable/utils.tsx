@@ -174,8 +174,6 @@ export const estado: Record<OrderStatus, string> = {
   CREATED: 'En espera',
   RESERVED: 'Debe',
   PAID: 'Pagado',
-  CANCELLED: 'Cancelado',
-  FULFILLED: 'Realizado',
 }
 
 export const direccion: Record<Direction, ReactNode> = {

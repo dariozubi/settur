@@ -13,7 +13,8 @@ const prisma = new PrismaClient()
 async function main() {
   await prisma.transfer.deleteMany({})
   await prisma.order.deleteMany({})
-  const numberOfOrders = 10
+  const numberOfOrders = 100
+  const daysAhead = 90
 
   for (let i = 0; i < numberOfOrders; i++) {
     const trip = faker.helpers.arrayElement([
@@ -28,12 +29,13 @@ async function main() {
       'RESERVED',
       'PAID',
     ]) as OrderStatus
+    const total = faker.number.int({ min: 50, max: 400 })
     const hotelId = faker.number.int({ min: 0, max: 177 })
 
     let transfers
     const transfer = {
       flight: `${faker.airline.airline().iataCode}${faker.airline.flightNumber({ addLeadingZeros: true })}`,
-      date: faker.date.soon({ days: 5 }),
+      date: faker.date.soon({ days: daysAhead }),
       direction:
         trip === 'ROUND'
           ? ('HOTEL' as Direction)
@@ -83,7 +85,8 @@ async function main() {
       isEnglish: faker.datatype.boolean(),
       trip,
       hotelId: hotelId !== 147 ? hotelId : 148,
-      owed: status === 'RESERVED' ? faker.number.int({ min: 50, max: 400 }) : 0,
+      total,
+      owed: status === 'RESERVED' ? total - 10 : 0,
       status,
     }
     await prisma.order.create({ data })

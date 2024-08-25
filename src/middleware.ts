@@ -3,7 +3,7 @@ import createIntlMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
 import { locales } from './i18n'
 
-const admin = ['/operacion', '/traslados', '/precios']
+const admin = ['/operacion', '/traslados', '/precios', '/ordenes']
 const login = ['/login', '/verify', '/unauthorized']
 
 const intlMiddleware = createIntlMiddleware({

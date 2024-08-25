@@ -89,6 +89,7 @@ model Order {
   vehicle     Vehicle
   isEnglish   Boolean
   trip        Trip
+  total       Int
   owed        Int
   extras      Int @default(0)
   notes       String @default("")
@@ -155,8 +156,6 @@ enum OrderStatus {
   CREATED
   RESERVED
   PAID
-  CANCELLED
-  FULFILLED
 }
 
 enum Vehicle {
