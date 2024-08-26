@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils'
 import { LanguageSelector } from './LanguageSelector'
 import { useTranslations } from 'next-intl'
 import SetturLogo from '@/svg/settur.svg'
+import { contactMail, contactPhone } from '@/lib/consts'
 
 function NavigationBar() {
   const t = useTranslations('Navigation')
@@ -44,26 +45,26 @@ function NavigationBar() {
                 <li>
                   <NavigationMenuLink asChild>
                     <a
-                      href="mailto:reservation@settur.com.mx"
+                      href={`mailto:${contactMail}`}
                       className="flex items-center gap-1 p-4"
                     >
                       <Mail size={14} />
 
-                      <span className="text-sm font-medium">
-                        reservation@settur.com.mx
-                      </span>
+                      <span className="text-sm font-medium">{contactMail}</span>
                     </a>
                   </NavigationMenuLink>
                 </li>
                 <li>
                   <NavigationMenuLink asChild>
                     <a
-                      href="tel:+525531455826"
+                      href={`tel:${contactPhone}`}
                       className="flex items-center gap-1 p-4"
                     >
                       <Phone size={14} />
 
-                      <span className="text-sm font-medium">+525531455826</span>
+                      <span className="text-sm font-medium">
+                        {contactPhone}
+                      </span>
                     </a>
                   </NavigationMenuLink>
                 </li>

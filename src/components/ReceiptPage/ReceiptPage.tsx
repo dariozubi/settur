@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import Button from '../Button'
 import MainLayout from '../MainLayout'
 import ErrorPage from '../ErrorPage'
+import { contactMail, contactPhone } from '@/lib/consts'
 
 type Props = {
   status: string
@@ -29,12 +30,12 @@ function ReceiptPage({ status, orderId }: Props) {
           </CardHeader>
           <CardContent>
             {`${t('text', { orderId })} `}
-            <Link href="tel:+525531455826" className="underline">
-              +52 (55)31455826
+            <Link href={`tel:${contactPhone}`} className="underline">
+              {contactPhone}
             </Link>
             {` ${t('or-email')} `}
-            <Link href="mailto:reservation@settur.com.mx" className="underline">
-              reservation@settur.com.mx
+            <Link href={`mailto:${contactMail}`} className="underline">
+              contactMail
             </Link>
           </CardContent>
           <CardFooter className="flex justify-center">

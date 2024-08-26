@@ -23,14 +23,19 @@ export const vehicles: Record<
 }
 
 export const vehicleBrands = Object.keys(vehicles)
+
 export const trips = ['round-trip', 'airport', 'hotel'] as const
+
 export const phoneRegexp = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
 )
+
 export const flightRegexp = new RegExp(
   /^([a-zA-Z][\d]|[\d][a-zA-Z]|[a-zA-Z]{2,3})(\d{1,})$/
 )
+
 export const vehicleTypes = ['private', 'shared'] as const
+
 export const items = [
   'SHOPPING',
   'CARSEAT',
@@ -42,3 +47,6 @@ export const items = [
   'SURFTABLE',
   'NOTHING',
 ] as const
+
+export const contactMail = 'reservation@settur.com.mx'
+export const contactPhone = '+525531455826'

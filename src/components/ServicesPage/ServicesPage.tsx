@@ -1,6 +1,6 @@
 'use client'
 
-import { vehicles } from '@/lib/consts'
+import { contactMail, vehicles } from '@/lib/consts'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { buttonVariants } from '../Button'
@@ -134,7 +134,7 @@ function ServicesPage({ isActive }: Props) {
               </CardContent>
               <CardFooter className="flex justify-center">
                 <a
-                  href="mailto:reservation@settur.com.mx"
+                  href={`mailto:${contactMail}`}
                   className={buttonVariants({ variant: 'outline' })}
                 >
                   {t('contact')}

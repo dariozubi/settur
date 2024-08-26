@@ -1,5 +1,6 @@
 'use client'
 
+import { contactMail, contactPhone } from '@/lib/consts'
 import { Mail, Phone } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -14,11 +15,11 @@ function Footer() {
             © SETTUR 2024
           </Link>
 
-          <a href="mailto:reservation@settur.com.mx">
+          <a href={`mailto:${contactMail}`}>
             <Mail size={20} />
           </a>
 
-          <a href="tel:+525531455826">
+          <a href={`tel:${contactPhone}`}>
             <Phone size={20} />
           </a>
         </div>

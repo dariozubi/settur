@@ -2,6 +2,7 @@ import { Column, Img, Link, Row, Section, Text } from '@react-email/components'
 import * as React from 'react'
 import { footer, link, logo } from './styles'
 import { labels } from './const'
+import { contactMail, contactPhone } from '@/lib/consts'
 
 type Props = {
   texts: (typeof labels)['es']
@@ -13,12 +14,12 @@ export const Footer = ({ texts }: Props) => (
       <Column>
         <Text style={footer}>
           {texts.changes}{' '}
-          <Link href="tel:+525531455826" style={link}>
-            +52 (55)31455826
+          <Link href={`tel:${contactPhone}`} style={link}>
+            {contactPhone}
           </Link>{' '}
           {texts.orMail}{' '}
-          <Link href="mailto:reservation@settur.com.mx" style={link}>
-            reservation@settur.com.mx
+          <Link href={`mailto:${contactMail}`} style={link}>
+            contactMail
           </Link>
           {'. '}
           {texts.timeOpen}
