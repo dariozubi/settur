@@ -28,7 +28,7 @@ function OrdersChart({ data, created }: Props) {
     return data.reduce((acc, curr) => acc + curr.total, 0)
   }, [data])
   return (
-    <div className="w-1/2 p-4">
+    <div className="w-full p-4 md:w-1/2">
       <Card>
         <CardHeader className="pb-0 text-xl font-bold">{`Órdenes generadas: ${totalOrders}`}</CardHeader>
         {created > 0 && (

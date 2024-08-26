@@ -24,7 +24,7 @@ type Props = {
 
 function OrderVehiclesChart({ data }: Props) {
   return (
-    <div className="w-1/2 p-4">
+    <div className="w-full p-4 md:w-1/2">
       <Card>
         <CardHeader className="text-xl font-bold">
           Ganancias por vehículo
@@ -55,7 +55,7 @@ function OrderVehiclesChart({ data }: Props) {
               >
                 <LabelList
                   position="top"
-                  offset={4}
+                  offset={2}
                   className="fill-foreground"
                   fontSize={12}
                 />

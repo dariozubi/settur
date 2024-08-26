@@ -20,7 +20,7 @@ type Props = {
 
 function OrderZonesChart({ data }: Props) {
   return (
-    <div className="w-1/2 p-4">
+    <div className="w-full p-4 md:w-1/2">
       <Card>
         <CardHeader className="text-xl font-bold">
           Ganancias por zona
