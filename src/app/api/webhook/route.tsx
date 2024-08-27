@@ -55,7 +55,7 @@ export async function POST(req: Request) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'something went wrong',
+        message: 'Error updating the order',
         ok: false,
       },
       { status: 500 }
