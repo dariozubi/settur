@@ -22,9 +22,19 @@ function FlightsAccordion({ form }: Props) {
   const arrivalDate = form.watch('arrivalDate')
   const t = useTranslations('form')
   const isEnglish = useIsEnglish()
-  const labels = useMemo(
+  const labelsArrival = useMemo(
     () => ({
       main: t('DatePicker.arrival-date'),
+      pick: t('DatePicker.pick-date'),
+      hours: t('DatePicker.hours'),
+      minutes: t('DatePicker.minutes'),
+    }),
+    [t]
+  )
+
+  const labelsDeparture = useMemo(
+    () => ({
+      main: t('DatePicker.departure-date'),
       pick: t('DatePicker.pick-date'),
       hours: t('DatePicker.hours'),
       minutes: t('DatePicker.minutes'),
@@ -45,7 +55,7 @@ function FlightsAccordion({ form }: Props) {
                 name="arrivalDate"
                 render={({ field }) => (
                   <DatePicker
-                    labels={labels}
+                    labels={labelsArrival}
                     isEnglish={isEnglish}
                     value={field.value}
                     onChange={field.onChange}
@@ -79,7 +89,7 @@ function FlightsAccordion({ form }: Props) {
                 name="departureDate"
                 render={({ field }) => (
                   <DatePicker
-                    labels={labels}
+                    labels={labelsDeparture}
                     isEnglish={isEnglish}
                     value={field.value}
                     onChange={field.onChange}

@@ -1,4 +1,6 @@
+import ErrorPage from '@/components/ErrorPage'
 import ReceiptPage from '@/components/ReceiptPage'
+import prisma from '@/db'
 import stripe from '@/payment'
 
 async function Receipt({
@@ -17,13 +19,18 @@ async function Receipt({
       return null
     }
   })()
+  if (session?.status === 'complete' && session?.metadata.order_id) {
+    const order = await prisma.order.findUnique({
+      where: { id: Number(session.metadata.order_id) },
+      include: { hotel: true, transfers: true },
+    })
 
-  return (
-    <ReceiptPage
-      status={session?.status || null}
-      orderId={session?.metadata.order_id || null}
-    />
-  )
+    if (order) {
+      return <ReceiptPage order={order} />
+    }
+  }
+
+  return <ErrorPage error="receipt" />
 }
 
 export default Receipt

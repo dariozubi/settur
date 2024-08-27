@@ -45,8 +45,17 @@ export function getPrices({
       )?.value
     ) * (vehicle === 'SHARED' ? payingIndividuals : 1)
   const reservationPrice =
-    payingIndividuals *
-    Number(rates.find(r => r.additionalId === 'RESERVATION')?.value)
+    vehicle === 'SHARED'
+      ? payingIndividuals *
+        Number(rates.find(r => r.additionalId === 'RESERVATION')?.value)
+      : Number(
+          rates.find(
+            r =>
+              r.additionalId === 'RESERVATION' &&
+              r.vehicle === vehicle &&
+              r.zone === zone
+          )?.value
+        )
   const itemsPrice =
     items.length > 0
       ? items.reduce((prev: number, curr: Additional) => {

@@ -52,6 +52,9 @@
             "grown-ups": "Grandes",
             "children": "Niños",
             "infants": "Infantes",
+            "grown-up": "Grande",
+            "child": "Niño",
+            "infant": "Infante",
             "grown-ups-description": "9+ años",
             "children-description": "4-8 años",
             "infants-description": "0-3 años"
@@ -111,7 +114,8 @@
     },
     "receipt": {
         "header": "¡Gracias por elegirnos!",
-        "text": "Recibimos tu orden. Tu número de orden es el #{ orderId }. Te llegará un correo electrónico de info@settur.com.mx con todos los detalles. Si requieres de alguna información adicional no dudes en contactarnos al teléfono",
+        "order": "Tu orden es la #{ orderId }. Este es un resumen de tu orden:",
+        "text": "Te llegará un correo electrónico de info@settur.com.mx con todos los detalles. Si requieres de alguna información adicional no dudes en contactarnos al teléfono",
         "or-email": "o mándanos un correo a",
         "return-home": "Regresar a la página principal"
     },

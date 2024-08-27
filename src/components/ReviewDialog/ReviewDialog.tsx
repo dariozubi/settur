@@ -1,7 +1,4 @@
-import Image from 'next/image'
 import { Dispatch, SetStateAction, useCallback, useState } from 'react'
-import { format } from 'date-fns'
-import { enUS, es } from 'date-fns/locale'
 import { Hotel, Rate } from '@prisma/client'
 
 import Button from '@/components/Button'
@@ -15,6 +12,7 @@ import Checkbox from '../Checkbox'
 import { Link } from '@/navigation'
 import { getPrices } from '@/lib/utils'
 import { Status } from '@/lib/types'
+import OrderSummary from '../OrderSummary'
 
 type Props = {
   form: UseFormReturn<any>
@@ -44,10 +42,12 @@ function ReviewDialog({
 
   const zone = hotels.find(h => h.id === form.getValues('hotel'))?.zone
   const vehicle = isShared ? 'SPRINTER' : form.getValues('vehicle')
-  const hasItems = form.getValues('items').length > 0
   const hasPrivateItem =
     !isShared && form.getValues('privateItems') !== 'NOTHING'
-  const hasInfants = form.getValues('infants') > 0
+  const items = hasPrivateItem
+    ? [...form.getValues('items'), form.getValues('privateItems')]
+    : form.getValues('items')
+
   const { vehiclePrice, itemsPrice, reservationPrice } = getPrices({
     rates,
     zone,
@@ -55,9 +55,7 @@ function ReviewDialog({
     vehicle: isShared ? 'SHARED' : form.getValues('vehicle'),
     payingIndividuals:
       Number(form.getValues('adults')) + Number(form.getValues('children')),
-    items: hasPrivateItem
-      ? [...form.getValues('items'), form.getValues('privateItems')]
-      : form.getValues('items'),
+    items,
   })
   const showReserve =
     isShared ||
@@ -110,77 +108,27 @@ function ReviewDialog({
             <DialogTitle>{t('review-order')}</DialogTitle>
           </DialogHeader>
           <div className="flex flex-wrap text-xs">
-            <p className="w-1/2 whitespace-pre-line">
-              <b className="uppercase">{t('user')}</b>
-              {`\n${form.getValues('name')} ${form.getValues('surname')}\n${form.getValues('email')}\n${form.getValues('phone')}\n\n`}
-              <b className="uppercase">{t('destination')}</b>
-              {`\n${t(`TripTypeRadio.${form.getValues('type')}`)}`}
-              {`\n${hotels.find(h => h.id === Number(form.getValues('hotel')))?.name}\n\n`}
-              <b className="uppercase">{t('people')}</b>
-              {`\n${form.getValues('adults')} ${t('PeopleInput.grown-ups')}`}
-              {form.getValues('children') > 0
-                ? `${hasInfants ? ',' : ` ${t('and')}`} ${form.getValues('children')} ${t('PeopleInput.children')}`
-                : ''}
-              {hasInfants
-                ? `and ${form.getValues('infants')} ${t('PeopleInput.infants')}`
-                : ''}
-              {'\n\n'}
-            </p>
-            <div className="w-1/2">
-              <p className="whitespace-pre-line">
-                <b className="uppercase">{t('vehicle')}</b>
-                {`\n${vehicle}`}
-              </p>
-              <div className="relative mt-10 h-[125px]">
-                <Image
-                  src={`/img/${vehicle.toLowerCase()}.png`}
-                  alt={vehicle}
-                  fill
-                  className="pointer-events-none object-contain"
-                  sizes="(max-width: 1280px) 33vw, 50vw"
-                />
-              </div>
-            </div>
-            <p className="w-full whitespace-pre-line">
-              <b className="uppercase">{t('flights')}</b>
-              {'\n'}
-              {`${
-                !!form.getValues('arrivalDate')
-                  ? `${t('FlightInput.arrival-flight')}: ${form.getValues('arrivalFlight').toUpperCase()} - ${format(
-                      form.getValues('arrivalDate'),
-                      'PPP p',
-                      {
-                        locale: isEnglish ? enUS : es,
-                      }
-                    )}.\n`
-                  : ''
-              }`}
-              {`${
-                !!form.getValues('departureDate')
-                  ? `${t('FlightInput.departure-flight')}: ${form.getValues('departureFlight').toUpperCase()} - ${format(
-                      form.getValues('departureDate'),
-                      'PPP p',
-                      {
-                        locale: isEnglish ? enUS : es,
-                      }
-                    )}.\n`
-                  : ''
-              }`}
-              {'\n'}
-              {(hasItems || hasPrivateItem) && (
-                <b className="uppercase">{t('additionals')}</b>
-              )}
-              {hasItems &&
-                `${form
-                  .getValues('items')
-                  .reduce(
-                    (prev: any, curr: any) =>
-                      `${prev}\n${t(`Items.${curr.toLowerCase()}`)}`,
-                    ''
-                  )}`}
-              {hasPrivateItem &&
-                `\n${t(`Items.${form.getValues('privateItems').toLowerCase()}`)}`}
-            </p>
+            <OrderSummary
+              name={form.getValues('name')}
+              surname={form.getValues('surname')}
+              email={form.getValues('email')}
+              phone={form.getValues('phone')}
+              type={form.getValues('type')}
+              hotel={
+                hotels.find(h => h.id === Number(form.getValues('hotel')))
+                  ?.name || ''
+              }
+              adults={form.getValues('adults')}
+              childs={form.getValues('children')}
+              infants={form.getValues('infants')}
+              vehicle={vehicle}
+              arrivalDate={form.getValues('arrivalDate')}
+              arrivalFlight={form.getValues('arrivalFlight')}
+              departureDate={form.getValues('departureDate')}
+              departureFlight={form.getValues('departureFlight')}
+              items={items}
+              isEnglish={isEnglish}
+            />
             {showReserve && (
               <>
                 <p className="mt-4 text-justify text-xs">
