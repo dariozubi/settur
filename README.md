@@ -26,6 +26,8 @@ En la base de datos, cada orden está asociada a:
 
 Los precios finales que pagará el consumidor están definidos en Stripe. Los precios en la base de datos de esta aplicación son sólo para mostrarse en la página. Esto fue diseñado así porque los precios finales están en MXN y los que se muestran en la página están en USD.
 
+Las fechas de los vuelos están guardadas en UTC para evitar confusión con fechas locales. El `DatePicker` da los valores en las fechas locales por lo que se cambian a UTC antes de ser enviadas. Al mostrar el recibo (`/return`) la fecha es cambiada para mostrar el valor requerido con el formato adecuado.
+
 ## Administración
 
 El acceso está limitado por los correos en la tabla `ADMIN`. Los roles definen qué páginas se pueden ver en esta sección (ver `/admin/ordenes` para un ejemplo). Estos roles son asignados a la propiedad `image` de la sesión en `src/auth.tsx`.
