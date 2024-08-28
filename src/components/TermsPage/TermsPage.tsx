@@ -7,13 +7,14 @@ function TermsPage() {
   return (
     <section className="min-h-screen w-full bg-neutral-50">
       <div className="mx-auto w-full max-w-screen-xl px-4 py-20">
-        <h1 className="mb-8 text-xl font-bold">{t('title')}</h1>
-        <h2 className="my-4 text-lg font-bold">{t('payment')}</h2>
-        <p>{t('payment-text')}</p>
-        <h2 className="my-4 text-lg font-bold">{t('cancellation')}</h2>
-        <p>{t('cancellation-text')}</p>
-        <h2 className="my-4 text-lg font-bold">{t('changes')}</h2>
-        <p>{t('changes-text')}</p>
+        <h1 className="mb-8 text-xl font-extrabold">{t('title')}</h1>
+        <div>
+          {t.rich('terms', {
+            br: () => <br />,
+            h2: m => <h2 className="mb-1 text-lg font-bold">{m}</h2>,
+            h3: m => <h3 className="text-normal font-bold">{m}</h3>,
+          })}
+        </div>
       </div>
     </section>
   )
