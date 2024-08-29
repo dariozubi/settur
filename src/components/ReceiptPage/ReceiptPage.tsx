@@ -81,7 +81,7 @@ function ReceiptPage({ order }: Props) {
             </Link>
             {` ${t('or-email')} `}
             <Link href={`mailto:${contactMail}`} className="underline">
-              {contactMail}
+              {t('contact-mail')}
             </Link>
           </CardContent>
           <CardFooter className="flex justify-center">

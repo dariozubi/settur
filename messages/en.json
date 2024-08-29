@@ -3,7 +3,8 @@
         "contact": "Contact",
         "services": "Services",
         "terms-and-conditions": "Terms and conditions",
-        "privacy-policy": "Privacy policy"
+        "privacy-policy": "Privacy policy",
+        "contact-mail": "Contact mail"
     },
     "Home": {
         "ground-transportation-services": "Ground transportation services",
@@ -117,6 +118,7 @@
         "order": "Your order is #{ orderId }. Here's a summary of your order:",
         "text": "You will receive an email from info@settur.com.mx with all the details. If you need any additional information don't hesitate to call us to",
         "or-email": "or send an email to",
+        "contact-mail": "our contact mail.",
         "return-home": "Return to home"
     },
     "terms-and-conditions": {

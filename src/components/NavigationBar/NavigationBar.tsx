@@ -50,7 +50,9 @@ function NavigationBar() {
                     >
                       <Mail size={14} />
 
-                      <span className="text-sm font-medium">{contactMail}</span>
+                      <span className="text-sm font-medium">
+                        {t('contact-mail')}
+                      </span>
                     </a>
                   </NavigationMenuLink>
                 </li>

@@ -56,6 +56,7 @@ export const labels = {
     orMail: 'o envíe un mail a',
     timeOpen: 'Lunes a viernes de 09:00 AM a 06:00 PM',
     footer: 'Gracias por su preferencia. Por favor NO RESPONDA a este correo.',
+    contact: 'nuestro correo de contacto',
   },
   en: {
     subtitle: 'Ground transportation services',
@@ -114,5 +115,6 @@ export const labels = {
     orMail: 'or send an email to',
     timeOpen: 'Monday - Friday. 09:00 AM to 06:00 PM Local Time',
     footer: 'Thanks for your preference. Please DO NOT REPLY to this email.',
+    contact: 'our contact mail',
   },
 }

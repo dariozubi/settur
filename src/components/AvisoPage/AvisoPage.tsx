@@ -241,7 +241,7 @@ function AvisoPage() {
           Carranza, CDMX. CP 15300. Tel.{' '}
           <a href={`tel:${contactPhone}`}>{contactPhone}</a>. Horario del
           centro: 7:00 am 7:00 pm, Domingo a Domingo{' '}
-          <a href={`mailto:${contactMail}`}>{contactMail}</a>
+          <a href={`mailto:${contactMail}`}>Correo de contacto</a>
         </p>
 
         <p>
