@@ -121,22 +121,24 @@ export async function getOrderChartsData() {
       ] as OrderEarningsData
 
       orders.forEach(o => {
-        const zIdx = zoneData.findIndex(z => z.zone === o.hotel.zone)
-        zoneData[zIdx].total += o.total - o.owed
-        zoneData[zIdx].cash += o.owed
+        if (o.status === 'PAID' || o.status === 'RESERVED') {
+          const zIdx = zoneData.findIndex(z => z.zone === o.hotel.zone)
+          zoneData[zIdx].total += o.total - o.owed
+          zoneData[zIdx].cash += o.owed
 
-        const vIdx = vehicleData.findIndex(v => v.vehicle === o.vehicle)
-        vehicleData[vIdx].total += o.total - o.owed
-        vehicleData[vIdx].cash += o.owed
+          const vIdx = vehicleData.findIndex(v => v.vehicle === o.vehicle)
+          vehicleData[vIdx].total += o.total - o.owed
+          vehicleData[vIdx].cash += o.owed
 
-        earningsData[0].total += o.owed
-        earningsData[1].total += o.total - o.owed
+          earningsData[0].total += o.owed
+          earningsData[1].total += o.total - o.owed
 
-        const oIdx = ordersData.findIndex(
-          order => order.trip.toUpperCase() === o.trip
-        )
-        if (o.status === 'PAID' || o.status === 'RESERVED')
+          const oIdx = ordersData.findIndex(
+            order => order.trip.toUpperCase() === o.trip
+          )
+
           ordersData[oIdx].total += 1
+        }
         if (o.status === 'CREATED') ordersCreated += 1
       })
 

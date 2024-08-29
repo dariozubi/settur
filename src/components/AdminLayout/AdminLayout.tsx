@@ -26,7 +26,10 @@ async function AdminLayout({ children }: PropsWithChildren) {
         <div className="mx-auto flex h-full max-w-screen-lg flex-col gap-4 p-4">
           <div className="flex w-full items-center justify-between border-b py-2">
             <div className="flex items-center">
-              <p className="w-[70px] text-ellipsis text-center font-extrabold">{`${session?.user?.name}`}</p>
+              <Link
+                href="/"
+                className="w-[70px] text-ellipsis text-center font-extrabold"
+              >{`${session?.user?.name}`}</Link>
 
               <div className="items mx-2 flex h-full max-w-[calc(100vw-180px)] items-center gap-4 overflow-auto border-l py-2 pl-2 sm:ml-4 sm:mr-0 sm:max-w-full sm:pl-4">
                 {links.map(l => (
