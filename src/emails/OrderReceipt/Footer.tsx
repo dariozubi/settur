@@ -19,7 +19,7 @@ export const Footer = ({ texts }: Props) => (
           </Link>{' '}
           {texts.orMail}{' '}
           <Link href={`mailto:${contactMail}`} style={link}>
-            {contactMail}
+            {texts.contact}
           </Link>
           {'. '}
           {texts.timeOpen}

@@ -48,5 +48,5 @@ export const items = [
   'NOTHING',
 ] as const
 
-export const contactMail = 'reservation@settur.com.mx'
+export const contactMail = 'ernesto_settur@hotmail.com'
 export const contactPhone = '+525531455826'

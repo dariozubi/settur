@@ -3,7 +3,8 @@
         "contact": "Contacto",
         "services": "Servicios",
         "terms-and-conditions": "Términos y condiciones",
-        "privacy-policy": "Aviso de privacidad"
+        "privacy-policy": "Aviso de privacidad",
+        "contact-mail": "Correo de contacto"
     },
     "Home": {
         "ground-transportation-services": "Servicios de transporte terrestre",
@@ -117,6 +118,7 @@
         "order": "Tu orden es la #{ orderId }. Este es un resumen de tu orden:",
         "text": "Te llegará un correo electrónico de info@settur.com.mx con todos los detalles. Si requieres de alguna información adicional no dudes en contactarnos al teléfono",
         "or-email": "o mándanos un correo a",
+        "contact-mail": "nuestro correo de contacto.",
         "return-home": "Regresar a la página principal"
     },
     "terms-and-conditions": {
