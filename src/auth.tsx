@@ -26,8 +26,7 @@ export const authOptions: NextAuthOptions = {
         },
       },
       from: process.env.EMAIL_FROM,
-      async sendVerificationRequest(params) {
-        const { identifier, url, provider } = params
+      async sendVerificationRequest({ identifier, url, provider }) {
         const transport = createTransport(provider.server)
         const result = await transport.sendMail({
           to: identifier,

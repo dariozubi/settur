@@ -31,7 +31,7 @@ export const Footer = ({ texts }: Props) => (
     <Row style={{ marginTop: '40px' }}>
       <Column align="center">
         <Img
-          src="https://settur.netlify.app/img/logo.png"
+          src={`${process.env.NEXTAUTH_URL}img/logo.png`}
           width="105"
           height="20"
           alt="STTUR"
